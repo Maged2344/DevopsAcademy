@@ -322,16 +322,16 @@
             title: "DevOps Engineering Program",
             badge: "program",
             badgeText: "Full Program — Zero to Hero",
-            description: "Transform your career in 6 months. Our flagship 260-hour immersive program takes you from absolute zero to a production-ready DevOps Engineer. Designed by senior engineers from top tech companies, this program covers everything: Linux mastery, Python programming, Docker & Kubernetes, CI/CD automation, AWS Cloud, Infrastructure as Code, monitoring, and a real-world capstone project.",
+            description: "Transform your career in 3 months. Our flagship 160-hour intensive program takes you from absolute zero to a production-ready DevOps Engineer. Designed by senior engineers from top tech companies, this program covers everything: Linux mastery, Docker & Kubernetes, CI/CD automation, AWS Cloud, Infrastructure as Code, monitoring, and a real-world capstone project.",
             tagline: "The only DevOps program in Egypt with a complete hands-on curriculum — no fluff, no shortcuts, just real skills that get you hired.",
-            duration: "25 Weeks",
-            hours: "260 Hours",
-            sessions: "65 Sessions",
+            duration: "12 Weeks",
+            hours: "160 Hours",
+            sessions: "40 Sessions",
             schedule: "3 Sessions/Week, 4hrs each",
             price: "EGP 15,000",
             priceNote: "💳 Installment: 3 months interest-free — EGP 5,000/month",
             highlights: [
-                { icon: "&#128640;", title: "260 Hours Hands-On", desc: "Not lectures — real labs, projects, and production scenarios" },
+                { icon: "&#128640;", title: "160 Hours Hands-On", desc: "Not lectures — real labs, projects, and production scenarios" },
                 { icon: "&#127942;", title: "Industry Certificate", desc: "Recognized completion certificate + AWS Practitioner prep" },
                 { icon: "&#128188;", title: "Career Support", desc: "Resume review, mock interviews, and hiring partner access" },
                 { icon: "&#128187;", title: "Real Lab Access", desc: "Cloud environments to practice Docker, K8s, AWS, Terraform" },
@@ -342,48 +342,35 @@
                 { title: "Fresh Graduates & Students", desc: "Computer Science, IT, or Engineering graduates looking to enter the DevOps field with zero experience required." },
                 { title: "System Administrators", desc: "Linux admins or IT support professionals wanting to transition into modern DevOps practices and cloud." },
                 { title: "Software Developers", desc: "Backend or frontend developers who want to understand deployment, infrastructure, and automation." },
-                { title: "Career Changers", desc: "Anyone passionate about technology ready to commit 6 months to a high-demand, high-paying career path." }
+                { title: "Career Changers", desc: "Anyone passionate about technology ready to commit 3 months to a high-demand, high-paying career path." }
             ],
             modules: [
                 {
                     title: "Linux Administration & Bash Scripting",
                     number: "Module 1",
-                    hours: "72 Hours",
-                    sessionCount: "18 Sessions",
-                    description: "Master the foundation of all DevOps — the Linux operating system. From first commands to advanced system administration and shell scripting.",
+                    hours: "40 Hours",
+                    sessionCount: "10 Sessions",
+                    description: "Master the foundation of all DevOps — the Linux operating system. From first commands to system administration and shell scripting.",
                     sessions: [
-                        { name: "Linux Admin I (15 Sessions)", topics: ["Get started with Enterprise Linux (RHEL/CentOS)", "Access the command line — terminal mastery", "Manage files from the command line", "Create, view, and edit text files (vim, nano)", "Manage local users and groups", "Control access with file permissions (chmod, chown)", "Monitor and manage Linux processes", "Control services and daemons (systemctl)", "Configure and secure SSH access", "Analyze and store logs (journalctl, rsyslog)", "Manage networking (ip, nmcli, DNS)", "Archive and transfer files (tar, scp, rsync)", "Install and update software packages (yum/dnf)", "Access Linux file systems & mounting", "Comprehensive review & hands-on exam"] },
-                        { name: "Linux Admin II (Planned)", topics: ["Improve command-line productivity (aliases, history)", "Schedule future tasks (cron, at, systemd timers)", "Tune system performance (top, vmstat, iostat)", "Manage SELinux security contexts", "Manage advanced storage with LVM", "Access network-attached storage (NFS, SMB)", "Control the boot process & troubleshooting", "Manage network security (firewalld, iptables)", "Run containers on Linux (podman/docker basics)"] },
+                        { name: "Linux Administration (7 Sessions)", topics: ["Get started with Enterprise Linux (RHEL/CentOS)", "Access the command line — terminal mastery", "Manage files from the command line", "Create, view, and edit text files (vim, nano)", "Manage local users and groups", "Control access with file permissions (chmod, chown)", "Monitor and manage Linux processes", "Control services and daemons (systemctl)", "Configure and secure SSH access", "Analyze and store logs (journalctl, rsyslog)", "Manage networking (ip, nmcli, DNS)", "Archive and transfer files (tar, scp, rsync)", "Install and update software packages (yum/dnf)", "Access Linux file systems & mounting", "Schedule tasks with cron & systemd timers", "Firewall management (firewalld, iptables)"] },
                         { name: "Bash Scripting (3 Sessions)", topics: ["Shell scripting fundamentals — variables, I/O", "Control flow — loops, conditions, functions", "Advanced scripting — sed, awk, regex, automation"] }
                     ]
                 },
                 {
-                    title: "Programming & Software Development",
-                    number: "Module 2",
-                    hours: "48 Hours",
-                    sessionCount: "13 Sessions",
-                    description: "Build programming skills essential for DevOps automation. Python, software development lifecycle, microservices, and testing.",
-                    sessions: [
-                        { name: "Python Programming (8 Sessions)", topics: ["Variables, data types, operators & expressions", "Control flow — if/else, loops, comprehensions", "Functions, modules & packages", "Object-Oriented Programming (OOP)", "File handling & error management", "Working with APIs (requests, JSON)", "SQL basics & database connectivity", "Python scripting for DevOps automation"] },
-                        { name: "SDLC & Microservices (2 Sessions)", topics: ["Software Development Life Cycle models", "Agile, Scrum & DevOps culture", "Monolith vs. Microservices architecture", "API design & service communication"] },
-                        { name: "Software Testing (3 Sessions)", topics: ["Testing fundamentals — STLC, test cases", "Manual vs. automated testing strategies", "Introduction to Selenium & test automation", "Integration testing in CI/CD pipelines"] }
-                    ]
-                },
-                {
                     title: "Containerization & Orchestration",
-                    number: "Module 3",
+                    number: "Module 2",
                     hours: "40 Hours",
-                    sessionCount: "11 Sessions",
+                    sessionCount: "10 Sessions",
                     description: "Docker and Kubernetes — the core of modern infrastructure. Package, deploy, and orchestrate applications at any scale.",
                     sessions: [
-                        { name: "Docker (5 Sessions)", topics: ["Introduction to containerization & Docker architecture", "Images, containers & container lifecycle", "Dockerfiles — multi-stage builds & best practices", "Docker Networking — bridge, host, overlay drivers", "Docker Storage — volumes & bind mounts", "Docker Compose — multi-container applications", "Docker Security — scanning, least privilege, secrets", "Introduction to Docker Swarm orchestration"] },
+                        { name: "Docker (4 Sessions)", topics: ["Introduction to containerization & Docker architecture", "Images, containers & container lifecycle", "Dockerfiles — multi-stage builds & best practices", "Docker Networking — bridge, host, overlay drivers", "Docker Storage — volumes & bind mounts", "Docker Compose — multi-container applications", "Docker Security — scanning, least privilege, secrets"] },
                         { name: "Kubernetes (5 Sessions)", topics: ["K8s architecture — master, nodes, etcd, API server", "Pods, ReplicaSets & Deployments", "DaemonSets, Services & load balancing", "Namespaces, Labels, Selectors & annotations", "Resource limits, requests & quotas", "Taints, tolerations & node scheduling", "Application lifecycle — rolling updates, rollbacks", "Persistent storage — PV, PVC, StorageClasses", "Networking — CNI, Ingress controllers, NetworkPolicies", "Security — RBAC, ServiceAccounts, PodSecurity", "Troubleshooting & debugging production issues"] },
                         { name: "Helm Charts (1 Session)", topics: ["Chart structure, values & templates", "Creating, packaging & deploying Helm charts", "Chart dependencies & hooks"] }
                     ]
                 },
                 {
                     title: "CI/CD & Automation Pipelines",
-                    number: "Module 4",
+                    number: "Module 3",
                     hours: "24 Hours",
                     sessionCount: "6 Sessions",
                     description: "Automate everything from code commit to production deployment. Master the tools that power modern software delivery.",
@@ -395,7 +382,7 @@
                 },
                 {
                     title: "Continuous Monitoring & Observability",
-                    number: "Module 5",
+                    number: "Module 4",
                     hours: "8 Hours",
                     sessionCount: "2 Sessions",
                     description: "You can't fix what you can't see. Build production-grade monitoring with Prometheus, Grafana, and the ELK stack.",
@@ -404,20 +391,19 @@
                     ]
                 },
                 {
-                    title: "Cloud Computing — Multi-Cloud & OpenShift",
-                    number: "Module 6",
-                    hours: "40 Hours",
-                    sessionCount: "10 Sessions",
-                    description: "Deploy to any cloud with confidence. Deep-dive into AWS + fundamentals of Azure, GCP, Alibaba Cloud & Oracle Cloud. Plus Red Hat OpenShift.",
+                    title: "Cloud Computing — AWS",
+                    number: "Module 5",
+                    hours: "24 Hours",
+                    sessionCount: "6 Sessions",
+                    description: "Deploy to the cloud with confidence. Deep-dive into AWS — the most in-demand cloud platform for DevOps engineers.",
                     sessions: [
-                        { name: "Cloud Fundamentals & AWS (6 Sessions)", topics: ["Introduction to Cloud Computing — IaaS, PaaS, SaaS models", "AWS Global Infrastructure & regions", "Amazon EC2 — instances, AMI, security groups", "Networking — VPC, Subnets, Route tables, NAT", "Storage — S3, EBS, EFS, Glacier", "Databases — RDS, DynamoDB, Aurora", "Security — IAM, Policies, Roles, MFA, Organizations", "Pricing, Billing & Cost Explorer", "Migration & Innovation — Snow family, VMware Cloud", "AWS Well-Architected Framework & best practices"] },
-                        { name: "Multi-Cloud Fundamentals (2 Sessions)", topics: ["Microsoft Azure — Resource Groups, VMs, App Services, AKS, Azure DevOps", "Google Cloud Platform (GCP) — Compute Engine, GKE, Cloud Build, IAM", "Alibaba Cloud — ECS, Container Service, basics & Chinese market use-cases", "Oracle Cloud (OCI) — Compute, Networking, Always-Free tier, OKE", "Cloud comparison — choosing the right provider for your workload", "Multi-cloud architecture patterns & cost optimization"] },
-                        { name: "Red Hat OpenShift (2 Sessions)", topics: ["OpenShift architecture vs vanilla Kubernetes", "Pod management, deployments & operators", "OpenShift networking & routes", "Persistent storage & StorageClasses", "Cluster administration & updates", "Building applications with Source-to-Image (S2I)"] }
+                        { name: "AWS Core Services (4 Sessions)", topics: ["Introduction to Cloud Computing — IaaS, PaaS, SaaS models", "AWS Global Infrastructure & regions", "Amazon EC2 — instances, AMI, security groups", "Networking — VPC, Subnets, Route tables, NAT", "Storage — S3, EBS, EFS, Glacier", "Databases — RDS, DynamoDB, Aurora", "Security — IAM, Policies, Roles, MFA, Organizations", "Pricing, Billing & Cost Explorer", "AWS Well-Architected Framework & best practices"] },
+                        { name: "AWS Advanced & Containers (2 Sessions)", topics: ["Amazon ECS & EKS — containers on AWS", "AWS Fargate — serverless containers", "AWS Lambda & API Gateway — serverless computing", "Load Balancers & Auto Scaling Groups", "AWS CloudFormation basics", "Migration strategies & best practices"] }
                     ]
                 },
                 {
                     title: "Infrastructure as Code (IaC)",
-                    number: "Module 7",
+                    number: "Module 6",
                     hours: "24 Hours",
                     sessionCount: "6 Sessions",
                     description: "Stop clicking buttons in consoles. Define, version, and automate your entire infrastructure with Ansible and Terraform.",
@@ -428,27 +414,25 @@
                 },
                 {
                     title: "Capstone Project & Final Exam",
-                    number: "Module 8",
-                    hours: "16 Hours",
+                    number: "Module 7",
+                    hours: "8 Hours",
                     sessionCount: "2 Sessions + Project",
                     description: "Put it ALL together. Build a production-grade application end-to-end: code → Docker → CI/CD pipeline → Cloud deployment → Monitoring. This is your portfolio showpiece.",
                     sessions: [
                         { name: "Capstone: End-to-End DevOps Pipeline", topics: [
-                            "Step 1: Write application code (Python/Node.js microservice)",
-                            "Step 2: Containerize with Docker — multi-stage Dockerfile",
-                            "Step 3: Push to Git repository with proper branching strategy",
-                            "Step 4: CI Pipeline — automated build, test, lint, security scan",
-                            "Step 5: Build & push Docker image to container registry",
-                            "Step 6: Provision cloud infrastructure with Terraform (AWS/Azure)",
-                            "Step 7: Configure servers with Ansible playbooks",
-                            "Step 8: CD Pipeline — deploy to Kubernetes cluster",
-                            "Step 9: Set up monitoring — Prometheus + Grafana dashboards",
-                            "Step 10: Configure alerting & incident response",
-                            "Step 11: Implement GitOps with ArgoCD for continuous sync",
-                            "Step 12: Document architecture & present to panel"
+                            "Step 1: Containerize application with Docker — multi-stage Dockerfile",
+                            "Step 2: Push to Git repository with proper branching strategy",
+                            "Step 3: CI Pipeline — automated build, test, lint, security scan",
+                            "Step 4: Build & push Docker image to container registry",
+                            "Step 5: Provision cloud infrastructure with Terraform (AWS)",
+                            "Step 6: Configure servers with Ansible playbooks",
+                            "Step 7: CD Pipeline — deploy to Kubernetes cluster",
+                            "Step 8: Set up monitoring — Prometheus + Grafana dashboards",
+                            "Step 9: Implement GitOps with ArgoCD for continuous sync",
+                            "Step 10: Document architecture & present to panel"
                         ]},
                         { name: "Final Exam & Certification", topics: [
-                            "Final Exam — 80 MCQ covering all 8 modules",
+                            "Final Exam — 60 MCQ covering all modules",
                             "Practical assessment — live troubleshooting scenario",
                             "Portfolio review & GitHub profile optimization",
                             "Career guidance — resume, LinkedIn, interview prep",
@@ -459,14 +443,13 @@
                 }
             ],
             roadmap: [
-                { phase: "Weeks 1–6", title: "Foundation: Linux Mastery", hours: "72 hrs · 18 sessions", desc: "Linux Admin I & II + Bash Scripting. Master the OS that runs 96% of the world's servers. Command line, system admin, networking, storage, and automation scripting." },
-                { phase: "Weeks 7–10", title: "Programming & Development", hours: "48 hrs · 13 sessions", desc: "Python programming, SDLC, microservices architecture, and software testing. Build the coding skills every DevOps engineer needs." },
-                { phase: "Weeks 11–14", title: "Containers & Orchestration", hours: "40 hrs · 11 sessions", desc: "Docker deep-dive + Kubernetes mastery + Helm charts. Package, deploy, and scale applications in production clusters." },
-                { phase: "Weeks 15–17", title: "CI/CD Automation", hours: "24 hrs · 6 sessions", desc: "Jenkins, GitLab CI, GitHub Actions & ArgoCD. Automate the entire delivery pipeline from commit to production." },
-                { phase: "Week 18", title: "Monitoring & Observability", hours: "8 hrs · 2 sessions", desc: "Prometheus, Grafana & ELK Stack. Build dashboards, configure alerts, and gain visibility into production systems." },
-                { phase: "Weeks 19–23", title: "Multi-Cloud & OpenShift", hours: "40 hrs · 10 sessions", desc: "AWS deep-dive + Azure, GCP, Alibaba Cloud & Oracle Cloud basics + Red Hat OpenShift. Become cloud-agnostic and deploy anywhere." },
-                { phase: "Weeks 23–25", title: "Infrastructure as Code", hours: "24 hrs · 6 sessions", desc: "Ansible for configuration management + Terraform for infrastructure provisioning. Automate everything." },
-                { phase: "Week 26", title: "Capstone & Certification", hours: "16 hrs", desc: "Build a production-grade app end-to-end: Code → Docker → CI/CD → Cloud → Monitoring. Present your portfolio project. Final exam (80 MCQ) & graduation." }
+                { phase: "Weeks 1–3", title: "Foundation: Linux & Scripting", hours: "40 hrs · 10 sessions", desc: "Linux Administration + Bash Scripting. Master the OS that runs 96% of the world's servers. Command line, system admin, networking, and automation scripting." },
+                { phase: "Weeks 4–6", title: "Containers & Orchestration", hours: "40 hrs · 10 sessions", desc: "Docker deep-dive + Kubernetes mastery + Helm charts. Package, deploy, and scale applications in production clusters." },
+                { phase: "Weeks 7–8", title: "CI/CD Automation", hours: "24 hrs · 6 sessions", desc: "Jenkins, GitLab CI, GitHub Actions & ArgoCD. Automate the entire delivery pipeline from commit to production." },
+                { phase: "Week 9", title: "Monitoring & Observability", hours: "8 hrs · 2 sessions", desc: "Prometheus, Grafana & ELK Stack. Build dashboards, configure alerts, and gain visibility into production systems." },
+                { phase: "Weeks 9–10", title: "AWS Cloud", hours: "24 hrs · 6 sessions", desc: "AWS deep-dive — EC2, VPC, S3, IAM, ECS/EKS, Lambda. Become cloud-ready and deploy anywhere." },
+                { phase: "Weeks 11–12", title: "Infrastructure as Code", hours: "24 hrs · 6 sessions", desc: "Ansible for configuration management + Terraform for infrastructure provisioning. Automate everything." },
+                { phase: "Week 12", title: "Capstone & Certification", hours: "8 hrs", desc: "Build a production-grade app end-to-end: Docker → CI/CD → Cloud → Monitoring. Present your portfolio project. Final exam & graduation." }
             ]
         },
         linux: {

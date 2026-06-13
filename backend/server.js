@@ -547,7 +547,7 @@ async function start() {
     const courseCount = await Course.countDocuments();
     if (courseCount === 0) {
       const defaultCourses = [
-        { courseId: 'devops', name: 'DevOps Engineering Program', price: 25000, duration: '25 Weeks', level: 'all' },
+        { courseId: 'devops', name: 'DevOps Engineering Program', price: 25000, duration: '12 Weeks', level: 'all' },
         { courseId: 'linux', name: 'Linux Fundamentals', price: 3500, duration: '4 Weeks', level: 'beginner' },
         { courseId: 'docker', name: 'Docker & Containers', price: 4500, duration: '5 Weeks', level: 'beginner' },
         { courseId: 'kubernetes', name: 'Kubernetes (K8s)', price: 6000, duration: '6 Weeks', level: 'intermediate' },
