@@ -21,17 +21,15 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    cp docker-compose.yml /home/maged/devopsacademy/docker-compose.yml
-                    cp -r backend /home/maged/devopsacademy/backend
-                    cp Dockerfile /home/maged/devopsacademy/Dockerfile
-                    cp nginx.conf /home/maged/devopsacademy/nginx.conf
-                    cp index.html /home/maged/devopsacademy/index.html
-                    cp admin.html /home/maged/devopsacademy/admin.html
-                    cp course.html /home/maged/devopsacademy/course.html
-                    cp styles.css /home/maged/devopsacademy/styles.css
-                    cp script.js /home/maged/devopsacademy/script.js
-                    cp logo.png /home/maged/devopsacademy/logo.png
-                    cd /home/maged/devopsacademy
+                    DEPLOY_DIR=/home/maged/devopsacademy
+
+                    # Copy project structure
+                    cp docker-compose.yml $DEPLOY_DIR/docker-compose.yml
+                    cp -r backend $DEPLOY_DIR/backend
+                    cp -r frontend $DEPLOY_DIR/frontend
+                    cp -r nginx $DEPLOY_DIR/nginx
+
+                    cd $DEPLOY_DIR
                     docker compose down || true
                     docker compose build --no-cache
                     docker compose up -d

@@ -64,30 +64,33 @@
 
 ```
 DevopsAcademy/
-├── index.html              # Main landing page (courses, enrollment form, etc.)
-├── course.html             # Dynamic course detail page (loaded via ?id=<course>)
-├── admin.html              # Admin dashboard (login, manage enrollments)
-├── styles.css              # All CSS (responsive, animations, components)
-├── script.js               # Frontend JS (nav, filters, form submission, animations)
-├── logo.png                # Site logo
-├── cover.png               # Hero background image
+├── frontend/                   # Frontend application
+│   ├── Dockerfile              # Frontend container (nginx:alpine)
+│   ├── index.html              # Main landing page (courses, enrollment form, etc.)
+│   ├── course.html             # Dynamic course detail page (?id=<course>)
+│   ├── admin.html              # Admin dashboard (login, manage enrollments)
+│   ├── styles.css              # All CSS (responsive, animations, components)
+│   ├── script.js               # Frontend JS (nav, filters, form, animations)
+│   └── assets/
+│       ├── logo.png            # Site logo
+│       └── cover.png           # Hero background image
 │
-├── backend/                # Express.js API server
-│   ├── server.js           # API routes, MongoDB models, auth middleware
-│   ├── package.json        # Node.js dependencies
-│   └── Dockerfile          # Backend container (node:20-alpine)
+├── backend/                    # Express.js API server
+│   ├── Dockerfile              # Backend container (node:20-alpine)
+│   ├── server.js               # API routes, MongoDB models, auth middleware
+│   └── package.json            # Node.js dependencies
 │
-├── nginx.conf              # Nginx config (SSL, reverse proxy, caching rules)
-├── Dockerfile              # Frontend container (nginx:alpine)
-├── docker-compose.yml      # Multi-service orchestration (web + backend + mongo)
+├── nginx/                      # Web server configuration
+│   └── nginx.conf              # SSL, reverse proxy, caching rules
 │
-├── Jenkinsfile             # CI/CD pipeline definition
+├── docker-compose.yml          # Multi-service orchestration (web + backend + mongo)
+├── Jenkinsfile                 # CI/CD pipeline definition
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml      # GitHub Actions (alternative deploy via Docker Hub)
+│       └── deploy.yml          # GitHub Actions (alternative deploy via Docker Hub)
 │
-├── .gitignore              # Ignored files (keys, PDFs, node_modules, ssl)
-└── README.md               # This file
+├── .gitignore                  # Ignored files (keys, PDFs, node_modules, ssl)
+└── README.md                   # This file
 ```
 
 ---
@@ -109,7 +112,7 @@ DevopsAcademy/
 
 ---
 
-## Frontend
+## Frontend (`frontend/`)
 
 ### Pages
 
@@ -244,21 +247,24 @@ On first startup (empty admin collection), auto-creates:
 
 | Service | Image | Ports | Purpose |
 |---------|-------|-------|---------|
-| `web` | `./Dockerfile` (nginx:alpine) | 80, 443 | Frontend + reverse proxy |
-| `backend` | `./backend/Dockerfile` (node:20-alpine) | 3000 (internal) | API server |
+| `web` | `frontend/Dockerfile` (nginx:alpine) | 80, 443 | Frontend + reverse proxy |
+| `backend` | `backend/Dockerfile` (node:20-alpine) | 3000 (internal) | API server |
 | `mongo` | `mongo:7` | 27017 (internal) | Database |
 
-### Frontend Dockerfile
+### Frontend Dockerfile (`frontend/Dockerfile`)
 
 ```dockerfile
 FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
-COPY index.html admin.html course.html styles.css script.js logo.png /usr/share/nginx/html/
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY frontend/*.html frontend/styles.css frontend/script.js /usr/share/nginx/html/
+COPY frontend/assets/*.png /usr/share/nginx/html/
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80 443
 ```
 
-### Backend Dockerfile
+> Build context is the project root (`.`), so paths reference `frontend/` and `nginx/` folders.
+
+### Backend Dockerfile (`backend/Dockerfile`)
 
 ```dockerfile
 FROM node:20-alpine
@@ -281,7 +287,7 @@ CMD ["node", "server.js"]
 
 ## Nginx Configuration
 
-**File:** `nginx.conf`
+**File:** `nginx/nginx.conf`
 
 ### Routing
 
@@ -321,7 +327,7 @@ GitHub Push → Jenkins detects (1 min) → Clone → Build → Deploy → Live
 
 1. **Clone Repository** — Pulls `main` branch from GitHub
 2. **Build Docker Image** — `docker compose build`
-3. **Deploy** — Copies files to `/home/maged/devopsacademy/`, runs:
+3. **Deploy** — Copies `frontend/`, `backend/`, `nginx/`, and `docker-compose.yml` to server, then:
    ```bash
    docker compose down
    docker compose build --no-cache

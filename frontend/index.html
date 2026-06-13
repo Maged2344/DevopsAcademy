@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Academy Egypt - Professional DevOps Training</title>
+    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#why-us">Why Us</a></li>
+                <li><a href="#instructors">Instructors</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#enroll" class="btn btn-nav">Enroll Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Master <span class="highlight">DevOps</span> Skills<br>Launch Your Career in Egypt</h1>
+            <p class="hero-subtitle">Egypt's leading DevOps training academy. Learn from industry experts, get hands-on experience, and earn certifications that employers trust.</p>
+            <div class="hero-buttons">
+                <a href="#courses" class="btn btn-primary">Explore Courses</a>
+                <a href="#enroll" class="btn btn-secondary">Get Started</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">2000+</span>
+                    <span class="stat-label">Graduates</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Job Placement</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Courses</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Partners</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Courses</h2>
+                <p>Comprehensive training programs designed to take you from beginner to expert</p>
+            </div>
+            <div class="course-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="beginner">Beginner</button>
+                <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+                <button class="filter-btn" data-filter="advanced">Advanced</button>
+            </div>
+            <div class="courses-grid">
+                <!-- DevOps Full Program -->
+                <div class="course-card featured" data-level="all" onclick="window.location='course.html?id=devops'" style="cursor:pointer; grid-column: 1 / -1; border: 2px solid #1e40af; background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);">
+                    <div class="course-badge" style="background:#8b5cf6;color:#fff;">Full Program</div>
+                    <div class="course-icon">&#128640;</div>
+                    <h3>DevOps Engineering Program</h3>
+                    <p>Comprehensive 260-hour program: Linux, Python, Docker, Kubernetes, CI/CD, AWS, Terraform, Ansible & more. From zero to job-ready in 6 months.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 25 Weeks</span>
+                        <span>&#128218; 65 Sessions</span>
+                        <span>&#9201; 260 Hours</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 25,000</span>
+                        <a href="course.html?id=devops" class="btn btn-small">View Roadmap</a>
+                    </div>
+                </div>
+                <!-- Course 1 -->
+                <div class="course-card" data-level="beginner" onclick="window.location='course.html?id=linux'" style="cursor:pointer">
+                    <div class="course-badge beginner">Beginner</div>
+                    <div class="course-icon">&#128187;</div>
+                    <h3>Linux Fundamentals</h3>
+                    <p>Master the Linux operating system, command line, shell scripting, and system administration basics.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 4 Weeks</span>
+                        <span>&#128218; 20 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 3,500</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 2 -->
+                <div class="course-card" data-level="beginner" onclick="window.location='course.html?id=docker'" style="cursor:pointer">
+                    <div class="course-badge beginner">Beginner</div>
+                    <div class="course-icon">&#128038;</div>
+                    <h3>Docker & Containers</h3>
+                    <p>Learn containerization with Docker, create images, manage containers, and work with Docker Compose.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 5 Weeks</span>
+                        <span>&#128218; 25 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 4,500</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 3 -->
+                <div class="course-card" data-level="intermediate" onclick="window.location='course.html?id=kubernetes'" style="cursor:pointer">
+                    <div class="course-badge intermediate">Intermediate</div>
+                    <div class="course-icon">&#9784;</div>
+                    <h3>Kubernetes (K8s)</h3>
+                    <p>Deploy, manage, and scale containerized applications using Kubernetes orchestration platform.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 6 Weeks</span>
+                        <span>&#128218; 30 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 6,000</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 4 -->
+                <div class="course-card" data-level="intermediate" onclick="window.location='course.html?id=cicd'" style="cursor:pointer">
+                    <div class="course-badge intermediate">Intermediate</div>
+                    <div class="course-icon">&#9889;</div>
+                    <h3>CI/CD Pipelines</h3>
+                    <p>Build automated pipelines with Jenkins, GitLab CI, and GitHub Actions for continuous delivery.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 5 Weeks</span>
+                        <span>&#128218; 22 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 5,500</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 5 -->
+                <div class="course-card" data-level="intermediate" onclick="window.location='course.html?id=aws'" style="cursor:pointer">
+                    <div class="course-badge intermediate">Intermediate</div>
+                    <div class="course-icon">&#9729;</div>
+                    <h3>AWS Cloud Engineering</h3>
+                    <p>Master Amazon Web Services: EC2, S3, RDS, VPC, Lambda, and cloud architecture best practices.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 8 Weeks</span>
+                        <span>&#128218; 40 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 7,500</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 6 -->
+                <div class="course-card" data-level="advanced" onclick="window.location='course.html?id=terraform'" style="cursor:pointer">
+                    <div class="course-badge advanced">Advanced</div>
+                    <div class="course-icon">&#127959;</div>
+                    <h3>Terraform & IaC</h3>
+                    <p>Infrastructure as Code with Terraform and Ansible. Automate cloud infrastructure provisioning.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 6 Weeks</span>
+                        <span>&#128218; 28 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 6,500</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 7 -->
+                <div class="course-card" data-level="beginner" onclick="window.location='course.html?id=git'" style="cursor:pointer">
+                    <div class="course-badge beginner">Beginner</div>
+                    <div class="course-icon">&#128200;</div>
+                    <h3>Git & Version Control</h3>
+                    <p>Master Git workflows, branching strategies, pull requests, and collaborative development.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 3 Weeks</span>
+                        <span>&#128218; 15 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 2,500</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 8 -->
+                <div class="course-card" data-level="advanced" onclick="window.location='course.html?id=devsecops'" style="cursor:pointer">
+                    <div class="course-badge advanced">Advanced</div>
+                    <div class="course-icon">&#128274;</div>
+                    <h3>DevSecOps</h3>
+                    <p>Integrate security into the DevOps pipeline. SAST, DAST, container security, and compliance.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 6 Weeks</span>
+                        <span>&#128218; 26 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 7,000</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+                <!-- Course 9 -->
+                <div class="course-card" data-level="advanced" onclick="window.location='course.html?id=monitoring'" style="cursor:pointer">
+                    <div class="course-badge advanced">Advanced</div>
+                    <div class="course-icon">&#128202;</div>
+                    <h3>Monitoring & Observability</h3>
+                    <p>Prometheus, Grafana, ELK Stack, and distributed tracing for production systems.</p>
+                    <div class="course-meta">
+                        <span>&#128336; 5 Weeks</span>
+                        <span>&#128218; 24 Lessons</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP 5,500</span>
+                        <a href="#enroll" class="btn btn-small">Enroll</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="why-us" id="why-us">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why DevOps Academy Egypt?</h2>
+                <p>What sets us apart from other training providers</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#127891;</div>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from certified professionals with 10+ years of real-world DevOps experience at top companies.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128736;</div>
+                    <h3>Hands-On Labs</h3>
+                    <p>Practice on real cloud environments. Every course includes dedicated lab time with guided projects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127942;</div>
+                    <h3>Certification Prep</h3>
+                    <p>Our courses align with AWS, Azure, CKA, and other industry certifications to boost your career.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#129309;</div>
+                    <h3>Career Support</h3>
+                    <p>Resume building, interview prep, and direct connections to hiring partners across Egypt and MENA.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128101;</div>
+                    <h3>Community</h3>
+                    <p>Join a network of 2000+ DevOps professionals. Monthly meetups, hackathons, and networking events.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128176;</div>
+                    <h3>Flexible Payment</h3>
+                    <p>Installment plans, early-bird discounts, and corporate packages available for all courses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructors Section -->
+    <section class="instructors" id="instructors">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Instructors</h2>
+                <p>Industry leaders passionate about teaching the next generation of DevOps engineers</p>
+            </div>
+            <div class="instructors-grid">
+                <div class="instructor-card">
+                    <div class="instructor-avatar">AH</div>
+                    <h3>Ahmed Hassan</h3>
+                    <p class="instructor-role">Senior DevOps Engineer</p>
+                    <p class="instructor-bio">15 years experience. Former AWS Solutions Architect at multinational companies.</p>
+                </div>
+                <div class="instructor-card">
+                    <div class="instructor-avatar">SM</div>
+                    <h3>Sara Mohamed</h3>
+                    <p class="instructor-role">Cloud Architect</p>
+                    <p class="instructor-bio">CKA & AWS certified. Specialized in Kubernetes and microservices architecture.</p>
+                </div>
+                <div class="instructor-card">
+                    <div class="instructor-avatar">OK</div>
+                    <h3>Omar Khalil</h3>
+                    <p class="instructor-role">SRE Team Lead</p>
+                    <p class="instructor-bio">10 years in Site Reliability Engineering. Expert in monitoring and automation.</p>
+                </div>
+                <div class="instructor-card">
+                    <div class="instructor-avatar">NE</div>
+                    <h3>Nour El-Din</h3>
+                    <p class="instructor-role">Security Engineer</p>
+                    <p class="instructor-bio">DevSecOps specialist. CISSP certified with focus on cloud security and compliance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Students Say</h2>
+                <p>Success stories from our graduates</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p>"DevOps Academy Egypt transformed my career. Within 3 months of graduating, I landed a DevOps role at a leading fintech company with a 200% salary increase."</p>
+                    <div class="testimonial-author">
+                        <strong>Mohamed Ali</strong>
+                        <span>DevOps Engineer at Fawry</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p>"The hands-on labs are incredible. I was able to practice on real AWS environments and the Kubernetes course prepared me perfectly for the CKA exam."</p>
+                    <div class="testimonial-author">
+                        <strong>Fatma Youssef</strong>
+                        <span>Cloud Engineer at Vodafone Egypt</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p>"The instructors are amazing - they don't just teach theory, they share real-world scenarios from their experience. Best investment in my career."</p>
+                    <div class="testimonial-author">
+                        <strong>Karim Mostafa</strong>
+                        <span>SRE at Instabug</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment Section -->
+    <section class="enroll" id="enroll">
+        <div class="container">
+            <div class="section-header">
+                <h2>Start Your DevOps Journey</h2>
+                <p>Fill in your details and our team will reach out with course information</p>
+            </div>
+            <form class="enroll-form" id="enrollForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="course">Interested Course</label>
+                    <select id="course" name="course" required>
+                        <option value="">Select a course...</option>
+                        <option value="linux">Linux Fundamentals</option>
+                        <option value="docker">Docker & Containers</option>
+                        <option value="kubernetes">Kubernetes (K8s)</option>
+                        <option value="cicd">CI/CD Pipelines</option>
+                        <option value="aws">AWS Cloud Engineering</option>
+                        <option value="terraform">Terraform & IaC</option>
+                        <option value="git">Git & Version Control</option>
+                        <option value="devsecops">DevSecOps</option>
+                        <option value="monitoring">Monitoring & Observability</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Current Experience Level</label>
+                    <select id="experience" name="experience" required>
+                        <option value="">Select your level...</option>
+                        <option value="student">Student / Fresh Graduate</option>
+                        <option value="junior">Junior (0-2 years)</option>
+                        <option value="mid">Mid-Level (2-5 years)</option>
+                        <option value="senior">Senior (5+ years)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message (Optional)</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p>Have questions? We're here to help you choose the right path.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">&#128205;</span>
+                            <div>
+                                <strong>Location</strong>
+                                <p>Smart Village, 6th of October City, Giza, Egypt</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">&#128231;</span>
+                            <div>
+                                <strong>Email</strong>
+                                <p>maged3bdelfatah@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">&#128222;</span>
+                            <div>
+                                <strong>Phone</strong>
+                                <p>+20 100 906 6728</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">&#128337;</span>
+                            <div>
+                                <strong>Working Hours</strong>
+                                <p>Sun - Thu: 9:00 AM - 9:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <div class="map-placeholder">
+                        <span>&#127757;</span>
+                        <p>Smart Village, Giza, Egypt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+                    </a>
+                    <p>Empowering Egypt's tech workforce with world-class DevOps training since 2020.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">FB</a>
+                        <a href="#" aria-label="LinkedIn">LI</a>
+                        <a href="#" aria-label="Twitter">TW</a>
+                        <a href="#" aria-label="YouTube">YT</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#why-us">Why Us</a></li>
+                        <li><a href="#instructors">Instructors</a></li>
+                        <li><a href="#enroll">Enroll</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Courses</h4>
+                    <ul>
+                        <li><a href="#courses">Linux Fundamentals</a></li>
+                        <li><a href="#courses">Docker & K8s</a></li>
+                        <li><a href="#courses">AWS Cloud</a></li>
+                        <li><a href="#courses">CI/CD Pipelines</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevOps Academy Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=3"></script>
+</body>
+</html>
