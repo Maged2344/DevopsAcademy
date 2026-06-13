@@ -201,16 +201,19 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
+    flex-wrap: nowrap;
 }
 
 .logo {
     font-family: 'Cairo', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--white);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    white-space: nowrap;
 }
 
 .logo-img {
@@ -227,7 +230,8 @@ img {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 .nav-links a {
@@ -335,17 +339,15 @@ img {
 }
 
 /* Auth Navigation Buttons */
-.auth-buttons {
-    display: flex;
+li.auth-buttons {
+    display: flex !important;
     align-items: center;
-    gap: 12px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    gap: 8px;
+    margin-left: auto;
 }
 
-.auth-buttons li {
-    list-style: none;
+li.auth-buttons a {
+    display: inline-block;
     margin: 0;
 }
 
@@ -1334,6 +1336,19 @@ img {
 
     .nav-links.active {
         right: 0;
+    }
+
+    li.auth-buttons {
+        margin-left: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    li.auth-buttons a {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
     }
 
     .hero h1 {

@@ -8,21 +8,21 @@ function initAuthNav() {
     if (!navLinks) return;
 
     const token = localStorage.getItem(studentTokenKey);
-    const authButtonContainer = navLinks.querySelector('.auth-buttons');
+    const authButtonsLi = navLinks.querySelector('li.auth-buttons');
     
-    if (!authButtonContainer) return;
+    if (!authButtonsLi) return;
 
     if (token) {
         // User is signed in - show My Portal and Logout
-        authButtonContainer.innerHTML = `
-            <li><a href="/portal.html" class="btn btn-small">My Portal</a></li>
-            <li><a href="javascript:void(0);" onclick="logoutStudent()" class="btn btn-small btn-outline">Logout</a></li>
+        authButtonsLi.innerHTML = `
+            <a href="/portal.html" class="btn btn-small">My Portal</a>
+            <a href="javascript:void(0);" onclick="logoutStudent()" class="btn btn-small btn-outline">Logout</a>
         `;
     } else {
         // User not signed in - show Register and Sign In
-        authButtonContainer.innerHTML = `
-            <li><a href="/portal.html?tab=signup" class="btn btn-small btn-outline">Register</a></li>
-            <li><a href="/portal.html?tab=signin" class="btn btn-small">Sign In</a></li>
+        authButtonsLi.innerHTML = `
+            <a href="/portal.html?tab=signup" class="btn btn-small btn-outline">Register</a>
+            <a href="/portal.html?tab=signin" class="btn btn-small">Sign In</a>
         `;
     }
 }
