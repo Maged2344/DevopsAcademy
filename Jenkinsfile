@@ -32,7 +32,8 @@ pipeline {
                     cp logo.png /home/maged/devopsacademy/logo.png
                     cd /home/maged/devopsacademy
                     docker compose down || true
-                    docker compose up -d --build
+                    docker compose build --no-cache
+                    docker compose up -d
                     docker image prune -f
                 '''
             }
