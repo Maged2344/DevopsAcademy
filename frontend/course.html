@@ -513,18 +513,73 @@
             ]
         },
         linux: {
-            title: "Linux Fundamentals",
+            title: "Linux Administration",
             badge: "beginner",
             badgeText: "Beginner",
             description: "Master the Linux operating system from scratch. Learn command line, system administration, file management, networking, and shell scripting — the foundation every DevOps engineer needs.",
-            duration: "4 Weeks",
-            hours: "60 Hours",
-            sessions: "15 Sessions",
+            tagline: "96% of the world's servers run Linux. Master it.",
+            duration: "6 Weeks",
+            hours: "72 Hours",
+            sessions: "18 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 3,500",
             priceNote: "Also included in the full DevOps program",
+            highlights: [
+                { icon: "🐧", title: "Enterprise Linux", desc: "Hands-on with RHEL/CentOS — the OS that powers enterprise infrastructure worldwide." },
+                { icon: "⌨️", title: "Command Line Mastery", desc: "Become dangerous on the terminal. File management, permissions, processes, and networking." },
+                { icon: "🔒", title: "Security & Hardening", desc: "SELinux, firewalld, SSH hardening, and user/group access control for production servers." },
+                { icon: "🤖", title: "Bash Scripting", desc: "Automate repetitive tasks with shell scripts — variables, loops, functions, sed, awk." },
+                { icon: "💾", title: "Storage & LVM", desc: "Manage disks, partitions, LVM, NFS/SMB mounts — critical for server administration." },
+                { icon: "📜", title: "RHCSA-Aligned", desc: "Curriculum follows Red Hat Certified System Administrator objectives for career growth." }
+            ],
+            whoIsFor: [
+                { title: "Complete Beginners", desc: "Never touched Linux? Perfect. We start from absolute zero and build up systematically." },
+                { title: "Windows Admins", desc: "Transition from Windows Server to Linux with guided comparison and hands-on labs." },
+                { title: "Aspiring DevOps Engineers", desc: "Linux is the #1 prerequisite. Master it before moving to Docker, K8s, and cloud." },
+                { title: "Developers", desc: "Understand the OS your code runs on. Debug production issues like a pro." }
+            ],
             modules: [
-                { title: "Linux Admin I", number: "Module 1", hours: "60 Hours", sessionCount: "15 Sessions", description: "Complete Linux administration from zero to production.", sessions: [{ name: "Full Curriculum", topics: ["Get started with Enterprise Linux", "Access the command line", "Manage files from the command line", "Create, view, and edit text files", "Manage local users and groups", "Control access to files with permissions", "Monitor and manage Linux processes", "Control services and daemons", "Configure and secure SSH", "Analyze and store logs", "Manage networking", "Archive and transfer files", "Install and update software packages", "Access Linux file systems", "Comprehensive review & practice"] }] }
+                {
+                    title: "Linux Admin I — Core Administration",
+                    number: "Module 1",
+                    hours: "60 Hours",
+                    sessionCount: "15 Sessions",
+                    description: "Complete Linux system administration from first boot to production-ready server management.",
+                    sessions: [
+                        { name: "Getting Started (3 Sessions)", topics: ["Introduction to Enterprise Linux (RHEL/CentOS/Rocky)", "Installing Linux — VMs, dual boot, cloud instances", "The terminal — shell types, prompt, basic navigation", "Access the command line — cd, ls, pwd, file paths", "Manage files — cp, mv, rm, mkdir, find, locate", "Create, view, and edit text files — vim, nano, cat, less"] },
+                        { name: "Users & Permissions (3 Sessions)", topics: ["Manage local users — useradd, usermod, passwd", "Manage groups — groupadd, gpasswd, /etc/group", "File permissions — chmod, chown, chgrp", "Special permissions — SUID, SGID, sticky bit", "Access Control Lists (ACLs) for fine-grained control", "Default permissions with umask"] },
+                        { name: "Processes & Services (3 Sessions)", topics: ["Monitor processes — ps, top, htop, kill signals", "Process priorities — nice, renice", "Background/foreground jobs — bg, fg, nohup", "Systemd — units, targets, service management", "systemctl — start, stop, enable, mask services", "Analyze logs — journalctl, rsyslog, /var/log/"] },
+                        { name: "Networking & Security (3 Sessions)", topics: ["Network configuration — ip, nmcli, hostname", "DNS resolution — /etc/hosts, /etc/resolv.conf", "Configure and secure SSH — keys, config, tunneling", "Firewall management — firewalld, zones, rules", "Network troubleshooting — ping, traceroute, ss, netstat", "Archive & transfer files — tar, gzip, scp, rsync"] },
+                        { name: "Storage & Packages (3 Sessions)", topics: ["Disk management — lsblk, fdisk, partitions", "File systems — mkfs, mount, fstab, UUID", "Logical Volume Manager (LVM) — PV, VG, LV", "Access network storage — NFS, SMB/CIFS", "Package management — yum/dnf, repos, GPG keys", "Comprehensive review & hands-on practical exam"] }
+                    ]
+                },
+                {
+                    title: "Linux Admin II — Advanced Topics",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Advanced administration topics for production environments — performance tuning, SELinux, boot process, and containers.",
+                    sessions: [
+                        { name: "Advanced Administration", topics: ["Improve command-line productivity — aliases, history, shortcuts", "Schedule future tasks — cron, at, systemd timers", "Tune system performance — top, vmstat, iostat, sar", "Manage SELinux security contexts & policies", "Control the boot process & GRUB troubleshooting", "Introduction to containers on Linux (Podman/Docker)"] }
+                    ]
+                },
+                {
+                    title: "Bash Scripting & Automation",
+                    number: "Module 3",
+                    hours: "12 Hours",
+                    sessionCount: "3 Sessions",
+                    description: "Automate everything with shell scripts. From simple tasks to complex automation workflows.",
+                    sessions: [
+                        { name: "Scripting Fundamentals (2 Sessions)", topics: ["Shell scripting basics — shebang, variables, I/O", "Read user input — read, positional parameters", "Control flow — if/else, case statements", "Loops — for, while, until", "Functions — definition, parameters, return values", "Exit codes & error handling"] },
+                        { name: "Advanced Scripting (1 Session)", topics: ["Text processing — grep, sed, awk, cut", "Regular expressions for pattern matching", "Arrays & associative arrays", "Script debugging — set -x, trap", "Real-world automation scripts — backup, monitoring, log rotation", "Final scripting project — automated server provisioning"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Core Linux Administration", hours: "24 hrs · 6 sessions", desc: "Terminal mastery, file management, users/groups, and permissions. You'll be comfortable navigating and managing any Linux system." },
+                { phase: "Weeks 3–4", title: "Services, Networking & Storage", hours: "24 hrs · 6 sessions", desc: "Systemd services, SSH, networking, firewalls, package management, and disk/LVM storage." },
+                { phase: "Week 5", title: "Advanced Administration", hours: "12 hrs · 3 sessions", desc: "Performance tuning, SELinux, boot process, cron jobs, and container basics on Linux." },
+                { phase: "Week 6", title: "Bash Scripting & Final Project", hours: "12 hrs · 3 sessions", desc: "Shell scripting from fundamentals to automation. Final project: automated server provisioning script." }
             ]
         },
         docker: {
@@ -532,121 +587,520 @@
             badge: "beginner",
             badgeText: "Beginner",
             description: "Learn containerization with Docker from fundamentals to production. Create images, manage containers, networking, storage, and orchestration with Docker Compose.",
+            tagline: "Build once, run anywhere. Containers changed everything.",
             duration: "5 Weeks",
             hours: "20 Hours",
             sessions: "5 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 4,500",
             priceNote: "Also included in the full DevOps program",
+            highlights: [
+                { icon: "🐳", title: "Hands-On from Day 1", desc: "Run your first container in session 1. Build production-grade images by session 3." },
+                { icon: "📦", title: "Multi-Stage Builds", desc: "Create optimized, minimal images using multi-stage Dockerfiles for real applications." },
+                { icon: "🌐", title: "Docker Networking", desc: "Master bridge, host, overlay networks — connect containers like a pro." },
+                { icon: "💾", title: "Persistent Storage", desc: "Volumes, bind mounts, and tmpfs — never lose data when containers restart." },
+                { icon: "🎼", title: "Docker Compose", desc: "Define multi-container applications in YAML and spin up entire stacks with one command." },
+                { icon: "🔐", title: "Security Best Practices", desc: "Image scanning, non-root users, secrets management, and container hardening." }
+            ],
+            whoIsFor: [
+                { title: "Linux Users", desc: "You know your way around a terminal. Now containerize your applications." },
+                { title: "Developers", desc: "Eliminate 'works on my machine' forever. Consistent dev/prod environments." },
+                { title: "System Administrators", desc: "Deploy and manage applications without dependency conflicts." },
+                { title: "DevOps Beginners", desc: "Docker is the gateway to Kubernetes, CI/CD, and modern infrastructure." }
+            ],
             modules: [
-                { title: "Docker Fundamentals", number: "Module 1", hours: "20 Hours", sessionCount: "5 Sessions", description: "Docker from first container to production deployment.", sessions: [{ name: "Full Curriculum", topics: ["Introduction to Docker & containerization concepts", "Docker Architecture & how it works", "Docker Basics - Images and Containers", "Writing Dockerfiles - multi-stage builds", "Docker Networking - bridge, host, overlay", "Docker Storage - volumes, bind mounts", "Docker Compose - multi-container applications", "Docker Security best practices", "Introduction to Docker Swarm", "Hands-on Docker Project"] }] }
+                {
+                    title: "Docker Fundamentals",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Understand containerization concepts and get hands-on with Docker basics.",
+                    sessions: [
+                        { name: "Introduction & Core Concepts", topics: ["What is containerization? VMs vs Containers", "Docker architecture — daemon, client, registry", "Installing Docker on Linux/Windows/Mac", "Docker Hub & image registries", "Running containers — docker run, exec, logs", "Container lifecycle — start, stop, rm, inspect", "Environment variables & container configuration"] },
+                        { name: "Images & Dockerfiles", topics: ["Understanding image layers & caching", "Writing Dockerfiles — FROM, RUN, COPY, CMD, ENTRYPOINT", "Multi-stage builds for optimized images", "Build arguments & ARG instruction", ".dockerignore for smaller build contexts", "Tagging, pushing & pulling images", "Best practices for production Dockerfiles"] }
+                    ]
+                },
+                {
+                    title: "Docker Networking & Storage",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Master container networking and persistent data management.",
+                    sessions: [
+                        { name: "Docker Networking", topics: ["Default bridge network & container DNS", "User-defined bridge networks", "Host networking mode", "Overlay networks for multi-host communication", "Port mapping & publishing", "Network troubleshooting — inspect, logs, exec"] },
+                        { name: "Docker Storage", topics: ["The container filesystem — ephemeral by default", "Docker volumes — named & anonymous", "Bind mounts — sharing host directories", "tmpfs mounts for sensitive data", "Volume drivers & remote storage", "Backup & restore strategies for volumes"] }
+                    ]
+                },
+                {
+                    title: "Compose, Security & Project",
+                    number: "Module 3",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Multi-container applications, security hardening, and a real-world project.",
+                    sessions: [
+                        { name: "Compose & Production Readiness", topics: ["Docker Compose syntax — services, networks, volumes", "Multi-container apps — web + database + cache", "Compose commands — up, down, scale, logs", "Health checks & restart policies", "Docker security — non-root users, read-only FS", "Image scanning with Trivy/Scout", "Secrets management in Compose", "Introduction to Docker Swarm orchestration", "Final Project: Containerize a full-stack app (frontend + API + DB)"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Docker Basics & Images", hours: "8 hrs · 2 sessions", desc: "Install Docker, run containers, write Dockerfiles, and build optimized images with multi-stage builds." },
+                { phase: "Weeks 2–3", title: "Networking & Storage", hours: "8 hrs · 2 sessions", desc: "Master container networking (bridge, host, overlay) and persistent storage with volumes and bind mounts." },
+                { phase: "Weeks 4–5", title: "Compose & Final Project", hours: "4 hrs · 1 session", desc: "Docker Compose for multi-container apps. Security best practices. Final project: containerize a full-stack application." }
             ]
         },
         kubernetes: {
             title: "Kubernetes (K8s)",
             badge: "intermediate",
             badgeText: "Intermediate",
-            description: "Deploy, manage, and scale containerized applications using Kubernetes. Master pods, deployments, services, networking, storage, and security.",
+            description: "Deploy, manage, and scale containerized applications using Kubernetes. Master pods, deployments, services, networking, storage, Helm charts, and cluster security.",
+            tagline: "The operating system for the cloud. Orchestrate at any scale.",
             duration: "6 Weeks",
-            hours: "20 Hours",
-            sessions: "5 Sessions",
+            hours: "24 Hours",
+            sessions: "6 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 6,000",
             priceNote: "Also included in the full DevOps program",
+            highlights: [
+                { icon: "☸️", title: "Production-Grade K8s", desc: "Not just theory — deploy real workloads on production clusters from day one." },
+                { icon: "📈", title: "Auto-Scaling", desc: "HPA, VPA, and Cluster Autoscaler — handle traffic spikes automatically." },
+                { icon: "🔒", title: "Security & RBAC", desc: "Role-Based Access Control, ServiceAccounts, NetworkPolicies, and PodSecurity." },
+                { icon: "🎯", title: "Helm Charts", desc: "Package, version, and deploy complex applications with Helm — the K8s package manager." },
+                { icon: "🌐", title: "Networking & Ingress", desc: "Services, load balancers, Ingress controllers, and CNI plugins explained." },
+                { icon: "🔄", title: "Zero-Downtime Deploys", desc: "Rolling updates, blue-green, canary deployments — never take your app offline." }
+            ],
+            whoIsFor: [
+                { title: "Docker Users", desc: "You can containerize apps. Now orchestrate them at scale with Kubernetes." },
+                { title: "DevOps Engineers", desc: "K8s is the industry standard. Companies require it — period." },
+                { title: "Backend Developers", desc: "Understand where your microservices run and how they scale." },
+                { title: "Cloud Engineers", desc: "Every cloud provider offers managed K8s (EKS, AKS, GKE). Master the core." }
+            ],
             modules: [
-                { title: "Kubernetes Core", number: "Module 1", hours: "20 Hours", sessionCount: "5 Sessions", description: "Production Kubernetes from architecture to troubleshooting.", sessions: [{ name: "Full Curriculum", topics: ["What is Kubernetes & why K8s", "K8s Architecture & cluster components", "Pods, ReplicaSets & Deployments", "DaemonSets & Services", "Namespaces, Labels & Selectors", "Limits, Requests & Resource Management", "Taints, Tolerations & Node Scheduling", "Application Lifecycle Management", "Storage - PV, PVC, StorageClasses", "Networking & Ingress Controllers", "Security - RBAC, ServiceAccounts", "Troubleshooting & debugging"] }] }
+                {
+                    title: "Kubernetes Architecture & Core Objects",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Understand K8s architecture and master the fundamental building blocks.",
+                    sessions: [
+                        { name: "Architecture & Pods", topics: ["What is Kubernetes & why organizations adopt it", "K8s architecture — Control Plane (API, etcd, scheduler, controller)", "Worker nodes — kubelet, kube-proxy, container runtime", "kubectl CLI — config, contexts, namespaces", "Pods — the smallest deployable unit", "Multi-container pods — sidecar, init containers", "Labels, selectors & annotations"] },
+                        { name: "Workloads & Scheduling", topics: ["ReplicaSets — maintaining desired pod count", "Deployments — declarative updates & rollbacks", "DaemonSets — one pod per node", "StatefulSets — ordered, stable workloads", "Jobs & CronJobs — batch processing", "Resource requests, limits & quotas", "Taints, tolerations & node affinity", "Pod priority & preemption"] }
+                    ]
+                },
+                {
+                    title: "Networking, Storage & Services",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Master Kubernetes networking model, service discovery, and persistent storage.",
+                    sessions: [
+                        { name: "Networking & Services", topics: ["K8s networking model — pod-to-pod communication", "Services — ClusterIP, NodePort, LoadBalancer", "DNS-based service discovery", "Ingress controllers & Ingress resources", "TLS termination & cert-manager", "NetworkPolicies — controlling traffic flow", "CNI plugins — Calico, Flannel, Cilium overview"] },
+                        { name: "Storage & Configuration", topics: ["Volumes — emptyDir, hostPath, projected", "Persistent Volumes (PV) & PersistentVolumeClaims (PVC)", "StorageClasses & dynamic provisioning", "ConfigMaps — inject configuration without rebuilding images", "Secrets — managing sensitive data", "Projected volumes & downward API"] }
+                    ]
+                },
+                {
+                    title: "Security, Helm & Production Operations",
+                    number: "Module 3",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Secure your cluster, package applications with Helm, and operate K8s in production.",
+                    sessions: [
+                        { name: "Security & RBAC", topics: ["Authentication & authorization in K8s", "RBAC — Roles, ClusterRoles, Bindings", "ServiceAccounts & token management", "Pod Security Admission (PSA) standards", "Security contexts — runAsUser, capabilities", "Audit logging & compliance"] },
+                        { name: "Helm & Operations", topics: ["Helm 3 architecture — charts, releases, repos", "Creating charts — templates, values, helpers", "Chart dependencies & subcharts", "Hooks & test hooks", "Troubleshooting — kubectl describe, logs, events", "Debugging with ephemeral containers", "Cluster maintenance — drain, cordon, upgrades", "Final Project: Deploy a microservices app with Helm"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Architecture & Core Objects", hours: "8 hrs · 2 sessions", desc: "K8s architecture, pods, deployments, DaemonSets, scheduling, resource management." },
+                { phase: "Weeks 3–4", title: "Networking & Storage", hours: "8 hrs · 2 sessions", desc: "Services, Ingress, NetworkPolicies, PV/PVC, ConfigMaps, Secrets." },
+                { phase: "Weeks 5–6", title: "Security, Helm & Operations", hours: "8 hrs · 2 sessions", desc: "RBAC, Pod Security, Helm charts, troubleshooting, and final project." }
             ]
         },
         cicd: {
             title: "CI/CD Pipelines",
             badge: "intermediate",
             badgeText: "Intermediate",
-            description: "Build automated pipelines with Jenkins, GitLab CI, and GitHub Actions. Learn continuous integration and delivery best practices.",
+            description: "Build automated pipelines with Jenkins, GitLab CI, GitHub Actions, and ArgoCD. Master continuous integration, delivery, and GitOps best practices.",
+            tagline: "Automate everything. From commit to production in minutes.",
             duration: "5 Weeks",
             hours: "24 Hours",
             sessions: "6 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 5,500",
             priceNote: "Also included in the full DevOps program",
+            highlights: [
+                { icon: "🔄", title: "Multi-Tool Coverage", desc: "Jenkins, GitLab CI, GitHub Actions & ArgoCD — master the tools companies actually use." },
+                { icon: "📝", title: "Pipeline as Code", desc: "Declarative pipelines in Jenkinsfile, .gitlab-ci.yml, and GitHub workflow YAML." },
+                { icon: "🚀", title: "GitOps with ArgoCD", desc: "The modern approach — Git as the single source of truth for deployments." },
+                { icon: "🔐", title: "Secrets & Security", desc: "Manage credentials, environment variables, and security scanning in pipelines." },
+                { icon: "🐳", title: "Containerized Builds", desc: "Run CI/CD in containers for consistent, reproducible, isolated builds." },
+                { icon: "📊", title: "Real-World Projects", desc: "Build complete pipelines for real applications — not toy examples." }
+            ],
+            whoIsFor: [
+                { title: "Developers", desc: "Automate your testing and deployment. Never manually deploy code again." },
+                { title: "DevOps Engineers", desc: "CI/CD is your bread and butter. Master every major platform." },
+                { title: "Team Leads", desc: "Implement delivery pipelines that boost team velocity and code quality." },
+                { title: "QA Engineers", desc: "Integrate automated testing into every commit with CI pipelines." }
+            ],
             modules: [
-                { title: "Jenkins", number: "Module 1", hours: "12 Hours", sessionCount: "3 Sessions", description: "The most popular CI/CD tool in the industry.", sessions: [{ name: "Jenkins Deep-Dive", topics: ["Introduction to CI/CD and Jenkins", "Installing and configuring Jenkins", "Job types - Freestyle, Pipeline, Multibranch", "Jenkins Pipeline DSL & Groovy", "Securing Jenkins", "Distributed builds & containerized builds", "Jenkins API & CLI"] }] },
-                { title: "GitLab CI & GitHub Actions", number: "Module 2", hours: "12 Hours", sessionCount: "3 Sessions", description: "Modern cloud-native CI/CD platforms.", sessions: [{ name: "Modern CI/CD", topics: ["GitLab Runner setup & configuration", "Building CI/CD pipelines with .gitlab-ci.yml", "GitHub Actions workflows & syntax", "Managing secrets and environments", "ArgoCD & GitOps principles"] }] }
+                {
+                    title: "Jenkins — The Industry Standard",
+                    number: "Module 1",
+                    hours: "12 Hours",
+                    sessionCount: "3 Sessions",
+                    description: "The most widely-used CI/CD server. From installation to advanced pipeline patterns.",
+                    sessions: [
+                        { name: "Jenkins Fundamentals (1 Session)", topics: ["Introduction to CI/CD concepts & workflows", "Jenkins architecture — master, agents, executors", "Installation & initial configuration", "Job types — Freestyle vs Pipeline vs Multibranch", "Build triggers — webhooks, pollSCM, cron"] },
+                        { name: "Jenkins Pipelines (1 Session)", topics: ["Declarative Pipeline syntax", "Stages, steps, post actions", "Scripted Pipeline & Groovy basics", "Shared Libraries for reusable code", "Parallel stages for faster builds", "Pipeline parameters & input steps"] },
+                        { name: "Advanced Jenkins (1 Session)", topics: ["Distributed builds — agent configuration", "Containerized builds with Docker agent", "Jenkins security — RBAC, credentials store", "Jenkins API & CLI automation", "Blue Ocean UI", "Plugins ecosystem — Slack, SonarQube, Docker", "Final Project: Full CI/CD pipeline for a microservice"] }
+                    ]
+                },
+                {
+                    title: "GitLab CI & GitHub Actions",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Cloud-native CI/CD platforms integrated directly into your Git workflow.",
+                    sessions: [
+                        { name: "GitLab CI (1 Session)", topics: ["GitLab Runner — installation & registration", "Pipeline configuration — .gitlab-ci.yml", "Stages, jobs, artifacts & caching", "Variables — predefined & custom", "Environment deployments & review apps", "Auto DevOps & templates", "Container Registry integration"] },
+                        { name: "GitHub Actions (1 Session)", topics: ["Workflows, events & triggers", "Jobs, steps & actions marketplace", "Secrets & environment protection rules", "Matrix builds for multi-platform testing", "Reusable workflows & composite actions", "Self-hosted runners", "OIDC for cloud authentication (AWS/Azure)", "Deployment environments & approvals"] }
+                    ]
+                },
+                {
+                    title: "ArgoCD & GitOps",
+                    number: "Module 3",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "The future of deployment — Git as the single source of truth for Kubernetes.",
+                    sessions: [
+                        { name: "GitOps in Practice", topics: ["GitOps principles — declarative, versioned, automated", "ArgoCD installation & architecture", "Application CRDs & sync policies", "Auto-sync, self-heal & pruning", "App of Apps pattern for multi-service", "Rollback strategies & history", "Multi-cluster deployments", "Secrets management with Sealed Secrets", "Final Project: GitOps pipeline — push to Git, auto-deploy to K8s"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Jenkins Mastery", hours: "12 hrs · 3 sessions", desc: "Installation, Pipeline DSL, distributed builds, containerized agents, and security." },
+                { phase: "Weeks 3–4", title: "GitLab CI & GitHub Actions", hours: "8 hrs · 2 sessions", desc: "Cloud-native CI/CD — .gitlab-ci.yml, GitHub workflows, secrets, matrix builds, and environments." },
+                { phase: "Week 5", title: "ArgoCD & GitOps", hours: "4 hrs · 1 session", desc: "Declarative deployment with ArgoCD. Auto-sync, rollback, multi-cluster, and final project." }
             ]
         },
         aws: {
-            title: "AWS Cloud Engineering",
+            title: "AWS & Multi-Cloud Engineering",
             badge: "intermediate",
             badgeText: "Intermediate",
-            description: "Master Amazon Web Services from cloud fundamentals to AWS Cloud Practitioner certification. Learn EC2, S3, RDS, VPC, Lambda, and architecture best practices.",
+            description: "Master Amazon Web Services in depth, plus fundamentals of Azure, GCP, Alibaba Cloud & Oracle Cloud. Prepare for AWS Cloud Practitioner certification while becoming cloud-agnostic.",
+            tagline: "Deploy anywhere. AWS deep-dive + multi-cloud fundamentals.",
             duration: "8 Weeks",
-            hours: "24 Hours",
-            sessions: "6 Sessions",
+            hours: "40 Hours",
+            sessions: "10 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 7,500",
-            priceNote: "Includes AWS Cloud Practitioner prep",
+            priceNote: "Includes AWS Cloud Practitioner prep + multi-cloud overview",
+            highlights: [
+                { icon: "☁️", title: "AWS Deep-Dive", desc: "6 sessions on AWS — EC2, VPC, S3, RDS, Lambda, IAM, and the Well-Architected Framework." },
+                { icon: "🌍", title: "Multi-Cloud", desc: "Azure, GCP, Alibaba Cloud & Oracle Cloud basics — choose the right provider for any workload." },
+                { icon: "📜", title: "Certification Ready", desc: "Aligned with AWS Cloud Practitioner (CLF-C02) exam objectives." },
+                { icon: "💰", title: "Cost Optimization", desc: "Master pricing models, Reserved Instances, Spot, and cost management across clouds." },
+                { icon: "🔒", title: "Cloud Security", desc: "IAM best practices, Organizations, SCPs, MFA, encryption, and compliance." },
+                { icon: "🏗️", title: "Architecture Patterns", desc: "Design highly available, fault-tolerant, scalable systems using cloud-native services." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "You need to deploy infrastructure in the cloud. This gives you multi-cloud skills." },
+                { title: "System Administrators", desc: "Transition from on-premise to cloud. Understand IaaS, PaaS, and SaaS." },
+                { title: "Developers", desc: "Deploy your applications on scalable cloud infrastructure." },
+                { title: "Career Changers", desc: "Cloud engineering is one of the highest-paying tech fields. Start here." }
+            ],
             modules: [
-                { title: "Cloud Fundamentals & AWS", number: "Module 1", hours: "24 Hours", sessionCount: "6 Sessions", description: "Full AWS Cloud Practitioner preparation.", sessions: [{ name: "AWS Curriculum", topics: ["Introduction to Cloud Computing", "AWS Global Infrastructure", "Amazon EC2 & Compute services", "Networking - VPC, Subnets, Security Groups", "Storage - S3, EBS, EFS", "Databases - RDS, DynamoDB", "Security - IAM, Policies, MFA", "Pricing, Billing & Support plans", "Migration & Innovation strategies", "AWS Well-Architected Framework"] }] }
+                {
+                    title: "Cloud Foundations & AWS Core",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Understand cloud computing fundamentals and AWS core compute/networking services.",
+                    sessions: [
+                        { name: "Cloud Fundamentals & EC2", topics: ["What is Cloud Computing — on-demand, pay-as-you-go", "Cloud models — IaaS, PaaS, SaaS, Serverless", "AWS Global Infrastructure — Regions, AZs, Edge Locations", "AWS Management Console, CLI & SDKs", "Amazon EC2 — instance types, AMIs, key pairs", "Launch, connect & manage EC2 instances", "Security Groups — inbound/outbound rules", "Elastic IPs & placement groups"] },
+                        { name: "Networking & VPC", topics: ["Amazon VPC — your private cloud network", "Subnets — public vs private", "Internet Gateway & NAT Gateway", "Route tables & routing", "VPC Peering & VPC Endpoints", "Elastic Load Balancers — ALB, NLB, CLB", "Auto Scaling Groups — scaling policies", "AWS Direct Connect & VPN basics"] }
+                    ]
+                },
+                {
+                    title: "AWS Storage, Databases & Security",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Master AWS storage options, database services, and the IAM security model.",
+                    sessions: [
+                        { name: "Storage & Databases", topics: ["Amazon S3 — buckets, objects, storage classes", "S3 lifecycle rules, versioning & replication", "Amazon EBS — volume types & snapshots", "Amazon EFS — shared file storage", "AWS Glacier & S3 Glacier Deep Archive", "Amazon RDS — managed relational databases", "Amazon DynamoDB — NoSQL at scale", "Amazon Aurora — high-performance MySQL/PostgreSQL", "ElastiCache — Redis & Memcached"] },
+                        { name: "Security & IAM", topics: ["AWS IAM — users, groups, roles, policies", "Policy documents — JSON structure & evaluation", "Multi-Factor Authentication (MFA)", "AWS Organizations & Service Control Policies", "AWS CloudTrail — audit logging", "AWS Config — compliance monitoring", "AWS KMS & encryption at rest/in transit", "AWS Secrets Manager & Systems Manager Parameter Store", "Shared Responsibility Model"] }
+                    ]
+                },
+                {
+                    title: "AWS Advanced Services & Architecture",
+                    number: "Module 3",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Serverless, containers on AWS, and architecture best practices.",
+                    sessions: [
+                        { name: "Serverless & Containers", topics: ["AWS Lambda — functions, triggers, event sources", "API Gateway — REST & HTTP APIs", "Amazon ECS — container orchestration on AWS", "Amazon EKS — managed Kubernetes", "AWS Fargate — serverless containers", "Amazon ECR — container image registry", "AWS Step Functions — workflow orchestration", "Amazon SNS, SQS & EventBridge"] },
+                        { name: "Architecture & Well-Architected", topics: ["AWS Well-Architected Framework — 6 pillars", "Operational Excellence pillar", "Security pillar", "Reliability pillar — HA & DR strategies", "Performance Efficiency pillar", "Cost Optimization pillar", "Sustainability pillar", "AWS Pricing — On-Demand, Reserved, Spot, Savings Plans", "AWS Budgets, Cost Explorer & Trusted Advisor", "Migration strategies — 7 Rs of migration"] }
+                    ]
+                },
+                {
+                    title: "Multi-Cloud Fundamentals",
+                    number: "Module 4",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Expand your cloud skills beyond AWS — learn Azure, GCP, Alibaba Cloud, and Oracle Cloud basics.",
+                    sessions: [
+                        { name: "Azure & GCP (1 Session)", topics: ["Microsoft Azure — Resource Groups, VMs, App Services", "Azure Kubernetes Service (AKS)", "Azure DevOps — Pipelines, Repos, Boards", "Azure Active Directory & RBAC", "Google Cloud Platform — Compute Engine, GKE", "GCP Cloud Build & Cloud Run", "GCP IAM & networking", "Cloud comparison: AWS vs Azure vs GCP"] },
+                        { name: "Alibaba & Oracle Cloud (1 Session)", topics: ["Alibaba Cloud — ECS, Container Service for K8s", "Alibaba Object Storage Service (OSS)", "Alibaba cloud networking & security basics", "Use cases: Chinese market & global expansion", "Oracle Cloud Infrastructure (OCI) — Compute, Networking", "OCI Always-Free tier resources", "Oracle Kubernetes Engine (OKE)", "OCI Identity & Access Management", "Choosing the right cloud for your workload", "Multi-cloud architecture patterns & strategies"] }
+                    ]
+                },
+                {
+                    title: "Red Hat OpenShift",
+                    number: "Module 5",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Enterprise Kubernetes platform — OpenShift for production container orchestration.",
+                    sessions: [
+                        { name: "OpenShift Platform", topics: ["OpenShift vs vanilla Kubernetes — what's different", "OpenShift architecture — master, infra, app nodes", "Projects, users & RBAC in OpenShift", "Deploying applications — oc CLI & web console", "Source-to-Image (S2I) builds", "Routes & networking in OpenShift", "Persistent storage & StorageClasses", "Operators & OperatorHub", "Cluster administration & updates", "OpenShift on cloud (ROSA, ARO, OSD)"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "AWS Core: Compute & Networking", hours: "8 hrs · 2 sessions", desc: "EC2, VPC, subnets, load balancers, auto-scaling — the foundation of AWS infrastructure." },
+                { phase: "Weeks 3–4", title: "Storage, Databases & Security", hours: "8 hrs · 2 sessions", desc: "S3, EBS, RDS, DynamoDB, IAM, Organizations, encryption — data and security mastery." },
+                { phase: "Weeks 5–6", title: "Advanced AWS & Architecture", hours: "8 hrs · 2 sessions", desc: "Lambda, ECS/EKS, Well-Architected Framework, cost optimization, and migration." },
+                { phase: "Week 7", title: "Multi-Cloud: Azure, GCP, Alibaba, Oracle", hours: "8 hrs · 2 sessions", desc: "Fundamentals of 4 additional clouds. Compare services and understand multi-cloud patterns." },
+                { phase: "Week 8", title: "Red Hat OpenShift", hours: "8 hrs · 2 sessions", desc: "Enterprise K8s with OpenShift — S2I, routes, operators, and cluster administration." }
             ]
         },
         terraform: {
-            title: "Terraform & IaC",
+            title: "Terraform & Ansible — IaC",
             badge: "advanced",
             badgeText: "Advanced",
-            description: "Infrastructure as Code with Terraform and Ansible. Automate cloud infrastructure provisioning, configuration management, and deployment.",
+            description: "Infrastructure as Code mastery. Provision cloud infrastructure with Terraform and configure servers with Ansible. Automate everything — from VMs to entire Kubernetes clusters.",
+            tagline: "Define your infrastructure in code. Version it. Automate it.",
             duration: "6 Weeks",
             hours: "24 Hours",
             sessions: "6 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 6,500",
             priceNote: "Also included in the full DevOps program",
+            highlights: [
+                { icon: "🏗️", title: "Terraform Deep-Dive", desc: "HCL syntax, providers, modules, state management, workspaces — complete Terraform mastery." },
+                { icon: "⚙️", title: "Ansible Automation", desc: "Agentless configuration management — playbooks, roles, variables, Vault." },
+                { icon: "☁️", title: "Multi-Cloud IaC", desc: "Provision infrastructure on AWS, Azure, GCP with the same Terraform workflow." },
+                { icon: "🔄", title: "State Management", desc: "Remote backends, state locking, import, and disaster recovery for Terraform state." },
+                { icon: "📦", title: "Reusable Modules", desc: "Write, publish & consume Terraform modules for consistent infrastructure patterns." },
+                { icon: "🎯", title: "Real Projects", desc: "Deploy a complete VPC + EKS cluster + monitoring stack using Terraform + Ansible." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "IaC is non-negotiable. Automate infrastructure provisioning and configuration." },
+                { title: "Cloud Engineers", desc: "Stop clicking in consoles. Define infrastructure as code and deploy consistently." },
+                { title: "SRE Teams", desc: "Reproducible infrastructure, disaster recovery, and compliance-as-code." },
+                { title: "Platform Engineers", desc: "Build internal platforms with reusable Terraform modules and Ansible roles." }
+            ],
             modules: [
-                { title: "Ansible", number: "Module 1", hours: "12 Hours", sessionCount: "3 Sessions", description: "Agentless configuration management at scale.", sessions: [{ name: "Ansible", topics: ["Introduction to Ansible & agentless architecture", "Deploy Ansible - inventory, modules, ad-hoc", "Implement playbooks & manage variables", "Task control - handlers, loops, conditionals", "Roles & project organization", "Automate Linux administration tasks"] }] },
-                { title: "Terraform", number: "Module 2", hours: "12 Hours", sessionCount: "3 Sessions", description: "Declarative infrastructure provisioning.", sessions: [{ name: "Terraform", topics: ["Introduction to Infrastructure as Code", "Terraform architecture & HCL syntax", "Providers, resources & data sources", "State management & remote backends", "Variables, outputs & variable files", "Modules & code reusability", "Workspaces & environments", "Plan, Apply, Destroy lifecycle"] }] }
+                {
+                    title: "Ansible — Configuration Management",
+                    number: "Module 1",
+                    hours: "12 Hours",
+                    sessionCount: "3 Sessions",
+                    description: "Agentless automation at scale. Configure servers, deploy applications, and orchestrate complex workflows.",
+                    sessions: [
+                        { name: "Ansible Fundamentals (1 Session)", topics: ["Introduction to configuration management", "Ansible architecture — agentless, SSH-based", "Installation & inventory files (INI & YAML)", "Ad-hoc commands — modules, arguments", "Connection types & privilege escalation", "Ansible configuration file (ansible.cfg)"] },
+                        { name: "Playbooks & Variables (1 Session)", topics: ["YAML syntax for playbooks", "Plays, tasks & modules", "Variables — inventory, playbook, extra-vars", "Variable precedence & scoping", "Facts & magic variables", "Handlers & task notifications", "Loops — with_items, loop, dict", "Conditionals — when, changed_when, failed_when", "Templates — Jinja2 syntax & filters"] },
+                        { name: "Roles & Advanced Ansible (1 Session)", topics: ["Roles — directory structure & organization", "Galaxy — finding & using community roles", "Ansible Vault — encrypting secrets", "Error handling — block, rescue, always", "Delegation & local actions", "Tags for selective execution", "Ansible for Linux administration — users, packages, services", "Ansible for application deployment", "Final Project: Multi-tier application deployment (web + app + db)"] }
+                    ]
+                },
+                {
+                    title: "Terraform — Infrastructure Provisioning",
+                    number: "Module 2",
+                    hours: "12 Hours",
+                    sessionCount: "3 Sessions",
+                    description: "Declarative infrastructure provisioning for any cloud. Write, plan, apply.",
+                    sessions: [
+                        { name: "Terraform Fundamentals (1 Session)", topics: ["What is Infrastructure as Code — why Terraform", "Terraform architecture — providers, plugins, state", "HCL syntax — blocks, arguments, expressions", "terraform init, plan, apply, destroy lifecycle", "Providers — AWS, Azure, GCP configuration", "Resources & data sources", "Input variables & variable types", "Output values & resource attributes"] },
+                        { name: "State & Modules (1 Session)", topics: ["Terraform state — what it is & why it matters", "Local vs remote backends (S3, Azure Blob, GCS)", "State locking with DynamoDB", "terraform import — bring existing resources under management", "State manipulation — mv, rm, taint", "Modules — creating reusable infrastructure", "Module sources — local, registry, Git", "Module inputs, outputs & versioning", "Terraform Registry & community modules"] },
+                        { name: "Advanced Terraform (1 Session)", topics: ["Workspaces — managing multiple environments", "Dynamic blocks & for_each", "count vs for_each — when to use which", "Provisioners — local-exec, remote-exec (and why to avoid them)", "Lifecycle rules — create_before_destroy, prevent_destroy", "Terraform Cloud & Terraform Enterprise overview", "CI/CD for Terraform — automated plan & apply", "Policy as Code — Sentinel/OPA basics", "Final Project: Provision VPC + EKS + RDS on AWS with modules"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Ansible Fundamentals & Playbooks", hours: "8 hrs · 2 sessions", desc: "Inventory, ad-hoc commands, YAML playbooks, variables, handlers, loops, and conditionals." },
+                { phase: "Week 3", title: "Ansible Roles & Advanced", hours: "4 hrs · 1 session", desc: "Roles, Galaxy, Vault, error handling, and multi-tier application deployment project." },
+                { phase: "Weeks 4–5", title: "Terraform Core & Modules", hours: "8 hrs · 2 sessions", desc: "HCL, providers, resources, state management, remote backends, and reusable modules." },
+                { phase: "Week 6", title: "Advanced Terraform & Final Project", hours: "4 hrs · 1 session", desc: "Workspaces, dynamic blocks, CI/CD for Terraform, and final project: full cloud infra provisioning." }
             ]
         },
         git: {
             title: "Git & Version Control",
             badge: "beginner",
             badgeText: "Beginner",
-            description: "Master Git workflows, branching strategies, pull requests, and collaborative development with GitHub.",
+            description: "Master Git workflows, branching strategies, pull requests, and collaborative development with GitHub. The essential skill every developer and DevOps engineer needs.",
+            tagline: "Track every change. Collaborate without chaos.",
             duration: "3 Weeks",
             hours: "8 Hours",
             sessions: "2 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 2,500",
             priceNote: "Essential for all developers",
+            highlights: [
+                { icon: "🔀", title: "Branching Strategies", desc: "GitFlow, GitHub Flow, trunk-based — choose the right strategy for your team." },
+                { icon: "🤝", title: "Team Collaboration", desc: "Pull requests, code reviews, merge conflicts — work in teams like a pro." },
+                { icon: "⏪", title: "Time Travel", desc: "Revert, reset, rebase, cherry-pick — undo mistakes and rewrite history safely." },
+                { icon: "🏷️", title: "Tags & Releases", desc: "Semantic versioning, release tags, and changelog generation." },
+                { icon: "🔐", title: "Signed Commits", desc: "GPG signing, verified commits, and repository security best practices." },
+                { icon: "🚀", title: "GitHub Workflows", desc: "Issues, Projects, Actions triggers, and repository management." }
+            ],
+            whoIsFor: [
+                { title: "Complete Beginners", desc: "Never used Git? Start here. We teach from scratch — init, add, commit, push." },
+                { title: "Solo Developers", desc: "Track your code, create backups, and maintain clean project history." },
+                { title: "Team Members", desc: "Learn branching, PRs, and code review — the collaboration workflow companies use." },
+                { title: "DevOps Learners", desc: "Git is the trigger for CI/CD pipelines. Understand it deeply before automation." }
+            ],
             modules: [
-                { title: "Git & GitHub", number: "Module 1", hours: "8 Hours", sessionCount: "2 Sessions", description: "Version control mastery for team collaboration.", sessions: [{ name: "Git", topics: ["Getting started with version control", "Git branching & merging strategies", "Working with remotes - push, pull, fetch", "Pull requests & code review workflow", "Resolving merge conflicts", "Git rebase, reset & advanced commands", "GitHub Flow & collaboration best practices"] }] }
+                {
+                    title: "Git Fundamentals & Daily Workflow",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "From first commit to confident daily Git usage. Core concepts and commands.",
+                    sessions: [
+                        { name: "Git Core Concepts", topics: ["Version control — why it matters", "Git architecture — working directory, staging, repository", "git init, clone — starting a repository", "git add, commit — staging and snapshotting", "git status, log, diff — understanding state", "Branching — git branch, checkout, switch", "Merging — fast-forward, 3-way, squash", "Resolving merge conflicts step by step", "git stash — saving work in progress", "Remote repositories — origin, push, pull, fetch", ".gitignore — excluding files and patterns"] }
+                    ]
+                },
+                {
+                    title: "Advanced Git & GitHub Collaboration",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Advanced commands, branching strategies, and team collaboration on GitHub.",
+                    sessions: [
+                        { name: "Advanced Git & Teamwork", topics: ["git rebase — linear history & interactive rebase", "git reset — soft, mixed, hard", "git revert — safe undo for shared branches", "git cherry-pick — selective commits", "Tags — lightweight & annotated, semantic versioning", "Branching strategies — GitFlow, GitHub Flow, trunk-based", "Pull Requests — creating, reviewing, approving", "Code review best practices & conventions", "GitHub Issues, Projects & Milestones", "Protected branches & branch rules", "GPG signing & verified commits", "Git hooks — pre-commit, commit-msg", "GitHub CLI (gh) for productivity", "Final Exercise: Simulate a team workflow with PRs & reviews"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Git Fundamentals", hours: "4 hrs · 1 session", desc: "Core concepts, daily workflow commands, branching, merging, and remote repositories." },
+                { phase: "Weeks 2–3", title: "Advanced Git & Collaboration", hours: "4 hrs · 1 session", desc: "Rebase, reset, branching strategies, pull requests, code reviews, and team workflows." }
             ]
         },
         devsecops: {
             title: "DevSecOps",
             badge: "advanced",
             badgeText: "Advanced",
-            description: "Integrate security into the DevOps pipeline. Learn SAST, DAST, container security, compliance, and security automation.",
+            description: "Integrate security into every stage of the DevOps pipeline. SAST, DAST, container scanning, secrets management, compliance-as-code, and security automation.",
+            tagline: "Shift left. Security is everyone's responsibility.",
             duration: "6 Weeks",
             hours: "20 Hours",
             sessions: "5 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 7,000",
             priceNote: "Security-focused DevOps",
+            highlights: [
+                { icon: "🛡️", title: "Shift-Left Security", desc: "Find vulnerabilities in code & dependencies before they reach production." },
+                { icon: "🔍", title: "SAST & DAST", desc: "Static and Dynamic Application Security Testing integrated into CI/CD." },
+                { icon: "🐳", title: "Container Security", desc: "Scan images, enforce policies, runtime security with Falco & OPA." },
+                { icon: "🔐", title: "Secrets Management", desc: "HashiCorp Vault, AWS Secrets Manager, sealed secrets — never hardcode credentials." },
+                { icon: "📋", title: "Compliance as Code", desc: "Policy enforcement with OPA/Gatekeeper, automated compliance audits." },
+                { icon: "🚨", title: "Incident Response", desc: "Detect, respond, and recover from security incidents systematically." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "Add security skills to your toolkit. DevSecOps engineers earn 20%+ more." },
+                { title: "Security Analysts", desc: "Learn to automate security in modern CI/CD pipelines and cloud infrastructure." },
+                { title: "Developers", desc: "Write secure code. Understand OWASP Top 10 and how to prevent vulnerabilities." },
+                { title: "Compliance Teams", desc: "Automate compliance checks and audit trails in the delivery pipeline." }
+            ],
             modules: [
-                { title: "DevSecOps", number: "Module 1", hours: "20 Hours", sessionCount: "5 Sessions", description: "Security at every stage of the pipeline.", sessions: [{ name: "DevSecOps", topics: ["Security in the DevOps lifecycle", "SAST - Static Application Security Testing", "DAST - Dynamic Application Security Testing", "Container security scanning", "Infrastructure security & compliance", "Secrets management", "Security automation in CI/CD pipelines", "Incident response & monitoring"] }] }
+                {
+                    title: "Security Foundations & SAST",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "DevSecOps principles and static security analysis in the development phase.",
+                    sessions: [
+                        { name: "DevSecOps Principles (1 Session)", topics: ["Security in the DevOps lifecycle — shift-left concept", "OWASP Top 10 — common vulnerabilities explained", "Threat modeling — STRIDE methodology", "Security champions model in teams", "Security gates in CI/CD pipelines", "Risk assessment & vulnerability scoring (CVSS)"] },
+                        { name: "SAST & Dependency Scanning (1 Session)", topics: ["Static Application Security Testing (SAST) — concept & tools", "SonarQube — installation, quality gates, security rules", "Semgrep — custom rules for your codebase", "Software Composition Analysis (SCA)", "Dependency scanning — Snyk, OWASP Dependency-Check", "License compliance scanning", "Integrating SAST into CI/CD pipelines (Jenkins, GitHub Actions)", "Fixing vulnerabilities — remediation workflows"] }
+                    ]
+                },
+                {
+                    title: "Container Security & DAST",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Secure containers, registries, and runtime environments. Dynamic testing for deployed applications.",
+                    sessions: [
+                        { name: "Container & Image Security (1 Session)", topics: ["Docker image scanning — Trivy, Grype, Scout", "Base image selection — distroless, Alpine, scratch", "Dockerfile best practices — non-root, minimal layers", "Registry security — signing, scanning on push", "Kubernetes security — Pod Security Standards", "Open Policy Agent (OPA) & Gatekeeper", "Runtime security — Falco for anomaly detection", "Network policies for micro-segmentation"] },
+                        { name: "DAST & Penetration Testing (1 Session)", topics: ["Dynamic Application Security Testing (DAST) — concept", "OWASP ZAP — automated scanning", "Nuclei — template-based vulnerability scanning", "API security testing — authentication, injection", "Integrating DAST into CI/CD — scheduled scans", "Interpreting scan results & false positives", "Bug bounty programs & responsible disclosure"] }
+                    ]
+                },
+                {
+                    title: "Secrets, Compliance & Incident Response",
+                    number: "Module 3",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Manage secrets securely, enforce compliance, and respond to security incidents.",
+                    sessions: [
+                        { name: "Secrets & Compliance", topics: ["Secrets management — why & how", "HashiCorp Vault — secrets engine, authentication", "AWS Secrets Manager & Parameter Store", "Kubernetes secrets — Sealed Secrets, External Secrets", "Git secrets scanning — gitleaks, trufflehog", "Compliance as Code — OPA policies, Sentinel", "CIS Benchmarks automation — kube-bench, docker-bench", "Audit logging — CloudTrail, K8s audit", "Incident response framework — detect, contain, eradicate, recover", "Security monitoring & alerting integration", "Final Project: Secure CI/CD pipeline with SAST, container scan, secrets vault"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Foundations & SAST", hours: "8 hrs · 2 sessions", desc: "DevSecOps principles, OWASP Top 10, SonarQube, dependency scanning, and CI/CD security gates." },
+                { phase: "Weeks 3–4", title: "Container Security & DAST", hours: "8 hrs · 2 sessions", desc: "Image scanning, runtime security, OPA, DAST with ZAP, and API security testing." },
+                { phase: "Weeks 5–6", title: "Secrets & Compliance", hours: "4 hrs · 1 session", desc: "Vault, secrets management, compliance-as-code, incident response, and final secure pipeline project." }
             ]
         },
         monitoring: {
             title: "Monitoring & Observability",
             badge: "advanced",
             badgeText: "Advanced",
-            description: "Prometheus, Grafana, ELK Stack, and distributed tracing for production systems. Build dashboards, alerts, and observability pipelines.",
+            description: "Build production-grade monitoring with Prometheus, Grafana, and ELK Stack. Metrics, logs, dashboards, alerting, and distributed tracing for reliable systems.",
+            tagline: "You can't fix what you can't see. Observe everything.",
             duration: "5 Weeks",
             hours: "8 Hours",
             sessions: "2 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 5,500",
             priceNote: "Essential for SRE/DevOps",
+            highlights: [
+                { icon: "📊", title: "Prometheus & Grafana", desc: "Industry-standard metrics collection, PromQL queries, and beautiful dashboards." },
+                { icon: "📝", title: "ELK Stack", desc: "Elasticsearch, Logstash, Kibana — centralize and analyze logs from all your services." },
+                { icon: "🚨", title: "Alerting", desc: "Configure smart alerts with Alertmanager — PagerDuty, Slack, email integrations." },
+                { icon: "🔍", title: "Distributed Tracing", desc: "Trace requests across microservices with Jaeger/Tempo." },
+                { icon: "📈", title: "SLIs, SLOs & Error Budgets", desc: "Implement Google's SRE practices for reliability." },
+                { icon: "🎯", title: "Production Dashboards", desc: "Build real-time dashboards that tell the story — not just show numbers." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "Production monitoring is your responsibility. Build reliable observability stacks." },
+                { title: "SREs", desc: "SLIs, SLOs, error budgets, and incident management — the SRE way." },
+                { title: "Backend Developers", desc: "Instrument your apps, understand performance, and debug production issues." },
+                { title: "Platform Teams", desc: "Build the monitoring platform that other teams rely on." }
+            ],
             modules: [
-                { title: "Monitoring Stack", number: "Module 1", hours: "8 Hours", sessionCount: "2 Sessions", description: "Production monitoring and alerting.", sessions: [{ name: "Monitoring", topics: ["Introduction to Prometheus & metrics", "Prometheus installation & configuration", "PromQL queries & alerting rules", "Grafana dashboards & visualization", "Kibana & log analysis", "Integrating monitoring in CI/CD", "Security & optimization best practices"] }] }
+                {
+                    title: "Prometheus & Grafana",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Metrics-based monitoring — collect, query, visualize, and alert on time-series data.",
+                    sessions: [
+                        { name: "Metrics & Dashboards", topics: ["Observability pillars — metrics, logs, traces", "Prometheus architecture — server, exporters, Alertmanager", "Installation — standalone & on Kubernetes (kube-prometheus-stack)", "Metric types — counters, gauges, histograms, summaries", "Instrumenting applications — client libraries", "PromQL — selectors, operators, functions, aggregations", "Recording rules for complex queries", "Alerting rules & Alertmanager configuration", "Alertmanager routing — Slack, PagerDuty, email, webhooks", "Grafana installation & data sources", "Building dashboards — panels, variables, annotations", "Dashboard best practices — RED method, USE method", "SLIs, SLOs & error budget calculations", "Node Exporter, cAdvisor & kube-state-metrics"] }
+                    ]
+                },
+                {
+                    title: "ELK Stack & Log Management",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Centralized logging — collect, parse, store, and analyze logs from all services.",
+                    sessions: [
+                        { name: "Logging & Analysis", topics: ["Why centralized logging — the problem it solves", "ELK Stack architecture — Elasticsearch, Logstash, Kibana", "Elasticsearch — indices, shards, mappings, queries", "Logstash — inputs, filters (grok, mutate), outputs", "Filebeat & Fluentd — lightweight log shippers", "Kibana — Discover, Visualize, Dashboards, Lens", "Log patterns & structured logging (JSON)", "Log rotation, retention & index lifecycle management", "Distributed tracing concepts — Jaeger, Tempo", "Correlating metrics, logs & traces", "Monitoring the monitoring — meta-monitoring", "Security & access control for observability data", "Final Project: Full observability stack — Prometheus + Grafana + ELK for a microservices app"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Prometheus & Grafana", hours: "4 hrs · 1 session", desc: "Metrics collection, PromQL, alerting rules, Alertmanager, and production Grafana dashboards." },
+                { phase: "Weeks 3–5", title: "ELK Stack & Observability", hours: "4 hrs · 1 session", desc: "Centralized logging with ELK, distributed tracing, and final project: full observability stack." }
             ]
         }
     };
