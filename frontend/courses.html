@@ -234,6 +234,9 @@
 
     function sortCourses(courses) {
         return [...courses].sort((a, b) => {
+            if (a.courseId === 'devops' && b.courseId !== 'devops') return -1;
+            if (b.courseId === 'devops' && a.courseId !== 'devops') return 1;
+
             const catA = courseCategories[a.courseId] || a.level;
             const catB = courseCategories[b.courseId] || b.level;
             const catRankA = categorySortOrder[catA] || 99;

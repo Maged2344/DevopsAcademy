@@ -316,7 +316,13 @@
             const res = await fetch('/api/courses');
             if (!res.ok) throw new Error('Failed');
             const courses = await res.json();
-            const featured = courses.slice(0, 4);
+            const featured = [...courses]
+                .sort((a, b) => {
+                    if (a.courseId === 'devops' && b.courseId !== 'devops') return -1;
+                    if (b.courseId === 'devops' && a.courseId !== 'devops') return 1;
+                    return a.name.localeCompare(b.name);
+                })
+                .slice(0, 4);
             const grid = document.getElementById('featuredCoursesGrid');
 
             grid.innerHTML = featured.map(c => {
