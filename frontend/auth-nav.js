@@ -16,7 +16,7 @@ function initAuthNav() {
         // User is signed in - show My Portal and Logout
         authButtonsLi.innerHTML = `
             <a href="/portal.html" class="btn btn-small">My Portal</a>
-            <a href="javascript:void(0);" onclick="logoutStudent()" class="btn btn-small btn-outline">Logout</a>
+            <a href="javascript:void(0);" class="btn btn-small btn-outline" onclick="logoutStudent(); return false;">Logout</a>
         `;
     } else {
         // User not signed in - show Register and Sign In
@@ -34,11 +34,12 @@ function logoutStudent() {
     }
 }
 
-// Initialize on page load
+// Initialize immediately
+initAuthNav();
+
+// Also initialize on page load in case DOM wasn't ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAuthNav);
-} else {
-    initAuthNav();
 }
 
 // Re-check auth state when page becomes visible (after tab switch)

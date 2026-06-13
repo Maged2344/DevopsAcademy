@@ -214,6 +214,7 @@
 
             localStorage.setItem(studentTokenKey, data.token);
             await loadDashboard();
+            if (typeof initAuthNav === 'function') initAuthNav();
         } catch (err) {
             showMessage('Network error. Please try again.');
         }
@@ -247,6 +248,7 @@
             localStorage.setItem(studentTokenKey, data.token);
             showMessage('Account created successfully.', 'success');
             await loadDashboard();
+            if (typeof initAuthNav === 'function') initAuthNav();
         } catch (err) {
             showMessage('Network error. Please try again.');
         }
@@ -256,10 +258,12 @@
         localStorage.removeItem(studentTokenKey);
         document.getElementById('dashboardSection').style.display = 'none';
         document.getElementById('authSection').style.display = 'block';
+        if (typeof initAuthNav === 'function') initAuthNav();
         switchTab('signin');
     });
 
     loadDashboard();
+    if (typeof initAuthNav === 'function') initAuthNav();
     </script>
 
     <!-- Auth Navigation Handler -->
