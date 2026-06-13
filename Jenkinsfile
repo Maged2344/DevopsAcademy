@@ -35,7 +35,7 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment successful! Site is live at https://20.25.62.124'
+            echo 'Deployment successful! Site is live at https://devopsacademy.cloud-stacks.com'
             mail to: 'maged3bdelfatah@gmail.com',
                  subject: "SUCCESS: DevopsAcademy Build #${env.BUILD_NUMBER}",
                  body: "The pipeline completed successfully.\nSite is live at https://20.25.62.124"
