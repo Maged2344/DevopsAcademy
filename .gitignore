@@ -22,3 +22,8 @@ ssl/
 
 # Test scripts
 test-api.js
+
+# Playwright cache & artifacts
+.playwright/
+test-results/
+playwright-report/

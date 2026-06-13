@@ -288,6 +288,43 @@ app.get('/api/courses', async (req, res) => {
   }
 });
 
+// Get visitor statistics (public)
+app.get('/api/visitor-stats', async (req, res) => {
+  try {
+    const stats = await Visit.aggregate([
+      {
+        $group: {
+          _id: '$page',
+          count: { $sum: 1 },
+          uniqueIPs: { $addToSet: '$ip' }
+        }
+      },
+      {
+        $project: {
+          page: '$_id',
+          visits: '$count',
+          uniqueVisitors: { $size: '$uniqueIPs' },
+          _id: 0
+        }
+      },
+      { $sort: { visits: -1 } },
+      { $limit: 10 }
+    ]);
+    
+    const totalVisits = await Visit.countDocuments();
+    const uniqueVisitors = await Visit.distinct('ip');
+    
+    res.json({
+      totalVisits,
+      uniqueVisitors: uniqueVisitors.length,
+      pageStats: stats,
+      timestamp: new Date()
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Submit enrollment application
 app.post('/api/enroll', async (req, res) => {
   try {

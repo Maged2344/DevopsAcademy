@@ -1,0 +1,19 @@
+{
+  "name": "devopsacademy-tests",
+  "version": "1.0.0",
+  "description": "E2E and integration tests for DevOps Academy",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:headed": "npx playwright test --headed",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:pages": "npx playwright test --grep @pages",
+    "test:auth": "npx playwright test --grep @auth",
+    "test:buttons": "npx playwright test --grep @buttons",
+    "test:infra": "npx playwright test --grep @infra",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}
