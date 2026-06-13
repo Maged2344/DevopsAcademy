@@ -3,8 +3,81 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 const app = express();
+
+// ===== Email Notification Setup =====
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: process.env.SMTP_SECURE === 'true',
+  auth: {
+    user: process.env.SMTP_USER || '',
+    pass: process.env.SMTP_PASS || ''
+  }
+});
+
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || process.env.SMTP_USER || '';
+
+async function sendEnrollmentNotification(enrollment) {
+  if (!NOTIFY_EMAIL || !process.env.SMTP_USER) return;
+  try {
+    await transporter.sendMail({
+      from: `"DevOps Academy" <${process.env.SMTP_USER}>`,
+      to: NOTIFY_EMAIL,
+      subject: `🎓 New Enrollment: ${enrollment.firstName} ${enrollment.lastName} — ${enrollment.course}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
+          <h2 style="color:#1e40af;border-bottom:2px solid #3b82f6;padding-bottom:10px;">New Enrollment Application</h2>
+          <table style="width:100%;border-collapse:collapse;margin-top:16px;">
+            <tr><td style="padding:8px;font-weight:bold;color:#374151;">Name</td><td style="padding:8px;">${enrollment.firstName} ${enrollment.lastName}</td></tr>
+            <tr style="background:#f8fafc;"><td style="padding:8px;font-weight:bold;color:#374151;">Email</td><td style="padding:8px;">${enrollment.email}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#374151;">Phone</td><td style="padding:8px;">${enrollment.phone}</td></tr>
+            <tr style="background:#f8fafc;"><td style="padding:8px;font-weight:bold;color:#374151;">Course</td><td style="padding:8px;color:#1e40af;font-weight:bold;">${enrollment.course}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#374151;">Experience</td><td style="padding:8px;">${enrollment.experience}</td></tr>
+            ${enrollment.message ? `<tr style="background:#f8fafc;"><td style="padding:8px;font-weight:bold;color:#374151;">Message</td><td style="padding:8px;">${enrollment.message}</td></tr>` : ''}
+          </table>
+          <p style="margin-top:20px;color:#64748b;font-size:0.85rem;">Submitted: ${new Date().toLocaleString('en-EG', { timeZone: 'Africa/Cairo' })}</p>
+          <a href="https://devopsacademy.cloud-stacks.com/admin.html" style="display:inline-block;margin-top:16px;padding:10px 24px;background:#1e40af;color:#fff;text-decoration:none;border-radius:6px;">View in Admin Panel</a>
+        </div>
+      `
+    });
+    console.log('📧 Enrollment notification sent to', NOTIFY_EMAIL);
+  } catch (err) {
+    console.error('❌ Email notification failed:', err.message);
+  }
+}
+
+async function sendServiceNotification(request) {
+  if (!NOTIFY_EMAIL || !process.env.SMTP_USER) return;
+  try {
+    await transporter.sendMail({
+      from: `"DevOps Academy" <${process.env.SMTP_USER}>`,
+      to: NOTIFY_EMAIL,
+      subject: `🛠️ New Service Request: ${request.name} — ${request.serviceType}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
+          <h2 style="color:#f59e0b;border-bottom:2px solid #f59e0b;padding-bottom:10px;">New Service Request</h2>
+          <table style="width:100%;border-collapse:collapse;margin-top:16px;">
+            <tr><td style="padding:8px;font-weight:bold;color:#374151;">Name</td><td style="padding:8px;">${request.name}</td></tr>
+            <tr style="background:#f8fafc;"><td style="padding:8px;font-weight:bold;color:#374151;">Company</td><td style="padding:8px;">${request.company || '-'}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#374151;">Email</td><td style="padding:8px;">${request.email}</td></tr>
+            <tr style="background:#f8fafc;"><td style="padding:8px;font-weight:bold;color:#374151;">Phone</td><td style="padding:8px;">${request.phone}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#374151;">Service</td><td style="padding:8px;color:#f59e0b;font-weight:bold;">${request.serviceType}</td></tr>
+            <tr style="background:#f8fafc;"><td style="padding:8px;font-weight:bold;color:#374151;">Budget</td><td style="padding:8px;">${request.budget || '-'}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#374151;">Description</td><td style="padding:8px;">${request.description}</td></tr>
+          </table>
+          <p style="margin-top:20px;color:#64748b;font-size:0.85rem;">Submitted: ${new Date().toLocaleString('en-EG', { timeZone: 'Africa/Cairo' })}</p>
+          <a href="https://devopsacademy.cloud-stacks.com/admin.html" style="display:inline-block;margin-top:16px;padding:10px 24px;background:#f59e0b;color:#fff;text-decoration:none;border-radius:6px;">View in Admin Panel</a>
+        </div>
+      `
+    });
+    console.log('📧 Service notification sent to', NOTIFY_EMAIL);
+  } catch (err) {
+    console.error('❌ Email notification failed:', err.message);
+  }
+}
 
 // Disable ETag to prevent 304 responses
 app.set('etag', false);
@@ -115,6 +188,9 @@ app.post('/api/enroll', async (req, res) => {
     const enrollment = new Enrollment({ firstName, lastName, email, phone, course, experience, message });
     await enrollment.save();
 
+    // Send email notification (non-blocking)
+    sendEnrollmentNotification(enrollment);
+
     res.status(201).json({ message: 'Application submitted successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
@@ -132,6 +208,9 @@ app.post('/api/service-request', async (req, res) => {
 
     const serviceRequest = new ServiceRequest({ name, company, email, phone, serviceType, budget, description });
     await serviceRequest.save();
+
+    // Send email notification (non-blocking)
+    sendServiceNotification(serviceRequest);
 
     res.status(201).json({ message: 'Service request submitted successfully' });
   } catch (err) {

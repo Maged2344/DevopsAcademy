@@ -19,6 +19,12 @@ services:
     environment:
       - MONGO_URI=mongodb://mongo:27017/devopsacademy
       - JWT_SECRET=devopsacademy-production-secret-2026
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_SECURE=false
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - NOTIFY_EMAIL=${NOTIFY_EMAIL:-}
     depends_on:
       - mongo
     restart: unless-stopped
