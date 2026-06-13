@@ -19,6 +19,8 @@
                 <li><a href="/courses.html">Courses</a></li>
                 <li><a href="/services.html">Services</a></li>
                 <li><a href="/portal.html" class="active">Student Portal</a></li>
+                <li><a href="/portal.html?tab=signup" class="btn btn-small btn-outline">Register</a></li>
+                <li><a href="/portal.html?tab=signin" class="btn btn-small">Sign In</a></li>
                 <li><a href="/courses.html#enroll" class="btn btn-nav">Enroll Now</a></li>
             </ul>
         </div>
@@ -85,6 +87,7 @@
     <script>
     const API = '/api';
     const studentTokenKey = 'studentToken';
+    const params = new URLSearchParams(window.location.search);
 
     function showMessage(message, type = 'error') {
         const el = document.getElementById('portalMessage');
@@ -108,6 +111,11 @@
     document.querySelectorAll('.portal-tab').forEach((btn) => {
         btn.addEventListener('click', () => switchTab(btn.dataset.tab));
     });
+
+    const requestedTab = params.get('tab');
+    if (requestedTab === 'signup' || requestedTab === 'signin') {
+        switchTab(requestedTab);
+    }
 
     function renderCourses(payload) {
         document.getElementById('studentWelcome').textContent = `Welcome, ${payload.student.fullName}`;
@@ -197,6 +205,11 @@
                 return;
             }
 
+            if (!data.token) {
+                showMessage('Sign in failed. Missing session token.');
+                return;
+            }
+
             localStorage.setItem(studentTokenKey, data.token);
             await loadDashboard();
         } catch (err) {
@@ -221,6 +234,11 @@
             const data = await res.json();
             if (!res.ok) {
                 showMessage(data.error || 'Sign up failed');
+                return;
+            }
+
+            if (!data.token) {
+                showMessage('Registration failed. Missing session token.');
                 return;
             }
 
