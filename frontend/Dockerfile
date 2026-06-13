@@ -12,6 +12,7 @@ COPY frontend/course.html /usr/share/nginx/html/
 COPY frontend/styles.css /usr/share/nginx/html/
 COPY frontend/assets/logo.png /usr/share/nginx/html/
 COPY frontend/assets/cover.png /usr/share/nginx/html/
+COPY frontend/assets/maged.jpg /usr/share/nginx/html/
 
 # Copy custom nginx config
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
