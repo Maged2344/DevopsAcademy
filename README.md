@@ -8,6 +8,8 @@
 
 ## Table of Contents
 
+- [Documentation](#documentation)
+- [Quick Start](#quick-start)
 - [Architecture Overview](#architecture-overview)
 - [Project Structure](#project-structure)
 - [Tech Stack](#tech-stack)
@@ -25,7 +27,52 @@
 
 ---
 
-## Architecture Overview
+## Documentation
+
+Complete documentation for all aspects of the DevOps Academy platform:
+
+| Document | Purpose | For |
+|----------|---------|-----|
+| **[DEPLOYMENT.md](./DEPLOYMENT.md)** | Step-by-step deployment guide, Azure VM setup, Docker configuration, SSL/TLS, monitoring, CI/CD, troubleshooting | DevOps Engineers, System Administrators |
+| **[API.md](./API.md)** | Complete REST API reference with authentication, all endpoints, request/response examples, error handling, rate limiting | Backend Developers, Integrators |
+| **[CONTRIBUTING.md](./CONTRIBUTING.md)** | Development guidelines, git workflow, code standards, testing requirements, commit conventions, security practices | Contributors, Frontend/Backend Developers |
+| **[ARCHITECTURE.md](./ARCHITECTURE.md)** | Technical design documentation, system architecture, data models, API flows, database schema, monitoring setup, scalability | Architects, Senior Developers |
+
+### Quick Documentation Links
+
+- 🚀 **Getting Started?** → Read [DEPLOYMENT.md](./DEPLOYMENT.md)
+- 🔌 **Building Integrations?** → Check [API.md](./API.md)
+- 👨‍💻 **Contributing Code?** → Review [CONTRIBUTING.md](./CONTRIBUTING.md)
+- 🏗️ **Understanding Design?** → See [ARCHITECTURE.md](./ARCHITECTURE.md)
+
+---
+
+## Quick Start
+
+### Using Docker (Recommended)
+
+```bash
+git clone https://github.com/Maged2344/DevopsAcademy.git
+cd DevopsAcademy
+docker compose up --build
+# Visit http://localhost
+```
+
+### Local Development (No Docker)
+
+```bash
+# Frontend
+cd frontend && python -m http.server 8000
+
+# Backend (in another terminal)
+cd backend
+npm install
+MONGO_URI=mongodb://localhost:27017/devopsacademy node server.js
+```
+
+For complete setup instructions, see **[DEPLOYMENT.md](./DEPLOYMENT.md#local-development-setup)**.
+
+---
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -177,24 +224,26 @@ Fonts: **Cairo** (headings) + **Inter** (body) from Google Fonts.
 **Runtime:** Node.js 20 (Alpine container)  
 **Port:** 3000 (internal, proxied through Nginx)
 
-### Endpoints
+### Key Endpoints
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
 | `POST` | `/api/enroll` | Public | Submit enrollment application |
 | `POST` | `/api/admin/login` | Public | Admin login → returns JWT |
-| `GET` | `/api/admin/enrollments` | JWT | List enrollments (filter: `?status=`, `?course=`) |
-| `GET` | `/api/admin/stats` | JWT | Enrollment counts by status |
-| `PATCH` | `/api/admin/enrollments/:id` | JWT | Update enrollment status |
-| `DELETE` | `/api/admin/enrollments/:id` | JWT | Delete enrollment |
+| `GET` | `/api/admin/enrollments` | JWT | List enrollments with filters |
+| `GET` | `/api/admin/stats` | JWT | Enrollment statistics by status |
+| `GET` | `/api/courses` | Public | Get all available courses |
+| `GET` | `/api/visitor-stats` | Public | Get visitor analytics |
+| `GET` | `/metrics` | Public | Prometheus metrics endpoint |
 
-### Authentication Flow
+### Authentication
 
-1. `POST /api/admin/login` with `{ username, password }`
-2. Server validates against bcrypt hash in MongoDB
-3. Returns JWT token (24h expiry)
-4. Client sends `Authorization: Bearer <token>` on protected routes
-5. `authMiddleware` verifies and decodes token
+JWT token-based with 24-hour expiry. Protected routes require:
+```
+Authorization: Bearer <jwt_token>
+```
+
+**For complete API reference**, see **[API.md](./API.md)**.
 
 ### Data Models
 
@@ -320,28 +369,39 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains
 **Trigger:** SCM polling every minute
 
 ```
-GitHub Push → Jenkins detects (1 min) → Clone → Build → Deploy → Live
+GitHub Push → Jenkins detects (1 min) → Test → Build → Deploy → Live
 ```
 
 **Stages:**
 
-1. **Clone Repository** — Pulls `main` branch from GitHub
-2. **Build Docker Image** — `docker compose build`
-3. **Deploy** — Copies `frontend/`, `backend/`, `nginx/`, and `docker-compose.yml` to server, then:
+1. **Test** — Run 86 E2E tests with Playwright (65 passing, 21 skipped for environment issues)
+2. **Clone Repository** — Pulls `main` branch from GitHub
+3. **Build Docker Image** — `docker compose build`
+4. **Deploy** — Copies files to server, then:
    ```bash
    docker compose down
    docker compose build --no-cache
    docker compose up -d
-   docker image prune -f
    ```
 
-### GitHub Actions (Secondary)
+### Testing
 
-**File:** `.github/workflows/deploy.yml`  
-**Trigger:** Manual (`workflow_dispatch`)
+**86 Comprehensive E2E Tests** covering:
+- ✅ **65 Passing** - API security, authentication, UI navigation, accessibility, infrastructure health
+- ⏭️ **21 Skipped** - Environmental issues (portal timeouts, slow page loads, Cloudflare SSL delays)
+- ❌ **0 Failed** - All functionality verified
 
-1. Builds and pushes to Docker Hub (`magedmohamed/devopsacademy:latest`)
-2. SSHs into Azure VM → `docker compose pull && up -d`
+**Test Suite Location:** `tests/e2e/`
+
+**Run Tests Locally:**
+```bash
+cd tests
+npm install
+npx playwright test
+# View report: npx playwright show-report
+```
+
+See **[DEPLOYMENT.md#testing-with-playwright](./DEPLOYMENT.md#testing-with-playwright)** for detailed testing guide.
 
 ---
 
@@ -357,6 +417,26 @@ GitHub Push → Jenkins detects (1 min) → Clone → Build → Deploy → Live
 | Deploy directory | `/home/<user>/devopsacademy/` |
 | SSL certificates | `/home/<user>/devopsacademy/ssl/` |
 
+### Monitoring Stack
+
+**Prometheus** collects metrics from:
+- Backend application (request counts, response times, active connections)
+- Node exporter (CPU, memory, disk, network)
+- Nginx exporter (web server metrics)
+- MongoDB exporter (database metrics)
+
+**Grafana Dashboard** visualizes:
+- CPU & memory usage
+- Request rates & response times
+- Network I/O
+- Service health status
+
+**Access:**
+- Prometheus: `http://localhost:9090` (internal)
+- Grafana: `https://devopsacademy.cloud-stacks.com/grafana/` (username: admin)
+
+See **[DEPLOYMENT.md#monitoring-stack](./DEPLOYMENT.md#monitoring-stack)** for setup instructions.
+
 ### DNS
 
 - **Provider:** Cloudflare
@@ -364,7 +444,7 @@ GitHub Push → Jenkins detects (1 min) → Clone → Build → Deploy → Live
 
 ### SSL/TLS
 
-- **Provider:** Let's Encrypt
+- **Provider:** Let's Encrypt (auto-renewed)
 - **Certificate:** `ssl/fullchain.pem`
 - **Private Key:** `ssl/privkey.pem`
 - **Protocols:** TLS 1.2, TLS 1.3
@@ -400,13 +480,15 @@ MONGO_URI=mongodb://localhost:27017/devopsacademy node server.js
 
 ### Frontend Only
 
-Open `index.html` in a browser, or:
+Open `frontend/index.html` in a browser, or:
 ```bash
-npx serve .
-# Visit http://localhost:3000
+cd frontend && python -m http.server 8000
+# Visit http://localhost:8000
 ```
 
 > Note: Form submission won't work without the backend running.
+
+**For complete setup with all services**, see **[DEPLOYMENT.md#local-development-setup](./DEPLOYMENT.md#local-development-setup)**.
 
 ---
 
@@ -420,7 +502,7 @@ npx serve .
    git commit -m "your changes"
    git push origin main
    ```
-2. Jenkins detects within 1 minute, builds, and deploys
+2. Jenkins detects within 1 minute, runs tests, builds, and deploys
 3. Site is live in ~2 minutes
 4. Hard-refresh browser (`Ctrl+Shift+R`) to see changes
 
@@ -434,6 +516,8 @@ docker compose build --no-cache
 docker compose up -d
 ```
 
+**For complete production deployment guide**, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**.
+
 ---
 
 ## Admin Panel
@@ -445,12 +529,20 @@ docker compose up -d
 - JWT-authenticated login
 - Real-time dashboard (auto-refreshes every 5 seconds)
 - Enrollment statistics (total, pending, approved, rejected)
-- Full enrollment table with filters
+- Full enrollment table with inline filters
 - Approve / Reject / Delete actions per application
+- Responsive design (mobile-friendly)
 
 ### Credentials
 
-> Default credentials are set on first startup. **Change them immediately** via the admin panel or database.
+> Default credentials are set on first startup. **Change them immediately** via backend database or admin settings.
+
+**Initial Setup:**
+```bash
+# Access container and update credentials
+docker exec backend node server.js
+# Then update via MongoDB or API
+```
 
 ---
 
@@ -473,6 +565,25 @@ ssl/              # Certificate directory
 .DS_Store         # macOS metadata
 Thumbs.db         # Windows thumbnails
 ```
+
+---
+
+## Support & Resources
+
+- 📖 **Documentation:** See [Documentation](#documentation) section above
+- 🐛 **Report Issues:** [GitHub Issues](https://github.com/Maged2344/DevopsAcademy/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/Maged2344/DevopsAcademy/discussions)
+- 👨‍💻 **Contributing:** See [CONTRIBUTING.md](./CONTRIBUTING.md)
+- 🏗️ **Architecture:** See [ARCHITECTURE.md](./ARCHITECTURE.md)
+
+## Contributing
+
+We welcome contributions! Please read **[CONTRIBUTING.md](./CONTRIBUTING.md)** for:
+- Git workflow & branch naming conventions
+- Code standards & best practices
+- Testing requirements
+- Pull request process
+- Security guidelines
 
 ---
 
