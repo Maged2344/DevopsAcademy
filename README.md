@@ -30,7 +30,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                         Azure VM (Ubuntu)                            │
-│                         20.25.62.124                                 │
+│                         <VM_PUBLIC_IP>                               │
 │                                                                     │
 │  ┌────────────────────────────────────────────────────────────────┐ │
 │  │                    Docker Compose                               │ │
@@ -223,9 +223,9 @@ Fonts: **Cairo** (headings) + **Inter** (body) from Google Fonts.
 
 ### Default Admin Account
 
-On first startup (empty admin collection), auto-creates:
-- **Username:** `admin`
-- **Password:** `admin123`
+On first startup (empty admin collection), auto-creates a default admin user.
+
+> **Security Note:** Change the default credentials immediately after first login.
 
 ---
 
@@ -316,7 +316,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains
 ### Jenkins (Primary)
 
 **File:** `Jenkinsfile`  
-**URL:** `http://20.25.62.124:8080`  
+**URL:** `http://<VM_IP>:8080`  
 **Trigger:** SCM polling every minute
 
 ```
@@ -351,16 +351,16 @@ GitHub Push → Jenkins detects (1 min) → Clone → Build → Deploy → Live
 
 | Property | Value |
 |----------|-------|
-| Public IP | `20.25.62.124` |
+| Public IP | *(configured in Cloudflare)* |
 | OS | Ubuntu Noble |
-| User | `maged` |
-| Deploy directory | `/home/maged/devopsacademy/` |
-| SSL certificates | `/home/maged/devopsacademy/ssl/` |
+| User | *(see infrastructure docs)* |
+| Deploy directory | `/home/<user>/devopsacademy/` |
+| SSL certificates | `/home/<user>/devopsacademy/ssl/` |
 
 ### DNS
 
 - **Provider:** Cloudflare
-- **Record:** A `devopsacademy.cloud-stacks.com` → `20.25.62.124`
+- **Record:** A `devopsacademy.cloud-stacks.com` → `<VM_PUBLIC_IP>`
 
 ### SSL/TLS
 
@@ -427,8 +427,8 @@ npx serve .
 ### Manual (SSH)
 
 ```bash
-ssh -i Devops-Academy-VM_key.pem maged@20.25.62.124
-cd /home/maged/devopsacademy
+ssh -i <your-key>.pem <user>@<VM_IP>
+cd /home/<user>/devopsacademy
 docker compose down
 docker compose build --no-cache
 docker compose up -d
@@ -450,9 +450,7 @@ docker compose up -d
 
 ### Credentials
 
-| Username | Password |
-|----------|----------|
-| `admin` | `admin123` |
+> Default credentials are set on first startup. **Change them immediately** via the admin panel or database.
 
 ---
 
@@ -461,7 +459,7 @@ docker compose up -d
 | Variable | Service | Default | Description |
 |----------|---------|---------|-------------|
 | `MONGO_URI` | backend | `mongodb://mongo:27017/devopsacademy` | MongoDB connection string |
-| `JWT_SECRET` | backend | (set in docker-compose.yml) | JWT signing secret |
+| `JWT_SECRET` | backend | *(must be set securely)* | JWT signing secret |
 
 ---
 

@@ -15,5 +15,10 @@ ssl/
 # PDF docs
 *.pdf
 
+# Random images in root (keep frontend/assets/ tracked)
+/ChatGPT*
+/*.png
+/*.jpg
+
 # Test scripts
 test-api.js
