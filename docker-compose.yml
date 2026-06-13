@@ -1,12 +1,32 @@
-version: '3.8'
-
 services:
   web:
-    image: magedmohamed/devopsacademy:latest
-    container_name: devopsacademy
+    build: .
+    container_name: devopsacademy-web
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./ssl:/etc/nginx/ssl:ro
+      - /home/maged/devopsacademy/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
     restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: devopsacademy-backend
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/devopsacademy
+      - JWT_SECRET=devopsacademy-production-secret-2026
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: devopsacademy-mongo
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo_data:

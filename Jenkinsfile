@@ -14,20 +14,26 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t magedmohamed/devopsacademy:latest .'
+                sh 'docker compose build'
             }
         }
 
         stage('Deploy') {
             steps {
                 sh '''
-                    docker stop devopsacademy || true
-                    docker rm devopsacademy || true
-                    docker run -d --name devopsacademy \
-                        -p 80:80 -p 443:443 \
-                        -v /home/maged/devopsacademy/ssl:/etc/nginx/ssl:ro \
-                        --restart unless-stopped \
-                        magedmohamed/devopsacademy:latest
+                    cp docker-compose.yml /home/maged/devopsacademy/docker-compose.yml
+                    cp -r backend /home/maged/devopsacademy/backend
+                    cp Dockerfile /home/maged/devopsacademy/Dockerfile
+                    cp nginx.conf /home/maged/devopsacademy/nginx.conf
+                    cp index.html /home/maged/devopsacademy/index.html
+                    cp admin.html /home/maged/devopsacademy/admin.html
+                    cp styles.css /home/maged/devopsacademy/styles.css
+                    cp script.js /home/maged/devopsacademy/script.js
+                    cp logo.png /home/maged/devopsacademy/logo.png
+                    cd /home/maged/devopsacademy
+                    docker compose down || true
+                    docker compose up -d --build
+                    docker image prune -f
                 '''
             }
         }

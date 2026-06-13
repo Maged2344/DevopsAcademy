@@ -5,6 +5,7 @@ RUN rm -rf /usr/share/nginx/html/*
 
 # Copy website files
 COPY index.html /usr/share/nginx/html/
+COPY admin.html /usr/share/nginx/html/
 COPY styles.css /usr/share/nginx/html/
 COPY script.js /usr/share/nginx/html/
 COPY logo.png /usr/share/nginx/html/

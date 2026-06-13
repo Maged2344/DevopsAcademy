@@ -49,7 +49,7 @@ filterBtns.forEach(btn => {
 // ===== Form Submission =====
 const enrollForm = document.getElementById('enrollForm');
 
-enrollForm.addEventListener('submit', (e) => {
+enrollForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData(enrollForm);
@@ -68,9 +68,24 @@ enrollForm.addEventListener('submit', (e) => {
         return;
     }
 
-    // Success
-    showNotification('Thank you! Your application has been submitted. We will contact you soon.', 'success');
-    enrollForm.reset();
+    // Submit to backend API
+    try {
+        const res = await fetch('/api/enroll', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+            showNotification('Thank you! Your application has been submitted. We will contact you soon.', 'success');
+            enrollForm.reset();
+        } else {
+            const err = await res.json();
+            showNotification(err.error || 'Something went wrong. Please try again.', 'error');
+        }
+    } catch (err) {
+        showNotification('Network error. Please try again later.', 'error');
+    }
 });
 
 // ===== Notification System =====
