@@ -70,12 +70,14 @@ enrollForm.addEventListener('submit', async (e) => {
 
     // Submit to backend API
     try {
+        console.log('Submitting enrollment:', data);
         const res = await fetch('/api/enroll', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
 
+        console.log('Response status:', res.status);
         if (res.ok) {
             showNotification('Thank you! Your application has been submitted. We will contact you soon.', 'success');
             enrollForm.reset();
