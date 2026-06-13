@@ -23,7 +23,13 @@ pipeline {
                 sh '''
                     DEPLOY_DIR=/home/maged/devopsacademy
 
-                    # Copy project structure
+                    # Clean old files (keep ssl/ and docker volumes)
+                    rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx
+                    rm -f $DEPLOY_DIR/index.html $DEPLOY_DIR/admin.html $DEPLOY_DIR/course.html
+                    rm -f $DEPLOY_DIR/script.js $DEPLOY_DIR/styles.css $DEPLOY_DIR/logo.png
+                    rm -f $DEPLOY_DIR/nginx.conf $DEPLOY_DIR/Dockerfile
+
+                    # Copy fresh project structure
                     cp docker-compose.yml $DEPLOY_DIR/docker-compose.yml
                     cp -r backend $DEPLOY_DIR/backend
                     cp -r frontend $DEPLOY_DIR/frontend
