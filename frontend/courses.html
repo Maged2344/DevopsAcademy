@@ -161,18 +161,18 @@
         kubernetes: '&#9784;&#65039;',
         jenkins: '<img class="course-logo-img" src="https://cdn.simpleicons.org/jenkins/D24939" alt="Jenkins logo" loading="lazy" referrerpolicy="no-referrer">',
         githubactions: '<img class="course-logo-img" src="https://cdn.simpleicons.org/githubactions/2088FF" alt="GitHub Actions logo" loading="lazy" referrerpolicy="no-referrer">',
-        gitlabci: '&#129418;',
+        gitlabci: '<img class="course-logo-img" src="https://cdn.simpleicons.org/gitlab/FC6D26" alt="GitLab logo" loading="lazy" referrerpolicy="no-referrer">',
         argocd: '<img class="course-logo-img" src="https://cdn.simpleicons.org/argo/EF7B4D" alt="ArgoCD logo" loading="lazy" referrerpolicy="no-referrer">',
         aws: '<span style="color:#FF9900;font-weight:900;">AWS</span>',
-        azure: '<span style="color:#0078D4;font-weight:900;">Az</span>',
+        azure: '<img class="course-logo-img" src="https://cdn.simpleicons.org/microsoftazure/0078D4" alt="Azure logo" loading="lazy" referrerpolicy="no-referrer">',
         gcp: '<span style="color:#4285F4;font-weight:900;">GCP</span>',
         alibaba: '<span style="color:#FF6A00;font-weight:900;">Ali</span>',
         oracle: '<span style="color:#F80000;font-weight:900;">OCI</span>',
         terraform: '<img class="course-logo-img" src="https://cdn.simpleicons.org/terraform/844FBA" alt="Terraform logo" loading="lazy" referrerpolicy="no-referrer">',
         ansible: '&#9881;&#65039;',
-        git: '&#128200;',
+        git: '<img class="course-logo-img" src="https://cdn.simpleicons.org/git/F05032" alt="Git logo" loading="lazy" referrerpolicy="no-referrer">',
         github: '<img class="course-logo-img" src="https://cdn.simpleicons.org/github/181717" alt="GitHub logo" loading="lazy" referrerpolicy="no-referrer">',
-        gitlab: '&#129418;',
+        gitlab: '<img class="course-logo-img" src="https://cdn.simpleicons.org/gitlab/FC6D26" alt="GitLab logo" loading="lazy" referrerpolicy="no-referrer">',
         devsecops: '&#128274;',
         prometheus: '<img class="course-logo-img" src="https://cdn.simpleicons.org/prometheus/E6522C" alt="Prometheus logo" loading="lazy" referrerpolicy="no-referrer">',
         grafana: '<img class="course-logo-img" src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana logo" loading="lazy" referrerpolicy="no-referrer">',
@@ -198,6 +198,55 @@
         security: 'Security', linux: 'Linux & OS', vcs: 'Version Control'
     };
 
+    const categorySortOrder = {
+        linux: 1,
+        containerization: 2,
+        cloud: 3,
+        iac: 4,
+        vcs: 5,
+        cicd: 6,
+        monitoring: 7,
+        security: 8,
+        program: 9
+    };
+
+    const courseSortOrder = {
+        linux: 1,
+        linux2: 2,
+        docker: 3,
+        kubernetes: 4,
+        aws: 5,
+        azure: 6,
+        gcp: 7,
+        alibaba: 8,
+        oracle: 9,
+        terraform: 10,
+        ansible: 11,
+        git: 12,
+        github: 13,
+        gitlab: 14,
+        jenkins: 15,
+        githubactions: 16,
+        gitlabci: 17,
+        argocd: 18
+    };
+
+    function sortCourses(courses) {
+        return [...courses].sort((a, b) => {
+            const catA = courseCategories[a.courseId] || a.level;
+            const catB = courseCategories[b.courseId] || b.level;
+            const catRankA = categorySortOrder[catA] || 99;
+            const catRankB = categorySortOrder[catB] || 99;
+            if (catRankA !== catRankB) return catRankA - catRankB;
+
+            const courseRankA = courseSortOrder[a.courseId] || 999;
+            const courseRankB = courseSortOrder[b.courseId] || 999;
+            if (courseRankA !== courseRankB) return courseRankA - courseRankB;
+
+            return a.name.localeCompare(b.name);
+        });
+    }
+
     let allCourses = [];
 
     // Fetch courses from API
@@ -205,7 +254,7 @@
         try {
             const res = await fetch('/api/courses');
             if (!res.ok) throw new Error('Failed to load courses');
-            allCourses = await res.json();
+            allCourses = sortCourses(await res.json());
             renderCourses(allCourses);
             populateCourseSelect(allCourses);
         } catch (err) {
