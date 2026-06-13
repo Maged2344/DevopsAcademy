@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - DevOps Academy Egypt</title>
+    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="/" class="logo">
+                <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses.html" class="active">Courses</a></li>
+                <li><a href="/services.html">Services</a></li>
+                <li><a href="/#why-us">Why Us</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="#enroll" class="btn btn-nav">Enroll Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our <span class="highlight">Courses</span></h1>
+            <p>Comprehensive DevOps training programs — all prices updated in real-time</p>
+        </div>
+    </section>
+
+    <!-- Search & Filter -->
+    <section class="courses-page">
+        <div class="container">
+            <div class="courses-toolbar">
+                <div class="search-box">
+                    <input type="text" id="courseSearch" placeholder="Search courses..." autocomplete="off">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="beginner">Beginner</button>
+                    <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+                    <button class="filter-btn" data-filter="advanced">Advanced</button>
+                </div>
+            </div>
+
+            <div class="courses-grid" id="coursesGrid">
+                <div class="loading-state">Loading courses...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment Section -->
+    <section class="enroll" id="enroll">
+        <div class="container">
+            <div class="section-header">
+                <h2>Start Your DevOps Journey</h2>
+                <p>Fill in your details and our team will reach out with course information</p>
+            </div>
+            <form class="enroll-form" id="enrollForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="course">Interested Course</label>
+                    <select id="course" name="course" required>
+                        <option value="">Select a course...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Current Experience Level</label>
+                    <select id="experience" name="experience" required>
+                        <option value="">Select your level...</option>
+                        <option value="student">Student / Fresh Graduate</option>
+                        <option value="junior">Junior (0-2 years)</option>
+                        <option value="mid">Mid-Level (2-5 years)</option>
+                        <option value="senior">Senior (5+ years)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message (Optional)</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+                    </a>
+                    <p>Empowering Egypt's tech workforce with world-class DevOps training since 2020.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/courses.html">Courses</a></li>
+                        <li><a href="/services.html">Services</a></li>
+                        <li><a href="/#why-us">Why Us</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevOps Academy Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Course icons mapping
+    const courseIcons = {
+        devops: '&#128640;', linux: '&#128187;', docker: '&#128038;',
+        kubernetes: '&#9784;', cicd: '&#9889;', aws: '&#9729;',
+        terraform: '&#127959;', git: '&#128200;', devsecops: '&#128274;',
+        monitoring: '&#128202;', python: '&#128013;', ansible: '&#9881;'
+    };
+
+    let allCourses = [];
+
+    // Fetch courses from API
+    async function loadCourses() {
+        try {
+            const res = await fetch('/api/courses');
+            if (!res.ok) throw new Error('Failed to load courses');
+            allCourses = await res.json();
+            renderCourses(allCourses);
+            populateCourseSelect(allCourses);
+        } catch (err) {
+            document.getElementById('coursesGrid').innerHTML =
+                '<div class="empty-state">Unable to load courses. Please try again later.</div>';
+        }
+    }
+
+    function renderCourses(courses) {
+        const grid = document.getElementById('coursesGrid');
+        if (courses.length === 0) {
+            grid.innerHTML = '<div class="empty-state">No courses found matching your search.</div>';
+            return;
+        }
+
+        grid.innerHTML = courses.map(c => {
+            const icon = courseIcons[c.courseId] || '&#128218;';
+            const isFeatured = c.courseId === 'devops';
+            const levelBadgeClass = c.level === 'all' ? 'program' : c.level;
+            const levelLabel = c.level === 'all' ? 'Full Program' : c.level.charAt(0).toUpperCase() + c.level.slice(1);
+
+            return `<div class="course-card ${isFeatured ? 'featured' : ''}" data-level="${c.level}" ${isFeatured ? 'style="grid-column: 1 / -1; border: 2px solid #1e40af; background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);"' : ''}>
+                <div class="course-badge ${levelBadgeClass}" ${isFeatured ? 'style="background:#8b5cf6;color:#fff;"' : ''}>${levelLabel}</div>
+                <div class="course-icon">${icon}</div>
+                <h3>${c.name}</h3>
+                <div class="course-meta">
+                    ${c.duration ? `<span>&#128336; ${c.duration}</span>` : ''}
+                </div>
+                <div class="course-price">
+                    <span class="price">EGP ${c.price.toLocaleString()}</span>
+                    <a href="#enroll" class="btn btn-small" data-course="${c.courseId}">Enroll</a>
+                    <a href="course.html?id=${c.courseId}" class="btn btn-small btn-outline">Details</a>
+                </div>
+            </div>`;
+        }).join('');
+
+        // Attach enroll button handlers
+        document.querySelectorAll('.btn-small[data-course]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const courseId = btn.dataset.course;
+                document.getElementById('course').value = courseId;
+                document.getElementById('enroll').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    }
+
+    function populateCourseSelect(courses) {
+        const sel = document.getElementById('course');
+        sel.innerHTML = '<option value="">Select a course...</option>' +
+            courses.map(c => `<option value="${c.courseId}">${c.name} - EGP ${c.price.toLocaleString()}</option>`).join('');
+
+        // Pre-select from URL
+        const params = new URLSearchParams(window.location.search);
+        const preselect = params.get('course');
+        if (preselect) sel.value = preselect;
+    }
+
+    // Search
+    document.getElementById('courseSearch').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        const filtered = allCourses.filter(c =>
+            c.name.toLowerCase().includes(q) ||
+            c.courseId.toLowerCase().includes(q) ||
+            c.level.toLowerCase().includes(q)
+        );
+        applyLevelFilter(filtered);
+    });
+
+    // Level filters
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        });
+    });
+
+    function applyFilters() {
+        const q = document.getElementById('courseSearch').value.toLowerCase().trim();
+        let filtered = allCourses;
+        if (q) {
+            filtered = filtered.filter(c =>
+                c.name.toLowerCase().includes(q) ||
+                c.courseId.toLowerCase().includes(q) ||
+                c.level.toLowerCase().includes(q)
+            );
+        }
+        applyLevelFilter(filtered);
+    }
+
+    function applyLevelFilter(courses) {
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+        if (activeFilter !== 'all') {
+            courses = courses.filter(c => c.level === activeFilter);
+        }
+        renderCourses(courses);
+    }
+
+    // Form submission
+    document.getElementById('enrollForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        if (!data.firstName || !data.lastName || !data.email || !data.phone || !data.course || !data.experience) {
+            showNotification('Please fill in all required fields.', 'error');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/enroll', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (res.ok) {
+                showNotification('Thank you! Your application has been submitted. We will contact you soon.', 'success');
+                e.target.reset();
+            } else {
+                const err = await res.json();
+                showNotification(err.error || 'Something went wrong.', 'error');
+            }
+        } catch (err) {
+            showNotification('Network error. Please try again later.', 'error');
+        }
+    });
+
+    // Notification
+    function showNotification(message, type) {
+        const existing = document.querySelector('.notification');
+        if (existing) existing.remove();
+        const el = document.createElement('div');
+        el.className = `notification ${type}`;
+        el.textContent = message;
+        Object.assign(el.style, {
+            position: 'fixed', top: '100px', right: '24px', padding: '16px 24px',
+            borderRadius: '8px', color: '#fff', fontWeight: '500', zIndex: '9999',
+            maxWidth: '400px', boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+            background: type === 'success' ? '#10b981' : '#ef4444'
+        });
+        document.body.appendChild(el);
+        setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.3s'; setTimeout(() => el.remove(), 300); }, 4000);
+    }
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+        document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    // Init
+    loadCourses();
+    </script>
+</body>
+</html>

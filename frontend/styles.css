@@ -249,6 +249,87 @@ img {
     transition: all 0.3s;
 }
 
+/* ===== Page Header (for sub-pages) ===== */
+.page-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%);
+    padding: 140px 0 60px;
+    color: #fff;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== Courses Page ===== */
+.courses-page {
+    padding: 60px 0 100px;
+}
+
+.courses-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid var(--gray-300);
+    border-radius: 50px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.loading-state, .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--gray-500);
+    font-size: 1rem;
+    grid-column: 1 / -1;
+}
+
+.nav-links a.active {
+    color: var(--primary-light);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .page-header { padding: 120px 0 40px; }
+    .page-header h1 { font-size: 1.8rem; }
+    .courses-toolbar { flex-direction: column; align-items: stretch; }
+    .search-box { max-width: 100%; }
+}
+
 /* ===== Hero ===== */
 .hero {
     position: relative;

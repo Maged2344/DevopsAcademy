@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevOps Academy Egypt - Professional DevOps Training</title>
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,21 +12,20 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="/" class="logo">
                 <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
             </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#courses">Courses</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses.html">Courses</a></li>
+                <li><a href="/services.html">Services</a></li>
                 <li><a href="#why-us">Why Us</a></li>
                 <li><a href="#instructors">Instructors</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#enroll" class="btn btn-nav">Enroll Now</a></li>
+                <li><a href="/courses.html#enroll" class="btn btn-nav">Enroll Now</a></li>
             </ul>
         </div>
     </nav>
@@ -37,8 +36,8 @@
             <h1>Master <span class="highlight">DevOps</span> Skills<br>Launch Your Career in Egypt</h1>
             <p class="hero-subtitle">Egypt's leading DevOps training academy. Learn from industry experts, get hands-on experience, and earn certifications that employers trust.</p>
             <div class="hero-buttons">
-                <a href="#courses" class="btn btn-primary">Explore Courses</a>
-                <a href="#enroll" class="btn btn-secondary">Get Started</a>
+                <a href="/courses.html" class="btn btn-primary">Explore Courses</a>
+                <a href="/services.html" class="btn btn-secondary">Our Services</a>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -61,181 +60,18 @@
         </div>
     </section>
 
-    <!-- Courses Section -->
+    <!-- Featured Courses (dynamic from API) -->
     <section class="courses" id="courses">
         <div class="container">
             <div class="section-header">
-                <h2>Our Courses</h2>
-                <p>Comprehensive training programs designed to take you from beginner to expert</p>
+                <h2>Featured Courses</h2>
+                <p>Our most popular training programs — prices always up-to-date</p>
             </div>
-            <div class="course-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="beginner">Beginner</button>
-                <button class="filter-btn" data-filter="intermediate">Intermediate</button>
-                <button class="filter-btn" data-filter="advanced">Advanced</button>
+            <div class="courses-grid" id="featuredCoursesGrid">
+                <div class="loading-state">Loading courses...</div>
             </div>
-            <div class="courses-grid">
-                <!-- DevOps Full Program -->
-                <div class="course-card featured" data-level="all" style="grid-column: 1 / -1; border: 2px solid #1e40af; background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);">
-                    <div class="course-badge" style="background:#8b5cf6;color:#fff;">Full Program</div>
-                    <div class="course-icon">&#128640;</div>
-                    <h3>DevOps Engineering Program</h3>
-                    <p>Comprehensive 260-hour program: Linux, Python, Docker, Kubernetes, CI/CD, AWS, Terraform, Ansible & more. From zero to job-ready in 6 months.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 25 Weeks</span>
-                        <span>&#128218; 65 Sessions</span>
-                        <span>&#9201; 260 Hours</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 25,000</span>
-                        <a href="#enroll" class="btn btn-small" data-course="devops">Enroll Now</a>
-                        <a href="course.html?id=devops" class="btn btn-small" style="background:transparent;color:#1e40af;border:1px solid #1e40af;">View Roadmap</a>
-                    </div>
-                </div>
-                <!-- Course 1 -->
-                <div class="course-card" data-level="beginner">
-                    <div class="course-badge beginner">Beginner</div>
-                    <div class="course-icon">&#128187;</div>
-                    <h3>Linux Fundamentals</h3>
-                    <p>Master the Linux operating system, command line, shell scripting, and system administration basics.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 4 Weeks</span>
-                        <span>&#128218; 20 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 3,500</span>
-                        <a href="#enroll" class="btn btn-small" data-course="linux">Enroll</a>
-                        <a href="course.html?id=linux" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 2 -->
-                <div class="course-card" data-level="beginner">
-                    <div class="course-badge beginner">Beginner</div>
-                    <div class="course-icon">&#128038;</div>
-                    <h3>Docker & Containers</h3>
-                    <p>Learn containerization with Docker, create images, manage containers, and work with Docker Compose.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 5 Weeks</span>
-                        <span>&#128218; 25 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 4,500</span>
-                        <a href="#enroll" class="btn btn-small" data-course="docker">Enroll</a>
-                        <a href="course.html?id=docker" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 3 -->
-                <div class="course-card" data-level="intermediate">
-                    <div class="course-badge intermediate">Intermediate</div>
-                    <div class="course-icon">&#9784;</div>
-                    <h3>Kubernetes (K8s)</h3>
-                    <p>Deploy, manage, and scale containerized applications using Kubernetes orchestration platform.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 6 Weeks</span>
-                        <span>&#128218; 30 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 6,000</span>
-                        <a href="#enroll" class="btn btn-small" data-course="kubernetes">Enroll</a>
-                        <a href="course.html?id=kubernetes" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 4 -->
-                <div class="course-card" data-level="intermediate">
-                    <div class="course-badge intermediate">Intermediate</div>
-                    <div class="course-icon">&#9889;</div>
-                    <h3>CI/CD Pipelines</h3>
-                    <p>Build automated pipelines with Jenkins, GitLab CI, and GitHub Actions for continuous delivery.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 5 Weeks</span>
-                        <span>&#128218; 22 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 5,500</span>
-                        <a href="#enroll" class="btn btn-small" data-course="cicd">Enroll</a>
-                        <a href="course.html?id=cicd" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 5 -->
-                <div class="course-card" data-level="intermediate">
-                    <div class="course-badge intermediate">Intermediate</div>
-                    <div class="course-icon">&#9729;</div>
-                    <h3>AWS Cloud Engineering</h3>
-                    <p>Master Amazon Web Services: EC2, S3, RDS, VPC, Lambda, and cloud architecture best practices.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 8 Weeks</span>
-                        <span>&#128218; 40 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 7,500</span>
-                        <a href="#enroll" class="btn btn-small" data-course="aws">Enroll</a>
-                        <a href="course.html?id=aws" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 6 -->
-                <div class="course-card" data-level="advanced">
-                    <div class="course-badge advanced">Advanced</div>
-                    <div class="course-icon">&#127959;</div>
-                    <h3>Terraform & IaC</h3>
-                    <p>Infrastructure as Code with Terraform and Ansible. Automate cloud infrastructure provisioning.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 6 Weeks</span>
-                        <span>&#128218; 28 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 6,500</span>
-                        <a href="#enroll" class="btn btn-small" data-course="terraform">Enroll</a>
-                        <a href="course.html?id=terraform" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 7 -->
-                <div class="course-card" data-level="beginner">
-                    <div class="course-badge beginner">Beginner</div>
-                    <div class="course-icon">&#128200;</div>
-                    <h3>Git & Version Control</h3>
-                    <p>Master Git workflows, branching strategies, pull requests, and collaborative development.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 3 Weeks</span>
-                        <span>&#128218; 15 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 2,500</span>
-                        <a href="#enroll" class="btn btn-small" data-course="git">Enroll</a>
-                        <a href="course.html?id=git" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 8 -->
-                <div class="course-card" data-level="advanced">
-                    <div class="course-badge advanced">Advanced</div>
-                    <div class="course-icon">&#128274;</div>
-                    <h3>DevSecOps</h3>
-                    <p>Integrate security into the DevOps pipeline. SAST, DAST, container security, and compliance.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 6 Weeks</span>
-                        <span>&#128218; 26 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 7,000</span>
-                        <a href="#enroll" class="btn btn-small" data-course="devsecops">Enroll</a>
-                        <a href="course.html?id=devsecops" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
-                <!-- Course 9 -->
-                <div class="course-card" data-level="advanced">
-                    <div class="course-badge advanced">Advanced</div>
-                    <div class="course-icon">&#128202;</div>
-                    <h3>Monitoring & Observability</h3>
-                    <p>Prometheus, Grafana, ELK Stack, and distributed tracing for production systems.</p>
-                    <div class="course-meta">
-                        <span>&#128336; 5 Weeks</span>
-                        <span>&#128218; 24 Lessons</span>
-                    </div>
-                    <div class="course-price">
-                        <span class="price">EGP 5,500</span>
-                        <a href="#enroll" class="btn btn-small" data-course="monitoring">Enroll</a>
-                        <a href="course.html?id=monitoring" class="btn btn-small btn-outline">Details</a>
-                    </div>
-                </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="/courses.html" class="btn btn-primary">View All Courses &rarr;</a>
             </div>
         </div>
     </section>
@@ -354,214 +190,6 @@
         </div>
     </section>
 
-    <!-- DevOps Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>DevOps <span class="highlight">Services</span></h2>
-                <p>Professional DevOps solutions for companies and individuals — we build, deploy, and automate</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">&#128640;</div>
-                    <h3>Application Deployment</h3>
-                    <p>We deploy your application on cloud infrastructure (AWS, Azure, GCP) with Docker, Kubernetes, and CI/CD pipelines. Zero-downtime deployments guaranteed.</p>
-                    <ul class="service-features">
-                        <li>Cloud server setup & configuration</li>
-                        <li>Docker containerization</li>
-                        <li>SSL certificates & domain setup</li>
-                        <li>Load balancing & auto-scaling</li>
-                    </ul>
-                    <a href="#service-request" class="btn btn-small" data-service="deployment">Request Service</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">&#9881;</div>
-                    <h3>CI/CD & Automation</h3>
-                    <p>Automate your development workflow from code commit to production. Jenkins, GitHub Actions, GitLab CI — we set it all up.</p>
-                    <ul class="service-features">
-                        <li>CI/CD pipeline design & implementation</li>
-                        <li>Automated testing integration</li>
-                        <li>Infrastructure as Code (Terraform)</li>
-                        <li>Configuration management (Ansible)</li>
-                    </ul>
-                    <a href="#service-request" class="btn btn-small" data-service="automation">Request Service</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">&#127760;</div>
-                    <h3>Website & Web App Development</h3>
-                    <p>Full-stack web development with modern technologies. From landing pages to complex web applications, deployed with DevOps best practices.</p>
-                    <ul class="service-features">
-                        <li>Responsive website design</li>
-                        <li>Full-stack development (React, Node.js)</li>
-                        <li>Database setup & optimization</li>
-                        <li>Production-ready deployment</li>
-                    </ul>
-                    <a href="#service-request" class="btn btn-small" data-service="website">Request Service</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">&#128737;</div>
-                    <h3>Monitoring & Security</h3>
-                    <p>Set up comprehensive monitoring, alerting, and security for your infrastructure. Prometheus, Grafana, ELK Stack, and security hardening.</p>
-                    <ul class="service-features">
-                        <li>Monitoring dashboards (Grafana)</li>
-                        <li>Log management (ELK Stack)</li>
-                        <li>Alerting & incident response</li>
-                        <li>Security auditing & hardening</li>
-                    </ul>
-                    <a href="#service-request" class="btn btn-small" data-service="monitoring">Request Service</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">&#128299;</div>
-                    <h3>Cloud Migration</h3>
-                    <p>Migrate your existing infrastructure to the cloud. We handle the planning, execution, and optimization of your cloud journey.</p>
-                    <ul class="service-features">
-                        <li>Migration assessment & planning</li>
-                        <li>Data migration & validation</li>
-                        <li>Cost optimization</li>
-                        <li>Hybrid cloud architecture</li>
-                    </ul>
-                    <a href="#service-request" class="btn btn-small" data-service="migration">Request Service</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">&#128187;</div>
-                    <h3>DevOps Consulting</h3>
-                    <p>Get expert advice on your DevOps strategy. We assess your current setup and provide a roadmap for improvement.</p>
-                    <ul class="service-features">
-                        <li>Infrastructure audit</li>
-                        <li>DevOps maturity assessment</li>
-                        <li>Technology recommendations</li>
-                        <li>Team training & mentoring</li>
-                    </ul>
-                    <a href="#service-request" class="btn btn-small" data-service="consulting">Request Service</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Service Request Form -->
-    <section class="service-request-section" id="service-request">
-        <div class="container">
-            <div class="section-header">
-                <h2>Request a <span class="highlight">Service</span></h2>
-                <p>Tell us about your project and we'll get back to you within 24 hours</p>
-            </div>
-            <form class="enroll-form" id="serviceForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="svcName">Full Name</label>
-                        <input type="text" id="svcName" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="svcCompany">Company / Organization</label>
-                        <input type="text" id="svcCompany" name="company" placeholder="Leave empty if individual">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="svcEmail">Email Address</label>
-                        <input type="email" id="svcEmail" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="svcPhone">Phone Number</label>
-                        <input type="tel" id="svcPhone" name="phone" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="svcType">Service Type</label>
-                    <select id="svcType" name="serviceType" required>
-                        <option value="">Select a service...</option>
-                        <option value="deployment">Application Deployment</option>
-                        <option value="automation">CI/CD & Automation</option>
-                        <option value="website">Website & Web App Development</option>
-                        <option value="monitoring">Monitoring & Security</option>
-                        <option value="migration">Cloud Migration</option>
-                        <option value="consulting">DevOps Consulting</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="svcBudget">Estimated Budget (EGP)</label>
-                    <select id="svcBudget" name="budget">
-                        <option value="">Select budget range...</option>
-                        <option value="under-5000">Under EGP 5,000</option>
-                        <option value="5000-15000">EGP 5,000 - 15,000</option>
-                        <option value="15000-50000">EGP 15,000 - 50,000</option>
-                        <option value="50000-plus">EGP 50,000+</option>
-                        <option value="discuss">Let's discuss</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="svcDescription">Project Description</label>
-                    <textarea id="svcDescription" name="description" rows="5" placeholder="Describe your project, requirements, and timeline..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">Submit Service Request</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Enrollment Section -->
-    <section class="enroll" id="enroll">
-        <div class="container">
-            <div class="section-header">
-                <h2>Start Your DevOps Journey</h2>
-                <p>Fill in your details and our team will reach out with course information</p>
-            </div>
-            <form class="enroll-form" id="enrollForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="course">Interested Course</label>
-                    <select id="course" name="course" required>
-                        <option value="">Select a course...</option>
-                        <option value="devops">DevOps Engineering Program</option>
-                        <option value="linux">Linux Fundamentals</option>
-                        <option value="docker">Docker & Containers</option>
-                        <option value="kubernetes">Kubernetes (K8s)</option>
-                        <option value="cicd">CI/CD Pipelines</option>
-                        <option value="aws">AWS Cloud Engineering</option>
-                        <option value="terraform">Terraform & IaC</option>
-                        <option value="git">Git & Version Control</option>
-                        <option value="devsecops">DevSecOps</option>
-                        <option value="monitoring">Monitoring & Observability</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="experience">Current Experience Level</label>
-                    <select id="experience" name="experience" required>
-                        <option value="">Select your level...</option>
-                        <option value="student">Student / Fresh Graduate</option>
-                        <option value="junior">Junior (0-2 years)</option>
-                        <option value="mid">Mid-Level (2-5 years)</option>
-                        <option value="senior">Senior (5+ years)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message (Optional)</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">Submit Application</button>
-            </form>
-        </div>
-    </section>
-
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
@@ -615,7 +243,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="#" class="logo">
+                    <a href="/" class="logo">
                         <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
                     </a>
                     <p>Empowering Egypt's tech workforce with world-class DevOps training since 2020.</p>
@@ -629,20 +257,20 @@
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#services">Services</a></li>
+                        <li><a href="/courses.html">Courses</a></li>
+                        <li><a href="/services.html">Services</a></li>
                         <li><a href="#why-us">Why Us</a></li>
                         <li><a href="#instructors">Instructors</a></li>
-                        <li><a href="#enroll">Enroll</a></li>
+                        <li><a href="/courses.html#enroll">Enroll</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Courses</h4>
                     <ul>
-                        <li><a href="#courses">Linux Fundamentals</a></li>
-                        <li><a href="#courses">Docker & K8s</a></li>
-                        <li><a href="#courses">AWS Cloud</a></li>
-                        <li><a href="#courses">CI/CD Pipelines</a></li>
+                        <li><a href="/courses.html">Linux Fundamentals</a></li>
+                        <li><a href="/courses.html">Docker & K8s</a></li>
+                        <li><a href="/courses.html">AWS Cloud</a></li>
+                        <li><a href="/courses.html">CI/CD Pipelines</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -661,6 +289,90 @@
         </div>
     </footer>
 
-    <script src="script.js?v=5"></script>
+    <script>
+    // Course icons mapping
+    const courseIcons = {
+        devops: '&#128640;', linux: '&#128187;', docker: '&#128038;',
+        kubernetes: '&#9784;', cicd: '&#9889;', aws: '&#9729;',
+        terraform: '&#127959;', git: '&#128200;', devsecops: '&#128274;',
+        monitoring: '&#128202;', python: '&#128013;', ansible: '&#9881;'
+    };
+
+    // Fetch and display featured courses (first 4)
+    async function loadFeaturedCourses() {
+        try {
+            const res = await fetch('/api/courses');
+            if (!res.ok) throw new Error('Failed');
+            const courses = await res.json();
+            const featured = courses.slice(0, 4);
+            const grid = document.getElementById('featuredCoursesGrid');
+
+            grid.innerHTML = featured.map(c => {
+                const icon = courseIcons[c.courseId] || '&#128218;';
+                const isFeatured = c.courseId === 'devops';
+                const levelLabel = c.level === 'all' ? 'Full Program' : c.level.charAt(0).toUpperCase() + c.level.slice(1);
+                const levelBadgeClass = c.level === 'all' ? 'program' : c.level;
+
+                return `<div class="course-card ${isFeatured ? 'featured' : ''}" data-level="${c.level}" ${isFeatured ? 'style="grid-column: 1 / -1; border: 2px solid #1e40af; background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);"' : ''}>
+                    <div class="course-badge ${levelBadgeClass}" ${isFeatured ? 'style="background:#8b5cf6;color:#fff;"' : ''}>${levelLabel}</div>
+                    <div class="course-icon">${icon}</div>
+                    <h3>${c.name}</h3>
+                    <div class="course-meta">
+                        ${c.duration ? `<span>&#128336; ${c.duration}</span>` : ''}
+                    </div>
+                    <div class="course-price">
+                        <span class="price">EGP ${c.price.toLocaleString()}</span>
+                        <a href="/courses.html?course=${c.courseId}#enroll" class="btn btn-small">Enroll</a>
+                        <a href="course.html?id=${c.courseId}" class="btn btn-small btn-outline">Details</a>
+                    </div>
+                </div>`;
+            }).join('');
+        } catch (err) {
+            document.getElementById('featuredCoursesGrid').innerHTML =
+                '<div class="empty-state">Unable to load courses.</div>';
+        }
+    }
+
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+        document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.feature-card, .instructor-card, .testimonial-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+
+    loadFeaturedCourses();
+    </script>
 </body>
 </html>

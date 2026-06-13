@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Services - DevOps Academy Egypt</title>
+    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="/" class="logo">
+                <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses.html">Courses</a></li>
+                <li><a href="/services.html" class="active">Services</a></li>
+                <li><a href="/#why-us">Why Us</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="/courses.html#enroll" class="btn btn-nav">Enroll Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>DevOps <span class="highlight">Services</span></h1>
+            <p>Professional DevOps solutions for companies and individuals — we build, deploy, and automate</p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">&#128640;</div>
+                    <h3>Application Deployment</h3>
+                    <p>We deploy your application on cloud infrastructure (AWS, Azure, GCP) with Docker, Kubernetes, and CI/CD pipelines. Zero-downtime deployments guaranteed.</p>
+                    <ul class="service-features">
+                        <li>Cloud server setup & configuration</li>
+                        <li>Docker containerization</li>
+                        <li>SSL certificates & domain setup</li>
+                        <li>Load balancing & auto-scaling</li>
+                    </ul>
+                    <a href="#service-request" class="btn btn-small" data-service="deployment">Request Service</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#9881;</div>
+                    <h3>CI/CD & Automation</h3>
+                    <p>Automate your development workflow from code commit to production. Jenkins, GitHub Actions, GitLab CI — we set it all up.</p>
+                    <ul class="service-features">
+                        <li>CI/CD pipeline design & implementation</li>
+                        <li>Automated testing integration</li>
+                        <li>Infrastructure as Code (Terraform)</li>
+                        <li>Configuration management (Ansible)</li>
+                    </ul>
+                    <a href="#service-request" class="btn btn-small" data-service="automation">Request Service</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#127760;</div>
+                    <h3>Website & Web App Development</h3>
+                    <p>Full-stack web development with modern technologies. From landing pages to complex web applications, deployed with DevOps best practices.</p>
+                    <ul class="service-features">
+                        <li>Responsive website design</li>
+                        <li>Full-stack development (React, Node.js)</li>
+                        <li>Database setup & optimization</li>
+                        <li>Production-ready deployment</li>
+                    </ul>
+                    <a href="#service-request" class="btn btn-small" data-service="website">Request Service</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#128737;</div>
+                    <h3>Monitoring & Security</h3>
+                    <p>Set up comprehensive monitoring, alerting, and security for your infrastructure. Prometheus, Grafana, ELK Stack, and security hardening.</p>
+                    <ul class="service-features">
+                        <li>Monitoring dashboards (Grafana)</li>
+                        <li>Log management (ELK Stack)</li>
+                        <li>Alerting & incident response</li>
+                        <li>Security auditing & hardening</li>
+                    </ul>
+                    <a href="#service-request" class="btn btn-small" data-service="monitoring">Request Service</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#128299;</div>
+                    <h3>Cloud Migration</h3>
+                    <p>Migrate your existing infrastructure to the cloud. We handle the planning, execution, and optimization of your cloud journey.</p>
+                    <ul class="service-features">
+                        <li>Migration assessment & planning</li>
+                        <li>Data migration & validation</li>
+                        <li>Cost optimization</li>
+                        <li>Hybrid cloud architecture</li>
+                    </ul>
+                    <a href="#service-request" class="btn btn-small" data-service="migration">Request Service</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#128187;</div>
+                    <h3>DevOps Consulting</h3>
+                    <p>Get expert advice on your DevOps strategy. We assess your current setup and provide a roadmap for improvement.</p>
+                    <ul class="service-features">
+                        <li>Infrastructure audit</li>
+                        <li>DevOps maturity assessment</li>
+                        <li>Technology recommendations</li>
+                        <li>Team training & mentoring</li>
+                    </ul>
+                    <a href="#service-request" class="btn btn-small" data-service="consulting">Request Service</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Request Form -->
+    <section class="service-request-section" id="service-request">
+        <div class="container">
+            <div class="section-header">
+                <h2>Request a <span class="highlight">Service</span></h2>
+                <p>Tell us about your project and we'll get back to you within 24 hours</p>
+            </div>
+            <form class="enroll-form" id="serviceForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="svcName">Full Name</label>
+                        <input type="text" id="svcName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="svcCompany">Company / Organization</label>
+                        <input type="text" id="svcCompany" name="company" placeholder="Leave empty if individual">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="svcEmail">Email Address</label>
+                        <input type="email" id="svcEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="svcPhone">Phone Number</label>
+                        <input type="tel" id="svcPhone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="svcType">Service Type</label>
+                    <select id="svcType" name="serviceType" required>
+                        <option value="">Select a service...</option>
+                        <option value="deployment">Application Deployment</option>
+                        <option value="automation">CI/CD & Automation</option>
+                        <option value="website">Website & Web App Development</option>
+                        <option value="monitoring">Monitoring & Security</option>
+                        <option value="migration">Cloud Migration</option>
+                        <option value="consulting">DevOps Consulting</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="svcBudget">Estimated Budget (EGP)</label>
+                    <select id="svcBudget" name="budget">
+                        <option value="">Select budget range...</option>
+                        <option value="under-5000">Under EGP 5,000</option>
+                        <option value="5000-15000">EGP 5,000 - 15,000</option>
+                        <option value="15000-50000">EGP 15,000 - 50,000</option>
+                        <option value="50000-plus">EGP 50,000+</option>
+                        <option value="discuss">Let's discuss</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="svcDescription">Project Description</label>
+                    <textarea id="svcDescription" name="description" rows="5" placeholder="Describe your project, requirements, and timeline..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Service Request</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+                    </a>
+                    <p>Empowering Egypt's tech workforce with world-class DevOps training since 2020.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/courses.html">Courses</a></li>
+                        <li><a href="/services.html">Services</a></li>
+                        <li><a href="/#why-us">Why Us</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevOps Academy Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Service request buttons pre-select service type
+    document.querySelectorAll('.btn-small[data-service]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const serviceType = btn.dataset.service;
+            document.getElementById('svcType').value = serviceType;
+            document.getElementById('service-request').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Service form submission
+    document.getElementById('serviceForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        if (!data.name || !data.email || !data.phone || !data.serviceType || !data.description) {
+            showNotification('Please fill in all required fields.', 'error');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/service-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (res.ok) {
+                showNotification('Thank you! Your service request has been submitted. We will contact you within 24 hours.', 'success');
+                e.target.reset();
+            } else {
+                const err = await res.json();
+                showNotification(err.error || 'Something went wrong.', 'error');
+            }
+        } catch (err) {
+            showNotification('Network error. Please try again later.', 'error');
+        }
+    });
+
+    // Notification
+    function showNotification(message, type) {
+        const existing = document.querySelector('.notification');
+        if (existing) existing.remove();
+        const el = document.createElement('div');
+        el.className = `notification ${type}`;
+        el.textContent = message;
+        Object.assign(el.style, {
+            position: 'fixed', top: '100px', right: '24px', padding: '16px 24px',
+            borderRadius: '8px', color: '#fff', fontWeight: '500', zIndex: '9999',
+            maxWidth: '400px', boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+            background: type === 'success' ? '#10b981' : '#ef4444'
+        });
+        document.body.appendChild(el);
+        setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.3s'; setTimeout(() => el.remove(), 300); }, 4000);
+    }
+
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+        document.getElementById('navLinks').classList.toggle('active');
+    });
+    </script>
+</body>
+</html>

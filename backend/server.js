@@ -93,6 +93,16 @@ function authMiddleware(req, res, next) {
 
 // ===== Public Routes =====
 
+// Get all active courses (public - no auth needed)
+app.get('/api/courses', async (req, res) => {
+  try {
+    const courses = await Course.find({ active: true }).sort({ createdAt: 1 });
+    res.json(courses);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Submit enrollment application
 app.post('/api/enroll', async (req, res) => {
   try {
