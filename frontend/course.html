@@ -38,6 +38,14 @@
         .course-detail-hero .badge.intermediate { background: #f59e0b; }
         .course-detail-hero .badge.advanced { background: #ef4444; }
         .course-detail-hero .badge.program { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+        .course-detail-hero .badge.cloud { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+        .course-detail-hero .badge.iac { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+        .course-detail-hero .badge.containerization { background: linear-gradient(135deg, #0284c7, #06b6d4); }
+        .course-detail-hero .badge.cicd { background: linear-gradient(135deg, #ea580c, #f59e0b); }
+        .course-detail-hero .badge.monitoring { background: linear-gradient(135deg, #059669, #10b981); }
+        .course-detail-hero .badge.security { background: linear-gradient(135deg, #dc2626, #f43f5e); }
+        .course-detail-hero .badge.linux { background: linear-gradient(135deg, #ca8a04, #eab308); }
+        .course-detail-hero .badge.vcs { background: linear-gradient(135deg, #374151, #6b7280); }
         .course-detail-hero h1 {
             font-size: 2.8rem;
             margin-bottom: 16px;
@@ -454,8 +462,8 @@
         },
         linux: {
             title: "Linux Administration",
-            badge: "beginner",
-            badgeText: "Beginner",
+            badge: "linux",
+            badgeText: "Linux & OS",
             description: "Master the Linux operating system from scratch. Learn command line, system administration, file management, networking, and shell scripting — the foundation every DevOps engineer needs.",
             tagline: "96% of the world's servers run Linux. Master it.",
             duration: "6 Weeks",
@@ -524,8 +532,8 @@
         },
         docker: {
             title: "Docker & Containers",
-            badge: "beginner",
-            badgeText: "Beginner",
+            badge: "containerization",
+            badgeText: "Containerization",
             description: "Learn containerization with Docker from fundamentals to production. Create images, manage containers, networking, storage, and orchestration with Docker Compose.",
             tagline: "Build once, run anywhere. Containers changed everything.",
             duration: "5 Weeks",
@@ -590,8 +598,8 @@
         },
         kubernetes: {
             title: "Kubernetes (K8s)",
-            badge: "intermediate",
-            badgeText: "Intermediate",
+            badge: "containerization",
+            badgeText: "Containerization",
             description: "Deploy, manage, and scale containerized applications using Kubernetes. Master pods, deployments, services, networking, storage, Helm charts, and cluster security.",
             tagline: "The operating system for the cloud. Orchestrate at any scale.",
             duration: "6 Weeks",
@@ -657,8 +665,8 @@
         },
         cicd: {
             title: "CI/CD Pipelines",
-            badge: "intermediate",
-            badgeText: "Intermediate",
+            badge: "cicd",
+            badgeText: "CI/CD",
             description: "Build automated pipelines with Jenkins, GitLab CI, GitHub Actions, and ArgoCD. Master continuous integration, delivery, and GitOps best practices.",
             tagline: "Automate everything. From commit to production in minutes.",
             duration: "5 Weeks",
@@ -723,27 +731,27 @@
             ]
         },
         aws: {
-            title: "AWS & Multi-Cloud Engineering",
-            badge: "intermediate",
-            badgeText: "Intermediate",
-            description: "Master Amazon Web Services in depth, plus fundamentals of Azure, GCP, Alibaba Cloud & Oracle Cloud. Prepare for AWS Cloud Practitioner certification while becoming cloud-agnostic.",
-            tagline: "Deploy anywhere. AWS deep-dive + multi-cloud fundamentals.",
-            duration: "8 Weeks",
-            hours: "40 Hours",
-            sessions: "10 Sessions",
+            title: "AWS Cloud",
+            badge: "cloud",
+            badgeText: "Cloud",
+            description: "Master Amazon Web Services — the world's leading cloud platform. From EC2 and VPC to serverless and containers. Prepare for AWS Cloud Practitioner certification.",
+            tagline: "The #1 cloud platform. 33% market share. Every DevOps job requires it.",
+            duration: "6 Weeks",
+            hours: "24 Hours",
+            sessions: "6 Sessions",
             schedule: "4 hrs per session",
             price: "EGP 7,500",
-            priceNote: "Includes AWS Cloud Practitioner prep + multi-cloud overview",
+            priceNote: "Includes AWS Cloud Practitioner prep",
             highlights: [
                 { icon: "☁️", title: "AWS Deep-Dive", desc: "6 sessions on AWS — EC2, VPC, S3, RDS, Lambda, IAM, and the Well-Architected Framework." },
-                { icon: "🌍", title: "Multi-Cloud", desc: "Azure, GCP, Alibaba Cloud & Oracle Cloud basics — choose the right provider for any workload." },
                 { icon: "📜", title: "Certification Ready", desc: "Aligned with AWS Cloud Practitioner (CLF-C02) exam objectives." },
-                { icon: "💰", title: "Cost Optimization", desc: "Master pricing models, Reserved Instances, Spot, and cost management across clouds." },
+                { icon: "💰", title: "Cost Optimization", desc: "Master pricing models, Reserved Instances, Spot, and cost management." },
                 { icon: "🔒", title: "Cloud Security", desc: "IAM best practices, Organizations, SCPs, MFA, encryption, and compliance." },
-                { icon: "🏗️", title: "Architecture Patterns", desc: "Design highly available, fault-tolerant, scalable systems using cloud-native services." }
+                { icon: "🏗️", title: "Architecture Patterns", desc: "Design highly available, fault-tolerant, scalable systems." },
+                { icon: "🐳", title: "Containers on AWS", desc: "ECS, EKS, Fargate — run containers at scale in the cloud." }
             ],
             whoIsFor: [
-                { title: "DevOps Engineers", desc: "You need to deploy infrastructure in the cloud. This gives you multi-cloud skills." },
+                { title: "DevOps Engineers", desc: "You need to deploy infrastructure in the cloud. AWS is the industry standard." },
                 { title: "System Administrators", desc: "Transition from on-premise to cloud. Understand IaaS, PaaS, and SaaS." },
                 { title: "Developers", desc: "Deploy your applications on scalable cloud infrastructure." },
                 { title: "Career Changers", desc: "Cloud engineering is one of the highest-paying tech fields. Start here." }
@@ -781,100 +789,82 @@
                         { name: "Serverless & Containers", topics: ["AWS Lambda — functions, triggers, event sources", "API Gateway — REST & HTTP APIs", "Amazon ECS — container orchestration on AWS", "Amazon EKS — managed Kubernetes", "AWS Fargate — serverless containers", "Amazon ECR — container image registry", "AWS Step Functions — workflow orchestration", "Amazon SNS, SQS & EventBridge"] },
                         { name: "Architecture & Well-Architected", topics: ["AWS Well-Architected Framework — 6 pillars", "Operational Excellence pillar", "Security pillar", "Reliability pillar — HA & DR strategies", "Performance Efficiency pillar", "Cost Optimization pillar", "Sustainability pillar", "AWS Pricing — On-Demand, Reserved, Spot, Savings Plans", "AWS Budgets, Cost Explorer & Trusted Advisor", "Migration strategies — 7 Rs of migration"] }
                     ]
-                },
-                {
-                    title: "Multi-Cloud Fundamentals",
-                    number: "Module 4",
-                    hours: "8 Hours",
-                    sessionCount: "2 Sessions",
-                    description: "Expand your cloud skills beyond AWS — learn Azure, GCP, Alibaba Cloud, and Oracle Cloud basics.",
-                    sessions: [
-                        { name: "Azure & GCP (1 Session)", topics: ["Microsoft Azure — Resource Groups, VMs, App Services", "Azure Kubernetes Service (AKS)", "Azure DevOps — Pipelines, Repos, Boards", "Azure Active Directory & RBAC", "Google Cloud Platform — Compute Engine, GKE", "GCP Cloud Build & Cloud Run", "GCP IAM & networking", "Cloud comparison: AWS vs Azure vs GCP"] },
-                        { name: "Alibaba & Oracle Cloud (1 Session)", topics: ["Alibaba Cloud — ECS, Container Service for K8s", "Alibaba Object Storage Service (OSS)", "Alibaba cloud networking & security basics", "Use cases: Chinese market & global expansion", "Oracle Cloud Infrastructure (OCI) — Compute, Networking", "OCI Always-Free tier resources", "Oracle Kubernetes Engine (OKE)", "OCI Identity & Access Management", "Choosing the right cloud for your workload", "Multi-cloud architecture patterns & strategies"] }
-                    ]
-                },
-                {
-                    title: "Red Hat OpenShift",
-                    number: "Module 5",
-                    hours: "8 Hours",
-                    sessionCount: "2 Sessions",
-                    description: "Enterprise Kubernetes platform — OpenShift for production container orchestration.",
-                    sessions: [
-                        { name: "OpenShift Platform", topics: ["OpenShift vs vanilla Kubernetes — what's different", "OpenShift architecture — master, infra, app nodes", "Projects, users & RBAC in OpenShift", "Deploying applications — oc CLI & web console", "Source-to-Image (S2I) builds", "Routes & networking in OpenShift", "Persistent storage & StorageClasses", "Operators & OperatorHub", "Cluster administration & updates", "OpenShift on cloud (ROSA, ARO, OSD)"] }
-                    ]
                 }
             ],
             roadmap: [
                 { phase: "Weeks 1–2", title: "AWS Core: Compute & Networking", hours: "8 hrs · 2 sessions", desc: "EC2, VPC, subnets, load balancers, auto-scaling — the foundation of AWS infrastructure." },
                 { phase: "Weeks 3–4", title: "Storage, Databases & Security", hours: "8 hrs · 2 sessions", desc: "S3, EBS, RDS, DynamoDB, IAM, Organizations, encryption — data and security mastery." },
-                { phase: "Weeks 5–6", title: "Advanced AWS & Architecture", hours: "8 hrs · 2 sessions", desc: "Lambda, ECS/EKS, Well-Architected Framework, cost optimization, and migration." },
-                { phase: "Week 7", title: "Multi-Cloud: Azure, GCP, Alibaba, Oracle", hours: "8 hrs · 2 sessions", desc: "Fundamentals of 4 additional clouds. Compare services and understand multi-cloud patterns." },
-                { phase: "Week 8", title: "Red Hat OpenShift", hours: "8 hrs · 2 sessions", desc: "Enterprise K8s with OpenShift — S2I, routes, operators, and cluster administration." }
+                { phase: "Weeks 5–6", title: "Advanced AWS & Architecture", hours: "8 hrs · 2 sessions", desc: "Lambda, ECS/EKS, Well-Architected Framework, cost optimization, and migration." }
             ]
         },
         terraform: {
-            title: "Terraform & Ansible — IaC",
-            badge: "advanced",
-            badgeText: "Advanced",
-            description: "Infrastructure as Code mastery. Provision cloud infrastructure with Terraform and configure servers with Ansible. Automate everything — from VMs to entire Kubernetes clusters.",
+            title: "Terraform — IaC",
+            badge: "iac",
+            badgeText: "Infrastructure as Code",
+            description: "Infrastructure as Code mastery with Terraform. Provision cloud infrastructure declaratively — from VMs to entire Kubernetes clusters. Multi-cloud, state management, modules, and production patterns.",
             tagline: "Define your infrastructure in code. Version it. Automate it.",
-            duration: "6 Weeks",
-            hours: "24 Hours",
-            sessions: "6 Sessions",
+            duration: "4 Weeks",
+            hours: "12 Hours",
+            sessions: "3 Sessions",
             schedule: "4 hrs per session",
-            price: "EGP 6,500",
+            price: "EGP 4,500",
             priceNote: "Also included in the full DevOps program",
             highlights: [
                 { icon: "🏗️", title: "Terraform Deep-Dive", desc: "HCL syntax, providers, modules, state management, workspaces — complete Terraform mastery." },
-                { icon: "⚙️", title: "Ansible Automation", desc: "Agentless configuration management — playbooks, roles, variables, Vault." },
                 { icon: "☁️", title: "Multi-Cloud IaC", desc: "Provision infrastructure on AWS, Azure, GCP with the same Terraform workflow." },
                 { icon: "🔄", title: "State Management", desc: "Remote backends, state locking, import, and disaster recovery for Terraform state." },
                 { icon: "📦", title: "Reusable Modules", desc: "Write, publish & consume Terraform modules for consistent infrastructure patterns." },
-                { icon: "🎯", title: "Real Projects", desc: "Deploy a complete VPC + EKS cluster + monitoring stack using Terraform + Ansible." }
+                { icon: "🏢", title: "Terraform Cloud", desc: "Terraform Cloud & Enterprise — remote operations, policy as code." },
+                { icon: "🎯", title: "Real Projects", desc: "Deploy a complete VPC + EKS cluster on AWS using Terraform modules." }
             ],
             whoIsFor: [
-                { title: "DevOps Engineers", desc: "IaC is non-negotiable. Automate infrastructure provisioning and configuration." },
+                { title: "DevOps Engineers", desc: "IaC is non-negotiable. Automate infrastructure provisioning with Terraform." },
                 { title: "Cloud Engineers", desc: "Stop clicking in consoles. Define infrastructure as code and deploy consistently." },
                 { title: "SRE Teams", desc: "Reproducible infrastructure, disaster recovery, and compliance-as-code." },
-                { title: "Platform Engineers", desc: "Build internal platforms with reusable Terraform modules and Ansible roles." }
+                { title: "Platform Engineers", desc: "Build internal platforms with reusable Terraform modules." }
             ],
             modules: [
                 {
-                    title: "Ansible — Configuration Management",
+                    title: "Terraform Fundamentals",
                     number: "Module 1",
-                    hours: "12 Hours",
-                    sessionCount: "3 Sessions",
-                    description: "Agentless automation at scale. Configure servers, deploy applications, and orchestrate complex workflows.",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Core concepts, HCL syntax, providers, resources, and the Terraform lifecycle.",
                     sessions: [
-                        { name: "Ansible Fundamentals (1 Session)", topics: ["Introduction to configuration management", "Ansible architecture — agentless, SSH-based", "Installation & inventory files (INI & YAML)", "Ad-hoc commands — modules, arguments", "Connection types & privilege escalation", "Ansible configuration file (ansible.cfg)"] },
-                        { name: "Playbooks & Variables (1 Session)", topics: ["YAML syntax for playbooks", "Plays, tasks & modules", "Variables — inventory, playbook, extra-vars", "Variable precedence & scoping", "Facts & magic variables", "Handlers & task notifications", "Loops — with_items, loop, dict", "Conditionals — when, changed_when, failed_when", "Templates — Jinja2 syntax & filters"] },
-                        { name: "Roles & Advanced Ansible (1 Session)", topics: ["Roles — directory structure & organization", "Galaxy — finding & using community roles", "Ansible Vault — encrypting secrets", "Error handling — block, rescue, always", "Delegation & local actions", "Tags for selective execution", "Ansible for Linux administration — users, packages, services", "Ansible for application deployment", "Final Project: Multi-tier application deployment (web + app + db)"] }
+                        { name: "Terraform Core (1 Session)", topics: ["What is Infrastructure as Code — why Terraform", "Terraform architecture — providers, plugins, state", "HCL syntax — blocks, arguments, expressions", "terraform init, plan, apply, destroy lifecycle", "Providers — AWS, Azure, GCP configuration", "Resources & data sources", "Input variables & variable types", "Output values & resource attributes"] }
                     ]
                 },
                 {
-                    title: "Terraform — Infrastructure Provisioning",
+                    title: "State Management & Modules",
                     number: "Module 2",
-                    hours: "12 Hours",
-                    sessionCount: "3 Sessions",
-                    description: "Declarative infrastructure provisioning for any cloud. Write, plan, apply.",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Remote state, locking, import, and building reusable infrastructure modules.",
                     sessions: [
-                        { name: "Terraform Fundamentals (1 Session)", topics: ["What is Infrastructure as Code — why Terraform", "Terraform architecture — providers, plugins, state", "HCL syntax — blocks, arguments, expressions", "terraform init, plan, apply, destroy lifecycle", "Providers — AWS, Azure, GCP configuration", "Resources & data sources", "Input variables & variable types", "Output values & resource attributes"] },
-                        { name: "State & Modules (1 Session)", topics: ["Terraform state — what it is & why it matters", "Local vs remote backends (S3, Azure Blob, GCS)", "State locking with DynamoDB", "terraform import — bring existing resources under management", "State manipulation — mv, rm, taint", "Modules — creating reusable infrastructure", "Module sources — local, registry, Git", "Module inputs, outputs & versioning", "Terraform Registry & community modules"] },
+                        { name: "State & Modules (1 Session)", topics: ["Terraform state — what it is & why it matters", "Local vs remote backends (S3, Azure Blob, GCS)", "State locking with DynamoDB", "terraform import — bring existing resources under management", "State manipulation — mv, rm, taint", "Modules — creating reusable infrastructure", "Module sources — local, registry, Git", "Module inputs, outputs & versioning", "Terraform Registry & community modules"] }
+                    ]
+                },
+                {
+                    title: "Advanced Terraform & Project",
+                    number: "Module 3",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Workspaces, dynamic blocks, CI/CD integration, and a production project.",
+                    sessions: [
                         { name: "Advanced Terraform (1 Session)", topics: ["Workspaces — managing multiple environments", "Dynamic blocks & for_each", "count vs for_each — when to use which", "Provisioners — local-exec, remote-exec (and why to avoid them)", "Lifecycle rules — create_before_destroy, prevent_destroy", "Terraform Cloud & Terraform Enterprise overview", "CI/CD for Terraform — automated plan & apply", "Policy as Code — Sentinel/OPA basics", "Final Project: Provision VPC + EKS + RDS on AWS with modules"] }
                     ]
                 }
             ],
             roadmap: [
-                { phase: "Weeks 1–2", title: "Ansible Fundamentals & Playbooks", hours: "8 hrs · 2 sessions", desc: "Inventory, ad-hoc commands, YAML playbooks, variables, handlers, loops, and conditionals." },
-                { phase: "Week 3", title: "Ansible Roles & Advanced", hours: "4 hrs · 1 session", desc: "Roles, Galaxy, Vault, error handling, and multi-tier application deployment project." },
-                { phase: "Weeks 4–5", title: "Terraform Core & Modules", hours: "8 hrs · 2 sessions", desc: "HCL, providers, resources, state management, remote backends, and reusable modules." },
-                { phase: "Week 6", title: "Advanced Terraform & Final Project", hours: "4 hrs · 1 session", desc: "Workspaces, dynamic blocks, CI/CD for Terraform, and final project: full cloud infra provisioning." }
+                { phase: "Week 1", title: "Terraform Core", hours: "4 hrs · 1 session", desc: "HCL syntax, providers, resources, variables, outputs — your first infrastructure deployment." },
+                { phase: "Weeks 2–3", title: "State & Modules", hours: "4 hrs · 1 session", desc: "Remote backends, state locking, reusable modules, and the Terraform Registry." },
+                { phase: "Week 4", title: "Advanced & Final Project", hours: "4 hrs · 1 session", desc: "Workspaces, dynamic blocks, CI/CD for Terraform, and final project: full cloud infra provisioning." }
             ]
         },
         git: {
             title: "Git & Version Control",
-            badge: "beginner",
-            badgeText: "Beginner",
+            badge: "vcs",
+            badgeText: "Version Control",
             description: "Master Git workflows, branching strategies, pull requests, and collaborative development with GitHub. The essential skill every developer and DevOps engineer needs.",
             tagline: "Track every change. Collaborate without chaos.",
             duration: "3 Weeks",
@@ -926,8 +916,8 @@
         },
         devsecops: {
             title: "DevSecOps",
-            badge: "advanced",
-            badgeText: "Advanced",
+            badge: "security",
+            badgeText: "Security",
             description: "Integrate security into every stage of the DevOps pipeline. SAST, DAST, container scanning, secrets management, compliance-as-code, and security automation.",
             tagline: "Shift left. Security is everyone's responsibility.",
             duration: "6 Weeks",
@@ -992,8 +982,8 @@
         },
         monitoring: {
             title: "Monitoring & Observability",
-            badge: "advanced",
-            badgeText: "Advanced",
+            badge: "monitoring",
+            badgeText: "Monitoring",
             description: "Build production-grade monitoring with Prometheus, Grafana, and ELK Stack. Metrics, logs, dashboards, alerting, and distributed tracing for reliable systems.",
             tagline: "You can't fix what you can't see. Observe everything.",
             duration: "5 Weeks",
@@ -1041,6 +1031,286 @@
             roadmap: [
                 { phase: "Weeks 1–2", title: "Prometheus & Grafana", hours: "4 hrs · 1 session", desc: "Metrics collection, PromQL, alerting rules, Alertmanager, and production Grafana dashboards." },
                 { phase: "Weeks 3–5", title: "ELK Stack & Observability", hours: "4 hrs · 1 session", desc: "Centralized logging with ELK, distributed tracing, and final project: full observability stack." }
+            ]
+        },
+        azure: {
+            title: "Microsoft Azure",
+            badge: "cloud",
+            badgeText: "Cloud",
+            description: "Master Microsoft Azure cloud platform. Learn compute, networking, storage, AKS, Azure DevOps, and identity management. Prepare for Azure Fundamentals (AZ-900) certification.",
+            tagline: "The enterprise cloud. #2 worldwide and growing fast.",
+            duration: "4 Weeks",
+            hours: "16 Hours",
+            sessions: "4 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 5,500",
+            priceNote: "Includes AZ-900 exam prep",
+            highlights: [
+                { icon: "🔷", title: "Azure Core Services", desc: "VMs, App Services, Azure Functions, Storage Accounts — master the fundamentals." },
+                { icon: "☸️", title: "AKS", desc: "Azure Kubernetes Service — deploy and manage containerized apps at scale." },
+                { icon: "🔄", title: "Azure DevOps", desc: "Pipelines, Repos, Boards, Artifacts — Microsoft's complete DevOps platform." },
+                { icon: "🔐", title: "Entra ID (Azure AD)", desc: "Identity management, RBAC, service principals, and managed identities." },
+                { icon: "📜", title: "Certification Aligned", desc: "Covers AZ-900 Azure Fundamentals objectives for certification." },
+                { icon: "💰", title: "Cost Management", desc: "Azure Cost Management, Budgets, Advisor — control cloud spending." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "Many enterprises use Azure. Add it to your toolkit for better job prospects." },
+                { title: "Windows/Microsoft Shops", desc: "Natural fit for organizations already using Microsoft 365 and Active Directory." },
+                { title: "Cloud Engineers", desc: "Expand beyond AWS with the #2 cloud platform." },
+                { title: "Career Changers", desc: "Azure skills are in massive demand especially in enterprise environments." }
+            ],
+            modules: [
+                {
+                    title: "Azure Fundamentals & Compute",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Cloud concepts, Azure portal, and core compute/networking services.",
+                    sessions: [
+                        { name: "Azure Core (1 Session)", topics: ["Cloud computing concepts — IaaS, PaaS, SaaS on Azure", "Azure Global Infrastructure — Regions, Availability Zones", "Azure Portal, CLI & Cloud Shell", "Resource Groups & Azure Resource Manager (ARM)", "Virtual Machines — sizes, images, availability sets", "Azure App Service — web apps without managing servers", "Azure Functions — serverless compute", "Azure Container Instances (ACI)"] },
+                        { name: "Networking & Storage (1 Session)", topics: ["Virtual Networks (VNet) — subnets, NSGs", "Azure Load Balancer & Application Gateway", "Azure DNS & Traffic Manager", "VNet Peering & VPN Gateway", "Storage Accounts — Blob, File, Queue, Table", "Azure Disk Storage — managed disks", "Azure SQL Database & Cosmos DB", "Azure Cache for Redis"] }
+                    ]
+                },
+                {
+                    title: "AKS, DevOps & Identity",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Kubernetes on Azure, CI/CD with Azure DevOps, and identity management.",
+                    sessions: [
+                        { name: "AKS & Azure DevOps (1 Session)", topics: ["Azure Kubernetes Service (AKS) — cluster creation", "AKS networking, scaling & monitoring", "Azure Container Registry (ACR)", "Azure DevOps — organization & project setup", "Azure Pipelines — YAML & Classic pipelines", "Azure Repos — Git hosting", "Azure Boards — work item tracking", "Azure Artifacts — package management"] },
+                        { name: "Identity & Governance (1 Session)", topics: ["Microsoft Entra ID (Azure AD) — users, groups", "Role-Based Access Control (RBAC)", "Service Principals & Managed Identities", "Azure Policy & Blueprints", "Azure Monitor & Log Analytics", "Azure Key Vault — secrets & certificates", "Cost Management & Budgets", "Azure Well-Architected Framework overview"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Azure Fundamentals", hours: "8 hrs · 2 sessions", desc: "Portal, VMs, App Service, networking, storage, and databases — the Azure foundation." },
+                { phase: "Weeks 3–4", title: "AKS, DevOps & Identity", hours: "8 hrs · 2 sessions", desc: "Kubernetes on Azure, CI/CD pipelines, Azure AD, RBAC, and governance." }
+            ]
+        },
+        gcp: {
+            title: "Google Cloud Platform (GCP)",
+            badge: "cloud",
+            badgeText: "Cloud",
+            description: "Master Google Cloud Platform — Compute Engine, GKE, Cloud Build, BigQuery, and IAM. Leverage Google's infrastructure for scalable, data-driven applications.",
+            tagline: "Built by Google. Best for data, AI, and Kubernetes-native workloads.",
+            duration: "4 Weeks",
+            hours: "16 Hours",
+            sessions: "4 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 5,500",
+            priceNote: "Includes GCP Cloud Digital Leader prep",
+            highlights: [
+                { icon: "🌐", title: "Google's Infrastructure", desc: "Same infrastructure that powers Google Search, YouTube, and Gmail." },
+                { icon: "☸️", title: "GKE", desc: "Google Kubernetes Engine — the gold standard for managed Kubernetes." },
+                { icon: "🔄", title: "Cloud Build", desc: "Serverless CI/CD — build, test, and deploy on Google's infrastructure." },
+                { icon: "📊", title: "BigQuery & Data", desc: "Serverless data warehouse — analyze petabytes in seconds." },
+                { icon: "🤖", title: "AI/ML Ready", desc: "Vertex AI, AutoML, and pre-trained APIs for machine learning." },
+                { icon: "🔒", title: "Security First", desc: "IAM, VPC Service Controls, Cloud Armor, and BeyondCorp Zero Trust." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "GKE is the best managed K8s. Learn Google's approach to infrastructure." },
+                { title: "Data Engineers", desc: "BigQuery, Dataflow, Pub/Sub — Google excels at data pipelines." },
+                { title: "Developers", desc: "Cloud Run, App Engine, Firebase — deploy apps with minimal ops." },
+                { title: "Multi-Cloud Engineers", desc: "Add GCP to your AWS/Azure skills for complete cloud coverage." }
+            ],
+            modules: [
+                {
+                    title: "GCP Fundamentals & Compute",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "GCP console, core compute, networking, and storage services.",
+                    sessions: [
+                        { name: "GCP Core (1 Session)", topics: ["GCP Global Infrastructure — Regions & Zones", "Cloud Console, gcloud CLI & Cloud Shell", "Projects, folders & organizations", "Compute Engine — VM instances, machine types", "Instance groups & auto-scaling", "Cloud Functions — serverless compute", "App Engine — fully managed platform", "Cloud Run — serverless containers"] },
+                        { name: "Networking & Storage (1 Session)", topics: ["VPC Networks — subnets, firewall rules", "Cloud Load Balancing — HTTP(S), TCP, internal", "Cloud DNS & Cloud CDN", "Cloud Interconnect & VPN", "Cloud Storage — buckets, classes, lifecycle", "Persistent Disks & Filestore", "Cloud SQL & Cloud Spanner", "Firestore & Bigtable — NoSQL options"] }
+                    ]
+                },
+                {
+                    title: "GKE, CI/CD & Security",
+                    number: "Module 2",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Managed Kubernetes, CI/CD with Cloud Build, and GCP security/IAM.",
+                    sessions: [
+                        { name: "GKE & Cloud Build (1 Session)", topics: ["Google Kubernetes Engine (GKE) — cluster modes", "GKE Autopilot vs Standard clusters", "Deploying workloads to GKE", "Artifact Registry — container images", "Cloud Build — build triggers & cloudbuild.yaml", "Cloud Deploy — managed CD for GKE", "Binary Authorization — supply chain security", "Anthos — multi-cluster management overview"] },
+                        { name: "IAM & Operations (1 Session)", topics: ["GCP IAM — roles, policies, conditions", "Service accounts & workload identity", "Organization policies & constraints", "Cloud Monitoring — metrics, dashboards, uptime checks", "Cloud Logging — log routing, sinks", "Cloud Trace & Cloud Profiler", "BigQuery overview — serverless analytics", "Cost management — Budgets, Reports, Recommendations", "GCP vs AWS vs Azure comparison"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "GCP Fundamentals", hours: "8 hrs · 2 sessions", desc: "Compute Engine, Cloud Storage, VPC networking, databases — core GCP services." },
+                { phase: "Weeks 3–4", title: "GKE, CI/CD & Security", hours: "8 hrs · 2 sessions", desc: "Google Kubernetes Engine, Cloud Build, IAM, monitoring, and cost management." }
+            ]
+        },
+        alibaba: {
+            title: "Alibaba Cloud",
+            badge: "cloud",
+            badgeText: "Cloud",
+            description: "Master Alibaba Cloud — the #1 cloud provider in Asia-Pacific. Learn ECS, Container Service for K8s, Object Storage, networking, and security for the Chinese and global market.",
+            tagline: "Asia's #1 cloud. Essential for Middle East & Asian markets.",
+            duration: "3 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 3,500",
+            priceNote: "Includes Alibaba Cloud certification prep",
+            highlights: [
+                { icon: "🌏", title: "Asia-Pacific Leader", desc: "The dominant cloud in China, Southeast Asia, and expanding globally." },
+                { icon: "💻", title: "ECS & Containers", desc: "Elastic Compute Service and Container Service for Kubernetes (ACK)." },
+                { icon: "💾", title: "OSS Storage", desc: "Object Storage Service — scalable, durable, and cost-effective." },
+                { icon: "🌐", title: "Global CDN", desc: "One of the world's largest CDN networks — essential for Asian audiences." },
+                { icon: "🔒", title: "Security & Compliance", desc: "China compliance, RAM policies, and security center." },
+                { icon: "💰", title: "Cost Effective", desc: "Competitive pricing especially for Middle East & Asian deployments." }
+            ],
+            whoIsFor: [
+                { title: "Cloud Engineers", desc: "Expand to the Asian cloud market — essential for companies targeting China/ME." },
+                { title: "DevOps Engineers", desc: "Companies operating in Asia need Alibaba Cloud expertise." },
+                { title: "Business Expansion Teams", desc: "Technical foundation for deploying services in China/Asia." },
+                { title: "Multi-Cloud Architects", desc: "Complete your multi-cloud strategy with Asia's leading provider." }
+            ],
+            modules: [
+                {
+                    title: "Alibaba Cloud Core Services",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "ECS compute, networking, storage, and database services on Alibaba Cloud.",
+                    sessions: [
+                        { name: "Alibaba Core (1 Session)", topics: ["Alibaba Cloud overview — global regions & data centers", "Console, CLI (aliyun) & API access", "Elastic Compute Service (ECS) — instances & images", "VPC — Virtual Private Cloud, vSwitches, NAT", "Server Load Balancer (SLB)", "Object Storage Service (OSS) — buckets & lifecycle", "ApsaraDB for RDS — managed databases", "Table Store & Redis — NoSQL options", "CDN & Global Accelerator"] }
+                    ]
+                },
+                {
+                    title: "Containers, Security & DevOps",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Kubernetes on Alibaba, security practices, and DevOps tools.",
+                    sessions: [
+                        { name: "ACK & Security (1 Session)", topics: ["Container Service for K8s (ACK) — managed clusters", "Container Registry — image management", "Function Compute — serverless on Alibaba", "Resource Access Management (RAM) — users, roles, policies", "Security Center — threat detection", "ActionTrail — audit logging", "Cloud Monitor — metrics & alerts", "DevOps tooling — CodePipeline, Flow", "Use cases: Chinese market & cross-border deployment", "Alibaba vs AWS service comparison"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Core Services", hours: "4 hrs · 1 session", desc: "ECS, VPC, OSS, databases, and CDN — Alibaba Cloud infrastructure fundamentals." },
+                { phase: "Weeks 2–3", title: "Containers & Security", hours: "4 hrs · 1 session", desc: "ACK Kubernetes, RAM security, monitoring, and Chinese market deployment strategies." }
+            ]
+        },
+        oracle: {
+            title: "Oracle Cloud (OCI)",
+            badge: "cloud",
+            badgeText: "Cloud",
+            description: "Master Oracle Cloud Infrastructure — high-performance compute, Always Free tier, OKE Kubernetes, and enterprise-grade networking. The cloud built for serious workloads.",
+            tagline: "Enterprise-grade cloud. Generous free tier. Growing fast.",
+            duration: "3 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 3,500",
+            priceNote: "Includes OCI Foundations certification prep",
+            highlights: [
+                { icon: "🏢", title: "Enterprise Grade", desc: "Built for demanding workloads — Oracle databases, HPC, and bare metal." },
+                { icon: "🆓", title: "Always Free Tier", desc: "Generous always-free resources — 2 VMs, load balancer, storage, and more." },
+                { icon: "☸️", title: "OKE", desc: "Oracle Kubernetes Engine — managed K8s with free control plane." },
+                { icon: "💰", title: "Best Pricing", desc: "Often 50% cheaper than AWS for equivalent compute and networking." },
+                { icon: "🌐", title: "Global Network", desc: "High-performance network — no egress charges between ADs." },
+                { icon: "🔒", title: "Security First", desc: "Isolated network architecture, always-on encryption, IAM policies." }
+            ],
+            whoIsFor: [
+                { title: "Cloud Engineers", desc: "OCI is growing rapidly — enterprises are migrating for cost savings and performance." },
+                { title: "Database Administrators", desc: "Oracle Autonomous Database and Oracle DB on cloud — unmatched performance." },
+                { title: "Budget-Conscious Teams", desc: "Get more for less — OCI's pricing is highly competitive." },
+                { title: "DevOps Engineers", desc: "OKE, DevOps service, and Resource Manager (Terraform) — full automation." }
+            ],
+            modules: [
+                {
+                    title: "OCI Fundamentals & Compute",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "OCI architecture, compute instances, networking, and storage.",
+                    sessions: [
+                        { name: "OCI Core (1 Session)", topics: ["OCI architecture — Regions, ADs, Fault Domains", "Tenancy, compartments & resource management", "OCI Console, CLI & Cloud Shell", "Compute instances — shapes, images, boot volumes", "Always Free tier resources overview", "Virtual Cloud Networks (VCN) — subnets, gateways", "Security Lists & Network Security Groups", "Load Balancer — public & private", "Block Volume, Object Storage & File Storage", "Oracle Autonomous Database overview"] }
+                    ]
+                },
+                {
+                    title: "OKE, DevOps & Security",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Kubernetes on OCI, CI/CD, identity management, and cost optimization.",
+                    sessions: [
+                        { name: "OKE & Operations (1 Session)", topics: ["Oracle Kubernetes Engine (OKE) — cluster setup", "Container Registry (OCIR) — image management", "OCI DevOps Service — build & deploy pipelines", "Resource Manager — Terraform on OCI", "Functions — serverless compute on OCI", "IAM — users, groups, policies, compartments", "Vault — secrets & key management", "Monitoring, Logging & Notifications", "Cost Analysis & Budgets", "OCI vs AWS/Azure comparison & migration"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "OCI Fundamentals", hours: "4 hrs · 1 session", desc: "Compute, VCN networking, storage, and Always Free tier — OCI infrastructure basics." },
+                { phase: "Weeks 2–3", title: "OKE & DevOps", hours: "4 hrs · 1 session", desc: "Kubernetes on OCI, DevOps pipelines, IAM, and cost optimization." }
+            ]
+        },
+        ansible: {
+            title: "Ansible — Configuration Management",
+            badge: "iac",
+            badgeText: "Infrastructure as Code",
+            description: "Master Ansible — the agentless automation engine. Configure servers, deploy applications, and orchestrate complex multi-tier workflows at scale using YAML playbooks.",
+            tagline: "Agentless. Simple. Powerful. Automate everything.",
+            duration: "4 Weeks",
+            hours: "12 Hours",
+            sessions: "3 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 4,000",
+            priceNote: "Also included in the full DevOps program",
+            highlights: [
+                { icon: "⚙️", title: "Agentless Architecture", desc: "No agents needed — SSH-based automation that works instantly on any server." },
+                { icon: "📝", title: "YAML Playbooks", desc: "Human-readable automation — define your infrastructure state in simple YAML." },
+                { icon: "📦", title: "Roles & Galaxy", desc: "Reusable automation with roles and thousands of community roles from Ansible Galaxy." },
+                { icon: "🔐", title: "Ansible Vault", desc: "Encrypt sensitive data — passwords, keys, and tokens stay safe in version control." },
+                { icon: "🖥️", title: "Multi-Tier Deployment", desc: "Orchestrate complex deployments — web + app + database in one playbook." },
+                { icon: "🎯", title: "Real Projects", desc: "Deploy a complete application stack with automated configuration management." }
+            ],
+            whoIsFor: [
+                { title: "System Administrators", desc: "Automate repetitive server tasks — user management, packages, services, configs." },
+                { title: "DevOps Engineers", desc: "Configuration management is essential. Ansible pairs perfectly with Terraform." },
+                { title: "Cloud Engineers", desc: "Provision and configure cloud instances at scale with Ansible modules." },
+                { title: "Platform Engineers", desc: "Build self-service platforms with Ansible roles and AWX/Tower." }
+            ],
+            modules: [
+                {
+                    title: "Ansible Fundamentals",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Architecture, inventory, ad-hoc commands, and your first automation.",
+                    sessions: [
+                        { name: "Getting Started (1 Session)", topics: ["Introduction to configuration management", "Ansible architecture — agentless, SSH-based", "Installation on Linux/Mac/WSL", "Inventory files — INI & YAML formats", "Static vs dynamic inventory", "Ad-hoc commands — modules, arguments, patterns", "Connection types & privilege escalation (become)", "Ansible configuration file (ansible.cfg)", "Module documentation — ansible-doc"] }
+                    ]
+                },
+                {
+                    title: "Playbooks & Variables",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "YAML playbooks, variables, facts, handlers, loops, conditionals, and templates.",
+                    sessions: [
+                        { name: "Playbooks Deep-Dive (1 Session)", topics: ["YAML syntax for playbooks", "Plays, tasks & module arguments", "Variables — inventory, playbook, extra-vars, registered", "Variable precedence & scoping rules", "Facts & magic variables (ansible_facts)", "Handlers & task notifications", "Loops — with_items, loop, dict, subelements", "Conditionals — when, changed_when, failed_when", "Templates — Jinja2 syntax, filters & control structures", "Tags for selective execution", "Check mode & diff mode — dry runs"] }
+                    ]
+                },
+                {
+                    title: "Roles, Vault & Advanced Ansible",
+                    number: "Module 3",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Roles for organization, Galaxy for sharing, Vault for secrets, and complex orchestration.",
+                    sessions: [
+                        { name: "Roles & Advanced (1 Session)", topics: ["Roles — directory structure & organization", "Creating roles — tasks, handlers, templates, defaults, vars", "Galaxy — finding & using community roles", "Ansible Vault — encrypting secrets & files", "Vault password management — file, prompt, scripts", "Error handling — block, rescue, always", "Delegation & local actions", "Serial execution & rolling updates", "Ansible for Linux administration — users, packages, services", "Ansible for application deployment — git, pip, npm", "Dynamic inventory — AWS, Azure, GCP plugins", "Final Project: Multi-tier application deployment (web + app + db)"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Ansible Fundamentals", hours: "4 hrs · 1 session", desc: "Installation, inventory, ad-hoc commands, modules — get up and running fast." },
+                { phase: "Weeks 2–3", title: "Playbooks & Variables", hours: "4 hrs · 1 session", desc: "YAML playbooks, variables, facts, handlers, loops, conditionals, and Jinja2 templates." },
+                { phase: "Week 4", title: "Roles & Final Project", hours: "4 hrs · 1 session", desc: "Roles, Galaxy, Vault, error handling, and final project: multi-tier app deployment." }
             ]
         }
     };

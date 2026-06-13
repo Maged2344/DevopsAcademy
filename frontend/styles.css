@@ -476,6 +476,51 @@ img {
     color: #b71c1c;
 }
 
+.course-badge.cloud {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.course-badge.iac {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.course-badge.containerization {
+    background: #cffafe;
+    color: #0e7490;
+}
+
+.course-badge.cicd {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.course-badge.monitoring {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.course-badge.security {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.course-badge.linux {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.course-badge.vcs {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.course-badge.program {
+    background: #8b5cf6;
+    color: #fff;
+}
+
 .course-icon {
     font-size: 2.5rem;
     margin-bottom: 16px;

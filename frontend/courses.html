@@ -46,9 +46,13 @@
                 </div>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="beginner">Beginner</button>
-                    <button class="filter-btn" data-filter="intermediate">Intermediate</button>
-                    <button class="filter-btn" data-filter="advanced">Advanced</button>
+                    <button class="filter-btn" data-filter="cloud">Cloud</button>
+                    <button class="filter-btn" data-filter="containerization">Containers</button>
+                    <button class="filter-btn" data-filter="iac">IaC</button>
+                    <button class="filter-btn" data-filter="cicd">CI/CD</button>
+                    <button class="filter-btn" data-filter="monitoring">Monitoring</button>
+                    <button class="filter-btn" data-filter="security">Security</button>
+                    <button class="filter-btn" data-filter="linux">Linux</button>
                 </div>
             </div>
 
@@ -152,7 +156,23 @@
         devops: '&#128640;', linux: '&#128187;', docker: '&#128038;',
         kubernetes: '&#9784;', cicd: '&#9889;', aws: '&#9729;',
         terraform: '&#127959;', git: '&#128200;', devsecops: '&#128274;',
-        monitoring: '&#128202;', python: '&#128013;', ansible: '&#9881;'
+        monitoring: '&#128202;', python: '&#128013;', ansible: '&#9881;',
+        azure: '&#9729;', gcp: '&#9729;', alibaba: '&#9729;', oracle: '&#9729;'
+    };
+
+    // Category mapping for courses
+    const courseCategories = {
+        devops: 'program', linux: 'linux', docker: 'containerization',
+        kubernetes: 'containerization', cicd: 'cicd', aws: 'cloud',
+        terraform: 'iac', git: 'vcs', devsecops: 'security',
+        monitoring: 'monitoring', ansible: 'iac',
+        azure: 'cloud', gcp: 'cloud', alibaba: 'cloud', oracle: 'cloud'
+    };
+
+    const categoryLabels = {
+        program: 'Full Program', cloud: 'Cloud', containerization: 'Containerization',
+        iac: 'IaC', cicd: 'CI/CD', monitoring: 'Monitoring',
+        security: 'Security', linux: 'Linux & OS', vcs: 'Version Control'
     };
 
     let allCourses = [];
@@ -181,11 +201,11 @@
         grid.innerHTML = courses.map(c => {
             const icon = courseIcons[c.courseId] || '&#128218;';
             const isFeatured = c.courseId === 'devops';
-            const levelBadgeClass = c.level === 'all' ? 'program' : c.level;
-            const levelLabel = c.level === 'all' ? 'Full Program' : c.level.charAt(0).toUpperCase() + c.level.slice(1);
+            const category = courseCategories[c.courseId] || c.level;
+            const categoryLabel = categoryLabels[category] || category;
 
-            return `<div class="course-card ${isFeatured ? 'featured' : ''}" data-level="${c.level}" ${isFeatured ? 'style="grid-column: 1 / -1; border: 2px solid #1e40af; background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);"' : ''}>
-                <div class="course-badge ${levelBadgeClass}" ${isFeatured ? 'style="background:#8b5cf6;color:#fff;"' : ''}>${levelLabel}</div>
+            return `<div class="course-card ${isFeatured ? 'featured' : ''}" data-level="${category}" ${isFeatured ? 'style="grid-column: 1 / -1; border: 2px solid #1e40af; background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);"' : ''}>
+                <div class="course-badge ${category}" ${isFeatured ? 'style="background:#8b5cf6;color:#fff;"' : ''}>${categoryLabel}</div>
                 <div class="course-icon">${icon}</div>
                 <h3>${c.name}</h3>
                 <div class="course-meta">
@@ -257,7 +277,7 @@
     function applyLevelFilter(courses) {
         const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
         if (activeFilter !== 'all') {
-            courses = courses.filter(c => c.level === activeFilter);
+            courses = courses.filter(c => (courseCategories[c.courseId] || c.level) === activeFilter);
         }
         renderCourses(courses);
     }
