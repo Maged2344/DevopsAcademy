@@ -47,8 +47,19 @@ const adminSchema = new mongoose.Schema({
   password: { type: String, required: true }
 });
 
+const courseSchema = new mongoose.Schema({
+  courseId: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+  duration: { type: String, default: '' },
+  level: { type: String, enum: ['beginner', 'intermediate', 'advanced', 'all'], default: 'beginner' },
+  active: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
 const Enrollment = mongoose.model('Enrollment', enrollmentSchema);
 const Admin = mongoose.model('Admin', adminSchema);
+const Course = mongoose.model('Course', courseSchema);
 
 // ===== Auth Middleware =====
 function authMiddleware(req, res, next) {
@@ -163,6 +174,100 @@ app.delete('/api/admin/enrollments/:id', authMiddleware, async (req, res) => {
   }
 });
 
+// ===== Course Management Routes =====
+
+// Get all courses
+app.get('/api/admin/courses', authMiddleware, async (req, res) => {
+  try {
+    const courses = await Course.find().sort({ createdAt: 1 });
+    res.json(courses);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Add a new course
+app.post('/api/admin/courses', authMiddleware, async (req, res) => {
+  try {
+    const { courseId, name, price, duration, level } = req.body;
+    if (!courseId || !name || price === undefined) {
+      return res.status(400).json({ error: 'courseId, name, and price are required' });
+    }
+
+    const existing = await Course.findOne({ courseId });
+    if (existing) {
+      return res.status(409).json({ error: 'Course ID already exists' });
+    }
+
+    const course = new Course({ courseId, name, price, duration, level });
+    await course.save();
+    res.status(201).json(course);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Update a course (price, name, etc.)
+app.put('/api/admin/courses/:id', authMiddleware, async (req, res) => {
+  try {
+    const { name, price, duration, level, active } = req.body;
+    const update = {};
+    if (name !== undefined) update.name = name;
+    if (price !== undefined) update.price = price;
+    if (duration !== undefined) update.duration = duration;
+    if (level !== undefined) update.level = level;
+    if (active !== undefined) update.active = active;
+
+    const course = await Course.findByIdAndUpdate(req.params.id, update, { new: true });
+    if (!course) return res.status(404).json({ error: 'Course not found' });
+
+    res.json(course);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Delete a course
+app.delete('/api/admin/courses/:id', authMiddleware, async (req, res) => {
+  try {
+    const course = await Course.findByIdAndDelete(req.params.id);
+    if (!course) return res.status(404).json({ error: 'Course not found' });
+
+    res.json({ message: 'Course deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Get per-course enrollment stats and revenue
+app.get('/api/admin/course-stats', authMiddleware, async (req, res) => {
+  try {
+    const courses = await Course.find();
+    const stats = await Promise.all(courses.map(async (course) => {
+      const total = await Enrollment.countDocuments({ course: course.courseId });
+      const approved = await Enrollment.countDocuments({ course: course.courseId, status: 'approved' });
+      const pending = await Enrollment.countDocuments({ course: course.courseId, status: 'pending' });
+      const rejected = await Enrollment.countDocuments({ course: course.courseId, status: 'rejected' });
+      const revenue = approved * course.price;
+      return {
+        courseId: course.courseId,
+        name: course.name,
+        price: course.price,
+        level: course.level,
+        active: course.active,
+        total,
+        approved,
+        pending,
+        rejected,
+        revenue
+      };
+    }));
+    res.json(stats);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // ===== Connect to MongoDB and Start Server =====
 async function start() {
   try {
@@ -175,6 +280,25 @@ async function start() {
       const hashedPassword = await bcrypt.hash('admin123', 10);
       await Admin.create({ username: 'admin', password: hashedPassword });
       console.log('Default admin created: admin / admin123');
+    }
+
+    // Seed default courses if none exist
+    const courseCount = await Course.countDocuments();
+    if (courseCount === 0) {
+      const defaultCourses = [
+        { courseId: 'devops', name: 'DevOps Engineering Program', price: 25000, duration: '25 Weeks', level: 'all' },
+        { courseId: 'linux', name: 'Linux Fundamentals', price: 3500, duration: '4 Weeks', level: 'beginner' },
+        { courseId: 'docker', name: 'Docker & Containers', price: 4500, duration: '5 Weeks', level: 'beginner' },
+        { courseId: 'kubernetes', name: 'Kubernetes (K8s)', price: 6000, duration: '6 Weeks', level: 'intermediate' },
+        { courseId: 'cicd', name: 'CI/CD Pipelines', price: 5500, duration: '5 Weeks', level: 'intermediate' },
+        { courseId: 'aws', name: 'AWS Cloud Engineering', price: 7500, duration: '8 Weeks', level: 'intermediate' },
+        { courseId: 'terraform', name: 'Terraform & IaC', price: 6500, duration: '6 Weeks', level: 'advanced' },
+        { courseId: 'git', name: 'Git & Version Control', price: 2500, duration: '3 Weeks', level: 'beginner' },
+        { courseId: 'devsecops', name: 'DevSecOps', price: 7000, duration: '6 Weeks', level: 'advanced' },
+        { courseId: 'monitoring', name: 'Monitoring & Observability', price: 5500, duration: '5 Weeks', level: 'advanced' }
+      ];
+      await Course.insertMany(defaultCourses);
+      console.log('Default courses seeded');
     }
 
     app.listen(3000, '0.0.0.0', () => {

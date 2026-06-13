@@ -72,26 +72,54 @@
             font-size: 0.85rem;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            background: #fff;
+            padding: 4px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .tab {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+        .tab.active { background: #1e40af; color: #fff; }
+        .tab:hover:not(.active) { background: #f1f5f9; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         /* Stats */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
         .stat-card {
             background: #fff;
-            padding: 24px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
-        .stat-card .number { font-size: 2rem; font-weight: 700; color: #1e40af; }
-        .stat-card .label { color: #64748b; font-size: 0.85rem; margin-top: 4px; }
+        .stat-card .number { font-size: 1.75rem; font-weight: 700; color: #1e40af; }
+        .stat-card .label { color: #64748b; font-size: 0.8rem; margin-top: 4px; }
         .stat-card.pending .number { color: #f59e0b; }
         .stat-card.approved .number { color: #10b981; }
         .stat-card.rejected .number { color: #ef4444; }
+        .stat-card.revenue .number { color: #8b5cf6; }
 
         /* Filters */
         .filters {
@@ -99,16 +127,24 @@
             gap: 12px;
             margin-bottom: 16px;
             flex-wrap: wrap;
+            align-items: center;
         }
-        .filters select, .filters button {
+        .filters select, .filters input {
             padding: 8px 16px;
             border: 1px solid #e2e8f0;
             border-radius: 6px;
             font-size: 0.85rem;
             background: #fff;
-            cursor: pointer;
         }
-        .filters button { background: #1e40af; color: #fff; border: none; }
+        .filters button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #1e40af;
+            color: #fff;
+        }
 
         /* Table */
         .table-container {
@@ -131,8 +167,10 @@
         .badge-pending { background: #fef3c7; color: #92400e; }
         .badge-approved { background: #d1fae5; color: #065f46; }
         .badge-rejected { background: #fee2e2; color: #991b1b; }
+        .badge-active { background: #d1fae5; color: #065f46; }
+        .badge-inactive { background: #f1f5f9; color: #64748b; }
 
-        .action-btns { display: flex; gap: 6px; }
+        .action-btns { display: flex; gap: 6px; flex-wrap: wrap; }
         .action-btns button {
             padding: 6px 10px;
             border: none;
@@ -144,12 +182,118 @@
         .btn-approve { background: #10b981; }
         .btn-reject { background: #ef4444; }
         .btn-delete { background: #6b7280; }
+        .btn-edit { background: #3b82f6; }
 
         .empty-state { text-align: center; padding: 60px; color: #94a3b8; }
+
+        /* Course Stats Cards */
+        .course-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .course-stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #1e40af;
+        }
+        .course-stat-card h3 { font-size: 0.95rem; margin-bottom: 12px; color: #1e293b; }
+        .course-stat-card .course-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .course-stat-card .info-item { font-size: 0.8rem; color: #64748b; }
+        .course-stat-card .info-item strong { color: #1e293b; display: block; font-size: 1rem; }
+        .course-stat-card .revenue-highlight {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+            font-size: 0.85rem;
+            color: #8b5cf6;
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal h2 { font-size: 1.25rem; margin-bottom: 20px; color: #1e40af; }
+        .modal .form-group { margin-bottom: 16px; }
+        .modal .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+        .modal .form-group input,
+        .modal .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .modal .form-group input:focus,
+        .modal .form-group select:focus { outline: none; border-color: #3b82f6; }
+        .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+        .modal-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .modal-actions .btn-primary { background: #1e40af; color: #fff; }
+        .modal-actions .btn-primary:hover { background: #1e3a8a; }
+        .modal-actions .btn-secondary { background: #f1f5f9; color: #475569; }
+
+        /* Summary section */
+        .summary-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .summary-card {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .summary-card .number { font-size: 1.75rem; font-weight: 700; }
+        .summary-card .label { font-size: 0.8rem; opacity: 0.9; margin-top: 4px; }
 
         @media (max-width: 768px) {
             .container { padding: 16px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .course-stats-grid { grid-template-columns: 1fr; }
+            .tabs { overflow-x: auto; }
+            .tab { white-space: nowrap; padding: 10px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -158,7 +302,7 @@
     <div class="login-container" id="loginPage">
         <div class="login-box">
             <h1>Admin Panel</h1>
-            <p>DevOps Academy Egypt - Enrollment Management</p>
+            <p>DevOps Academy Egypt - Management Dashboard</p>
             <div class="login-error" id="loginError">Invalid username or password</div>
             <input type="text" id="loginUsername" placeholder="Username" autocomplete="username">
             <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
@@ -169,7 +313,7 @@
     <!-- Dashboard -->
     <div class="dashboard" id="dashboard">
         <div class="header">
-            <h1>DevOps Academy - Admin Panel</h1>
+            <h1>DevOps Academy - Admin Dashboard</h1>
             <div class="user-info">
                 <span id="adminName"></span>
                 <button class="logout-btn" onclick="logout()">Logout</button>
@@ -177,68 +321,132 @@
         </div>
 
         <div class="container">
-            <!-- Stats -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="number" id="statTotal">0</div>
-                    <div class="label">Total Applications</div>
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('enrollments')">Enrollments</button>
+                <button class="tab" onclick="switchTab('courses')">Course Management</button>
+                <button class="tab" onclick="switchTab('analytics')">Analytics & Revenue</button>
+            </div>
+
+            <!-- Tab 1: Enrollments -->
+            <div class="tab-content active" id="tab-enrollments">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number" id="statTotal">0</div>
+                        <div class="label">Total Applications</div>
+                    </div>
+                    <div class="stat-card pending">
+                        <div class="number" id="statPending">0</div>
+                        <div class="label">Pending Review</div>
+                    </div>
+                    <div class="stat-card approved">
+                        <div class="number" id="statApproved">0</div>
+                        <div class="label">Approved</div>
+                    </div>
+                    <div class="stat-card rejected">
+                        <div class="number" id="statRejected">0</div>
+                        <div class="label">Rejected</div>
+                    </div>
                 </div>
-                <div class="stat-card pending">
-                    <div class="number" id="statPending">0</div>
-                    <div class="label">Pending Review</div>
+
+                <div class="filters">
+                    <select id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <select id="filterCourse">
+                        <option value="">All Courses</option>
+                    </select>
+                    <button onclick="loadEnrollments()">Filter</button>
                 </div>
-                <div class="stat-card approved">
-                    <div class="number" id="statApproved">0</div>
-                    <div class="label">Approved</div>
-                </div>
-                <div class="stat-card rejected">
-                    <div class="number" id="statRejected">0</div>
-                    <div class="label">Rejected</div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Course</th>
+                                <th>Experience</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrollmentsTable"></tbody>
+                    </table>
+                    <div class="empty-state" id="emptyState" style="display:none;">No applications found.</div>
                 </div>
             </div>
 
-            <!-- Filters -->
-            <div class="filters">
-                <select id="filterStatus">
-                    <option value="">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="rejected">Rejected</option>
-                </select>
-                <select id="filterCourse">
-                    <option value="">All Courses</option>
-                    <option value="linux">Linux Fundamentals</option>
-                    <option value="docker">Docker & Containers</option>
-                    <option value="kubernetes">Kubernetes</option>
-                    <option value="cicd">CI/CD Pipelines</option>
-                    <option value="aws">AWS Cloud</option>
-                    <option value="terraform">Terraform & IaC</option>
-                    <option value="git">Git & Version Control</option>
-                    <option value="devsecops">DevSecOps</option>
-                    <option value="monitoring">Monitoring</option>
-                </select>
-                <button onclick="loadEnrollments()">Filter</button>
+            <!-- Tab 2: Course Management -->
+            <div class="tab-content" id="tab-courses">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2 style="font-size:1.1rem; color:#1e293b;">Manage Courses</h2>
+                    <button onclick="openAddCourseModal()" style="padding:10px 20px; background:#1e40af; color:#fff; border:none; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer;">+ Add Course</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course ID</th>
+                                <th>Name</th>
+                                <th>Price (EGP)</th>
+                                <th>Duration</th>
+                                <th>Level</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coursesTable"></tbody>
+                    </table>
+                </div>
             </div>
 
-            <!-- Table -->
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Course</th>
-                            <th>Experience</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="enrollmentsTable">
-                    </tbody>
-                </table>
-                <div class="empty-state" id="emptyState" style="display:none;">No applications found.</div>
+            <!-- Tab 3: Analytics & Revenue -->
+            <div class="tab-content" id="tab-analytics">
+                <div class="summary-row" id="revenueSummary"></div>
+                <h2 style="font-size:1.1rem; color:#1e293b; margin-bottom:16px;">Per-Course Performance</h2>
+                <div class="course-stats-grid" id="courseStatsGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Course Modal -->
+    <div class="modal-overlay" id="courseModal">
+        <div class="modal">
+            <h2 id="courseModalTitle">Add New Course</h2>
+            <div class="form-group">
+                <label for="modalCourseId">Course ID (slug)</label>
+                <input type="text" id="modalCourseId" placeholder="e.g., python-basics">
+            </div>
+            <div class="form-group">
+                <label for="modalCourseName">Course Name</label>
+                <input type="text" id="modalCourseName" placeholder="e.g., Python for DevOps">
+            </div>
+            <div class="form-group">
+                <label for="modalCoursePrice">Price (EGP)</label>
+                <input type="number" id="modalCoursePrice" placeholder="e.g., 5000">
+            </div>
+            <div class="form-group">
+                <label for="modalCourseDuration">Duration</label>
+                <input type="text" id="modalCourseDuration" placeholder="e.g., 6 Weeks">
+            </div>
+            <div class="form-group">
+                <label for="modalCourseLevel">Level</label>
+                <select id="modalCourseLevel">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                    <option value="all">All Levels</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeCourseModal()">Cancel</button>
+                <button class="btn-primary" id="courseModalSubmit" onclick="submitCourse()">Add Course</button>
             </div>
         </div>
     </div>
@@ -246,56 +454,29 @@
     <script>
         const API_URL = '/api';
         let token = localStorage.getItem('adminToken');
-
-        // Auto-refresh enrollments every 5 seconds
         let refreshInterval = null;
+        let editingCourseId = null;
+        let coursesData = [];
 
-        function startAutoRefresh() {
-            if (refreshInterval) clearInterval(refreshInterval);
-            refreshInterval = setInterval(() => {
-                if (token) {
-                    loadStats();
-                    loadEnrollments();
-                }
-            }, 5000);
-        }
-
-        function stopAutoRefresh() {
-            if (refreshInterval) {
-                clearInterval(refreshInterval);
-                refreshInterval = null;
-            }
-        }
-
-        // Check if already logged in
-        if (token) {
-            showDashboard();
-        }
+        // ===== Auth =====
+        if (token) showDashboard();
 
         async function login() {
             const username = document.getElementById('loginUsername').value;
             const password = document.getElementById('loginPassword').value;
-
             try {
                 const res = await fetch(`${API_URL}/admin/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password })
                 });
-
-                if (!res.ok) {
-                    document.getElementById('loginError').style.display = 'block';
-                    return;
-                }
-
+                if (!res.ok) { document.getElementById('loginError').style.display = 'block'; return; }
                 const data = await res.json();
                 token = data.token;
                 localStorage.setItem('adminToken', token);
                 localStorage.setItem('adminName', data.username);
                 showDashboard();
-            } catch (err) {
-                document.getElementById('loginError').style.display = 'block';
-            }
+            } catch (err) { document.getElementById('loginError').style.display = 'block'; }
         }
 
         function logout() {
@@ -311,11 +492,32 @@
             document.getElementById('loginPage').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('adminName').textContent = localStorage.getItem('adminName') || 'Admin';
-            loadStats();
-            loadEnrollments();
+            loadAll();
             startAutoRefresh();
         }
 
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            refreshInterval = setInterval(() => { if (token) loadAll(); }, 5000);
+        }
+        function stopAutoRefresh() { if (refreshInterval) { clearInterval(refreshInterval); refreshInterval = null; } }
+
+        async function loadAll() {
+            await loadCourses();
+            loadStats();
+            loadEnrollments();
+            loadCourseStats();
+        }
+
+        // ===== Tabs =====
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        // ===== Enrollment Stats =====
         async function loadStats() {
             try {
                 const res = await fetch(`${API_URL}/admin/stats?_t=${Date.now()}`, {
@@ -330,6 +532,7 @@
             } catch (err) { console.error(err); }
         }
 
+        // ===== Enrollments =====
         async function loadEnrollments() {
             const status = document.getElementById('filterStatus').value;
             const course = document.getElementById('filterCourse').value;
@@ -343,31 +546,29 @@
                 });
                 if (res.status === 401) { logout(); return; }
                 const enrollments = await res.json();
-
                 const tbody = document.getElementById('enrollmentsTable');
                 const empty = document.getElementById('emptyState');
 
-                if (enrollments.length === 0) {
-                    tbody.innerHTML = '';
-                    empty.style.display = 'block';
-                    return;
-                }
-
+                if (enrollments.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
                 empty.style.display = 'none';
+
+                const courseMap = {};
+                coursesData.forEach(c => { courseMap[c.courseId] = c.name; });
+
                 tbody.innerHTML = enrollments.map(e => `
                     <tr>
                         <td><strong>${e.firstName} ${e.lastName}</strong></td>
                         <td>${e.email}</td>
                         <td>${e.phone}</td>
-                        <td>${e.course}</td>
+                        <td>${courseMap[e.course] || e.course}</td>
                         <td>${e.experience}</td>
                         <td><span class="badge badge-${e.status}">${e.status}</span></td>
                         <td>${new Date(e.createdAt).toLocaleDateString()}</td>
                         <td>
                             <div class="action-btns">
-                                ${e.status !== 'approved' ? `<button class="btn-approve" onclick="updateStatus('${e._id}', 'approved')">Approve</button>` : ''}
-                                ${e.status !== 'rejected' ? `<button class="btn-reject" onclick="updateStatus('${e._id}', 'rejected')">Reject</button>` : ''}
-                                <button class="btn-delete" onclick="deleteEnrollment('${e._id}')">Delete</button>
+                                ${e.status !== 'approved' ? `<button class="btn-approve" onclick="updateStatus('${e._id}', 'approved')">&#10003;</button>` : ''}
+                                ${e.status !== 'rejected' ? `<button class="btn-reject" onclick="updateStatus('${e._id}', 'rejected')">&#10007;</button>` : ''}
+                                <button class="btn-delete" onclick="deleteEnrollment('${e._id}')">&#128465;</button>
                             </div>
                         </td>
                     </tr>
@@ -382,24 +583,195 @@
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ status })
                 });
-                loadStats();
-                loadEnrollments();
+                loadStats(); loadEnrollments(); loadCourseStats();
             } catch (err) { console.error(err); }
         }
 
         async function deleteEnrollment(id) {
-            if (!confirm('Are you sure you want to delete this application?')) return;
+            if (!confirm('Delete this application?')) return;
             try {
                 await fetch(`${API_URL}/admin/enrollments/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                loadStats();
-                loadEnrollments();
+                loadStats(); loadEnrollments(); loadCourseStats();
             } catch (err) { console.error(err); }
         }
 
-        // Enter key on login
+        // ===== Course Management =====
+        async function loadCourses() {
+            try {
+                const res = await fetch(`${API_URL}/admin/courses?_t=${Date.now()}`, {
+                    headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' }
+                });
+                if (res.status === 401) { logout(); return; }
+                coursesData = await res.json();
+                renderCoursesTable();
+                populateCourseFilter();
+            } catch (err) { console.error(err); }
+        }
+
+        function renderCoursesTable() {
+            const tbody = document.getElementById('coursesTable');
+            tbody.innerHTML = coursesData.map(c => `
+                <tr>
+                    <td><code>${c.courseId}</code></td>
+                    <td><strong>${c.name}</strong></td>
+                    <td>EGP ${c.price.toLocaleString()}</td>
+                    <td>${c.duration || '-'}</td>
+                    <td><span style="text-transform:capitalize">${c.level}</span></td>
+                    <td><span class="badge badge-${c.active ? 'active' : 'inactive'}">${c.active ? 'Active' : 'Inactive'}</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-edit" onclick="openEditCourseModal('${c._id}')">Edit</button>
+                            <button class="btn-delete" onclick="deleteCourse('${c._id}')">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function populateCourseFilter() {
+            const select = document.getElementById('filterCourse');
+            const current = select.value;
+            select.innerHTML = '<option value="">All Courses</option>' +
+                coursesData.filter(c => c.active).map(c => `<option value="${c.courseId}">${c.name}</option>`).join('');
+            select.value = current;
+        }
+
+        function openAddCourseModal() {
+            editingCourseId = null;
+            document.getElementById('courseModalTitle').textContent = 'Add New Course';
+            document.getElementById('courseModalSubmit').textContent = 'Add Course';
+            document.getElementById('modalCourseId').value = '';
+            document.getElementById('modalCourseId').disabled = false;
+            document.getElementById('modalCourseName').value = '';
+            document.getElementById('modalCoursePrice').value = '';
+            document.getElementById('modalCourseDuration').value = '';
+            document.getElementById('modalCourseLevel').value = 'beginner';
+            document.getElementById('courseModal').classList.add('active');
+        }
+
+        function openEditCourseModal(id) {
+            const course = coursesData.find(c => c._id === id);
+            if (!course) return;
+            editingCourseId = id;
+            document.getElementById('courseModalTitle').textContent = 'Edit Course';
+            document.getElementById('courseModalSubmit').textContent = 'Save Changes';
+            document.getElementById('modalCourseId').value = course.courseId;
+            document.getElementById('modalCourseId').disabled = true;
+            document.getElementById('modalCourseName').value = course.name;
+            document.getElementById('modalCoursePrice').value = course.price;
+            document.getElementById('modalCourseDuration').value = course.duration || '';
+            document.getElementById('modalCourseLevel').value = course.level;
+            document.getElementById('courseModal').classList.add('active');
+        }
+
+        function closeCourseModal() {
+            document.getElementById('courseModal').classList.remove('active');
+        }
+
+        async function submitCourse() {
+            const courseId = document.getElementById('modalCourseId').value.trim();
+            const name = document.getElementById('modalCourseName').value.trim();
+            const price = parseInt(document.getElementById('modalCoursePrice').value);
+            const duration = document.getElementById('modalCourseDuration').value.trim();
+            const level = document.getElementById('modalCourseLevel').value;
+
+            if (!name || isNaN(price)) { alert('Name and price are required'); return; }
+
+            try {
+                if (editingCourseId) {
+                    await fetch(`${API_URL}/admin/courses/${editingCourseId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ name, price, duration, level })
+                    });
+                } else {
+                    if (!courseId) { alert('Course ID is required'); return; }
+                    const res = await fetch(`${API_URL}/admin/courses`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ courseId, name, price, duration, level })
+                    });
+                    if (res.status === 409) { alert('Course ID already exists!'); return; }
+                }
+                closeCourseModal();
+                loadCourses();
+                loadCourseStats();
+            } catch (err) { console.error(err); alert('Error saving course'); }
+        }
+
+        async function deleteCourse(id) {
+            if (!confirm('Delete this course? This will not delete existing enrollments.')) return;
+            try {
+                await fetch(`${API_URL}/admin/courses/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                loadCourses();
+                loadCourseStats();
+            } catch (err) { console.error(err); }
+        }
+
+        // ===== Analytics & Revenue =====
+        async function loadCourseStats() {
+            try {
+                const res = await fetch(`${API_URL}/admin/course-stats?_t=${Date.now()}`, {
+                    headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' }
+                });
+                if (res.status === 401) return;
+                const stats = await res.json();
+
+                const totalRevenue = stats.reduce((sum, s) => sum + s.revenue, 0);
+                const totalStudents = stats.reduce((sum, s) => sum + s.total, 0);
+                const totalApproved = stats.reduce((sum, s) => sum + s.approved, 0);
+
+                document.getElementById('revenueSummary').innerHTML = `
+                    <div class="summary-card">
+                        <div class="number">EGP ${totalRevenue.toLocaleString()}</div>
+                        <div class="label">Total Revenue (Approved)</div>
+                    </div>
+                    <div class="summary-card" style="background:linear-gradient(135deg,#065f46,#10b981)">
+                        <div class="number">${totalApproved}</div>
+                        <div class="label">Total Approved Students</div>
+                    </div>
+                    <div class="summary-card" style="background:linear-gradient(135deg,#92400e,#f59e0b)">
+                        <div class="number">${totalStudents}</div>
+                        <div class="label">Total Applications</div>
+                    </div>
+                `;
+
+                document.getElementById('courseStatsGrid').innerHTML = stats.map(s => `
+                    <div class="course-stat-card">
+                        <h3>${s.name}</h3>
+                        <div class="course-info">
+                            <div class="info-item">
+                                <strong>${s.total}</strong>
+                                Applications
+                            </div>
+                            <div class="info-item">
+                                <strong>${s.approved}</strong>
+                                Approved
+                            </div>
+                            <div class="info-item">
+                                <strong>${s.pending}</strong>
+                                Pending
+                            </div>
+                            <div class="info-item">
+                                <strong>EGP ${s.price.toLocaleString()}</strong>
+                                Price
+                            </div>
+                        </div>
+                        <div class="revenue-highlight">
+                            Revenue: EGP ${s.revenue.toLocaleString()} (${s.approved} × ${s.price.toLocaleString()})
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) { console.error(err); }
+        }
+
+        // ===== Events =====
         document.getElementById('loginPassword').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') login();
         });
