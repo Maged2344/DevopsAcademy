@@ -44,8 +44,10 @@
                 <li><a href="/services.html">Services</a></li>
                 <li><a href="/faq.html" class="active">FAQ</a></li>
                 <li><a href="/#contact">Contact</a></li>
-                <li><a href="/portal.html?tab=signup" class="btn btn-small btn-outline">Register</a></li>
-                <li><a href="/portal.html?tab=signin" class="btn btn-small">Sign In</a></li>
+                <div class="auth-buttons">
+                    <li><a href="/portal.html?tab=signup" class="btn btn-small btn-outline">Register</a></li>
+                    <li><a href="/portal.html?tab=signin" class="btn btn-small">Sign In</a></li>
+                </div>
                 <li><a href="/courses.html#enroll" class="btn btn-nav">Enroll Now</a></li>
             </ul>
         </div>
@@ -231,6 +233,9 @@
         document.getElementById('navLinks').classList.toggle('active');
     });
     </script>
+
+    <!-- Auth Navigation Handler -->
+    <script src="auth-nav.js"></script>
 
     <!-- Visitor Tracking -->
     <script>fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname})}).catch(()=>{});</script>

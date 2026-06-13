@@ -334,6 +334,21 @@ img {
     font-weight: 600;
 }
 
+/* Auth Navigation Buttons */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.auth-buttons li {
+    list-style: none;
+    margin: 0;
+}
+
 @media (max-width: 768px) {
     .page-header { padding: 120px 0 40px; }
     .page-header h1 { font-size: 1.8rem; }
