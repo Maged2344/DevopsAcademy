@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - DevOps Academy Egypt</title>
+    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .page-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 120px 0 60px; text-align: center; color: #fff; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 12px; }
+        .page-header p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+        .faq-section { padding: 80px 0; background: #f8fafc; }
+        .faq-category { margin-bottom: 48px; }
+        .faq-category h2 { font-size: 1.5rem; color: #1e40af; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; }
+        .faq-item { background: #fff; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; border: 1px solid #e2e8f0; }
+        .faq-question { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; color: #0f172a; transition: background 0.2s; }
+        .faq-question:hover { background: #f1f5f9; }
+        .faq-question::after { content: '+'; font-size: 1.5rem; color: #3b82f6; transition: transform 0.3s; font-weight: 300; }
+        .faq-item.active .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; color: #475569; line-height: 1.8; }
+        .faq-item.active .faq-answer { max-height: 500px; padding: 0 24px 20px; }
+        .faq-contact { text-align: center; padding: 60px 0; background: #0f172a; color: #fff; }
+        .faq-contact h2 { margin-bottom: 16px; }
+        .faq-contact p { color: rgba(255,255,255,0.7); margin-bottom: 24px; }
+        .faq-contact .btn { display: inline-block; padding: 14px 32px; background: #3b82f6; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background 0.3s; }
+        .faq-contact .btn:hover { background: #2563eb; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="/" class="logo">
+                <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses.html">Courses</a></li>
+                <li><a href="/services.html">Services</a></li>
+                <li><a href="/faq.html" class="active">FAQ</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="/courses.html#enroll" class="btn btn-nav">Enroll Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Frequently Asked Questions</h1>
+            <p>Everything you need to know about DevOps Academy Egypt</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+
+            <!-- General Questions -->
+            <div class="faq-category">
+                <h2>General Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">What is DevOps Academy Egypt?</div>
+                    <div class="faq-answer">DevOps Academy Egypt is the leading DevOps training provider in Egypt. We offer comprehensive, hands-on courses taught by industry experts (including Microsoft Certified Trainers) to help professionals transition into DevOps engineering roles or advance their careers.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Who are your instructors?</div>
+                    <div class="faq-answer">Our instructors are industry professionals with real-world experience. Our lead instructor is a Microsoft Certified Trainer (MCT) with years of experience in DevOps, cloud computing, and infrastructure automation. All instructors actively work in the field and bring real project experience to the classroom.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Do I need prior experience to enroll?</div>
+                    <div class="faq-answer">It depends on the course. Our Linux Fundamentals and Git courses are designed for complete beginners. The full DevOps Engineering program starts from zero and builds up systematically. However, intermediate courses like Kubernetes and Terraform assume basic Linux and Docker knowledge.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What makes you different from other training providers?</div>
+                    <div class="faq-answer">We focus on hands-on, project-based learning — not just theory. Every student builds real infrastructure, writes real pipelines, and deploys real applications. Our curriculum is aligned with industry certifications (RHCSA, AWS CCP, CKA) and updated regularly to match market demands.</div>
+                </div>
+            </div>
+
+            <!-- Courses & Curriculum -->
+            <div class="faq-category">
+                <h2>Courses & Curriculum</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">What courses do you offer?</div>
+                    <div class="faq-answer">We offer individual courses in Linux, Docker, Kubernetes, CI/CD (Jenkins, GitHub Actions), AWS & Multi-Cloud, Terraform & Ansible, Git, DevSecOps, and Monitoring. We also offer a comprehensive 26-week DevOps Engineering Program that covers all topics end-to-end with a capstone project.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How long is the full DevOps program?</div>
+                    <div class="faq-answer">The full DevOps Engineering Program is 26 weeks (approximately 6 months), with 4-hour sessions. It covers Linux, programming, Docker, Kubernetes, CI/CD, cloud computing (AWS, Azure, GCP, Alibaba, Oracle), Terraform, Ansible, monitoring, DevSecOps, and a capstone project.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Are courses online or in-person?</div>
+                    <div class="faq-answer">We currently offer both online (live instructor-led via Zoom) and in-person sessions at our training center in Egypt. All sessions are recorded and shared with students for review.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Do I get a certificate after completing a course?</div>
+                    <div class="faq-answer">Yes! Upon completing any course or program and passing the final assessment, you receive a DevOps Academy Egypt certificate. For the full program, you also get career support including portfolio review, resume building, and interview preparation.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What cloud providers do you cover?</div>
+                    <div class="faq-answer">We provide deep-dive AWS training (aligned with Cloud Practitioner certification) plus fundamentals of Microsoft Azure, Google Cloud Platform (GCP), Alibaba Cloud, and Oracle Cloud. Our approach is cloud-agnostic — you'll learn to deploy on any provider.</div>
+                </div>
+            </div>
+
+            <!-- Enrollment & Payment -->
+            <div class="faq-category">
+                <h2>Enrollment & Payment</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">How do I enroll?</div>
+                    <div class="faq-answer">You can enroll directly from our <a href="/courses.html#enroll" style="color:#3b82f6;">Courses page</a>. Fill out the enrollment form with your details and preferred course. Our team will contact you within 24 hours to confirm your spot and provide payment details.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What are the payment options?</div>
+                    <div class="faq-answer">We accept bank transfers, Vodafone Cash, InstaPay, and cash payments. We also offer installment plans for the full DevOps program — pay in 2-4 installments with no interest. Contact us via WhatsApp for payment arrangement details.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I get a refund if I'm not satisfied?</div>
+                    <div class="faq-answer">We offer a full refund if you withdraw within the first week (first 2 sessions) of any course. After that, we can transfer your enrollment to a future batch or apply the remaining balance to another course.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Are there any discounts available?</div>
+                    <div class="faq-answer">Yes! We offer early-bird discounts (10% off if enrolled 2 weeks before the batch starts), group discounts (3+ people), and student discounts with a valid university ID. Follow our social media for seasonal promotions.</div>
+                </div>
+            </div>
+
+            <!-- Technical & Career -->
+            <div class="faq-category">
+                <h2>Technical & Career</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">What tools will I learn?</div>
+                    <div class="faq-answer">You'll gain hands-on experience with: Linux (RHEL/CentOS), Git/GitHub, Docker, Kubernetes, Helm, Jenkins, GitLab CI, GitHub Actions, ArgoCD, Terraform, Ansible, AWS, Azure, GCP, Prometheus, Grafana, ELK Stack, SonarQube, Trivy, and more.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Do you help with job placement?</div>
+                    <div class="faq-answer">Yes! Our full DevOps program includes career support: resume/CV optimization, LinkedIn profile review, GitHub portfolio building, mock interviews, and referrals to our hiring partner network. We have a 95% job placement rate within 3 months of graduation.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What certifications should I pursue after the program?</div>
+                    <div class="faq-answer">We recommend: AWS Cloud Practitioner (CLF-C02), Red Hat Certified System Administrator (RHCSA), Certified Kubernetes Administrator (CKA), and HashiCorp Terraform Associate. Our curriculum aligns with these certification objectives.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What's the expected salary for a DevOps engineer in Egypt?</div>
+                    <div class="faq-answer">Junior DevOps engineers in Egypt typically earn EGP 15,000–25,000/month. Mid-level engineers earn EGP 30,000–50,000/month. Senior/remote positions can reach EGP 80,000+ or $2,000–5,000/month for international remote roles.</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Still Have Questions -->
+    <section class="faq-contact">
+        <div class="container">
+            <h2>Still Have Questions?</h2>
+            <p>Our team is here to help. Reach out on WhatsApp for instant support.</p>
+            <a href="https://wa.me/201009066728" target="_blank" class="btn">💬 Chat on WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+                    </a>
+                    <p>Empowering Egypt's tech workforce with world-class DevOps training since 2020.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/courses.html">Courses</a></li>
+                        <li><a href="/services.html">Services</a></li>
+                        <li><a href="/faq.html">FAQ</a></li>
+                        <li><a href="/courses.html#enroll">Enroll</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevOps Academy Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            const item = q.parentElement;
+            const wasActive = item.classList.contains('active');
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            // Toggle clicked
+            if (!wasActive) item.classList.add('active');
+        });
+    });
+
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+        document.getElementById('navLinks').classList.toggle('active');
+    });
+    </script>
+</body>
+</html>
