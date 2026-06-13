@@ -567,7 +567,9 @@ async function start() {
         { courseId: 'github', name: 'GitHub — Platform & Collaboration', price: 2500, duration: '2 Weeks', level: 'beginner' },
         { courseId: 'gitlab', name: 'GitLab — Platform & DevOps', price: 2500, duration: '2 Weeks', level: 'beginner' },
         { courseId: 'devsecops', name: 'DevSecOps', price: 7000, duration: '6 Weeks', level: 'advanced' },
-        { courseId: 'monitoring', name: 'Monitoring & Observability', price: 5500, duration: '5 Weeks', level: 'advanced' }
+        { courseId: 'prometheus', name: 'Prometheus Monitoring', price: 3500, duration: '3 Weeks', level: 'advanced' },
+        { courseId: 'grafana', name: 'Grafana Dashboards & Alerting', price: 2500, duration: '2 Weeks', level: 'advanced' },
+        { courseId: 'elk', name: 'ELK Stack (Elasticsearch, Logstash, Kibana)', price: 3500, duration: '3 Weeks', level: 'advanced' }
       ];
       await Course.insertMany(defaultCourses);
       console.log('Default courses seeded');

@@ -152,22 +152,31 @@
     </footer>
 
     <script>
-    // Course icons mapping - using provider logos/emojis
+    // Course icons mapping
     const courseIcons = {
         devops: '&#128640;',
-        linux: '&#128427;', linux2: '&#128427;',
+        linux: '<img class="course-logo-img" src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux logo" loading="lazy" referrerpolicy="no-referrer">',
+        linux2: '<img class="course-logo-img" src="https://cdn.simpleicons.org/redhat/EE0000" alt="Red Hat logo" loading="lazy" referrerpolicy="no-referrer">',
         docker: '&#128051;',
         kubernetes: '&#9784;&#65039;',
-        jenkins: '&#129302;', githubactions: '&#128126;', gitlabci: '&#129418;', argocd: '&#128268;',
+        jenkins: '<img class="course-logo-img" src="https://cdn.simpleicons.org/jenkins/D24939" alt="Jenkins logo" loading="lazy" referrerpolicy="no-referrer">',
+        githubactions: '<img class="course-logo-img" src="https://cdn.simpleicons.org/githubactions/2088FF" alt="GitHub Actions logo" loading="lazy" referrerpolicy="no-referrer">',
+        gitlabci: '&#129418;',
+        argocd: '<img class="course-logo-img" src="https://cdn.simpleicons.org/argo/EF7B4D" alt="ArgoCD logo" loading="lazy" referrerpolicy="no-referrer">',
         aws: '<span style="color:#FF9900;font-weight:900;">AWS</span>',
         azure: '<span style="color:#0078D4;font-weight:900;">Az</span>',
         gcp: '<span style="color:#4285F4;font-weight:900;">GCP</span>',
         alibaba: '<span style="color:#FF6A00;font-weight:900;">Ali</span>',
         oracle: '<span style="color:#F80000;font-weight:900;">OCI</span>',
-        terraform: '&#127959;&#65039;', ansible: '&#9881;&#65039;',
-        git: '&#128200;', github: '&#128025;', gitlab: '&#129418;',
+        terraform: '<img class="course-logo-img" src="https://cdn.simpleicons.org/terraform/844FBA" alt="Terraform logo" loading="lazy" referrerpolicy="no-referrer">',
+        ansible: '&#9881;&#65039;',
+        git: '&#128200;',
+        github: '<img class="course-logo-img" src="https://cdn.simpleicons.org/github/181717" alt="GitHub logo" loading="lazy" referrerpolicy="no-referrer">',
+        gitlab: '&#129418;',
         devsecops: '&#128274;',
-        monitoring: '&#128202;'
+        prometheus: '<img class="course-logo-img" src="https://cdn.simpleicons.org/prometheus/E6522C" alt="Prometheus logo" loading="lazy" referrerpolicy="no-referrer">',
+        grafana: '<img class="course-logo-img" src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana logo" loading="lazy" referrerpolicy="no-referrer">',
+        elk: '<img class="course-logo-img" src="https://cdn.simpleicons.org/elastic/005571" alt="ELK logo" loading="lazy" referrerpolicy="no-referrer">'
     };
 
     // Category mapping for courses
@@ -180,7 +189,7 @@
         terraform: 'iac', ansible: 'iac',
         git: 'vcs', github: 'vcs', gitlab: 'vcs',
         devsecops: 'security',
-        monitoring: 'monitoring'
+        prometheus: 'monitoring', grafana: 'monitoring', elk: 'monitoring'
     };
 
     const categoryLabels = {

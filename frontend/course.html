@@ -980,57 +980,143 @@
                 { phase: "Weeks 5–6", title: "Secrets & Compliance", hours: "4 hrs · 1 session", desc: "Vault, secrets management, compliance-as-code, incident response, and final secure pipeline project." }
             ]
         },
-        monitoring: {
-            title: "Monitoring & Observability",
+        prometheus: {
+            title: "Prometheus Monitoring",
             badge: "monitoring",
             badgeText: "Monitoring",
-            description: "Build production-grade monitoring with Prometheus, Grafana, and ELK Stack. Metrics, logs, dashboards, alerting, and distributed tracing for reliable systems.",
-            tagline: "You can't fix what you can't see. Observe everything.",
-            duration: "5 Weeks",
+            description: "Master Prometheus from zero to production. Collect metrics, write PromQL, configure Alertmanager, and monitor apps and infrastructure with confidence.",
+            tagline: "Metrics first. Observe every signal.",
+            duration: "3 Weeks",
             hours: "8 Hours",
             sessions: "2 Sessions",
             schedule: "4 hrs per session",
-            price: "EGP 5,500",
-            priceNote: "Essential for SRE/DevOps",
+            price: "EGP 3,500",
+            priceNote: "Core observability skill for DevOps and SRE",
             highlights: [
-                { icon: "📊", title: "Prometheus & Grafana", desc: "Industry-standard metrics collection, PromQL queries, and beautiful dashboards." },
-                { icon: "📝", title: "ELK Stack", desc: "Elasticsearch, Logstash, Kibana — centralize and analyze logs from all your services." },
-                { icon: "🚨", title: "Alerting", desc: "Configure smart alerts with Alertmanager — PagerDuty, Slack, email integrations." },
-                { icon: "🔍", title: "Distributed Tracing", desc: "Trace requests across microservices with Jaeger/Tempo." },
-                { icon: "📈", title: "SLIs, SLOs & Error Budgets", desc: "Implement Google's SRE practices for reliability." },
-                { icon: "🎯", title: "Production Dashboards", desc: "Build real-time dashboards that tell the story — not just show numbers." }
+                { icon: "📊", title: "Prometheus Architecture", desc: "Server, exporters, service discovery, and scraping at scale." },
+                { icon: "🧠", title: "PromQL Mastery", desc: "Query, aggregate, and troubleshoot with practical PromQL patterns." },
+                { icon: "🚨", title: "Alertmanager", desc: "Build routing policies and notifications for actionable alerts." },
+                { icon: "⚙️", title: "Instrumentation", desc: "Instrument Node.js, Python, and container workloads." }
             ],
             whoIsFor: [
-                { title: "DevOps Engineers", desc: "Production monitoring is your responsibility. Build reliable observability stacks." },
-                { title: "SREs", desc: "SLIs, SLOs, error budgets, and incident management — the SRE way." },
-                { title: "Backend Developers", desc: "Instrument your apps, understand performance, and debug production issues." },
-                { title: "Platform Teams", desc: "Build the monitoring platform that other teams rely on." }
+                { title: "DevOps Engineers", desc: "Own infrastructure metrics and early incident detection." },
+                { title: "SREs", desc: "Design SLIs/SLOs and reduce alert fatigue with better rules." },
+                { title: "Backend Engineers", desc: "Instrument services and understand performance trends." }
             ],
             modules: [
                 {
-                    title: "Prometheus & Grafana",
+                    title: "Prometheus Fundamentals",
                     number: "Module 1",
                     hours: "4 Hours",
                     sessionCount: "1 Session",
-                    description: "Metrics-based monitoring — collect, query, visualize, and alert on time-series data.",
+                    description: "Install Prometheus and collect reliable metrics from real workloads.",
                     sessions: [
-                        { name: "Metrics & Dashboards", topics: ["Observability pillars — metrics, logs, traces", "Prometheus architecture — server, exporters, Alertmanager", "Installation — standalone & on Kubernetes (kube-prometheus-stack)", "Metric types — counters, gauges, histograms, summaries", "Instrumenting applications — client libraries", "PromQL — selectors, operators, functions, aggregations", "Recording rules for complex queries", "Alerting rules & Alertmanager configuration", "Alertmanager routing — Slack, PagerDuty, email, webhooks", "Grafana installation & data sources", "Building dashboards — panels, variables, annotations", "Dashboard best practices — RED method, USE method", "SLIs, SLOs & error budget calculations", "Node Exporter, cAdvisor & kube-state-metrics"] }
+                        { name: "Setup & Collection (1 Session)", topics: ["Observability pillars overview", "Prometheus architecture and scrape model", "Node Exporter, cAdvisor, kube-state-metrics", "Service discovery and relabeling basics", "Metric types: counter, gauge, histogram, summary", "Label design and cardinality best practices"] }
                     ]
                 },
                 {
-                    title: "ELK Stack & Log Management",
+                    title: "PromQL & Alerting",
                     number: "Module 2",
                     hours: "4 Hours",
                     sessionCount: "1 Session",
-                    description: "Centralized logging — collect, parse, store, and analyze logs from all services.",
+                    description: "Turn raw metrics into real-time insight and actionable alerts.",
                     sessions: [
-                        { name: "Logging & Analysis", topics: ["Why centralized logging — the problem it solves", "ELK Stack architecture — Elasticsearch, Logstash, Kibana", "Elasticsearch — indices, shards, mappings, queries", "Logstash — inputs, filters (grok, mutate), outputs", "Filebeat & Fluentd — lightweight log shippers", "Kibana — Discover, Visualize, Dashboards, Lens", "Log patterns & structured logging (JSON)", "Log rotation, retention & index lifecycle management", "Distributed tracing concepts — Jaeger, Tempo", "Correlating metrics, logs & traces", "Monitoring the monitoring — meta-monitoring", "Security & access control for observability data", "Final Project: Full observability stack — Prometheus + Grafana + ELK for a microservices app"] }
+                        { name: "Queries & Alerts (1 Session)", topics: ["PromQL selectors, aggregations, and functions", "Recording rules and reusable expressions", "Alerting rules design", "Alertmanager routing and grouping", "Slack and email notifications", "Final Lab: production-ready monitoring and alerts"] }
                     ]
                 }
             ],
             roadmap: [
-                { phase: "Weeks 1–2", title: "Prometheus & Grafana", hours: "4 hrs · 1 session", desc: "Metrics collection, PromQL, alerting rules, Alertmanager, and production Grafana dashboards." },
-                { phase: "Weeks 3–5", title: "ELK Stack & Observability", hours: "4 hrs · 1 session", desc: "Centralized logging with ELK, distributed tracing, and final project: full observability stack." }
+                { phase: "Week 1", title: "Collection & Architecture", hours: "4 hrs · 1 session", desc: "Prometheus setup, exporters, service discovery, and metric model." },
+                { phase: "Weeks 2–3", title: "PromQL & Alerting", hours: "4 hrs · 1 session", desc: "PromQL, recording rules, Alertmanager, and final monitoring lab." }
+            ]
+        },
+        grafana: {
+            title: "Grafana Dashboards & Alerting",
+            badge: "monitoring",
+            badgeText: "Monitoring",
+            description: "Build clear, executive-friendly, and engineer-friendly dashboards in Grafana. Connect multiple data sources, design panels, and configure unified alerting.",
+            tagline: "From data to decisions, visually.",
+            duration: "2 Weeks",
+            hours: "4 Hours",
+            sessions: "1 Session",
+            schedule: "4 hrs per session",
+            price: "EGP 2,500",
+            priceNote: "Can be taken standalone or after Prometheus",
+            highlights: [
+                { icon: "📈", title: "Dashboard Design", desc: "Build clean dashboards using RED/USE and golden signal practices." },
+                { icon: "🔌", title: "Multi Data Source", desc: "Prometheus, Elasticsearch, Loki, CloudWatch in one view." },
+                { icon: "🚦", title: "Unified Alerting", desc: "Alert rules, silences, contact points, and escalation policies." },
+                { icon: "👥", title: "Team Workspaces", desc: "Folders, permissions, annotations, and dashboard versioning." }
+            ],
+            whoIsFor: [
+                { title: "DevOps & SRE", desc: "Deliver dashboards teams actually use during incidents." },
+                { title: "Tech Leads", desc: "Create KPI and SLA dashboards for engineering leadership." },
+                { title: "Operations Teams", desc: "Centralize visibility across apps, infra, and business metrics." }
+            ],
+            modules: [
+                {
+                    title: "Grafana in Practice",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Hands-on dashboarding, alerting, and operational workflows.",
+                    sessions: [
+                        { name: "Dashboards & Alerts (1 Session)", topics: ["Grafana UI and data source setup", "Panels, variables, transformations", "Dashboard layout and storytelling", "Annotations and incident timelines", "Unified alerting and contact points", "Final Lab: build NOC dashboard and alert pack"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Dashboards & Alerting", hours: "4 hrs · 1 session", desc: "Data sources, panel design, dashboard strategy, and unified alerts." }
+            ]
+        },
+        elk: {
+            title: "ELK Stack (Elasticsearch, Logstash, Kibana)",
+            badge: "monitoring",
+            badgeText: "Monitoring",
+            description: "Master centralized logging with ELK. Collect logs, parse and enrich events, search at scale, and build Kibana dashboards for troubleshooting and security analytics.",
+            tagline: "When metrics are not enough, logs tell the full story.",
+            duration: "3 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 3,500",
+            priceNote: "Hands-on with production logging pipelines",
+            highlights: [
+                { icon: "📝", title: "Log Collection", desc: "Filebeat/Fluent Bit pipelines for containers and servers." },
+                { icon: "🔍", title: "Fast Search", desc: "Elasticsearch index strategy, mappings, and query patterns." },
+                { icon: "📊", title: "Kibana Analytics", desc: "Create visualizations and troubleshooting dashboards." },
+                { icon: "🛡️", title: "Ops & Security", desc: "Retention, ILM, RBAC, and audit-focused log analysis." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "Build reliable centralized logging for multi-service systems." },
+                { title: "SREs", desc: "Use logs for incident triage and root cause analysis." },
+                { title: "Security Analysts", desc: "Query and correlate logs for security investigations." }
+            ],
+            modules: [
+                {
+                    title: "ELK Foundations",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Core architecture and ingestion pipeline setup.",
+                    sessions: [
+                        { name: "Ingestion & Storage (1 Session)", topics: ["ELK architecture and components", "Elasticsearch indices, shards, and mappings", "Logstash pipelines and filters", "Filebeat shipping patterns", "Structured logging with JSON", "Data retention and index lifecycle basics"] }
+                    ]
+                },
+                {
+                    title: "Kibana & Operations",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Operational dashboards, troubleshooting, and security-focused searches.",
+                    sessions: [
+                        { name: "Analysis & Visualization (1 Session)", topics: ["Kibana discover and visualizations", "Dashboards and alerting", "Correlation across app and infra logs", "Parsing patterns with grok", "RBAC and access control", "Final Lab: production log analytics dashboard"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Ingestion & Storage", hours: "4 hrs · 1 session", desc: "ELK architecture, ingestion pipelines, indexing, and retention strategy." },
+                { phase: "Weeks 2–3", title: "Visualization & Operations", hours: "4 hrs · 1 session", desc: "Kibana dashboards, alerting, security access, and final log analytics lab." }
             ]
         },
         azure: {
