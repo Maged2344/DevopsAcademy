@@ -145,10 +145,19 @@ const serviceRequestSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+const visitSchema = new mongoose.Schema({
+  page: { type: String, required: true },
+  ip: { type: String, default: '' },
+  userAgent: { type: String, default: '' },
+  referrer: { type: String, default: '' },
+  createdAt: { type: Date, default: Date.now }
+});
+
 const Enrollment = mongoose.model('Enrollment', enrollmentSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 const Course = mongoose.model('Course', courseSchema);
 const ServiceRequest = mongoose.model('ServiceRequest', serviceRequestSchema);
+const Visit = mongoose.model('Visit', visitSchema);
 
 // ===== Auth Middleware =====
 function authMiddleware(req, res, next) {
@@ -213,6 +222,23 @@ app.post('/api/service-request', async (req, res) => {
     sendServiceNotification(serviceRequest);
 
     res.status(201).json({ message: 'Service request submitted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Track page visit (public)
+app.post('/api/track', async (req, res) => {
+  try {
+    const { page } = req.body;
+    if (!page || typeof page !== 'string' || page.length > 200) {
+      return res.status(400).json({ error: 'Invalid page' });
+    }
+    const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || '';
+    const userAgent = (req.headers['user-agent'] || '').substring(0, 500);
+    const referrer = (req.headers['referer'] || '').substring(0, 500);
+    await Visit.create({ page, ip, userAgent, referrer });
+    res.status(201).json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
@@ -455,6 +481,49 @@ app.delete('/api/admin/service-requests/:id', authMiddleware, async (req, res) =
     const request = await ServiceRequest.findByIdAndDelete(req.params.id);
     if (!request) return res.status(404).json({ error: 'Service request not found' });
     res.json({ message: 'Service request deleted' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// ===== Visitor Analytics Routes =====
+
+// Get visitor stats
+app.get('/api/admin/visitor-stats', authMiddleware, async (req, res) => {
+  try {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekStart = new Date(todayStart);
+    weekStart.setDate(weekStart.getDate() - 7);
+    const monthStart = new Date(todayStart);
+    monthStart.setDate(monthStart.getDate() - 30);
+
+    const total = await Visit.countDocuments();
+    const today = await Visit.countDocuments({ createdAt: { $gte: todayStart } });
+    const thisWeek = await Visit.countDocuments({ createdAt: { $gte: weekStart } });
+    const thisMonth = await Visit.countDocuments({ createdAt: { $gte: monthStart } });
+
+    // Unique visitors (by IP)
+    const uniqueTotal = await Visit.distinct('ip').then(ips => ips.length);
+    const uniqueToday = await Visit.distinct('ip', { createdAt: { $gte: todayStart } }).then(ips => ips.length);
+
+    // Per-page breakdown
+    const perPage = await Visit.aggregate([
+      { $group: { _id: '$page', count: { $sum: 1 } } },
+      { $sort: { count: -1 } }
+    ]);
+
+    // Daily visits for the last 7 days
+    const dailyVisits = await Visit.aggregate([
+      { $match: { createdAt: { $gte: weekStart } } },
+      { $group: {
+        _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+        count: { $sum: 1 }
+      }},
+      { $sort: { _id: 1 } }
+    ]);
+
+    res.json({ total, today, thisWeek, thisMonth, uniqueTotal, uniqueToday, perPage, dailyVisits });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }

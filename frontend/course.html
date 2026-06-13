@@ -1443,5 +1443,8 @@
         document.getElementById('navLinks').classList.toggle('active');
     });
     </script>
+
+    <!-- Visitor Tracking -->
+    <script>fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname})}).catch(()=>{});</script>
 </body>
 </html>

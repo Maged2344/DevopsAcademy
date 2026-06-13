@@ -231,6 +231,7 @@
                 <button class="tab" data-tab="courses">Courses</button>
                 <button class="tab" data-tab="revenue">Revenue & Analytics</button>
                 <button class="tab" data-tab="services">Service Requests</button>
+                <button class="tab" data-tab="visitors">Visitors</button>
             </div>
 
             <!-- ===== TAB 1: ENROLLMENTS ===== -->
@@ -362,6 +363,34 @@
                     </table>
                 </div>
             </div>
+
+            <!-- ===== TAB 5: VISITORS ===== -->
+            <div class="tab-content" id="tab-visitors">
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="number" id="visTotal">0</div><div class="label">Total Page Views</div></div>
+                    <div class="stat-card" style="border-left:4px solid #3b82f6;"><div class="number" id="visToday">0</div><div class="label">Today</div></div>
+                    <div class="stat-card" style="border-left:4px solid #8b5cf6;"><div class="number" id="visWeek">0</div><div class="label">Last 7 Days</div></div>
+                    <div class="stat-card" style="border-left:4px solid #10b981;"><div class="number" id="visMonth">0</div><div class="label">Last 30 Days</div></div>
+                    <div class="stat-card" style="border-left:4px solid #f59e0b;"><div class="number" id="visUnique">0</div><div class="label">Unique Visitors</div></div>
+                    <div class="stat-card" style="border-left:4px solid #ef4444;"><div class="number" id="visUniqueToday">0</div><div class="label">Unique Today</div></div>
+                </div>
+
+                <div class="section-title"><span>Daily Visits (Last 7 Days)</span></div>
+                <div class="table-container" style="margin-bottom:24px;">
+                    <table>
+                        <thead><tr><th>Date</th><th>Page Views</th><th>Bar</th></tr></thead>
+                        <tbody id="dailyVisitsTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="section-title"><span>Views Per Page</span></div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Page</th><th>Views</th><th>%</th></tr></thead>
+                        <tbody id="perPageTable"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -479,6 +508,7 @@
         loadCourseStats();
         loadServiceRequests();
         loadServiceStats();
+        loadVisitorStats();
     }
 
     // ===== TABS =====
@@ -840,6 +870,36 @@
     function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ===== VISITORS =====
+    async function loadVisitorStats() {
+        try {
+            const r = await fetch(`${API}/admin/visitor-stats?_t=${Date.now()}`, { headers: authHeaders() });
+            if (!r.ok) return;
+            const s = await r.json();
+            document.getElementById('visTotal').textContent = fmt(s.total);
+            document.getElementById('visToday').textContent = fmt(s.today);
+            document.getElementById('visWeek').textContent = fmt(s.thisWeek);
+            document.getElementById('visMonth').textContent = fmt(s.thisMonth);
+            document.getElementById('visUnique').textContent = fmt(s.uniqueTotal);
+            document.getElementById('visUniqueToday').textContent = fmt(s.uniqueToday);
+
+            // Daily visits table
+            const maxDaily = Math.max(...(s.dailyVisits || []).map(d => d.count), 1);
+            document.getElementById('dailyVisitsTable').innerHTML = (s.dailyVisits || []).map(d => `<tr>
+                <td>${d._id}</td>
+                <td><strong>${d.count}</strong></td>
+                <td><div style="background:#3b82f6;height:18px;border-radius:4px;width:${Math.round((d.count/maxDaily)*100)}%;min-width:4px;"></div></td>
+            </tr>`).join('') || '<tr><td colspan="3" style="text-align:center;color:#94a3b8;">No data yet</td></tr>';
+
+            // Per page table
+            document.getElementById('perPageTable').innerHTML = (s.perPage || []).map(p => `<tr>
+                <td>${escapeHtml(p._id)}</td>
+                <td><strong>${fmt(p.count)}</strong></td>
+                <td>${s.total > 0 ? Math.round((p.count / s.total) * 100) : 0}%</td>
+            </tr>`).join('') || '<tr><td colspan="3" style="text-align:center;color:#94a3b8;">No data yet</td></tr>';
+        } catch(e) { console.error(e); }
     }
 
     // ===== EVENTS =====
