@@ -318,8 +318,8 @@
 
         async function loadStats() {
             try {
-                const res = await fetch(`${API_URL}/admin/stats`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                const res = await fetch(`${API_URL}/admin/stats?_t=${Date.now()}`, {
+                    headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' }
                 });
                 if (res.status === 401) { logout(); return; }
                 const stats = await res.json();
@@ -333,13 +333,13 @@
         async function loadEnrollments() {
             const status = document.getElementById('filterStatus').value;
             const course = document.getElementById('filterCourse').value;
-            let url = `${API_URL}/admin/enrollments?`;
+            let url = `${API_URL}/admin/enrollments?_t=${Date.now()}&`;
             if (status) url += `status=${status}&`;
             if (course) url += `course=${course}&`;
 
             try {
                 const res = await fetch(url, {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                    headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' }
                 });
                 if (res.status === 401) { logout(); return; }
                 const enrollments = await res.json();
