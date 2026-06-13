@@ -230,6 +230,7 @@
                 <button class="tab active" data-tab="enrollments">Enrollments</button>
                 <button class="tab" data-tab="courses">Courses</button>
                 <button class="tab" data-tab="revenue">Revenue & Analytics</button>
+                <button class="tab" data-tab="services">Service Requests</button>
             </div>
 
             <!-- ===== TAB 1: ENROLLMENTS ===== -->
@@ -309,6 +310,56 @@
                 <div class="summary-row" id="revenueSummary"></div>
                 <div class="section-title"><span>Per-Course Breakdown</span></div>
                 <div class="course-stats-grid" id="courseStatsGrid"></div>
+            </div>
+
+            <!-- ===== TAB 4: SERVICE REQUESTS ===== -->
+            <div class="tab-content" id="tab-services">
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="number" id="svcTotal">0</div><div class="label">Total Requests</div></div>
+                    <div class="stat-card pending"><div class="number" id="svcNew">0</div><div class="label">New</div></div>
+                    <div class="stat-card approved"><div class="number" id="svcContacted">0</div><div class="label">Contacted</div></div>
+                    <div class="stat-card" style="border-left:4px solid #8b5cf6;"><div class="number" id="svcInProgress">0</div><div class="label">In Progress</div></div>
+                    <div class="stat-card" style="border-left:4px solid #10b981;"><div class="number" id="svcCompleted">0</div><div class="label">Completed</div></div>
+                </div>
+
+                <div class="filters" style="margin:24px 0;">
+                    <select id="svcFilterStatus" onchange="loadServiceRequests()">
+                        <option value="">All Statuses</option>
+                        <option value="new">New</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <select id="svcFilterType" onchange="loadServiceRequests()">
+                        <option value="">All Types</option>
+                        <option value="deployment">Deployment</option>
+                        <option value="automation">CI/CD & Automation</option>
+                        <option value="website">Website Development</option>
+                        <option value="monitoring">Monitoring & Security</option>
+                        <option value="migration">Cloud Migration</option>
+                        <option value="consulting">DevOps Consulting</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Service</th>
+                                <th>Budget</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="serviceTableBody"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -425,6 +476,8 @@
         loadStats();
         loadEnrollments();
         loadCourseStats();
+        loadServiceRequests();
+        loadServiceStats();
     }
 
     // ===== TABS =====
@@ -700,6 +753,94 @@
             // Also re-render courses table with student counts
             renderCoursesTable();
         } catch(e) { console.error(e); }
+    }
+
+        } catch(e) { console.error(e); }
+    }
+
+    // ===== SERVICE REQUESTS =====
+    const serviceTypeLabels = {
+        deployment: 'Deployment',
+        automation: 'CI/CD & Automation',
+        website: 'Website Development',
+        monitoring: 'Monitoring & Security',
+        migration: 'Cloud Migration',
+        consulting: 'DevOps Consulting'
+    };
+
+    async function loadServiceStats() {
+        try {
+            const r = await fetch(`${API}/admin/service-stats`, { headers: authHeaders() });
+            if (!r.ok) return;
+            const s = await r.json();
+            document.getElementById('svcTotal').textContent = s.total;
+            document.getElementById('svcNew').textContent = s.new;
+            document.getElementById('svcContacted').textContent = s.contacted;
+            document.getElementById('svcInProgress').textContent = s.inProgress;
+            document.getElementById('svcCompleted').textContent = s.completed;
+        } catch(e) { console.error(e); }
+    }
+
+    async function loadServiceRequests() {
+        try {
+            const status = document.getElementById('svcFilterStatus').value;
+            const serviceType = document.getElementById('svcFilterType').value;
+            let url = `${API}/admin/service-requests?`;
+            if (status) url += `status=${status}&`;
+            if (serviceType) url += `serviceType=${serviceType}&`;
+            const r = await fetch(url, { headers: authHeaders() });
+            if (!r.ok) return;
+            const requests = await r.json();
+            const tbody = document.getElementById('serviceTableBody');
+            tbody.innerHTML = requests.map(req => {
+                const statusClass = req.status === 'new' ? 'pending' : req.status === 'completed' ? 'approved' : req.status === 'cancelled' ? 'rejected' : '';
+                return `<tr>
+                    <td><strong>${escapeHtml(req.name)}</strong></td>
+                    <td>${escapeHtml(req.company || '-')}</td>
+                    <td>${escapeHtml(req.email)}</td>
+                    <td>${escapeHtml(req.phone)}</td>
+                    <td>${serviceTypeLabels[req.serviceType] || req.serviceType}</td>
+                    <td>${escapeHtml(req.budget || '-')}</td>
+                    <td><span class="badge ${statusClass}">${req.status}</span></td>
+                    <td>${new Date(req.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <select onchange="updateServiceStatus('${req._id}', this.value)" style="padding:4px 8px;border-radius:4px;border:1px solid #e2e8f0;font-size:0.8rem;">
+                            <option value="new" ${req.status==='new'?'selected':''}>New</option>
+                            <option value="contacted" ${req.status==='contacted'?'selected':''}>Contacted</option>
+                            <option value="in-progress" ${req.status==='in-progress'?'selected':''}>In Progress</option>
+                            <option value="completed" ${req.status==='completed'?'selected':''}>Completed</option>
+                            <option value="cancelled" ${req.status==='cancelled'?'selected':''}>Cancelled</option>
+                        </select>
+                        <button class="action-btn delete" onclick="deleteServiceRequest('${req._id}')" title="Delete">🗑</button>
+                    </td>
+                </tr>`;
+            }).join('');
+        } catch(e) { console.error(e); }
+    }
+
+    async function updateServiceStatus(id, status) {
+        try {
+            await fetch(`${API}/admin/service-requests/${id}`, {
+                method:'PATCH', headers:{'Content-Type':'application/json',...authHeaders()},
+                body: JSON.stringify({ status })
+            });
+            loadServiceRequests();
+            loadServiceStats();
+        } catch(e) { console.error(e); }
+    }
+
+    async function deleteServiceRequest(id) {
+        if (!confirm('Delete this service request?')) return;
+        try {
+            await fetch(`${API}/admin/service-requests/${id}`, { method:'DELETE', headers: authHeaders() });
+            loadServiceRequests();
+            loadServiceStats();
+        } catch(e) { console.error(e); }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
     // ===== EVENTS =====

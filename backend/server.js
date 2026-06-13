@@ -59,9 +59,23 @@ const courseSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+const serviceRequestSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  company: { type: String, default: '' },
+  email: { type: String, required: true },
+  phone: { type: String, required: true },
+  serviceType: { type: String, required: true, enum: ['deployment', 'automation', 'website', 'monitoring', 'migration', 'consulting'] },
+  budget: { type: String, default: '' },
+  description: { type: String, required: true },
+  status: { type: String, enum: ['new', 'contacted', 'in-progress', 'completed', 'cancelled'], default: 'new' },
+  notes: { type: String, default: '' },
+  createdAt: { type: Date, default: Date.now }
+});
+
 const Enrollment = mongoose.model('Enrollment', enrollmentSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 const Course = mongoose.model('Course', courseSchema);
+const ServiceRequest = mongoose.model('ServiceRequest', serviceRequestSchema);
 
 // ===== Auth Middleware =====
 function authMiddleware(req, res, next) {
@@ -92,6 +106,24 @@ app.post('/api/enroll', async (req, res) => {
     await enrollment.save();
 
     res.status(201).json({ message: 'Application submitted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Submit service request
+app.post('/api/service-request', async (req, res) => {
+  try {
+    const { name, company, email, phone, serviceType, budget, description } = req.body;
+
+    if (!name || !email || !phone || !serviceType || !description) {
+      return res.status(400).json({ error: 'All required fields must be filled' });
+    }
+
+    const serviceRequest = new ServiceRequest({ name, company, email, phone, serviceType, budget, description });
+    await serviceRequest.save();
+
+    res.status(201).json({ message: 'Service request submitted successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
@@ -277,6 +309,63 @@ app.get('/api/admin/course-stats', authMiddleware, async (req, res) => {
       };
     }));
     res.json(stats);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// ===== Admin Service Request Routes =====
+
+// Get all service requests
+app.get('/api/admin/service-requests', authMiddleware, async (req, res) => {
+  try {
+    const { status, serviceType } = req.query;
+    const filter = {};
+    if (status) filter.status = status;
+    if (serviceType) filter.serviceType = serviceType;
+    const requests = await ServiceRequest.find(filter).sort({ createdAt: -1 });
+    res.json(requests);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Get service request stats
+app.get('/api/admin/service-stats', authMiddleware, async (req, res) => {
+  try {
+    const total = await ServiceRequest.countDocuments();
+    const newReqs = await ServiceRequest.countDocuments({ status: 'new' });
+    const contacted = await ServiceRequest.countDocuments({ status: 'contacted' });
+    const inProgress = await ServiceRequest.countDocuments({ status: 'in-progress' });
+    const completed = await ServiceRequest.countDocuments({ status: 'completed' });
+    const cancelled = await ServiceRequest.countDocuments({ status: 'cancelled' });
+    res.json({ total, new: newReqs, contacted, inProgress, completed, cancelled });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Update service request status/notes
+app.patch('/api/admin/service-requests/:id', authMiddleware, async (req, res) => {
+  try {
+    const { status, notes } = req.body;
+    const update = {};
+    if (status) update.status = status;
+    if (notes !== undefined) update.notes = notes;
+    const request = await ServiceRequest.findByIdAndUpdate(req.params.id, update, { new: true });
+    if (!request) return res.status(404).json({ error: 'Service request not found' });
+    res.json(request);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Delete service request
+app.delete('/api/admin/service-requests/:id', authMiddleware, async (req, res) => {
+  try {
+    const request = await ServiceRequest.findByIdAndDelete(req.params.id);
+    if (!request) return res.status(404).json({ error: 'Service request not found' });
+    res.json({ message: 'Service request deleted' });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }

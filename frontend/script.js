@@ -175,12 +175,67 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements for animation
-document.querySelectorAll('.course-card, .feature-card, .instructor-card, .testimonial-card').forEach(el => {
+document.querySelectorAll('.course-card, .feature-card, .instructor-card, .testimonial-card, .service-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
+
+// ===== Service request buttons pre-select service type =====
+document.querySelectorAll('.btn-small[data-service]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const serviceType = btn.dataset.service;
+        const svcSelect = document.getElementById('svcType');
+        if (svcSelect) {
+            svcSelect.value = serviceType;
+        }
+        const svcSection = document.getElementById('service-request');
+        if (svcSection) {
+            svcSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// ===== Service Request Form Submission =====
+const serviceForm = document.getElementById('serviceForm');
+if (serviceForm) {
+    serviceForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(serviceForm);
+        const data = Object.fromEntries(formData.entries());
+
+        if (!data.name || !data.email || !data.phone || !data.serviceType || !data.description) {
+            showNotification('Please fill in all required fields.', 'error');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/service-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (res.ok) {
+                showNotification('Thank you! Your service request has been submitted. We will contact you within 24 hours.', 'success');
+                serviceForm.reset();
+            } else {
+                const err = await res.json();
+                showNotification(err.error || 'Something went wrong. Please try again.', 'error');
+            }
+        } catch (err) {
+            showNotification('Network error. Please try again later.', 'error');
+        }
+    });
+}
 
 // ===== Smooth scroll for anchor links =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
