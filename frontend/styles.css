@@ -139,6 +139,17 @@ img {
     box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
 }
 
+.btn-small.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn-small.btn-outline:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
 .btn-nav {
     padding: 10px 24px;
     background: var(--accent);
