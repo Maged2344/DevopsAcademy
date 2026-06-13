@@ -352,6 +352,7 @@
                                 <th>Phone</th>
                                 <th>Service</th>
                                 <th>Budget</th>
+                                <th>Description</th>
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th>Actions</th>
@@ -798,6 +799,7 @@
                     <td>${escapeHtml(req.phone)}</td>
                     <td>${serviceTypeLabels[req.serviceType] || req.serviceType}</td>
                     <td>${escapeHtml(req.budget || '-')}</td>
+                    <td style="max-width:200px;white-space:pre-wrap;font-size:0.8rem;">${escapeHtml(req.description || '-')}</td>
                     <td><span class="badge ${statusClass}">${req.status}</span></td>
                     <td>${new Date(req.createdAt).toLocaleDateString()}</td>
                     <td>
