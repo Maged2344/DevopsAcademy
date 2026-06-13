@@ -279,6 +279,7 @@
         }
 
         function logout() {
+            stopAutoRefresh();
             localStorage.removeItem('adminToken');
             localStorage.removeItem('adminName');
             token = null;
@@ -292,6 +293,7 @@
             document.getElementById('adminName').textContent = localStorage.getItem('adminName') || 'Admin';
             loadStats();
             loadEnrollments();
+            startAutoRefresh();
         }
 
         async function loadStats() {
@@ -375,6 +377,26 @@
                 loadStats();
                 loadEnrollments();
             } catch (err) { console.error(err); }
+        }
+
+        // Auto-refresh enrollments every 5 seconds
+        let refreshInterval = null;
+
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            refreshInterval = setInterval(() => {
+                if (token) {
+                    loadStats();
+                    loadEnrollments();
+                }
+            }, 5000);
+        }
+
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
         }
 
         // Enter key on login
