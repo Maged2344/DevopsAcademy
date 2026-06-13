@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - DevOps Academy Egypt</title>
+    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-detail-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%);
+            padding: 120px 0 60px;
+            color: #fff;
+        }
+        .course-detail-hero .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .course-detail-hero .badge.beginner { background: #10b981; }
+        .course-detail-hero .badge.intermediate { background: #f59e0b; }
+        .course-detail-hero .badge.advanced { background: #ef4444; }
+        .course-detail-hero .badge.program { background: #8b5cf6; }
+        .course-detail-hero h1 { font-size: 2.5rem; margin-bottom: 16px; }
+        .course-detail-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 700px; line-height: 1.7; }
+        .course-meta-bar {
+            display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap;
+        }
+        .course-meta-bar .meta-item {
+            display: flex; align-items: center; gap: 8px; font-size: 1rem;
+        }
+        .course-meta-bar .meta-item span:first-child { font-size: 1.3rem; }
+
+        .course-content { padding: 60px 0; }
+        .course-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+
+        .course-modules h2 { font-size: 1.5rem; margin-bottom: 24px; color: #1e293b; }
+        .module-card {
+            background: #fff; border-radius: 12px; padding: 24px;
+            margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid #1e40af; transition: transform 0.2s;
+        }
+        .module-card:hover { transform: translateX(4px); }
+        .module-card h3 { font-size: 1.1rem; color: #1e40af; margin-bottom: 8px; }
+        .module-card .module-hours { font-size: 0.85rem; color: #64748b; margin-bottom: 12px; }
+        .module-card ul { list-style: none; padding: 0; }
+        .module-card ul li {
+            padding: 6px 0; padding-left: 20px; position: relative;
+            font-size: 0.9rem; color: #475569;
+        }
+        .module-card ul li::before {
+            content: "✓"; position: absolute; left: 0; color: #10b981; font-weight: bold;
+        }
+
+        .course-sidebar { position: sticky; top: 100px; }
+        .sidebar-card {
+            background: #fff; border-radius: 12px; padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .sidebar-card .price { font-size: 2rem; font-weight: 700; color: #1e40af; margin-bottom: 8px; }
+        .sidebar-card .price-note { color: #64748b; font-size: 0.85rem; margin-bottom: 24px; }
+        .sidebar-card .btn-enroll {
+            display: block; width: 100%; padding: 16px; background: #1e40af;
+            color: #fff; text-align: center; border-radius: 8px; font-size: 1rem;
+            font-weight: 600; text-decoration: none; margin-bottom: 16px;
+            transition: background 0.3s;
+        }
+        .sidebar-card .btn-enroll:hover { background: #1e3a8a; }
+        .sidebar-info { list-style: none; padding: 0; }
+        .sidebar-info li {
+            display: flex; justify-content: space-between; padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9; font-size: 0.9rem;
+        }
+        .sidebar-info li:last-child { border-bottom: none; }
+        .sidebar-info li span:first-child { color: #64748b; }
+        .sidebar-info li span:last-child { font-weight: 600; color: #1e293b; }
+
+        /* Roadmap */
+        .roadmap { padding: 60px 0; background: #f8fafc; }
+        .roadmap h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; }
+        .roadmap-timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .roadmap-timeline::before {
+            content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+            width: 3px; background: #e2e8f0; transform: translateX(-50%);
+        }
+        .roadmap-item {
+            display: flex; margin-bottom: 32px; position: relative;
+        }
+        .roadmap-item:nth-child(odd) { flex-direction: row-reverse; }
+        .roadmap-item .roadmap-content {
+            width: 45%; background: #fff; padding: 20px 24px;
+            border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .roadmap-item .roadmap-dot {
+            position: absolute; left: 50%; top: 20px; width: 16px; height: 16px;
+            background: #1e40af; border-radius: 50%; transform: translateX(-50%);
+            border: 3px solid #fff; box-shadow: 0 0 0 3px #1e40af;
+        }
+        .roadmap-content h4 { color: #1e40af; margin-bottom: 4px; }
+        .roadmap-content .roadmap-hours { font-size: 0.8rem; color: #64748b; margin-bottom: 8px; }
+        .roadmap-content p { font-size: 0.85rem; color: #475569; line-height: 1.5; }
+
+        .back-link {
+            display: inline-flex; align-items: center; gap: 8px; color: #fff;
+            text-decoration: none; margin-bottom: 16px; opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { opacity: 1; }
+
+        @media (max-width: 768px) {
+            .course-grid { grid-template-columns: 1fr; }
+            .course-sidebar { position: static; }
+            .course-detail-hero h1 { font-size: 1.8rem; }
+            .roadmap-timeline::before { left: 20px; }
+            .roadmap-item, .roadmap-item:nth-child(odd) { flex-direction: row; padding-left: 50px; }
+            .roadmap-item .roadmap-content { width: 100%; }
+            .roadmap-item .roadmap-dot { left: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#courses">Courses</a></li>
+                <li><a href="index.html#why-us">Why Us</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="index.html#enroll" class="btn btn-nav">Enroll Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="courseContent"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevOps Academy Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const courses = {
+        devops: {
+            title: "DevOps Engineering Program",
+            badge: "program",
+            badgeText: "Full Program",
+            description: "A comprehensive 260-hour program designed by industry professionals to take you from zero to a job-ready DevOps Engineer. Covers Linux, Python, Docker, Kubernetes, CI/CD, Cloud, IaC, and more.",
+            duration: "25 Weeks",
+            hours: "260 Hours",
+            sessions: "65 Sessions",
+            schedule: "3 Sessions/Week, 4hrs each",
+            price: "EGP 25,000",
+            priceNote: "Installment plans available (3 payments)",
+            modules: [
+                {
+                    title: "1. Linux Administration & Bash Scripting",
+                    hours: "72 Hours - 18 Sessions",
+                    topics: ["Linux Admin I - Command line, file management, users & groups, processes, SSH, networking, storage", "Linux Admin II - Performance tuning, ACLs, SELinux, LVM, advanced storage, boot process, containers", "Bash Scripting - Shell scripting, variables, loops, functions, sed, awk, automation"]
+                },
+                {
+                    title: "2. Programming & Testing Foundation",
+                    hours: "48 Hours - 13 Sessions",
+                    topics: ["Python Programming - Variables, data types, loops, functions, OOP, file handling, modules, SQL basics", "SDLC & Microservices - Software development lifecycle, development models, microservices architecture", "Software Testing - Testing lifecycle, test case creation, automation concepts, Selenium, CI/CD relation"]
+                },
+                {
+                    title: "3. Containerization & Orchestration",
+                    hours: "40 Hours - 11 Sessions",
+                    topics: ["Docker - Architecture, images, containers, Dockerfiles, networking, storage, Compose, security, Swarm", "Kubernetes - Pods, ReplicaSets, Deployments, Services, Namespaces, Storage, Networking, Ingress, Security", "Helm Charts - Chart structure, values, templates, dependencies, hooks, packaging"]
+                },
+                {
+                    title: "4. CI/CD & Automation",
+                    hours: "24 Hours - 6 Sessions",
+                    topics: ["Jenkins - Pipeline DSL, Groovy, distributed builds, containerized builds, plugins, security", "GitLab CI/CD - Runner setup, pipeline configuration, environment variables", "GitHub Actions - Workflows, secrets, environments, monitoring", "ArgoCD & GitOps - Application management, sync strategies, monitoring"]
+                },
+                {
+                    title: "5. Continuous Monitoring",
+                    hours: "8 Hours - 2 Sessions",
+                    topics: ["Prometheus - Installation, configuration, alerting rules", "Grafana - Dashboard creation, visualization, integrations", "Kibana - Log analysis, ELK stack overview"]
+                },
+                {
+                    title: "6. Cloud Computing",
+                    hours: "36 Hours - 8 Sessions",
+                    topics: ["Cloud Basics - Cloud computing concepts, service models (IaaS, PaaS, SaaS)", "AWS Cloud Practitioner - EC2, S3, RDS, VPC, IAM, Lambda, pricing, security", "OpenShift - Container platform, pods, deployments, networking, storage, updates"]
+                },
+                {
+                    title: "7. Infrastructure as Code (IaC)",
+                    hours: "24 Hours - 6 Sessions",
+                    topics: ["Ansible - Playbooks, variables, facts, task control, roles, automation", "Terraform - HCL syntax, providers, state, modules, workspaces, variables, backends"]
+                },
+                {
+                    title: "8. Final Project & Exam",
+                    hours: "12 Hours",
+                    topics: ["Capstone Project - End-to-end DevOps pipeline implementation", "Final Exam - 80 MCQ questions covering all topics", "Career guidance and portfolio review"]
+                }
+            ],
+            roadmap: [
+                { phase: "Phase 1", title: "Foundation", hours: "72 hrs", desc: "Linux Administration I & II, Bash Scripting - Master the OS that powers 90% of servers" },
+                { phase: "Phase 2", title: "Programming", hours: "48 hrs", desc: "Python, SDLC, Microservices & Testing - Build the development skills DevOps needs" },
+                { phase: "Phase 3", title: "Containers", hours: "40 hrs", desc: "Docker, Kubernetes & Helm - Containerize and orchestrate applications at scale" },
+                { phase: "Phase 4", title: "CI/CD", hours: "24 hrs", desc: "Jenkins, GitLab, GitHub Actions & ArgoCD - Automate the entire delivery pipeline" },
+                { phase: "Phase 5", title: "Monitoring", hours: "8 hrs", desc: "Prometheus, Grafana & Kibana - Observe and alert on production systems" },
+                { phase: "Phase 6", title: "Cloud", hours: "36 hrs", desc: "AWS Cloud Practitioner & OpenShift - Deploy to the cloud with confidence" },
+                { phase: "Phase 7", title: "IaC", hours: "24 hrs", desc: "Ansible & Terraform - Infrastructure as Code for repeatable, versioned infra" },
+                { phase: "Phase 8", title: "Capstone", hours: "12 hrs", desc: "Final Project & Exam - Prove your skills with a real-world pipeline project" }
+            ]
+        },
+        linux: {
+            title: "Linux Fundamentals",
+            badge: "beginner",
+            badgeText: "Beginner",
+            description: "Master the Linux operating system from scratch. Learn command line, system administration, file management, networking, and shell scripting.",
+            duration: "4 Weeks",
+            hours: "60 Hours",
+            sessions: "15 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 3,500",
+            priceNote: "Part of the full DevOps program",
+            modules: [
+                { title: "Linux Admin I", hours: "60 Hours - 15 Sessions", topics: ["Get started with Enterprise Linux", "Access the command line", "Manage files from the command line", "Create, view, and edit text files", "Manage local users and groups", "Control access to files with permissions", "Monitor and manage Linux processes", "Control services and daemons", "Configure and secure SSH", "Analyze and store logs", "Manage networking", "Archive and transfer files", "Install and update software packages", "Access Linux file systems", "Comprehensive review & practice"] }
+            ]
+        },
+        docker: {
+            title: "Docker & Containers",
+            badge: "beginner",
+            badgeText: "Beginner",
+            description: "Learn containerization with Docker from fundamentals to production. Create images, manage containers, networking, storage, and orchestration with Docker Compose.",
+            duration: "5 Weeks",
+            hours: "20 Hours",
+            sessions: "5 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 4,500",
+            priceNote: "Part of the full DevOps program",
+            modules: [
+                { title: "Docker Fundamentals", hours: "20 Hours - 5 Sessions", topics: ["Introduction to Docker & containerization concepts", "Docker Architecture & how it works", "Docker Basics - Images and Containers", "Writing Dockerfiles - multi-stage builds", "Docker Networking - bridge, host, overlay", "Docker Storage - volumes, bind mounts", "Docker Compose - multi-container applications", "Docker Security best practices", "Introduction to Docker Swarm", "Hands-on Docker Project"] }
+            ]
+        },
+        kubernetes: {
+            title: "Kubernetes (K8s)",
+            badge: "intermediate",
+            badgeText: "Intermediate",
+            description: "Deploy, manage, and scale containerized applications using Kubernetes. Master pods, deployments, services, networking, storage, and security.",
+            duration: "6 Weeks",
+            hours: "20 Hours",
+            sessions: "5 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 6,000",
+            priceNote: "Part of the full DevOps program",
+            modules: [
+                { title: "Kubernetes Core", hours: "20 Hours - 5 Sessions", topics: ["What is Kubernetes & why K8s", "K8s Architecture & cluster components", "Pods, ReplicaSets & Deployments", "DaemonSets & Services", "Namespaces, Labels & Selectors", "Limits, Requests & Resource Management", "Taints, Tolerations & Node Scheduling", "Application Lifecycle Management", "Storage - PV, PVC, StorageClasses", "Networking & Ingress Controllers", "Security - RBAC, ServiceAccounts", "Troubleshooting & debugging"] }
+            ]
+        },
+        cicd: {
+            title: "CI/CD Pipelines",
+            badge: "intermediate",
+            badgeText: "Intermediate",
+            description: "Build automated pipelines with Jenkins, GitLab CI, and GitHub Actions. Learn continuous integration and delivery best practices.",
+            duration: "5 Weeks",
+            hours: "24 Hours",
+            sessions: "6 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 5,500",
+            priceNote: "Part of the full DevOps program",
+            modules: [
+                { title: "Jenkins", hours: "12 Hours - 3 Sessions", topics: ["Introduction to CI/CD and Jenkins", "Installing and configuring Jenkins", "Job types - Freestyle, Pipeline, Multibranch", "Jenkins Pipeline DSL & Groovy", "Securing Jenkins", "Distributed builds & containerized builds", "Jenkins API & CLI"] },
+                { title: "GitLab CI & GitHub Actions", hours: "8 Hours - 2 Sessions", topics: ["GitLab Runner setup & configuration", "Building CI/CD pipelines with .gitlab-ci.yml", "GitHub Actions workflows & syntax", "Managing secrets and environments", "ArgoCD & GitOps principles"] }
+            ]
+        },
+        aws: {
+            title: "AWS Cloud Engineering",
+            badge: "intermediate",
+            badgeText: "Intermediate",
+            description: "Master Amazon Web Services from cloud fundamentals to AWS Cloud Practitioner certification. Learn EC2, S3, RDS, VPC, Lambda, and architecture best practices.",
+            duration: "8 Weeks",
+            hours: "24 Hours",
+            sessions: "6 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 7,500",
+            priceNote: "Includes AWS Cloud Practitioner prep",
+            modules: [
+                { title: "Cloud Fundamentals & AWS", hours: "24 Hours - 6 Sessions", topics: ["Introduction to Cloud Computing", "AWS Global Infrastructure", "Amazon EC2 & Compute services", "Networking - VPC, Subnets, Security Groups", "Storage - S3, EBS, EFS", "Databases - RDS, DynamoDB", "Security - IAM, Policies, MFA", "Pricing, Billing & Support plans", "Migration & Innovation strategies", "AWS Well-Architected Framework"] }
+            ]
+        },
+        terraform: {
+            title: "Terraform & IaC",
+            badge: "advanced",
+            badgeText: "Advanced",
+            description: "Infrastructure as Code with Terraform and Ansible. Automate cloud infrastructure provisioning, configuration management, and deployment.",
+            duration: "6 Weeks",
+            hours: "24 Hours",
+            sessions: "6 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 6,500",
+            priceNote: "Part of the full DevOps program",
+            modules: [
+                { title: "Ansible", hours: "12 Hours - 3 Sessions", topics: ["Introduction to Ansible & agentless architecture", "Deploy Ansible - inventory, modules, ad-hoc", "Implement playbooks & manage variables", "Task control - handlers, loops, conditionals", "Roles & project organization", "Automate Linux administration tasks"] },
+                { title: "Terraform", hours: "12 Hours - 3 Sessions", topics: ["Introduction to Infrastructure as Code", "Terraform architecture & HCL syntax", "Providers, resources & data sources", "State management & remote backends", "Variables, outputs & variable files", "Modules & code reusability", "Workspaces & environments", "Plan, Apply, Destroy lifecycle"] }
+            ]
+        },
+        git: {
+            title: "Git & Version Control",
+            badge: "beginner",
+            badgeText: "Beginner",
+            description: "Master Git workflows, branching strategies, pull requests, and collaborative development with GitHub.",
+            duration: "3 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 2,500",
+            priceNote: "Essential for all developers",
+            modules: [
+                { title: "Git & GitHub", hours: "8 Hours - 2 Sessions", topics: ["Getting started with version control", "Git branching & merging strategies", "Working with remotes - push, pull, fetch", "Pull requests & code review workflow", "Resolving merge conflicts", "Git rebase, reset & advanced commands", "GitHub Flow & collaboration best practices"] }
+            ]
+        },
+        devsecops: {
+            title: "DevSecOps",
+            badge: "advanced",
+            badgeText: "Advanced",
+            description: "Integrate security into the DevOps pipeline. Learn SAST, DAST, container security, compliance, and security automation.",
+            duration: "6 Weeks",
+            hours: "20 Hours",
+            sessions: "5 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 7,000",
+            priceNote: "Security-focused DevOps",
+            modules: [
+                { title: "DevSecOps Fundamentals", hours: "20 Hours - 5 Sessions", topics: ["Security in the DevOps lifecycle", "SAST - Static Application Security Testing", "DAST - Dynamic Application Security Testing", "Container security scanning", "Infrastructure security & compliance", "Secrets management", "Security automation in CI/CD pipelines", "Incident response & monitoring"] }
+            ]
+        },
+        monitoring: {
+            title: "Monitoring & Observability",
+            badge: "advanced",
+            badgeText: "Advanced",
+            description: "Prometheus, Grafana, ELK Stack, and distributed tracing for production systems. Build dashboards, alerts, and observability pipelines.",
+            duration: "5 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 5,500",
+            priceNote: "Essential for SRE/DevOps",
+            modules: [
+                { title: "Monitoring Stack", hours: "8 Hours - 2 Sessions", topics: ["Introduction to Prometheus & metrics", "Prometheus installation & configuration", "PromQL queries & alerting rules", "Grafana dashboards & visualization", "Kibana & log analysis", "Integrating monitoring in CI/CD", "Security & optimization best practices"] }
+            ]
+        }
+    };
+
+    function renderCourse(courseId) {
+        const course = courses[courseId];
+        if (!course) {
+            document.getElementById('courseContent').innerHTML = '<div class="container" style="padding:100px 0;text-align:center"><h2>Course not found</h2><a href="index.html#courses">Back to courses</a></div>';
+            return;
+        }
+
+        let html = `
+        <section class="course-detail-hero">
+            <div class="container">
+                <a href="index.html#courses" class="back-link">← Back to All Courses</a>
+                <span class="badge ${course.badge}">${course.badgeText}</span>
+                <h1>${course.title}</h1>
+                <p>${course.description}</p>
+                <div class="course-meta-bar">
+                    <div class="meta-item"><span>⏱</span> ${course.hours}</div>
+                    <div class="meta-item"><span>📅</span> ${course.duration}</div>
+                    <div class="meta-item"><span>📚</span> ${course.sessions}</div>
+                    <div class="meta-item"><span>🕐</span> ${course.schedule}</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="course-content">
+            <div class="container">
+                <div class="course-grid">
+                    <div class="course-modules">
+                        <h2>Course Curriculum</h2>
+                        ${course.modules.map(m => `
+                            <div class="module-card">
+                                <h3>${m.title}</h3>
+                                <div class="module-hours">⏱ ${m.hours}</div>
+                                <ul>${m.topics.map(t => `<li>${t}</li>`).join('')}</ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="course-sidebar">
+                        <div class="sidebar-card">
+                            <div class="price">${course.price}</div>
+                            <div class="price-note">${course.priceNote}</div>
+                            <a href="index.html#enroll" class="btn-enroll">Enroll Now</a>
+                            <ul class="sidebar-info">
+                                <li><span>Duration</span><span>${course.duration}</span></li>
+                                <li><span>Total Hours</span><span>${course.hours}</span></li>
+                                <li><span>Sessions</span><span>${course.sessions}</span></li>
+                                <li><span>Schedule</span><span>${course.schedule}</span></li>
+                                <li><span>Level</span><span>${course.badgeText}</span></li>
+                                <li><span>Certificate</span><span>Yes</span></li>
+                                <li><span>Language</span><span>Arabic</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>`;
+
+        if (course.roadmap) {
+            html += `
+            <section class="roadmap">
+                <div class="container">
+                    <h2>Program Roadmap</h2>
+                    <div class="roadmap-timeline">
+                        ${course.roadmap.map(r => `
+                            <div class="roadmap-item">
+                                <div class="roadmap-content">
+                                    <h4>${r.phase}: ${r.title}</h4>
+                                    <div class="roadmap-hours">${r.hours}</div>
+                                    <p>${r.desc}</p>
+                                </div>
+                                <div class="roadmap-dot"></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </section>`;
+        }
+
+        document.getElementById('courseContent').innerHTML = html;
+        document.title = `${course.title} - DevOps Academy Egypt`;
+    }
+
+    // Get course from URL
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get('id') || 'devops';
+    renderCourse(courseId);
+
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+        document.getElementById('navLinks').classList.toggle('active');
+    });
+    </script>
+</body>
+</html>

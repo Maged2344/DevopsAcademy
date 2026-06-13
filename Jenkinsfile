@@ -27,6 +27,7 @@ pipeline {
                     cp nginx.conf /home/maged/devopsacademy/nginx.conf
                     cp index.html /home/maged/devopsacademy/index.html
                     cp admin.html /home/maged/devopsacademy/admin.html
+                    cp course.html /home/maged/devopsacademy/course.html
                     cp styles.css /home/maged/devopsacademy/styles.css
                     cp script.js /home/maged/devopsacademy/script.js
                     cp logo.png /home/maged/devopsacademy/logo.png

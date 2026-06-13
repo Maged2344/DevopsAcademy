@@ -11,3 +11,6 @@ Thumbs.db
 
 # SSL certs (generated on server)
 ssl/
+
+# PDF docs
+*.pdf
