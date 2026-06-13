@@ -4,8 +4,52 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const promClient = require('prom-client');
 
 const app = express();
+
+// ===== Prometheus Metrics Setup =====
+const collectDefaultMetrics = promClient.collectDefaultMetrics;
+collectDefaultMetrics({ prefix: 'devopsacademy_' });
+
+const httpRequestsTotal = new promClient.Counter({
+  name: 'http_requests_total',
+  help: 'Total HTTP requests',
+  labelNames: ['method', 'route', 'status']
+});
+
+const httpRequestDuration = new promClient.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'HTTP request duration in seconds',
+  labelNames: ['method', 'route', 'status'],
+  buckets: [0.01, 0.05, 0.1, 0.3, 0.5, 1, 2, 5]
+});
+
+const activeConnections = new promClient.Gauge({
+  name: 'http_active_connections',
+  help: 'Number of active HTTP connections'
+});
+
+// Metrics middleware
+app.use((req, res, next) => {
+  if (req.path === '/metrics') return next();
+  activeConnections.inc();
+  const start = Date.now();
+  res.on('finish', () => {
+    activeConnections.dec();
+    const duration = (Date.now() - start) / 1000;
+    const route = req.route ? req.route.path : req.path;
+    httpRequestsTotal.inc({ method: req.method, route, status: res.statusCode });
+    httpRequestDuration.observe({ method: req.method, route, status: res.statusCode }, duration);
+  });
+  next();
+});
+
+// Metrics endpoint
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', promClient.register.contentType);
+  res.end(await promClient.register.metrics());
+});
 
 // ===== Email Notification Setup =====
 const transporter = nodemailer.createTransport({

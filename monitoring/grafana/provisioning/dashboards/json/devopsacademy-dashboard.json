@@ -1,0 +1,103 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "CPU Usage %",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "targets": [{ "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)", "legendFormat": "CPU" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 60}, {"color": "red", "value": 80}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Memory Usage %",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "targets": [{ "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100", "legendFormat": "Memory" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 70}, {"color": "red", "value": 85}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Disk Usage %",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "targets": [{ "expr": "(1 - (node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"tmpfs\"} / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"tmpfs\"})) * 100", "legendFormat": "Disk" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 70}, {"color": "red", "value": 85}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Backend Status",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "targets": [{ "expr": "up{job=\"backend\"}", "legendFormat": "Backend" }],
+      "fieldConfig": { "defaults": { "mappings": [{"type": "value", "options": {"0": {"text": "DOWN", "color": "red"}, "1": {"text": "UP", "color": "green"}}}] } }
+    },
+    {
+      "title": "CPU Usage Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "targets": [{ "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)", "legendFormat": "CPU %" }],
+      "fieldConfig": { "defaults": { "unit": "percent" } }
+    },
+    {
+      "title": "Memory Usage Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "targets": [
+        { "expr": "node_memory_MemTotal_bytes", "legendFormat": "Total" },
+        { "expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes", "legendFormat": "Used" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } }
+    },
+    {
+      "title": "HTTP Requests/sec",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 14 },
+      "targets": [{ "expr": "rate(http_requests_total[5m])", "legendFormat": "{{method}} {{route}} {{status}}" }],
+      "fieldConfig": { "defaults": { "unit": "reqps" } }
+    },
+    {
+      "title": "Response Time (p95)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 14 },
+      "targets": [{ "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))", "legendFormat": "p95" }],
+      "fieldConfig": { "defaults": { "unit": "s" } }
+    },
+    {
+      "title": "Network I/O",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 22 },
+      "targets": [
+        { "expr": "rate(node_network_receive_bytes_total{device!=\"lo\"}[5m])", "legendFormat": "Receive {{device}}" },
+        { "expr": "rate(node_network_transmit_bytes_total{device!=\"lo\"}[5m])", "legendFormat": "Transmit {{device}}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Active MongoDB Connections",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 22 },
+      "targets": [{ "expr": "mongodb_ss_connections{conn_type=\"current\"}", "legendFormat": "Connections" }]
+    },
+    {
+      "title": "Services Status",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 6, "x": 18, "y": 22 },
+      "targets": [
+        { "expr": "up{job=\"backend\"}", "legendFormat": "Backend" },
+        { "expr": "up{job=\"mongodb\"}", "legendFormat": "MongoDB" },
+        { "expr": "up{job=\"nginx\"}", "legendFormat": "Nginx" },
+        { "expr": "up{job=\"node-exporter\"}", "legendFormat": "Node Exporter" }
+      ],
+      "fieldConfig": { "defaults": { "mappings": [{"type": "value", "options": {"0": {"text": "DOWN", "color": "red"}, "1": {"text": "UP", "color": "green"}}}] } }
+    }
+  ],
+  "schemaVersion": 38,
+  "tags": ["devopsacademy"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "DevOps Academy - Infrastructure & App",
+  "uid": "devopsacademy-main"
+}

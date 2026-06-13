@@ -36,5 +36,77 @@ services:
       - mongo_data:/data/db
     restart: unless-stopped
 
+  # ===== Monitoring Stack =====
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: devopsacademy-prometheus
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: devopsacademy-grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS:-devops2026}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=https://devopsacademy.cloud-stacks.com/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: devopsacademy-node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: devopsacademy-nginx-exporter
+    command:
+      - '-nginx.scrape-uri=http://web:80/nginx_status'
+    depends_on:
+      - web
+    restart: unless-stopped
+
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.40
+    container_name: devopsacademy-mongodb-exporter
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
+    command:
+      - '--mongodb.uri=mongodb://mongo:27017'
+      - '--collect-all'
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
 volumes:
   mongo_data:
+  prometheus_data:
+  grafana_data:

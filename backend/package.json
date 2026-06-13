@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "nodemailer": "^6.9.8"
+    "nodemailer": "^6.9.8",
+    "prom-client": "^15.1.0"
   }
 }
