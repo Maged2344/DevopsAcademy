@@ -46,6 +46,33 @@ filterBtns.forEach(btn => {
     });
 });
 
+// ===== Auto-select course from URL parameter =====
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    const courseParam = params.get('course');
+    if (courseParam) {
+        const courseSelect = document.getElementById('course');
+        if (courseSelect) {
+            courseSelect.value = courseParam;
+            const enrollSection = document.getElementById('enroll');
+            if (enrollSection) {
+                setTimeout(() => enrollSection.scrollIntoView({ behavior: 'smooth' }), 300);
+            }
+        }
+    }
+})();
+
+// ===== Enroll buttons on course cards pre-select course =====
+document.querySelectorAll('.btn-small[data-course]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const courseId = btn.dataset.course;
+        const courseSelect = document.getElementById('course');
+        if (courseSelect) {
+            courseSelect.value = courseId;
+        }
+    });
+});
+
 // ===== Form Submission =====
 const enrollForm = document.getElementById('enrollForm');
 

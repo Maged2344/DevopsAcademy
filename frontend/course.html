@@ -398,7 +398,7 @@
                         <div class="sidebar-card">
                             <div class="price">${course.price}</div>
                             <div class="price-note">${course.priceNote}</div>
-                            <a href="index.html#enroll" class="btn-enroll">Enroll Now</a>
+                            <a href="index.html?course=${courseId}#enroll" class="btn-enroll">Enroll Now</a>
                             <ul class="sidebar-info">
                                 <li><span>Duration</span><span>${course.duration}</span></li>
                                 <li><span>Total Hours</span><span>${course.hours}</span></li>
@@ -443,6 +443,9 @@
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('id') || 'devops';
     renderCourse(courseId);
+
+    // Update nav enroll link to pass course
+    document.querySelector('.btn.btn-nav').href = `index.html?course=${courseId}#enroll`;
 
     // Mobile nav toggle
     document.getElementById('navToggle').addEventListener('click', () => {
