@@ -9,6 +9,7 @@ COPY frontend/courses.html /usr/share/nginx/html/
 COPY frontend/services.html /usr/share/nginx/html/
 COPY frontend/admin.html /usr/share/nginx/html/
 COPY frontend/course.html /usr/share/nginx/html/
+COPY frontend/portal.html /usr/share/nginx/html/
 COPY frontend/faq.html /usr/share/nginx/html/
 COPY frontend/privacy.html /usr/share/nginx/html/
 COPY frontend/styles.css /usr/share/nginx/html/

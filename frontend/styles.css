@@ -150,6 +150,17 @@ img {
     color: var(--white);
 }
 
+.nav-links .btn-small {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.nav-links .btn-small.btn-outline {
+    border-width: 1px;
+}
+
 .btn-nav {
     padding: 10px 24px;
     background: var(--accent);
