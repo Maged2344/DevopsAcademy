@@ -13,7 +13,7 @@ Technical architecture and system design of DevOps Academy platform.
                          │
             ┌────────────▼────────────┐
             │   Azure Public IP       │
-            │   20.25.62.124:443      │
+            │   public-ip:443      │
             │   (SSL/TLS Termination) │
             └────────────┬────────────┘
                          │
