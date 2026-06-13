@@ -1,5 +1,6 @@
 // ===== Shared Auth Navigation Helper =====
-// Include this in all pages to show/hide auth buttons based on login state
+// Loaded in <head> so initAuthNav() is available to inline scripts on all pages.
+// Runs automatically on DOMContentLoaded and can be called manually after login/logout.
 
 const studentTokenKey = 'studentToken';
 
@@ -16,8 +17,9 @@ function initAuthNav() {
         // User is signed in - show My Portal and Logout
         authButtonsLi.innerHTML = `
             <a href="/portal.html" class="btn btn-small">My Portal</a>
-            <a href="javascript:void(0);" class="btn btn-small btn-outline" onclick="logoutStudent(); return false;">Logout</a>
+            <a href="javascript:void(0);" class="btn btn-small btn-outline" id="navLogoutBtn">Logout</a>
         `;
+        document.getElementById('navLogoutBtn').addEventListener('click', logoutStudent);
     } else {
         // User not signed in - show Register and Sign In
         authButtonsLi.innerHTML = `
@@ -34,17 +36,5 @@ function logoutStudent() {
     }
 }
 
-// Initialize immediately
-initAuthNav();
-
-// Also initialize on page load in case DOM wasn't ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAuthNav);
-}
-
-// Re-check auth state when page becomes visible (after tab switch)
-document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-        initAuthNav();
-    }
-});
+// Run when DOM is ready
+document.addEventListener('DOMContentLoaded', initAuthNav);

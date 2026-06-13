@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css?v=6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="auth-nav.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -290,9 +291,6 @@
         document.getElementById('navLinks').classList.toggle('active');
     });
     </script>
-
-    <!-- Auth Navigation Handler -->
-    <script src="auth-nav.js"></script>
 
     <!-- Visitor Tracking -->
     <script>fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname})}).catch(()=>{});</script>
