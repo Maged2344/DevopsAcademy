@@ -259,6 +259,67 @@
             .roadmap-item .roadmap-dot { left: 20px; }
             .highlights-grid { grid-template-columns: repeat(2, 1fr); }
         }
+
+        /* Capstone Pipeline Graph */
+        .capstone-section { padding: 80px 0; background: #0f172a; color: #fff; }
+        .capstone-section h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; color: #fff; }
+        .capstone-section .capstone-subtitle { text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 48px; }
+        .pipeline-graph {
+            display: flex; align-items: center; justify-content: center;
+            flex-wrap: wrap; gap: 0; max-width: 1100px; margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .pipeline-stage {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 20px 16px; min-width: 120px; position: relative;
+        }
+        .pipeline-icon {
+            width: 64px; height: 64px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .pipeline-icon:hover { transform: scale(1.15); }
+        .pipeline-stage h5 { font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; text-align: center; color: #fff; }
+        .pipeline-stage p { font-size: 0.7rem; color: rgba(255,255,255,0.6); text-align: center; max-width: 110px; }
+        .pipeline-arrow {
+            font-size: 1.5rem; color: #3b82f6; margin: 0 4px;
+            animation: pulseArrow 1.5s ease-in-out infinite;
+        }
+        @keyframes pulseArrow {
+            0%, 100% { opacity: 0.5; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(3px); }
+        }
+        .stage-code .pipeline-icon { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .stage-docker .pipeline-icon { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+        .stage-test .pipeline-icon { background: linear-gradient(135deg, #10b981, #059669); }
+        .stage-cicd .pipeline-icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stage-registry .pipeline-icon { background: linear-gradient(135deg, #ec4899, #be185d); }
+        .stage-iac .pipeline-icon { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+        .stage-cloud .pipeline-icon { background: linear-gradient(135deg, #3b82f6, #1e40af); }
+        .stage-monitor .pipeline-icon { background: linear-gradient(135deg, #10b981, #047857); }
+
+        .pipeline-details {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-top: 48px; max-width: 1100px; margin-left: auto; margin-right: auto;
+        }
+        .pipeline-detail-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 24px; transition: background 0.3s;
+        }
+        .pipeline-detail-card:hover { background: rgba(255,255,255,0.08); }
+        .pipeline-detail-card h5 { color: #3b82f6; margin-bottom: 8px; font-size: 0.9rem; }
+        .pipeline-detail-card p { color: rgba(255,255,255,0.7); font-size: 0.82rem; line-height: 1.6; }
+
+        @media (max-width: 768px) {
+            .pipeline-graph { flex-direction: column; }
+            .pipeline-arrow { transform: rotate(90deg); margin: 8px 0; }
+            @keyframes pulseArrow {
+                0%, 100% { opacity: 0.5; transform: rotate(90deg) translateX(0); }
+                50% { opacity: 1; transform: rotate(90deg) translateX(3px); }
+            }
+        }
     </style>
 </head>
 <body>
@@ -386,13 +447,14 @@
                     ]
                 },
                 {
-                    title: "Cloud Computing — AWS & OpenShift",
+                    title: "Cloud Computing — Multi-Cloud & OpenShift",
                     number: "Module 6",
-                    hours: "36 Hours",
-                    sessionCount: "8 Sessions",
-                    description: "Deploy to the cloud with confidence. AWS Cloud Practitioner certification prep plus Red Hat OpenShift container platform.",
+                    hours: "40 Hours",
+                    sessionCount: "10 Sessions",
+                    description: "Deploy to any cloud with confidence. Deep-dive into AWS + fundamentals of Azure, GCP, Alibaba Cloud & Oracle Cloud. Plus Red Hat OpenShift.",
                     sessions: [
-                        { name: "Cloud Fundamentals & AWS (6 Sessions)", topics: ["Introduction to Cloud Computing — models & benefits", "AWS Global Infrastructure & regions", "Amazon EC2 — instances, AMI, security groups", "Networking — VPC, Subnets, Route tables, NAT", "Storage — S3, EBS, EFS, Glacier", "Databases — RDS, DynamoDB, Aurora", "Security — IAM, Policies, Roles, MFA, Organizations", "Pricing, Billing & Cost Explorer", "Migration & Innovation — Snow family, VMware Cloud", "AWS Well-Architected Framework & best practices"] },
+                        { name: "Cloud Fundamentals & AWS (6 Sessions)", topics: ["Introduction to Cloud Computing — IaaS, PaaS, SaaS models", "AWS Global Infrastructure & regions", "Amazon EC2 — instances, AMI, security groups", "Networking — VPC, Subnets, Route tables, NAT", "Storage — S3, EBS, EFS, Glacier", "Databases — RDS, DynamoDB, Aurora", "Security — IAM, Policies, Roles, MFA, Organizations", "Pricing, Billing & Cost Explorer", "Migration & Innovation — Snow family, VMware Cloud", "AWS Well-Architected Framework & best practices"] },
+                        { name: "Multi-Cloud Fundamentals (2 Sessions)", topics: ["Microsoft Azure — Resource Groups, VMs, App Services, AKS, Azure DevOps", "Google Cloud Platform (GCP) — Compute Engine, GKE, Cloud Build, IAM", "Alibaba Cloud — ECS, Container Service, basics & Chinese market use-cases", "Oracle Cloud (OCI) — Compute, Networking, Always-Free tier, OKE", "Cloud comparison — choosing the right provider for your workload", "Multi-cloud architecture patterns & cost optimization"] },
                         { name: "Red Hat OpenShift (2 Sessions)", topics: ["OpenShift architecture vs vanilla Kubernetes", "Pod management, deployments & operators", "OpenShift networking & routes", "Persistent storage & StorageClasses", "Cluster administration & updates", "Building applications with Source-to-Image (S2I)"] }
                     ]
                 },
@@ -410,11 +472,32 @@
                 {
                     title: "Capstone Project & Final Exam",
                     number: "Module 8",
-                    hours: "12 Hours",
-                    sessionCount: "1 Session + Project",
-                    description: "Put it all together. Build a production-grade CI/CD pipeline end-to-end, then prove your mastery in the final exam.",
+                    hours: "16 Hours",
+                    sessionCount: "2 Sessions + Project",
+                    description: "Put it ALL together. Build a production-grade application end-to-end: code → Docker → CI/CD pipeline → Cloud deployment → Monitoring. This is your portfolio showpiece.",
                     sessions: [
-                        { name: "Final Project & Certification", topics: ["Capstone: Full DevOps pipeline — from code to production", "Git workflow → Docker build → K8s deploy → Monitoring", "Infrastructure provisioned with Terraform", "Configuration managed with Ansible", "CI/CD with Jenkins/GitHub Actions", "Final Exam — 80 MCQ covering all modules", "Career guidance, portfolio review & next steps"] }
+                        { name: "Capstone: End-to-End DevOps Pipeline", topics: [
+                            "Step 1: Write application code (Python/Node.js microservice)",
+                            "Step 2: Containerize with Docker — multi-stage Dockerfile",
+                            "Step 3: Push to Git repository with proper branching strategy",
+                            "Step 4: CI Pipeline — automated build, test, lint, security scan",
+                            "Step 5: Build & push Docker image to container registry",
+                            "Step 6: Provision cloud infrastructure with Terraform (AWS/Azure)",
+                            "Step 7: Configure servers with Ansible playbooks",
+                            "Step 8: CD Pipeline — deploy to Kubernetes cluster",
+                            "Step 9: Set up monitoring — Prometheus + Grafana dashboards",
+                            "Step 10: Configure alerting & incident response",
+                            "Step 11: Implement GitOps with ArgoCD for continuous sync",
+                            "Step 12: Document architecture & present to panel"
+                        ]},
+                        { name: "Final Exam & Certification", topics: [
+                            "Final Exam — 80 MCQ covering all 8 modules",
+                            "Practical assessment — live troubleshooting scenario",
+                            "Portfolio review & GitHub profile optimization",
+                            "Career guidance — resume, LinkedIn, interview prep",
+                            "Certificate ceremony & graduation",
+                            "Alumni network access & job referral program"
+                        ]}
                     ]
                 }
             ],
@@ -424,9 +507,9 @@
                 { phase: "Weeks 11–14", title: "Containers & Orchestration", hours: "40 hrs · 11 sessions", desc: "Docker deep-dive + Kubernetes mastery + Helm charts. Package, deploy, and scale applications in production clusters." },
                 { phase: "Weeks 15–17", title: "CI/CD Automation", hours: "24 hrs · 6 sessions", desc: "Jenkins, GitLab CI, GitHub Actions & ArgoCD. Automate the entire delivery pipeline from commit to production." },
                 { phase: "Week 18", title: "Monitoring & Observability", hours: "8 hrs · 2 sessions", desc: "Prometheus, Grafana & ELK Stack. Build dashboards, configure alerts, and gain visibility into production systems." },
-                { phase: "Weeks 19–22", title: "Cloud & OpenShift", hours: "36 hrs · 8 sessions", desc: "AWS Cloud Practitioner prep + Red Hat OpenShift. Deploy infrastructure in the cloud with industry certifications." },
+                { phase: "Weeks 19–23", title: "Multi-Cloud & OpenShift", hours: "40 hrs · 10 sessions", desc: "AWS deep-dive + Azure, GCP, Alibaba Cloud & Oracle Cloud basics + Red Hat OpenShift. Become cloud-agnostic and deploy anywhere." },
                 { phase: "Weeks 23–25", title: "Infrastructure as Code", hours: "24 hrs · 6 sessions", desc: "Ansible for configuration management + Terraform for infrastructure provisioning. Automate everything." },
-                { phase: "Week 25", title: "Capstone & Certification", hours: "12 hrs", desc: "Build a complete end-to-end DevOps pipeline. Final exam (80 MCQ). Certificate ceremony & career kickoff." }
+                { phase: "Week 26", title: "Capstone & Certification", hours: "16 hrs", desc: "Build a production-grade app end-to-end: Code → Docker → CI/CD → Cloud → Monitoring. Present your portfolio project. Final exam (80 MCQ) & graduation." }
             ]
         },
         linux: {
@@ -685,12 +768,98 @@
             </section>`;
         }
 
+        // Capstone Pipeline Graph (DevOps course only)
+        if (courseId === 'devops') {
+            html += `
+            <section class="capstone-section">
+                <div class="container">
+                    <h2>🚀 Capstone Project: End-to-End Pipeline</h2>
+                    <p class="capstone-subtitle">Students build a complete production pipeline — from writing code to monitoring in the cloud</p>
+                    <div class="pipeline-graph">
+                        <div class="pipeline-stage stage-code">
+                            <div class="pipeline-icon">💻</div>
+                            <h5>Write Code</h5>
+                            <p>Python/Node.js microservice</p>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage stage-docker">
+                            <div class="pipeline-icon">🐳</div>
+                            <h5>Dockerize</h5>
+                            <p>Multi-stage Dockerfile</p>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage stage-test">
+                            <div class="pipeline-icon">🧪</div>
+                            <h5>Test</h5>
+                            <p>Unit, integration & security</p>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage stage-cicd">
+                            <div class="pipeline-icon">⚙️</div>
+                            <h5>CI/CD</h5>
+                            <p>Jenkins / GitHub Actions</p>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage stage-registry">
+                            <div class="pipeline-icon">📦</div>
+                            <h5>Registry</h5>
+                            <p>Push to Docker Hub / ECR</p>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage stage-iac">
+                            <div class="pipeline-icon">🏗️</div>
+                            <h5>IaC</h5>
+                            <p>Terraform + Ansible</p>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage stage-cloud">
+                            <div class="pipeline-icon">☁️</div>
+                            <h5>Deploy</h5>
+                            <p>K8s on AWS/Azure/GCP</p>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage stage-monitor">
+                            <div class="pipeline-icon">📊</div>
+                            <h5>Monitor</h5>
+                            <p>Prometheus + Grafana</p>
+                        </div>
+                    </div>
+                    <div class="pipeline-details">
+                        <div class="pipeline-detail-card">
+                            <h5>🔀 Version Control</h5>
+                            <p>Git branching strategy (GitFlow), pull requests, code reviews, and protected branches for team collaboration.</p>
+                        </div>
+                        <div class="pipeline-detail-card">
+                            <h5>🐳 Containerization</h5>
+                            <p>Multi-stage Docker builds, image optimization, vulnerability scanning with Trivy, and Docker Compose for local dev.</p>
+                        </div>
+                        <div class="pipeline-detail-card">
+                            <h5>🔄 CI/CD Pipeline</h5>
+                            <p>Automated build → test → scan → deploy pipeline with Jenkins/GitHub Actions. Zero-downtime rolling deployments.</p>
+                        </div>
+                        <div class="pipeline-detail-card">
+                            <h5>☁️ Multi-Cloud Deploy</h5>
+                            <p>Deploy to AWS EKS, Azure AKS, or GCP GKE. Understand cloud-agnostic patterns with Terraform modules.</p>
+                        </div>
+                        <div class="pipeline-detail-card">
+                            <h5>🏗️ Infrastructure as Code</h5>
+                            <p>Terraform for provisioning (VPC, subnets, clusters). Ansible for configuration. State management & modules.</p>
+                        </div>
+                        <div class="pipeline-detail-card">
+                            <h5>📊 Observability Stack</h5>
+                            <p>Prometheus metrics, Grafana dashboards, log aggregation with ELK, alerting rules, and incident response workflows.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>`;
+        }
+
         // Roadmap
         if (course.roadmap) {
             html += `
             <section class="roadmap">
                 <div class="container">
-                    <h2>Your 25-Week Journey</h2>
+                    <h2>Your 26-Week Journey</h2>
                     <p class="roadmap-subtitle">From absolute beginner to production-ready DevOps Engineer</p>
                     <div class="roadmap-timeline">
                         ${course.roadmap.map(r => `
