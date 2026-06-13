@@ -21,9 +21,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    cd /home/maged/devopsacademy
-                    docker compose down || true
-                    docker compose up -d
+                    docker stop devopsacademy || true
+                    docker rm devopsacademy || true
+                    docker run -d --name devopsacademy \
+                        -p 80:80 -p 443:443 \
+                        -v /home/maged/devopsacademy/ssl:/etc/nginx/ssl:ro \
+                        --restart unless-stopped \
+                        magedmohamed/devopsacademy:latest
                 '''
             }
         }
