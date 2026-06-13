@@ -1054,6 +1054,187 @@ img {
     font-size: 0.9rem;
 }
 
+/* ===== Student Portal ===== */
+.portal-page {
+    padding: 120px 0 80px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.portal-card {
+    max-width: 560px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow-lg);
+}
+
+.portal-card h1 {
+    margin-bottom: 8px;
+}
+
+.portal-card p {
+    color: var(--gray-500);
+    margin-bottom: 20px;
+}
+
+.portal-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.portal-tab {
+    border: 1px solid var(--gray-300);
+    background: #fff;
+    color: var(--gray-700);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.portal-tab.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.portal-form {
+    display: none;
+}
+
+.portal-form.active {
+    display: block;
+}
+
+.portal-message {
+    margin-top: 12px;
+    font-size: 0.92rem;
+    min-height: 24px;
+}
+
+.portal-message.error {
+    color: #b91c1c;
+}
+
+.portal-message.success {
+    color: #047857;
+}
+
+.portal-dashboard {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 26px;
+}
+
+.portal-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 12px;
+}
+
+.portal-muted {
+    color: var(--gray-500);
+}
+
+.portal-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+}
+
+.portal-course-card {
+    border: 1px solid var(--gray-100);
+    border-radius: 12px;
+    padding: 18px;
+    background: #fff;
+}
+
+.portal-course-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.portal-status {
+    display: inline-block;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    text-transform: capitalize;
+}
+
+.portal-status.approved {
+    color: #065f46;
+    background: #d1fae5;
+}
+
+.portal-status.pending {
+    color: #92400e;
+    background: #fef3c7;
+}
+
+.portal-status.rejected {
+    color: #991b1b;
+    background: #fee2e2;
+}
+
+.portal-meta {
+    color: var(--gray-500);
+    margin-top: 8px;
+    font-size: 0.92rem;
+}
+
+.portal-actions {
+    margin-top: 14px;
+}
+
+.portal-recaps {
+    margin-top: 14px;
+    border-top: 1px dashed var(--gray-300);
+    padding-top: 12px;
+}
+
+.portal-recaps h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.portal-recap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.recap-link {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.recap-link:hover {
+    text-decoration: underline;
+}
+
+.portal-empty {
+    border: 1px dashed var(--gray-300);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+}
+
+.portal-empty p {
+    color: var(--gray-500);
+    margin: 8px 0 14px;
+}
+
 /* ===== Animations ===== */
 @keyframes fadeInUp {
     from {

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - DevOps Academy Egypt</title>
+    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="/" class="logo">
+                <img src="logo.png" alt="DevOps Academy Egypt" class="logo-img"> DevOps Academy <span class="logo-egypt">Egypt</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses.html">Courses</a></li>
+                <li><a href="/services.html">Services</a></li>
+                <li><a href="/portal.html" class="active">Student Portal</a></li>
+                <li><a href="/courses.html#enroll" class="btn btn-nav">Enroll Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="portal-page">
+        <div class="container">
+            <section class="portal-auth" id="authSection">
+                <div class="portal-card">
+                    <h1>Student Sign In / Sign Up</h1>
+                    <p>Sign in to view your enrolled courses and watch session recaps.</p>
+
+                    <div class="portal-tabs">
+                        <button class="portal-tab active" data-tab="signin">Sign In</button>
+                        <button class="portal-tab" data-tab="signup">Sign Up</button>
+                    </div>
+
+                    <form id="signinForm" class="portal-form active">
+                        <div class="form-group">
+                            <label for="signinIdentifier">Email or admin username</label>
+                            <input type="text" id="signinIdentifier" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signinPassword">Password</label>
+                            <input type="password" id="signinPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                    </form>
+
+                    <form id="signupForm" class="portal-form">
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" minlength="6" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    </form>
+
+                    <div id="portalMessage" class="portal-message"></div>
+                </div>
+            </section>
+
+            <section class="portal-dashboard" id="dashboardSection" style="display:none;">
+                <div class="portal-header-row">
+                    <div>
+                        <h2 id="studentWelcome">Welcome</h2>
+                        <p id="studentEmail" class="portal-muted"></p>
+                    </div>
+                    <button class="btn btn-small btn-outline" id="logoutBtn">Logout</button>
+                </div>
+
+                <div id="studentCourses" class="portal-courses-grid"></div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+    const API = '/api';
+    const studentTokenKey = 'studentToken';
+
+    function showMessage(message, type = 'error') {
+        const el = document.getElementById('portalMessage');
+        el.textContent = message;
+        el.className = `portal-message ${type}`;
+    }
+
+    function clearMessage() {
+        const el = document.getElementById('portalMessage');
+        el.textContent = '';
+        el.className = 'portal-message';
+    }
+
+    function switchTab(tab) {
+        document.querySelectorAll('.portal-tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
+        document.getElementById('signinForm').classList.toggle('active', tab === 'signin');
+        document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
+        clearMessage();
+    }
+
+    document.querySelectorAll('.portal-tab').forEach((btn) => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    function renderCourses(payload) {
+        document.getElementById('studentWelcome').textContent = `Welcome, ${payload.student.fullName}`;
+        document.getElementById('studentEmail').textContent = payload.student.email;
+
+        const grid = document.getElementById('studentCourses');
+        if (!payload.courses || payload.courses.length === 0) {
+            grid.innerHTML = `
+                <div class="portal-empty">
+                    <h3>No enrolled courses yet</h3>
+                    <p>You can enroll from the courses page, then your courses and recaps will appear here.</p>
+                    <a class="btn btn-primary" href="/courses.html#enroll">Go to Enrollment</a>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = payload.courses.map((course) => {
+            const recaps = (course.recaps || []).map((r) => `
+                <a class="recap-link" href="${r.url}" target="_blank" rel="noopener noreferrer">Watch ${r.title}</a>
+            `).join('');
+
+            return `
+                <article class="portal-course-card">
+                    <div class="portal-course-top">
+                        <h3>${course.name}</h3>
+                        <span class="portal-status ${course.status}">${course.status}</span>
+                    </div>
+                    <p class="portal-meta">${course.duration || 'Duration TBA'} • EGP ${(course.price || 0).toLocaleString()}</p>
+                    <p class="portal-meta">Payment: ${course.paid ? `Paid (EGP ${(course.amountPaid || 0).toLocaleString()})` : 'Unpaid'}</p>
+                    <div class="portal-actions">
+                        <a class="btn btn-small" href="${course.detailsUrl}">Open Course</a>
+                    </div>
+                    <div class="portal-recaps">
+                        <h4>Session Recaps</h4>
+                        <div class="portal-recap-list">${recaps}</div>
+                    </div>
+                </article>
+            `;
+        }).join('');
+    }
+
+    async function loadDashboard() {
+        const token = localStorage.getItem(studentTokenKey);
+        if (!token) return false;
+
+        try {
+            const res = await fetch(`${API}/student/courses`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Session expired');
+
+            const payload = await res.json();
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            renderCourses(payload);
+            return true;
+        } catch (err) {
+            localStorage.removeItem(studentTokenKey);
+            return false;
+        }
+    }
+
+    document.getElementById('signinForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearMessage();
+
+        const identifier = document.getElementById('signinIdentifier').value.trim();
+        const password = document.getElementById('signinPassword').value;
+
+        try {
+            const res = await fetch(`${API}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identifier, password })
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                showMessage(data.error || 'Sign in failed');
+                return;
+            }
+
+            if (data.role === 'admin') {
+                localStorage.setItem('adminToken', data.token);
+                localStorage.setItem('adminName', data.username || identifier);
+                window.location.href = data.redirect || '/admin.html';
+                return;
+            }
+
+            localStorage.setItem(studentTokenKey, data.token);
+            await loadDashboard();
+        } catch (err) {
+            showMessage('Network error. Please try again.');
+        }
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearMessage();
+
+        const fullName = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+
+        try {
+            const res = await fetch(`${API}/student/signup`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fullName, email, password })
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                showMessage(data.error || 'Sign up failed');
+                return;
+            }
+
+            localStorage.setItem(studentTokenKey, data.token);
+            showMessage('Account created successfully.', 'success');
+            await loadDashboard();
+        } catch (err) {
+            showMessage('Network error. Please try again.');
+        }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem(studentTokenKey);
+        document.getElementById('dashboardSection').style.display = 'none';
+        document.getElementById('authSection').style.display = 'block';
+        switchTab('signin');
+    });
+
+    loadDashboard();
+    </script>
+</body>
+</html>

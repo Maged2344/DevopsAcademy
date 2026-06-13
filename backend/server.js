@@ -122,6 +122,13 @@ const adminSchema = new mongoose.Schema({
   password: { type: String, required: true }
 });
 
+const studentSchema = new mongoose.Schema({
+  fullName: { type: String, required: true },
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  password: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
 const courseSchema = new mongoose.Schema({
   courseId: { type: String, required: true, unique: true },
   name: { type: String, required: true },
@@ -155,9 +162,42 @@ const visitSchema = new mongoose.Schema({
 
 const Enrollment = mongoose.model('Enrollment', enrollmentSchema);
 const Admin = mongoose.model('Admin', adminSchema);
+const Student = mongoose.model('Student', studentSchema);
 const Course = mongoose.model('Course', courseSchema);
 const ServiceRequest = mongoose.model('ServiceRequest', serviceRequestSchema);
 const Visit = mongoose.model('Visit', visitSchema);
+
+function normalizeEmail(email) {
+  return String(email || '').trim().toLowerCase();
+}
+
+const COURSE_RECAPS = {
+  devops: [
+    { title: 'Session Recap 1: Program Kickoff', url: 'https://www.youtube.com/results?search_query=devops+program+kickoff+recap' },
+    { title: 'Session Recap 2: CI/CD and Deployment', url: 'https://www.youtube.com/results?search_query=devops+ci+cd+deployment+recap' }
+  ],
+  linux: [
+    { title: 'Session Recap 1: Linux Basics', url: 'https://www.youtube.com/results?search_query=linux+administration+basics+recap' },
+    { title: 'Session Recap 2: Users and Permissions', url: 'https://www.youtube.com/results?search_query=linux+users+permissions+recap' }
+  ],
+  docker: [
+    { title: 'Session Recap 1: Docker Fundamentals', url: 'https://www.youtube.com/results?search_query=docker+fundamentals+recap' },
+    { title: 'Session Recap 2: Docker Compose', url: 'https://www.youtube.com/results?search_query=docker+compose+recap' }
+  ],
+  kubernetes: [
+    { title: 'Session Recap 1: K8s Architecture', url: 'https://www.youtube.com/results?search_query=kubernetes+architecture+recap' },
+    { title: 'Session Recap 2: Services and Deployments', url: 'https://www.youtube.com/results?search_query=kubernetes+services+deployments+recap' }
+  ]
+};
+
+function getCourseRecaps(courseId, courseName) {
+  if (COURSE_RECAPS[courseId]) return COURSE_RECAPS[courseId];
+  const q = encodeURIComponent(`${courseName || courseId} recap`);
+  return [
+    { title: 'Session Recap 1', url: `https://www.youtube.com/results?search_query=${q}+session+1` },
+    { title: 'Session Recap 2', url: `https://www.youtube.com/results?search_query=${q}+session+2` }
+  ];
+}
 
 // ===== Auth Middleware =====
 function authMiddleware(req, res, next) {
@@ -166,7 +206,26 @@ function authMiddleware(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
+    if (decoded.role !== 'admin' && !decoded.username) {
+      return res.status(403).json({ error: 'Admin access required' });
+    }
     req.admin = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+}
+
+function studentAuthMiddleware(req, res, next) {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'No token provided' });
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (decoded.role !== 'student') {
+      return res.status(403).json({ error: 'Student access required' });
+    }
+    req.student = decoded;
     next();
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' });
@@ -244,6 +303,137 @@ app.post('/api/track', async (req, res) => {
   }
 });
 
+// ===== Student Auth & Portal Routes =====
+
+app.post('/api/student/signup', async (req, res) => {
+  try {
+    const { fullName, email, password } = req.body;
+    const normalizedEmail = normalizeEmail(email);
+
+    if (!fullName || !normalizedEmail || !password) {
+      return res.status(400).json({ error: 'Full name, email, and password are required' });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    }
+
+    const existing = await Student.findOne({ email: normalizedEmail });
+    if (existing) {
+      return res.status(409).json({ error: 'Email already registered. Please sign in.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const student = await Student.create({ fullName, email: normalizedEmail, password: hashedPassword });
+    const token = jwt.sign({ id: student._id, email: student.email, role: 'student' }, JWT_SECRET, { expiresIn: '7d' });
+
+    res.status(201).json({
+      token,
+      role: 'student',
+      student: { id: student._id, fullName: student.fullName, email: student.email }
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.post('/api/student/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const normalizedEmail = normalizeEmail(email);
+    const student = await Student.findOne({ email: normalizedEmail });
+
+    if (!student || !(await bcrypt.compare(password, student.password))) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: student._id, email: student.email, role: 'student' }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ token, role: 'student', student: { id: student._id, fullName: student.fullName, email: student.email } });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { identifier, password } = req.body;
+    if (!identifier || !password) {
+      return res.status(400).json({ error: 'Identifier and password are required' });
+    }
+
+    const admin = await Admin.findOne({ username: String(identifier).trim() });
+    if (admin && (await bcrypt.compare(password, admin.password))) {
+      const token = jwt.sign({ id: admin._id, username: admin.username, role: 'admin' }, JWT_SECRET, { expiresIn: '24h' });
+      return res.json({ token, role: 'admin', username: admin.username, redirect: '/admin.html' });
+    }
+
+    const normalizedEmail = normalizeEmail(identifier);
+    const student = await Student.findOne({ email: normalizedEmail });
+    if (student && (await bcrypt.compare(password, student.password))) {
+      const token = jwt.sign({ id: student._id, email: student.email, role: 'student' }, JWT_SECRET, { expiresIn: '7d' });
+      return res.json({
+        token,
+        role: 'student',
+        redirect: '/portal.html',
+        student: { id: student._id, fullName: student.fullName, email: student.email }
+      });
+    }
+
+    return res.status(401).json({ error: 'Invalid credentials' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/api/student/me', studentAuthMiddleware, async (req, res) => {
+  try {
+    const student = await Student.findById(req.student.id).select('_id fullName email createdAt');
+    if (!student) return res.status(404).json({ error: 'Student not found' });
+    res.json(student);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/api/student/courses', studentAuthMiddleware, async (req, res) => {
+  try {
+    const student = await Student.findById(req.student.id).select('email fullName');
+    if (!student) return res.status(404).json({ error: 'Student not found' });
+
+    const enrollments = await Enrollment.find({ email: student.email }).sort({ createdAt: -1 });
+    const latestByCourse = new Map();
+    enrollments.forEach((e) => {
+      if (!latestByCourse.has(e.course)) latestByCourse.set(e.course, e);
+    });
+
+    const courseIds = [...latestByCourse.keys()];
+    const courseDocs = await Course.find({ courseId: { $in: courseIds } });
+    const courseMap = new Map(courseDocs.map((c) => [c.courseId, c]));
+
+    const data = courseIds.map((courseId) => {
+      const enrollment = latestByCourse.get(courseId);
+      const course = courseMap.get(courseId);
+      const courseName = course?.name || courseId;
+
+      return {
+        courseId,
+        name: courseName,
+        duration: course?.duration || '',
+        price: course?.price || 0,
+        status: enrollment.status,
+        paid: enrollment.paid,
+        amountPaid: enrollment.amountPaid,
+        enrolledAt: enrollment.createdAt,
+        detailsUrl: `/course.html?id=${courseId}`,
+        recaps: getCourseRecaps(courseId, courseName)
+      };
+    });
+
+    res.json({ student: { fullName: student.fullName, email: student.email }, courses: data });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // ===== Admin Auth Routes =====
 
 // Admin login
@@ -256,7 +446,7 @@ app.post('/api/admin/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: admin._id, username: admin.username }, JWT_SECRET, { expiresIn: '24h' });
+    const token = jwt.sign({ id: admin._id, username: admin.username, role: 'admin' }, JWT_SECRET, { expiresIn: '24h' });
     res.json({ token, username: admin.username });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
