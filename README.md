@@ -1,203 +1,158 @@
-# DevOps Academy Egypt — Website Guide
+# DevOps Academy Egypt
 
-A static website for DevOps Academy Egypt built with plain HTML, CSS, and JavaScript. This document explains how the site works and how to edit its content.
+> Full-stack web application for DevOps Academy Egypt — a training platform offering DevOps engineering courses. Built with HTML/CSS/JS frontend, Node.js/Express/MongoDB backend, Dockerized deployment, and automated CI/CD via Jenkins.
+
+**Live Site:** [https://devopsacademy.cloud-stacks.com](https://devopsacademy.cloud-stacks.com)
 
 ---
 
-## File Structure
+## Table of Contents
+
+- [Architecture Overview](#architecture-overview)
+- [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
+- [Frontend](#frontend)
+- [Backend API](#backend-api)
+- [Database](#database)
+- [Docker Setup](#docker-setup)
+- [Nginx Configuration](#nginx-configuration)
+- [CI/CD Pipeline](#cicd-pipeline)
+- [Infrastructure](#infrastructure)
+- [Local Development](#local-development)
+- [Deployment](#deployment)
+- [Admin Panel](#admin-panel)
+- [Environment Variables](#environment-variables)
+
+---
+
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         Azure VM (Ubuntu)                            │
+│                         20.25.62.124                                 │
+│                                                                     │
+│  ┌────────────────────────────────────────────────────────────────┐ │
+│  │                    Docker Compose                               │ │
+│  │                                                                 │ │
+│  │  ┌─────────────┐    ┌──────────────┐    ┌──────────────────┐  │ │
+│  │  │   Nginx     │    │   Backend    │    │     MongoDB      │  │ │
+│  │  │  (web)      │───▶│  (Node.js)   │───▶│    (mongo:7)     │  │ │
+│  │  │  :80/:443   │    │   :3000      │    │    :27017        │  │ │
+│  │  └─────────────┘    └──────────────┘    └──────────────────┘  │ │
+│  │        │                                        │              │ │
+│  │        │ SSL (Let's Encrypt)                    │ Volume       │ │
+│  │        ▼                                        ▼              │ │
+│  │   /ssl/fullchain.pem                      mongo_data           │ │
+│  │   /ssl/privkey.pem                                             │ │
+│  └────────────────────────────────────────────────────────────────┘ │
+│                                                                     │
+│  ┌──────────────┐                                                   │
+│  │   Jenkins    │  Polls GitHub → builds → deploys                  │
+│  │   :8080      │                                                   │
+│  └──────────────┘                                                   │
+└─────────────────────────────────────────────────────────────────────┘
+         ▲
+         │ DNS (Cloudflare A Record)
+         │
+   devopsacademy.cloud-stacks.com
+```
+
+---
+
+## Project Structure
 
 ```
 DevopsAcademy/
-├── index.html   — All page content (courses, instructors, testimonials, forms, etc.)
-├── styles.css   — All styling, colors, responsive layout, and animations
-├── script.js    — Interactivity: navbar, course filter, form validation, scroll animations
-├── logo.png     — Logo image used in the navbar and footer
-├── cover.png    — Hero section background image
-└── README.md    — This file
+├── index.html              # Main landing page (courses, enrollment form, etc.)
+├── course.html             # Dynamic course detail page (loaded via ?id=<course>)
+├── admin.html              # Admin dashboard (login, manage enrollments)
+├── styles.css              # All CSS (responsive, animations, components)
+├── script.js               # Frontend JS (nav, filters, form submission, animations)
+├── logo.png                # Site logo
+├── cover.png               # Hero background image
+│
+├── backend/                # Express.js API server
+│   ├── server.js           # API routes, MongoDB models, auth middleware
+│   ├── package.json        # Node.js dependencies
+│   └── Dockerfile          # Backend container (node:20-alpine)
+│
+├── nginx.conf              # Nginx config (SSL, reverse proxy, caching rules)
+├── Dockerfile              # Frontend container (nginx:alpine)
+├── docker-compose.yml      # Multi-service orchestration (web + backend + mongo)
+│
+├── Jenkinsfile             # CI/CD pipeline definition
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # GitHub Actions (alternative deploy via Docker Hub)
+│
+├── .gitignore              # Ignored files (keys, PDFs, node_modules, ssl)
+└── README.md               # This file
 ```
-
-Everything is in `index.html`. There is no backend — the site is fully static.
 
 ---
 
-## How the Site Works
+## Tech Stack
 
-### Sections (in order)
+| Layer         | Technology                                      |
+|---------------|------------------------------------------------|
+| Frontend      | HTML5, CSS3, Vanilla JavaScript                |
+| Backend       | Node.js 20, Express.js 4                       |
+| Database      | MongoDB 7                                      |
+| Web Server    | Nginx (Alpine)                                 |
+| Containers    | Docker, Docker Compose                         |
+| CI/CD         | Jenkins (primary), GitHub Actions (secondary)  |
+| SSL           | Let's Encrypt (auto-renewed)                   |
+| DNS/CDN       | Cloudflare                                     |
+| Cloud         | Azure Virtual Machine (Ubuntu)                 |
+| Auth          | JWT (jsonwebtoken) + bcryptjs                  |
 
-| Section | HTML id | What it does |
-|---|---|---|
-| Navigation | `#navbar` | Top nav bar with links. Shrinks on scroll, has a hamburger menu on mobile. |
-| Hero | `#home` | Landing area with headline, stats (graduates, job placement, etc.), and CTA buttons. |
-| Courses | `#courses` | Grid of course cards with filter buttons (All / Beginner / Intermediate / Advanced). |
-| Why Us | `#why-us` | Six feature cards (Expert Instructors, Hands-On Labs, etc.). |
-| Instructors | `#instructors` | Instructor profile cards with name, role, and bio. |
-| Testimonials | `#testimonials` | Student review cards. |
-| Enrollment | `#enroll` | Application form (client-side only — no data is sent to a server). |
-| Contact | `#contact` | Address, email, phone, working hours, and map placeholder. |
-| Footer | `.footer` | Brand info, quick links, course links, social links, copyright. |
+---
+
+## Frontend
+
+### Pages
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Landing | `/` | Hero, courses grid, instructors, testimonials, enrollment form, contact |
+| Course Detail | `/course.html?id=<courseId>` | Full course curriculum, sidebar info, roadmap (DevOps) |
+| Admin | `/admin.html` | Protected dashboard to manage enrollment applications |
+
+### Main Page Sections (`index.html`)
+
+1. **Navigation** — Sticky navbar with scroll shrink effect and mobile hamburger menu
+2. **Hero** — Headline, animated stats counters, CTA buttons
+3. **Courses** — Filterable grid (All/Beginner/Intermediate/Advanced), clickable cards
+4. **Featured Program** — Full-width DevOps Engineering card at top of grid
+5. **Why Us** — Feature cards (Expert Instructors, Hands-On Labs, etc.)
+6. **Instructors** — Profile cards with names and bios
+7. **Testimonials** — Student review cards
+8. **Enrollment Form** — Submits to `/api/enroll` backend endpoint
+9. **Contact** — Address, email, phone, working hours
+10. **Footer** — Links, social icons, copyright
+
+### Course Detail Page (`course.html`)
+
+Dynamic single page that renders course content based on URL parameter `?id=`:
+
+**Available courses:** `devops`, `linux`, `docker`, `kubernetes`, `cicd`, `aws`, `terraform`, `git`, `devsecops`, `monitoring`
+
+- Shows course description, duration, hours, sessions count
+- Detailed curriculum with topic lists per module
+- Sidebar with pricing and enrollment button
+- DevOps course includes an interactive visual roadmap (8 phases)
 
 ### JavaScript Features (`script.js`)
 
-- **Navbar scroll effect** — Adds a `scrolled` class when the user scrolls past 50px.
-- **Mobile nav toggle** — Opens/closes the nav menu on small screens.
-- **Course filter** — Filter buttons use `data-filter` on buttons and `data-level` on cards to show/hide courses.
-- **Form validation** — Checks required fields and email format on submit, then shows a success/error notification. **No data is sent anywhere** — the form just resets after "submission".
-- **Scroll reveal** — Cards fade in when they scroll into view using `IntersectionObserver`.
-- **Smooth scroll** — All anchor links (`href="#..."`) scroll smoothly to their target section.
+- **Navbar scroll effect** — Adds `scrolled` class after 50px scroll
+- **Mobile nav toggle** — Hamburger menu for small screens
+- **Course filter** — Buttons use `data-filter` ↔ `data-level` on cards
+- **Form submission** — Validates fields then `POST /api/enroll`
+- **Scroll reveal** — Cards fade in via `IntersectionObserver`
+- **Smooth scroll** — All anchor links scroll smoothly to target
 
----
-
-## How to Edit Content
-
-### Change a Course Price
-
-Find the course in `index.html` inside the `<section class="courses">` block. Each course is a `<div class="course-card">`. The price is in:
-
-```html
-<div class="course-price">
-    <span class="price">EGP 3,500</span>   <!-- change this value -->
-    <a href="#enroll" class="btn btn-small">Enroll</a>
-</div>
-```
-
-Just update the text inside `<span class="price">`.
-
-### Add a New Course
-
-Copy an existing `<div class="course-card">...</div>` block inside `<div class="courses-grid">` and edit the values:
-
-```html
-<div class="course-card" data-level="beginner">       <!-- set level: beginner, intermediate, or advanced -->
-    <div class="course-badge beginner">Beginner</div>  <!-- match the level + CSS class -->
-    <div class="course-icon">&#128187;</div>            <!-- emoji or icon -->
-    <h3>Course Name</h3>
-    <p>Course description goes here.</p>
-    <div class="course-meta">
-        <span>&#128336; 4 Weeks</span>                  <!-- duration -->
-        <span>&#128218; 20 Lessons</span>               <!-- lesson count -->
-    </div>
-    <div class="course-price">
-        <span class="price">EGP 3,500</span>           <!-- price -->
-        <a href="#enroll" class="btn btn-small">Enroll</a>
-    </div>
-</div>
-```
-
-**Important:** Also add the new course to the enrollment form dropdown so users can select it:
-
-```html
-<select id="course" name="course" required>
-    <option value="">Select a course...</option>
-    <!-- add a new option here -->
-    <option value="your-course">Your Course Name</option>
-</select>
-```
-
-And optionally add it to the footer course links list.
-
-### Remove a Course
-
-Delete the entire `<div class="course-card">...</div>` block for that course. Also remove its `<option>` from the enrollment form dropdown.
-
-### Change the Course Filter Levels
-
-The filter buttons are in `index.html`:
-
-```html
-<div class="course-filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="beginner">Beginner</button>
-    <button class="filter-btn" data-filter="intermediate">Intermediate</button>
-    <button class="filter-btn" data-filter="advanced">Advanced</button>
-</div>
-```
-
-The `data-filter` value must match the `data-level` on the course cards. To add a new level (e.g., "expert"), add a button with `data-filter="expert"` and set `data-level="expert"` on the relevant course cards. The JS in `script.js` handles it automatically.
-
-### Edit Hero Stats (Graduates, Job Placement, etc.)
-
-In the `<section class="hero">` block, find:
-
-```html
-<div class="hero-stats">
-    <div class="stat">
-        <span class="stat-number">2000+</span>    <!-- change the number -->
-        <span class="stat-label">Graduates</span>  <!-- change the label -->
-    </div>
-    ...
-</div>
-```
-
-### Add or Edit an Instructor
-
-Instructor cards are in `<section class="instructors">`. Each card:
-
-```html
-<div class="instructor-card">
-    <div class="instructor-avatar">AH</div>              <!-- initials -->
-    <h3>Ahmed Hassan</h3>                                  <!-- name -->
-    <p class="instructor-role">Senior DevOps Engineer</p>  <!-- title -->
-    <p class="instructor-bio">15 years experience...</p>   <!-- bio -->
-</div>
-```
-
-Copy/paste the block to add a new instructor, or edit the text to update one.
-
-### Add or Edit a Testimonial
-
-Testimonial cards are in `<section class="testimonials">`:
-
-```html
-<div class="testimonial-card">
-    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>  <!-- 5 stars -->
-    <p>"Quote from the student."</p>
-    <div class="testimonial-author">
-        <strong>Student Name</strong>
-        <span>Job Title at Company</span>
-    </div>
-</div>
-```
-
-### Change Contact Information
-
-In `<section class="contact">`, update the text inside each `.contact-item`:
-
-```html
-<div class="contact-item">
-    <span class="contact-icon">&#128231;</span>
-    <div>
-        <strong>Email</strong>
-        <p>info@devopsacademy.eg</p>   <!-- change here -->
-    </div>
-</div>
-```
-
-### Change Social Media Links
-
-In the `<footer>`, update the `href` values:
-
-```html
-<div class="social-links">
-    <a href="#" aria-label="Facebook">FB</a>    <!-- replace # with your URL -->
-    <a href="#" aria-label="LinkedIn">LI</a>
-    <a href="#" aria-label="Twitter">TW</a>
-    <a href="#" aria-label="YouTube">YT</a>
-</div>
-```
-
-### Change the Logo or Cover Image
-
-Replace `logo.png` or `cover.png` in the project folder with your new image (keep the same filename). The logo is used in the navbar and footer. The cover image is the hero section background.
-
----
-
-## Styling
-
-All styles are in `styles.css`. Key things to know:
-
-### Colors
-
-The site uses CSS variables defined at the top of `styles.css`:
+### CSS Variables (`styles.css`)
 
 ```css
 :root {
@@ -205,41 +160,318 @@ The site uses CSS variables defined at the top of `styles.css`:
     --primary-light: #3b82f6;  /* lighter blue */
     --accent: #f59e0b;         /* gold/amber accent */
     --dark: #0f172a;           /* dark background */
-    --success: #10b981;        /* green for success messages */
+    --success: #10b981;        /* green for success */
 }
 ```
 
-Change these values to restyle the entire site at once.
-
-### Fonts
-
-The site loads **Cairo** (for headings) and **Inter** (for body text) from Google Fonts via the `<link>` tag in `index.html`. To change fonts, update the Google Fonts URL and the `font-family` rules in `styles.css`.
-
-### Responsive Design
-
-The layout is responsive using CSS Grid and media queries in `styles.css`. Course cards, feature cards, and other grids automatically adjust from multi-column to single-column on smaller screens.
+Fonts: **Cairo** (headings) + **Inter** (body) from Google Fonts.
 
 ---
 
-## Making the Form Actually Work
+## Backend API
 
-Currently the enrollment form only validates and shows a notification — it doesn't send data anywhere. To connect it to a real backend:
+**Location:** `backend/server.js`  
+**Runtime:** Node.js 20 (Alpine container)  
+**Port:** 3000 (internal, proxied through Nginx)
 
-1. **Option A — Form service:** Use a service like Formspree, Netlify Forms, or Google Forms. Set the form `action` attribute and method to `POST`.
-2. **Option B — Custom backend:** In `script.js`, replace the `enrollForm.addEventListener('submit', ...)` handler to send a `fetch()` request to your API endpoint instead of just resetting the form.
+### Endpoints
 
----
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| `POST` | `/api/enroll` | Public | Submit enrollment application |
+| `POST` | `/api/admin/login` | Public | Admin login → returns JWT |
+| `GET` | `/api/admin/enrollments` | JWT | List enrollments (filter: `?status=`, `?course=`) |
+| `GET` | `/api/admin/stats` | JWT | Enrollment counts by status |
+| `PATCH` | `/api/admin/enrollments/:id` | JWT | Update enrollment status |
+| `DELETE` | `/api/admin/enrollments/:id` | JWT | Delete enrollment |
 
-## Running Locally
+### Authentication Flow
 
-Open `index.html` directly in a browser, or use a local server:
+1. `POST /api/admin/login` with `{ username, password }`
+2. Server validates against bcrypt hash in MongoDB
+3. Returns JWT token (24h expiry)
+4. Client sends `Authorization: Bearer <token>` on protected routes
+5. `authMiddleware` verifies and decodes token
 
-```bash
-# Python
-python -m http.server 8000
+### Data Models
 
-# Node.js
-npx serve .
+**Enrollment:**
+```json
+{
+  "firstName": "String (required)",
+  "lastName": "String (required)",
+  "email": "String (required)",
+  "phone": "String (required)",
+  "course": "String (required)",
+  "experience": "String (required)",
+  "message": "String (optional)",
+  "status": "pending | approved | rejected",
+  "createdAt": "Date (auto)"
+}
 ```
 
-Then open `http://localhost:8000`.
+**Admin:**
+```json
+{
+  "username": "String (unique, required)",
+  "password": "String (bcrypt hashed)"
+}
+```
+
+### Default Admin Account
+
+On first startup (empty admin collection), auto-creates:
+- **Username:** `admin`
+- **Password:** `admin123`
+
+---
+
+## Database
+
+| Property | Value |
+|----------|-------|
+| Engine | MongoDB 7 |
+| Container | `devopsacademy-mongo` |
+| Port | 27017 (internal only) |
+| Volume | `mongo_data` (persistent) |
+| Collections | `enrollments`, `admins` |
+
+---
+
+## Docker Setup
+
+### Services (`docker-compose.yml`)
+
+| Service | Image | Ports | Purpose |
+|---------|-------|-------|---------|
+| `web` | `./Dockerfile` (nginx:alpine) | 80, 443 | Frontend + reverse proxy |
+| `backend` | `./backend/Dockerfile` (node:20-alpine) | 3000 (internal) | API server |
+| `mongo` | `mongo:7` | 27017 (internal) | Database |
+
+### Frontend Dockerfile
+
+```dockerfile
+FROM nginx:alpine
+RUN rm -rf /usr/share/nginx/html/*
+COPY index.html admin.html course.html styles.css script.js logo.png /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80 443
+```
+
+### Backend Dockerfile
+
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package.json ./
+RUN npm install --production
+COPY server.js ./
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+### Volumes & Mounts
+
+| Volume | Path | Purpose |
+|--------|------|---------|
+| `mongo_data` | `/data/db` | Persistent database storage |
+| Bind mount | `/home/maged/devopsacademy/ssl` → `/etc/nginx/ssl:ro` | SSL certificates |
+
+---
+
+## Nginx Configuration
+
+**File:** `nginx.conf`
+
+### Routing
+
+| Route | Behavior |
+|-------|----------|
+| `:80` (HTTP) | 301 redirect → HTTPS |
+| `:443` (HTTPS) | SSL termination (TLS 1.2/1.3) |
+| `/api/*` | Reverse proxy → `backend:3000` (no-cache) |
+| `/` | Serve static HTML (`try_files`) |
+| `*.css, *.js` | No-cache (latest version on deploy) |
+| `*.png, *.jpg` | 1-day browser cache |
+
+### Security Headers
+
+```
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
+---
+
+## CI/CD Pipeline
+
+### Jenkins (Primary)
+
+**File:** `Jenkinsfile`  
+**URL:** `http://20.25.62.124:8080`  
+**Trigger:** SCM polling every minute
+
+```
+GitHub Push → Jenkins detects (1 min) → Clone → Build → Deploy → Live
+```
+
+**Stages:**
+
+1. **Clone Repository** — Pulls `main` branch from GitHub
+2. **Build Docker Image** — `docker compose build`
+3. **Deploy** — Copies files to `/home/maged/devopsacademy/`, runs:
+   ```bash
+   docker compose down
+   docker compose build --no-cache
+   docker compose up -d
+   docker image prune -f
+   ```
+
+### GitHub Actions (Secondary)
+
+**File:** `.github/workflows/deploy.yml`  
+**Trigger:** Manual (`workflow_dispatch`)
+
+1. Builds and pushes to Docker Hub (`magedmohamed/devopsacademy:latest`)
+2. SSHs into Azure VM → `docker compose pull && up -d`
+
+---
+
+## Infrastructure
+
+### Azure VM
+
+| Property | Value |
+|----------|-------|
+| Public IP | `20.25.62.124` |
+| OS | Ubuntu Noble |
+| User | `maged` |
+| Deploy directory | `/home/maged/devopsacademy/` |
+| SSL certificates | `/home/maged/devopsacademy/ssl/` |
+
+### DNS
+
+- **Provider:** Cloudflare
+- **Record:** A `devopsacademy.cloud-stacks.com` → `20.25.62.124`
+
+### SSL/TLS
+
+- **Provider:** Let's Encrypt
+- **Certificate:** `ssl/fullchain.pem`
+- **Private Key:** `ssl/privkey.pem`
+- **Protocols:** TLS 1.2, TLS 1.3
+
+---
+
+## Local Development
+
+### Prerequisites
+
+- Docker & Docker Compose
+- Git
+
+### Quick Start
+
+```bash
+git clone https://github.com/Maged2344/DevopsAcademy.git
+cd DevopsAcademy
+docker compose up --build
+# Visit http://localhost
+```
+
+### Backend Only (without Docker)
+
+```bash
+cd backend
+npm install
+
+# Requires MongoDB running locally
+MONGO_URI=mongodb://localhost:27017/devopsacademy node server.js
+# API available at http://localhost:3000
+```
+
+### Frontend Only
+
+Open `index.html` in a browser, or:
+```bash
+npx serve .
+# Visit http://localhost:3000
+```
+
+> Note: Form submission won't work without the backend running.
+
+---
+
+## Deployment
+
+### Automatic (Recommended)
+
+1. Commit and push to `main`:
+   ```bash
+   git add -A
+   git commit -m "your changes"
+   git push origin main
+   ```
+2. Jenkins detects within 1 minute, builds, and deploys
+3. Site is live in ~2 minutes
+4. Hard-refresh browser (`Ctrl+Shift+R`) to see changes
+
+### Manual (SSH)
+
+```bash
+ssh -i Devops-Academy-VM_key.pem maged@20.25.62.124
+cd /home/maged/devopsacademy
+docker compose down
+docker compose build --no-cache
+docker compose up -d
+```
+
+---
+
+## Admin Panel
+
+**URL:** [https://devopsacademy.cloud-stacks.com/admin.html](https://devopsacademy.cloud-stacks.com/admin.html)
+
+### Features
+
+- JWT-authenticated login
+- Real-time dashboard (auto-refreshes every 5 seconds)
+- Enrollment statistics (total, pending, approved, rejected)
+- Full enrollment table with filters
+- Approve / Reject / Delete actions per application
+
+### Credentials
+
+| Username | Password |
+|----------|----------|
+| `admin` | `admin123` |
+
+---
+
+## Environment Variables
+
+| Variable | Service | Default | Description |
+|----------|---------|---------|-------------|
+| `MONGO_URI` | backend | `mongodb://mongo:27017/devopsacademy` | MongoDB connection string |
+| `JWT_SECRET` | backend | (set in docker-compose.yml) | JWT signing secret |
+
+---
+
+## .gitignore
+
+```
+node_modules/     # Dependencies (installed in containers)
+*.pem, *.key      # SSH/SSL private keys
+ssl/              # Certificate directory
+*.pdf             # Documentation PDFs
+.DS_Store         # macOS metadata
+Thumbs.db         # Windows thumbnails
+```
+
+---
+
+## License
+
+Private — DevOps Academy Egypt © 2024-2026
