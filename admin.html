@@ -247,6 +247,26 @@
         const API_URL = '/api';
         let token = localStorage.getItem('adminToken');
 
+        // Auto-refresh enrollments every 5 seconds
+        let refreshInterval = null;
+
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            refreshInterval = setInterval(() => {
+                if (token) {
+                    loadStats();
+                    loadEnrollments();
+                }
+            }, 5000);
+        }
+
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
+        }
+
         // Check if already logged in
         if (token) {
             showDashboard();
@@ -377,26 +397,6 @@
                 loadStats();
                 loadEnrollments();
             } catch (err) { console.error(err); }
-        }
-
-        // Auto-refresh enrollments every 5 seconds
-        let refreshInterval = null;
-
-        function startAutoRefresh() {
-            if (refreshInterval) clearInterval(refreshInterval);
-            refreshInterval = setInterval(() => {
-                if (token) {
-                    loadStats();
-                    loadEnrollments();
-                }
-            }, 5000);
-        }
-
-        function stopAutoRefresh() {
-            if (refreshInterval) {
-                clearInterval(refreshInterval);
-                refreshInterval = null;
-            }
         }
 
         // Enter key on login
