@@ -1,40 +1,40 @@
-name: Build and Deploy
+# name: Build and Deploy
 
-on:
-  push:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#       - name: Login to Docker Hub
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: |
-            magedmohamed/devopsacademy:latest
-            magedmohamed/devopsacademy:${{ github.sha }}
+#       - name: Build and push Docker image
+#         uses: docker/build-push-action@v5
+#         with:
+#           context: .
+#           push: true
+#           tags: |
+#             magedmohamed/devopsacademy:latest
+#             magedmohamed/devopsacademy:${{ github.sha }}
 
-      - name: Deploy to Azure VM
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USERNAME }}
-          key: ${{ secrets.VM_SSH_KEY }}
-          script: |
-            cd /home/maged/devopsacademy
-            docker compose pull
-            docker compose up -d --force-recreate
-            docker image prune -f
+#       - name: Deploy to Azure VM
+#         uses: appleboy/ssh-action@v1
+#         with:
+#           host: ${{ secrets.VM_HOST }}
+#           username: ${{ secrets.VM_USERNAME }}
+#           key: ${{ secrets.VM_SSH_KEY }}
+#           script: |
+#             cd /home/maged/devopsacademy
+#             docker compose pull
+#             docker compose up -d --force-recreate
+#             docker image prune -f
