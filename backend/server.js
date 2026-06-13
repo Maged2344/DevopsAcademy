@@ -548,10 +548,14 @@ async function start() {
     if (courseCount === 0) {
       const defaultCourses = [
         { courseId: 'devops', name: 'DevOps Engineering Program', price: 15000, duration: '12 Weeks', level: 'all' },
-        { courseId: 'linux', name: 'Linux Administration', price: 3500, duration: '6 Weeks', level: 'beginner' },
+        { courseId: 'linux', name: 'Linux Administration I — Fundamentals', price: 3500, duration: '6 Weeks', level: 'beginner' },
+        { courseId: 'linux2', name: 'Linux Administration II — Advanced', price: 2500, duration: '3 Weeks', level: 'intermediate' },
         { courseId: 'docker', name: 'Docker & Containers', price: 4500, duration: '5 Weeks', level: 'beginner' },
         { courseId: 'kubernetes', name: 'Kubernetes (K8s)', price: 6000, duration: '6 Weeks', level: 'intermediate' },
-        { courseId: 'cicd', name: 'CI/CD Pipelines', price: 5500, duration: '5 Weeks', level: 'intermediate' },
+        { courseId: 'jenkins', name: 'Jenkins', price: 4000, duration: '4 Weeks', level: 'intermediate' },
+        { courseId: 'githubactions', name: 'GitHub Actions', price: 3500, duration: '3 Weeks', level: 'intermediate' },
+        { courseId: 'gitlabci', name: 'GitLab CI/CD', price: 3500, duration: '3 Weeks', level: 'intermediate' },
+        { courseId: 'argocd', name: 'ArgoCD & GitOps', price: 2500, duration: '2 Weeks', level: 'advanced' },
         { courseId: 'aws', name: 'AWS Cloud', price: 7500, duration: '6 Weeks', level: 'intermediate' },
         { courseId: 'azure', name: 'Microsoft Azure', price: 5500, duration: '4 Weeks', level: 'intermediate' },
         { courseId: 'gcp', name: 'Google Cloud Platform (GCP)', price: 5500, duration: '4 Weeks', level: 'intermediate' },
@@ -559,7 +563,9 @@ async function start() {
         { courseId: 'oracle', name: 'Oracle Cloud (OCI)', price: 3500, duration: '3 Weeks', level: 'intermediate' },
         { courseId: 'terraform', name: 'Terraform — IaC', price: 4500, duration: '4 Weeks', level: 'advanced' },
         { courseId: 'ansible', name: 'Ansible — Configuration Management', price: 4000, duration: '4 Weeks', level: 'advanced' },
-        { courseId: 'git', name: 'Git & Version Control', price: 2500, duration: '3 Weeks', level: 'beginner' },
+        { courseId: 'git', name: 'Git — Fundamentals & Workflows', price: 2500, duration: '3 Weeks', level: 'beginner' },
+        { courseId: 'github', name: 'GitHub — Platform & Collaboration', price: 2500, duration: '2 Weeks', level: 'beginner' },
+        { courseId: 'gitlab', name: 'GitLab — Platform & DevOps', price: 2500, duration: '2 Weeks', level: 'beginner' },
         { courseId: 'devsecops', name: 'DevSecOps', price: 7000, duration: '6 Weeks', level: 'advanced' },
         { courseId: 'monitoring', name: 'Monitoring & Observability', price: 5500, duration: '5 Weeks', level: 'advanced' }
       ];

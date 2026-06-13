@@ -50,6 +50,7 @@
                     <button class="filter-btn" data-filter="containerization">Containers</button>
                     <button class="filter-btn" data-filter="iac">IaC</button>
                     <button class="filter-btn" data-filter="cicd">CI/CD</button>
+                    <button class="filter-btn" data-filter="vcs">Version Control</button>
                     <button class="filter-btn" data-filter="monitoring">Monitoring</button>
                     <button class="filter-btn" data-filter="security">Security</button>
                     <button class="filter-btn" data-filter="linux">Linux</button>
@@ -151,22 +152,35 @@
     </footer>
 
     <script>
-    // Course icons mapping
+    // Course icons mapping - using provider logos/emojis
     const courseIcons = {
-        devops: '&#128640;', linux: '&#128187;', docker: '&#128038;',
-        kubernetes: '&#9784;', cicd: '&#9889;', aws: '&#9729;',
-        terraform: '&#127959;', git: '&#128200;', devsecops: '&#128274;',
-        monitoring: '&#128202;', python: '&#128013;', ansible: '&#9881;',
-        azure: '&#9729;', gcp: '&#9729;', alibaba: '&#9729;', oracle: '&#9729;'
+        devops: '&#128640;',
+        linux: '&#128427;', linux2: '&#128427;',
+        docker: '&#128051;',
+        kubernetes: '&#9784;&#65039;',
+        jenkins: '&#129302;', githubactions: '&#128126;', gitlabci: '&#129418;', argocd: '&#128268;',
+        aws: '<span style="color:#FF9900;font-weight:900;">AWS</span>',
+        azure: '<span style="color:#0078D4;font-weight:900;">Az</span>',
+        gcp: '<span style="color:#4285F4;font-weight:900;">GCP</span>',
+        alibaba: '<span style="color:#FF6A00;font-weight:900;">Ali</span>',
+        oracle: '<span style="color:#F80000;font-weight:900;">OCI</span>',
+        terraform: '&#127959;&#65039;', ansible: '&#9881;&#65039;',
+        git: '&#128200;', github: '&#128025;', gitlab: '&#129418;',
+        devsecops: '&#128274;',
+        monitoring: '&#128202;'
     };
 
     // Category mapping for courses
     const courseCategories = {
-        devops: 'program', linux: 'linux', docker: 'containerization',
-        kubernetes: 'containerization', cicd: 'cicd', aws: 'cloud',
-        terraform: 'iac', git: 'vcs', devsecops: 'security',
-        monitoring: 'monitoring', ansible: 'iac',
-        azure: 'cloud', gcp: 'cloud', alibaba: 'cloud', oracle: 'cloud'
+        devops: 'program',
+        linux: 'linux', linux2: 'linux',
+        docker: 'containerization', kubernetes: 'containerization',
+        jenkins: 'cicd', githubactions: 'cicd', gitlabci: 'cicd', argocd: 'cicd',
+        aws: 'cloud', azure: 'cloud', gcp: 'cloud', alibaba: 'cloud', oracle: 'cloud',
+        terraform: 'iac', ansible: 'iac',
+        git: 'vcs', github: 'vcs', gitlab: 'vcs',
+        devsecops: 'security',
+        monitoring: 'monitoring'
     };
 
     const categoryLabels = {

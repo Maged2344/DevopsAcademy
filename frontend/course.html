@@ -461,7 +461,7 @@
             ]
         },
         linux: {
-            title: "Linux Administration",
+            title: "Linux Administration I — Fundamentals",
             badge: "linux",
             badgeText: "Linux & OS",
             description: "Master the Linux operating system from scratch. Learn command line, system administration, file management, networking, and shell scripting — the foundation every DevOps engineer needs.",
@@ -862,10 +862,10 @@
             ]
         },
         git: {
-            title: "Git & Version Control",
+            title: "Git — Fundamentals & Workflows",
             badge: "vcs",
             badgeText: "Version Control",
-            description: "Master Git workflows, branching strategies, pull requests, and collaborative development with GitHub. The essential skill every developer and DevOps engineer needs.",
+            description: "Master Git from the ground up — core concepts, branching, merging, rebasing, and team workflows. The essential version control skill every developer needs before GitHub or GitLab.",
             tagline: "Track every change. Collaborate without chaos.",
             duration: "3 Weeks",
             hours: "8 Hours",
@@ -1311,6 +1311,351 @@
                 { phase: "Week 1", title: "Ansible Fundamentals", hours: "4 hrs · 1 session", desc: "Installation, inventory, ad-hoc commands, modules — get up and running fast." },
                 { phase: "Weeks 2–3", title: "Playbooks & Variables", hours: "4 hrs · 1 session", desc: "YAML playbooks, variables, facts, handlers, loops, conditionals, and Jinja2 templates." },
                 { phase: "Week 4", title: "Roles & Final Project", hours: "4 hrs · 1 session", desc: "Roles, Galaxy, Vault, error handling, and final project: multi-tier app deployment." }
+            ]
+        },
+        linux2: {
+            title: "Linux Administration II — Advanced",
+            badge: "linux",
+            badgeText: "Linux & OS",
+            description: "Advanced Linux administration — performance tuning, SELinux, LVM, boot process troubleshooting, containers on Linux, and enterprise hardening for production servers.",
+            tagline: "Go deeper. Production-grade Linux skills.",
+            duration: "3 Weeks",
+            hours: "12 Hours",
+            sessions: "3 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 2,500",
+            priceNote: "Prerequisite: Linux Administration I",
+            highlights: [
+                { icon: "⚡", title: "Performance Tuning", desc: "vmstat, iostat, sar — diagnose and fix performance bottlenecks." },
+                { icon: "🔒", title: "SELinux", desc: "Security contexts, policies, troubleshooting — enterprise security." },
+                { icon: "💾", title: "Advanced Storage", desc: "LVM snapshots, RAID, NFS/SMB — production storage management." },
+                { icon: "🔧", title: "Boot Process", desc: "GRUB troubleshooting, systemd targets, rescue mode." },
+                { icon: "🐳", title: "Containers on Linux", desc: "Podman & Docker basics — containerization from the OS perspective." },
+                { icon: "📋", title: "Automation", desc: "Cron, systemd timers, and advanced scripting for server automation." }
+            ],
+            whoIsFor: [
+                { title: "Linux Admin I Graduates", desc: "You have the basics. Now master production-grade administration." },
+                { title: "System Administrators", desc: "Level up your existing Linux skills for enterprise environments." },
+                { title: "DevOps Engineers", desc: "Deeper OS knowledge for troubleshooting complex infrastructure issues." },
+                { title: "RHCSA Candidates", desc: "Advanced topics aligned with Red Hat certification objectives." }
+            ],
+            modules: [
+                {
+                    title: "Performance & Security",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "System performance analysis, SELinux management, and advanced scheduling.",
+                    sessions: [
+                        { name: "Performance & Scheduling (1 Session)", topics: ["Improve command-line productivity — aliases, history, shortcuts", "Schedule future tasks — cron, at, systemd timers", "Tune system performance — top, vmstat, iostat, sar", "I/O scheduling & memory management", "Process priority tuning — nice, renice, cgroups", "System resource limits — ulimit, pam_limits"] },
+                        { name: "SELinux & Security (1 Session)", topics: ["SELinux modes — enforcing, permissive, disabled", "Security contexts — users, roles, types, levels", "Managing file & port contexts", "Troubleshooting with audit2why & sealert", "Creating custom SELinux policies", "Hardening checklist for production servers"] }
+                    ]
+                },
+                {
+                    title: "Storage, Boot & Containers",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Advanced storage with LVM, boot troubleshooting, and containers on bare Linux.",
+                    sessions: [
+                        { name: "Advanced Administration (1 Session)", topics: ["LVM advanced — snapshots, thin provisioning, migration", "RAID configuration — mdadm, levels, monitoring", "Network storage — NFS exports, SMB/CIFS shares", "Control the boot process — GRUB2, systemd targets", "Boot troubleshooting — rescue, emergency, rd.break", "Introduction to containers — Podman vs Docker", "Running rootless containers on Linux", "Final Lab: Rescue a broken system & deploy containers"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Performance Tuning & Scheduling", hours: "4 hrs · 1 session", desc: "System performance analysis, cron/timers, resource limits, and optimization." },
+                { phase: "Week 2", title: "SELinux & Security Hardening", hours: "4 hrs · 1 session", desc: "SELinux contexts, policies, troubleshooting, and production hardening." },
+                { phase: "Week 3", title: "Storage, Boot & Containers", hours: "4 hrs · 1 session", desc: "LVM advanced, RAID, boot troubleshooting, and containers on Linux." }
+            ]
+        },
+        jenkins: {
+            title: "Jenkins",
+            badge: "cicd",
+            badgeText: "CI/CD",
+            description: "Master Jenkins — the most widely-used CI/CD server. From installation to advanced pipeline patterns, distributed builds, containerized agents, and production automation.",
+            tagline: "The industry standard for CI/CD. Used by 60%+ of engineering teams.",
+            duration: "4 Weeks",
+            hours: "12 Hours",
+            sessions: "3 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 4,000",
+            priceNote: "Hands-on pipeline projects included",
+            highlights: [
+                { icon: "🤖", title: "Pipeline as Code", desc: "Declarative & scripted pipelines in Jenkinsfile — version-controlled automation." },
+                { icon: "🐳", title: "Containerized Builds", desc: "Docker agents for isolated, reproducible builds every time." },
+                { icon: "🔀", title: "Distributed Builds", desc: "Scale with agents — run builds across multiple nodes." },
+                { icon: "🔐", title: "Security & Credentials", desc: "RBAC, credentials store, and secure pipeline practices." },
+                { icon: "🔌", title: "Plugin Ecosystem", desc: "Thousands of plugins — Slack, SonarQube, Docker, K8s integrations." },
+                { icon: "📊", title: "Real Projects", desc: "Build complete CI/CD pipelines for microservices applications." }
+            ],
+            whoIsFor: [
+                { title: "DevOps Engineers", desc: "Jenkins is still #1. Master it for enterprise CI/CD." },
+                { title: "Developers", desc: "Automate your build, test, and deployment workflows." },
+                { title: "Team Leads", desc: "Set up CI/CD infrastructure for your engineering team." },
+                { title: "QA Engineers", desc: "Integrate testing into automated pipelines." }
+            ],
+            modules: [
+                {
+                    title: "Jenkins Fundamentals & Pipelines",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Installation, configuration, and Pipeline DSL mastery.",
+                    sessions: [
+                        { name: "Jenkins Setup & Jobs (1 Session)", topics: ["Jenkins architecture — master, agents, executors", "Installation & initial configuration", "Job types — Freestyle vs Pipeline vs Multibranch", "Build triggers — webhooks, pollSCM, cron", "Credentials management — SSH keys, tokens", "Workspace & artifact management"] },
+                        { name: "Pipeline DSL (1 Session)", topics: ["Declarative Pipeline syntax — stages, steps, post", "Scripted Pipeline & Groovy basics", "Shared Libraries for reusable code", "Parallel stages for faster builds", "Pipeline parameters & input steps", "Environment variables & secrets in pipelines"] }
+                    ]
+                },
+                {
+                    title: "Advanced Jenkins",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Distributed builds, Docker agents, security, and production patterns.",
+                    sessions: [
+                        { name: "Advanced Patterns (1 Session)", topics: ["Distributed builds — agent configuration & labels", "Containerized builds with Docker agent", "Jenkins security — matrix auth, RBAC, audit", "Jenkins API & CLI automation", "Blue Ocean UI for pipeline visualization", "Plugins — Slack, SonarQube, Docker, Kubernetes", "Multibranch pipelines & organization folders", "Final Project: Full CI/CD pipeline for a microservice"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "Jenkins Fundamentals", hours: "8 hrs · 2 sessions", desc: "Installation, job types, triggers, Pipeline DSL, and Shared Libraries." },
+                { phase: "Weeks 3–4", title: "Advanced Jenkins", hours: "4 hrs · 1 session", desc: "Distributed builds, Docker agents, security, and final CI/CD project." }
+            ]
+        },
+        githubactions: {
+            title: "GitHub Actions",
+            badge: "cicd",
+            badgeText: "CI/CD",
+            description: "Master GitHub Actions — cloud-native CI/CD built into GitHub. Workflows, reusable actions, matrix builds, environments, OIDC cloud auth, and deployment automation.",
+            tagline: "CI/CD native to GitHub. The fastest growing automation platform.",
+            duration: "3 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 3,500",
+            priceNote: "Includes real workflow projects",
+            highlights: [
+                { icon: "💀", title: "Native to GitHub", desc: "No external CI server needed — automation lives with your code." },
+                { icon: "🏪", title: "Actions Marketplace", desc: "Thousands of pre-built actions — deploy, test, notify in seconds." },
+                { icon: "🔄", title: "Matrix Builds", desc: "Test across multiple OS, language versions, and configurations simultaneously." },
+                { icon: "🔐", title: "OIDC Auth", desc: "Securely deploy to AWS/Azure/GCP without storing long-lived credentials." },
+                { icon: "📦", title: "Reusable Workflows", desc: "DRY automation — share workflows across repositories." },
+                { icon: "🌍", title: "Environments", desc: "Protection rules, approvals, and deployment tracking built-in." }
+            ],
+            whoIsFor: [
+                { title: "GitHub Users", desc: "If your code is on GitHub, Actions is the natural CI/CD choice." },
+                { title: "Open Source Contributors", desc: "Free for public repos — automate testing and releases." },
+                { title: "DevOps Engineers", desc: "Modern CI/CD without managing Jenkins servers." },
+                { title: "Developers", desc: "Automate everything from tests to deployments in YAML." }
+            ],
+            modules: [
+                {
+                    title: "GitHub Actions Fundamentals",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Workflows, events, jobs, and the Actions ecosystem.",
+                    sessions: [
+                        { name: "Workflows & Actions (1 Session)", topics: ["GitHub Actions architecture — runners, jobs, steps", "Workflow files — .github/workflows/*.yml", "Events & triggers — push, pull_request, schedule, workflow_dispatch", "Jobs — dependencies, outputs, matrix strategy", "Actions marketplace — using community actions", "Secrets & environment variables", "Artifact upload/download between jobs", "Caching dependencies for faster builds"] }
+                    ]
+                },
+                {
+                    title: "Advanced GitHub Actions",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Reusable workflows, OIDC, environments, and deployment strategies.",
+                    sessions: [
+                        { name: "Advanced Patterns (1 Session)", topics: ["Reusable workflows — calling workflows from other repos", "Composite actions — building custom actions", "Matrix builds — multi-platform testing", "OIDC for cloud authentication (AWS, Azure, GCP)", "Environments — protection rules & approvals", "Self-hosted runners — setup & security", "GitHub Packages & Container Registry", "Deployment strategies — staging → production", "Final Project: Complete CI/CD with build, test, deploy to cloud"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Workflows & Actions", hours: "4 hrs · 1 session", desc: "Events, triggers, jobs, marketplace actions, secrets, and caching." },
+                { phase: "Weeks 2–3", title: "Advanced Patterns", hours: "4 hrs · 1 session", desc: "Reusable workflows, OIDC, environments, self-hosted runners, and deployment project." }
+            ]
+        },
+        gitlabci: {
+            title: "GitLab CI/CD",
+            badge: "cicd",
+            badgeText: "CI/CD",
+            description: "Master GitLab CI/CD — integrated pipelines, runners, environments, Auto DevOps, container registry, and deployment automation in the GitLab platform.",
+            tagline: "Complete DevOps platform. CI/CD built into your Git workflow.",
+            duration: "3 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 3,500",
+            priceNote: "Includes hands-on pipeline projects",
+            highlights: [
+                { icon: "🦊", title: "All-in-One Platform", desc: "Git hosting + CI/CD + Registry + Monitoring — no tool juggling." },
+                { icon: "🏃", title: "GitLab Runners", desc: "Shared, group, or project runners — scale builds your way." },
+                { icon: "📦", title: "Container Registry", desc: "Built-in Docker registry — build and store images in one place." },
+                { icon: "🌍", title: "Environments", desc: "Review apps, staging, production — deployment tracking built-in." },
+                { icon: "🤖", title: "Auto DevOps", desc: "Zero-config pipelines — auto-build, test, deploy with best practices." },
+                { icon: "🔐", title: "Security Scanning", desc: "SAST, DAST, dependency scanning integrated into pipelines." }
+            ],
+            whoIsFor: [
+                { title: "GitLab Users", desc: "Your repos are on GitLab — master the native CI/CD system." },
+                { title: "DevOps Engineers", desc: "One platform for the entire DevOps lifecycle." },
+                { title: "Enterprise Teams", desc: "Self-hosted GitLab with complete control over your CI/CD." },
+                { title: "Developers", desc: "From commit to deployment without leaving GitLab." }
+            ],
+            modules: [
+                {
+                    title: "GitLab CI Fundamentals",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Pipeline configuration, runners, and core CI/CD concepts.",
+                    sessions: [
+                        { name: "Pipelines & Runners (1 Session)", topics: ["GitLab CI/CD architecture — pipelines, jobs, stages", "Pipeline configuration — .gitlab-ci.yml", "GitLab Runner — installation & registration", "Executor types — shell, docker, kubernetes", "Stages, jobs, artifacts & caching", "Variables — predefined & custom (masked, protected)", "Rules & workflow — when to run jobs", "Pipeline triggers & schedules"] }
+                    ]
+                },
+                {
+                    title: "Advanced GitLab CI",
+                    number: "Module 2",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "Environments, Auto DevOps, container registry, and deployment strategies.",
+                    sessions: [
+                        { name: "Deployment & Advanced (1 Session)", topics: ["Environment deployments & review apps", "Deploy to Kubernetes from GitLab", "Container Registry — build & push images", "Auto DevOps — zero-config pipelines", "Include & extend — DRY pipeline configuration", "Parent-child & multi-project pipelines", "Security scanning — SAST, DAST, dependency scanning", "Compliance frameworks & approval rules", "Final Project: Multi-stage pipeline with review apps & production deploy"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "GitLab CI Fundamentals", hours: "4 hrs · 1 session", desc: "Pipelines, runners, stages, variables, caching, and pipeline rules." },
+                { phase: "Weeks 2–3", title: "Advanced & Deployment", hours: "4 hrs · 1 session", desc: "Environments, Auto DevOps, security scanning, and multi-stage deployment project." }
+            ]
+        },
+        argocd: {
+            title: "ArgoCD & GitOps",
+            badge: "cicd",
+            badgeText: "CI/CD",
+            description: "Master GitOps with ArgoCD — declarative continuous delivery for Kubernetes. Auto-sync, self-heal, rollback, multi-cluster management, and production patterns.",
+            tagline: "Git as the single source of truth. The future of deployment.",
+            duration: "2 Weeks",
+            hours: "4 Hours",
+            sessions: "1 Session",
+            schedule: "4 hrs per session",
+            price: "EGP 2,500",
+            priceNote: "Prerequisite: Kubernetes knowledge",
+            highlights: [
+                { icon: "🔗", title: "GitOps Native", desc: "Git is your deployment tool — push to repo, auto-deploy to cluster." },
+                { icon: "🔄", title: "Auto-Sync & Self-Heal", desc: "Detect drift and auto-correct — your cluster always matches Git." },
+                { icon: "⏪", title: "Easy Rollbacks", desc: "One click to roll back — full deployment history in Git." },
+                { icon: "🌐", title: "Multi-Cluster", desc: "Manage deployments across multiple K8s clusters from one place." },
+                { icon: "📱", title: "App of Apps", desc: "Pattern for managing dozens of microservices declaratively." },
+                { icon: "🔐", title: "Sealed Secrets", desc: "Encrypt secrets in Git — deploy safely without exposing credentials." }
+            ],
+            whoIsFor: [
+                { title: "Kubernetes Users", desc: "You run K8s. ArgoCD is the best way to manage deployments." },
+                { title: "DevOps Engineers", desc: "GitOps is the future — declarative, auditable, automated." },
+                { title: "Platform Teams", desc: "Enable developer self-service with ArgoCD app management." },
+                { title: "SREs", desc: "Auto-heal drift, track deployments, and rollback instantly." }
+            ],
+            modules: [
+                {
+                    title: "ArgoCD & GitOps",
+                    number: "Module 1",
+                    hours: "4 Hours",
+                    sessionCount: "1 Session",
+                    description: "GitOps principles, ArgoCD setup, and production deployment patterns.",
+                    sessions: [
+                        { name: "GitOps in Practice (1 Session)", topics: ["GitOps principles — declarative, versioned, automated", "ArgoCD installation & architecture", "Application CRDs & sync policies", "Auto-sync, self-heal & pruning", "App of Apps pattern for multi-service deployments", "Rollback strategies & deployment history", "Multi-cluster deployments with ArgoCD", "Secrets management with Sealed Secrets / External Secrets", "Health checks & custom health assessments", "Notifications — Slack, email on sync/failure", "Final Project: GitOps pipeline — push to Git, auto-deploy to K8s"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Weeks 1–2", title: "GitOps with ArgoCD", hours: "4 hrs · 1 session", desc: "GitOps principles, ArgoCD setup, auto-sync, multi-cluster, and final deployment project." }
+            ]
+        },
+        github: {
+            title: "GitHub — Platform & Collaboration",
+            badge: "vcs",
+            badgeText: "Version Control",
+            description: "Master the GitHub platform — repositories, pull requests, code reviews, Issues, Projects, Discussions, Pages, security features, and team collaboration workflows.",
+            tagline: "Where the world builds software. 100M+ developers.",
+            duration: "2 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 2,500",
+            priceNote: "Prerequisite: Basic Git knowledge",
+            highlights: [
+                { icon: "🤝", title: "Pull Requests", desc: "Create, review, and merge PRs like a professional developer." },
+                { icon: "📋", title: "Issues & Projects", desc: "Track work, plan sprints, and manage projects with GitHub Projects." },
+                { icon: "🔐", title: "Security Features", desc: "Dependabot, code scanning, secret scanning — secure by default." },
+                { icon: "📄", title: "GitHub Pages", desc: "Host static sites for free — documentation, portfolios, blogs." },
+                { icon: "🏢", title: "Organizations", desc: "Teams, permissions, branch protection — enterprise collaboration." },
+                { icon: "🤖", title: "GitHub CLI", desc: "Manage repos, PRs, issues from your terminal with gh." }
+            ],
+            whoIsFor: [
+                { title: "Developers", desc: "GitHub is your daily tool. Master it beyond just push/pull." },
+                { title: "Open Source Contributors", desc: "Forks, PRs, issues — contribute to open source properly." },
+                { title: "Team Leads", desc: "Set up repositories, branch rules, and code review workflows." },
+                { title: "Students", desc: "Build your GitHub profile — your portfolio for tech careers." }
+            ],
+            modules: [
+                {
+                    title: "GitHub Platform Mastery",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Complete GitHub platform — collaboration, security, and productivity features.",
+                    sessions: [
+                        { name: "Collaboration & PRs (1 Session)", topics: ["Repository creation & settings", "README, LICENSE, and .gitignore templates", "Pull Requests — creating, reviewing, commenting", "Code review best practices & suggestions", "Branch protection rules & status checks", "CODEOWNERS for automatic reviewers", "Issues — templates, labels, milestones", "GitHub Projects — boards, views, automation", "Discussions — community engagement"] },
+                        { name: "Security & Advanced (1 Session)", topics: ["GitHub Organizations — teams, permissions, roles", "Dependabot — security updates & version updates", "Code scanning with CodeQL", "Secret scanning — preventing credential leaks", "GitHub Packages — npm, Docker, Maven hosting", "GitHub Pages — deploy static sites", "GitHub CLI (gh) — productivity from terminal", "GitHub Copilot overview & integration", "Profile optimization — pins, contributions, READMEs", "Final Exercise: Set up a team repo with full protection & workflows"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Collaboration & Pull Requests", hours: "4 hrs · 1 session", desc: "PRs, code review, branch protection, Issues, and Projects." },
+                { phase: "Week 2", title: "Security & Advanced Features", hours: "4 hrs · 1 session", desc: "Organizations, Dependabot, code scanning, Pages, CLI, and profile." }
+            ]
+        },
+        gitlab: {
+            title: "GitLab — Platform & DevOps",
+            badge: "vcs",
+            badgeText: "Version Control",
+            description: "Master the GitLab platform — repositories, merge requests, issue tracking, wikis, container registry, and the complete DevOps lifecycle in one application.",
+            tagline: "The complete DevOps platform. One tool for the entire lifecycle.",
+            duration: "2 Weeks",
+            hours: "8 Hours",
+            sessions: "2 Sessions",
+            schedule: "4 hrs per session",
+            price: "EGP 2,500",
+            priceNote: "Pairs with GitLab CI/CD course",
+            highlights: [
+                { icon: "🦊", title: "All-in-One", desc: "Git + CI/CD + Registry + Issues + Wiki — no tool-switching." },
+                { icon: "🔀", title: "Merge Requests", desc: "Code review with inline comments, approvals, and merge checks." },
+                { icon: "📋", title: "Issue Boards", desc: "Kanban boards, epics, milestones — built-in project management." },
+                { icon: "📦", title: "Container Registry", desc: "Store Docker images alongside your code." },
+                { icon: "🏢", title: "Self-Hosted", desc: "Run GitLab on your own infrastructure — full control." },
+                { icon: "🔐", title: "Compliance", desc: "Audit events, compliance frameworks, and approval rules." }
+            ],
+            whoIsFor: [
+                { title: "Enterprise Teams", desc: "Self-hosted Git with integrated DevOps tools — compliance ready." },
+                { title: "DevOps Engineers", desc: "One platform from code to production — no integration headaches." },
+                { title: "Project Managers", desc: "Issues, boards, milestones, and time tracking built-in." },
+                { title: "Security Teams", desc: "Built-in SAST, DAST, and dependency scanning." }
+            ],
+            modules: [
+                {
+                    title: "GitLab Platform",
+                    number: "Module 1",
+                    hours: "8 Hours",
+                    sessionCount: "2 Sessions",
+                    description: "Complete GitLab platform — repository management, collaboration, and DevOps features.",
+                    sessions: [
+                        { name: "Repositories & Collaboration (1 Session)", topics: ["GitLab groups, projects & namespaces", "Repository settings & branch protection", "Merge Requests — creation, review, approvals", "Inline code review & suggestions", "Merge request templates & description templates", "Issue tracking — boards, labels, milestones", "Epics & roadmaps for project planning", "Wiki — documentation alongside code"] },
+                        { name: "DevOps Features & Admin (1 Session)", topics: ["Container Registry — build & push images", "Package Registry — npm, PyPI, Maven", "Snippets — share code fragments", "GitLab Pages — static site hosting", "User management — LDAP, SAML, 2FA", "Group-level settings & permissions", "Audit events & compliance", "GitLab vs GitHub comparison", "Migration from GitHub to GitLab", "Final Exercise: Set up a complete GitLab project with MRs, CI, and registry"] }
+                    ]
+                }
+            ],
+            roadmap: [
+                { phase: "Week 1", title: "Repositories & Collaboration", hours: "4 hrs · 1 session", desc: "Merge requests, code review, issues, boards, and project planning." },
+                { phase: "Week 2", title: "DevOps & Administration", hours: "4 hrs · 1 session", desc: "Container registry, Pages, user management, and compliance features." }
             ]
         }
     };
