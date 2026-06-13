@@ -5,7 +5,16 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-app.use(express.json());
+
+// Parse JSON with error handling
+app.use((req, res, next) => {
+  express.json()(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ error: 'Invalid JSON in request body' });
+    }
+    next();
+  });
+});
 app.use(cors());
 
 const JWT_SECRET = process.env.JWT_SECRET || 'devopsacademy-secret-key-change-in-production';
