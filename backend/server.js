@@ -39,6 +39,8 @@ const enrollmentSchema = new mongoose.Schema({
   experience: { type: String, required: true },
   message: { type: String, default: '' },
   status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
+  paid: { type: Boolean, default: false },
+  amountPaid: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -148,12 +150,18 @@ app.get('/api/admin/stats', authMiddleware, async (req, res) => {
 // Update enrollment status
 app.patch('/api/admin/enrollments/:id', authMiddleware, async (req, res) => {
   try {
-    const { status } = req.body;
-    if (!['pending', 'approved', 'rejected'].includes(status)) {
-      return res.status(400).json({ error: 'Invalid status' });
+    const { status, paid, amountPaid } = req.body;
+    const update = {};
+    if (status) {
+      if (!['pending', 'approved', 'rejected'].includes(status)) {
+        return res.status(400).json({ error: 'Invalid status' });
+      }
+      update.status = status;
     }
+    if (paid !== undefined) update.paid = paid;
+    if (amountPaid !== undefined) update.amountPaid = amountPaid;
 
-    const enrollment = await Enrollment.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    const enrollment = await Enrollment.findByIdAndUpdate(req.params.id, update, { new: true });
     if (!enrollment) return res.status(404).json({ error: 'Enrollment not found' });
 
     res.json(enrollment);
@@ -248,18 +256,24 @@ app.get('/api/admin/course-stats', authMiddleware, async (req, res) => {
       const approved = await Enrollment.countDocuments({ course: course.courseId, status: 'approved' });
       const pending = await Enrollment.countDocuments({ course: course.courseId, status: 'pending' });
       const rejected = await Enrollment.countDocuments({ course: course.courseId, status: 'rejected' });
-      const revenue = approved * course.price;
+      const paidStudents = await Enrollment.countDocuments({ course: course.courseId, paid: true });
+      const paidEnrollments = await Enrollment.find({ course: course.courseId, paid: true });
+      const totalPaid = paidEnrollments.reduce((sum, e) => sum + (e.amountPaid || 0), 0);
+      const expectedRevenue = approved * course.price;
       return {
         courseId: course.courseId,
         name: course.name,
         price: course.price,
+        duration: course.duration,
         level: course.level,
         active: course.active,
         total,
         approved,
         pending,
         rejected,
-        revenue
+        paidStudents,
+        totalPaid,
+        expectedRevenue
       };
     }));
     res.json(stats);

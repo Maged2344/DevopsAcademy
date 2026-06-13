@@ -65,10 +65,15 @@ filterBtns.forEach(btn => {
 // ===== Enroll buttons on course cards pre-select course =====
 document.querySelectorAll('.btn-small[data-course]').forEach(btn => {
     btn.addEventListener('click', (e) => {
+        e.preventDefault();
         const courseId = btn.dataset.course;
         const courseSelect = document.getElementById('course');
         if (courseSelect) {
             courseSelect.value = courseId;
+        }
+        const enrollSection = document.getElementById('enroll');
+        if (enrollSection) {
+            enrollSection.scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
