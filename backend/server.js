@@ -621,6 +621,141 @@ app.get('/api/admin/course-stats', authMiddleware, async (req, res) => {
 
 // ===== Admin Service Request Routes =====
 
+// ===== Admin Course Detail (students enrolled in specific course) =====
+app.get('/api/admin/course-detail/:courseId', authMiddleware, async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const course = await Course.findOne({ courseId });
+    if (!course) return res.status(404).json({ error: 'Course not found' });
+
+    const enrollments = await Enrollment.find({ course: courseId }).sort({ createdAt: -1 });
+    const totalPaid = enrollments.reduce((sum, e) => sum + (e.amountPaid || 0), 0);
+    const totalExpected = enrollments.filter(e => e.status === 'approved').length * course.price;
+    const totalRemaining = totalExpected - totalPaid;
+
+    res.json({
+      course: { courseId: course.courseId, name: course.name, price: course.price, duration: course.duration },
+      students: enrollments.map(e => ({
+        _id: e._id,
+        name: `${e.firstName} ${e.lastName}`,
+        email: e.email,
+        phone: e.phone,
+        status: e.status,
+        paid: e.paid,
+        amountPaid: e.amountPaid || 0,
+        remaining: e.status === 'approved' ? course.price - (e.amountPaid || 0) : 0,
+        date: e.createdAt
+      })),
+      summary: {
+        totalStudents: enrollments.length,
+        approved: enrollments.filter(e => e.status === 'approved').length,
+        pending: enrollments.filter(e => e.status === 'pending').length,
+        rejected: enrollments.filter(e => e.status === 'rejected').length,
+        paidStudents: enrollments.filter(e => e.paid).length,
+        totalPaid,
+        totalExpected,
+        totalRemaining: totalRemaining > 0 ? totalRemaining : 0
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// ===== Admin User Management =====
+// List all students
+app.get('/api/admin/students', authMiddleware, async (req, res) => {
+  try {
+    const students = await Student.find().select('-password').sort({ createdAt: -1 });
+    res.json(students);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Reset student password
+app.patch('/api/admin/students/:id/password', authMiddleware, async (req, res) => {
+  try {
+    const { newPassword } = req.body;
+    if (!newPassword || newPassword.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    }
+    const hashed = await bcrypt.hash(newPassword, 10);
+    const student = await Student.findByIdAndUpdate(req.params.id, { password: hashed }, { new: true });
+    if (!student) return res.status(404).json({ error: 'Student not found' });
+    res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Delete student account
+app.delete('/api/admin/students/:id', authMiddleware, async (req, res) => {
+  try {
+    const student = await Student.findByIdAndDelete(req.params.id);
+    if (!student) return res.status(404).json({ error: 'Student not found' });
+    res.json({ message: 'Student deleted' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// List admin users
+app.get('/api/admin/users', authMiddleware, async (req, res) => {
+  try {
+    const admins = await Admin.find().select('-password');
+    res.json(admins);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Create admin user
+app.post('/api/admin/users', authMiddleware, async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password || password.length < 6) {
+      return res.status(400).json({ error: 'Username and password (min 6 chars) required' });
+    }
+    const exists = await Admin.findOne({ username });
+    if (exists) return res.status(409).json({ error: 'Username already exists' });
+    const hashed = await bcrypt.hash(password, 10);
+    await Admin.create({ username, password: hashed });
+    res.json({ message: 'Admin user created' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Change admin password
+app.patch('/api/admin/users/:id/password', authMiddleware, async (req, res) => {
+  try {
+    const { newPassword } = req.body;
+    if (!newPassword || newPassword.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    }
+    const hashed = await bcrypt.hash(newPassword, 10);
+    const admin = await Admin.findByIdAndUpdate(req.params.id, { password: hashed }, { new: true });
+    if (!admin) return res.status(404).json({ error: 'Admin not found' });
+    res.json({ message: 'Password updated' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Delete admin user
+app.delete('/api/admin/users/:id', authMiddleware, async (req, res) => {
+  try {
+    const adminCount = await Admin.countDocuments();
+    if (adminCount <= 1) return res.status(400).json({ error: 'Cannot delete the last admin' });
+    const admin = await Admin.findByIdAndDelete(req.params.id);
+    if (!admin) return res.status(404).json({ error: 'Admin not found' });
+    res.json({ message: 'Admin deleted' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Get all service requests
 app.get('/api/admin/service-requests', authMiddleware, async (req, res) => {
   try {

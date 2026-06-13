@@ -141,6 +141,11 @@
         .course-stat-card {
             background: #fff; padding: 20px; border-radius: 10px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-left: 4px solid #1e40af;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .course-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
         .course-stat-card h3 { font-size: 0.95rem; margin-bottom: 4px; color: #1e293b; }
         .course-stat-card .course-subtitle { font-size: 0.75rem; color: #64748b; margin-bottom: 12px; }
@@ -230,6 +235,7 @@
                 <button class="tab active" data-tab="enrollments">Enrollments</button>
                 <button class="tab" data-tab="courses">Courses</button>
                 <button class="tab" data-tab="revenue">Revenue & Analytics</button>
+                <button class="tab" data-tab="users">Users</button>
                 <button class="tab" data-tab="services">Service Requests</button>
                 <button class="tab" data-tab="visitors">Visitors</button>
             </div>
@@ -309,8 +315,68 @@
             <!-- ===== TAB 3: REVENUE & ANALYTICS ===== -->
             <div class="tab-content" id="tab-revenue">
                 <div class="summary-row" id="revenueSummary"></div>
-                <div class="section-title"><span>Per-Course Breakdown</span></div>
+                <div class="section-title"><span>Per-Course Breakdown</span> <button onclick="closeCourseDetail()" id="backToRevenue" style="display:none;">← Back to All Courses</button></div>
                 <div class="course-stats-grid" id="courseStatsGrid"></div>
+                <!-- Course Detail View (hidden by default) -->
+                <div id="courseDetailView" style="display:none;">
+                    <div class="summary-row" id="courseDetailSummary"></div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Status</th>
+                                    <th>Paid</th>
+                                    <th>Amount Paid</th>
+                                    <th>Remaining</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courseDetailTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TAB 4: USERS ===== -->
+            <div class="tab-content" id="tab-users">
+                <div class="section-title">
+                    <span>Admin Users</span>
+                    <button onclick="openAddAdminModal()">+ Add Admin</button>
+                </div>
+                <div class="table-container" style="margin-bottom:32px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="section-title">
+                    <span>Registered Students</span>
+                </div>
+                <div class="filters" style="margin-bottom:16px;">
+                    <input type="text" id="studentSearch" placeholder="Search by name or email..." oninput="filterStudents()">
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Registered</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTable"></tbody>
+                    </table>
+                </div>
             </div>
 
             <!-- ===== TAB 4: SERVICE REQUESTS ===== -->
@@ -453,6 +519,41 @@
         </div>
     </div>
 
+    <!-- Add Admin Modal -->
+    <div class="modal-overlay" id="addAdminModal">
+        <div class="modal">
+            <h2>Add Admin User</h2>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="newAdminUsername" placeholder="username">
+            </div>
+            <div class="form-group">
+                <label>Password (min 6 characters)</label>
+                <input type="password" id="newAdminPassword" placeholder="password">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeAddAdminModal()">Cancel</button>
+                <button class="btn-primary" onclick="submitNewAdmin()">Create Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal-overlay" id="changePasswordModal">
+        <div class="modal">
+            <h2>Change Password</h2>
+            <p id="changePasswordTarget" style="color:#64748b;margin-bottom:16px;"></p>
+            <div class="form-group">
+                <label>New Password (min 6 characters)</label>
+                <input type="password" id="newPasswordInput" placeholder="New password">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeChangePasswordModal()">Cancel</button>
+                <button class="btn-primary" onclick="submitChangePassword()">Update Password</button>
+            </div>
+        </div>
+    </div>
+
     <script>
     const API = '/api';
     let token = localStorage.getItem('adminToken');
@@ -509,6 +610,7 @@
         loadServiceRequests();
         loadServiceStats();
         loadVisitorStats();
+        loadUsers();
     }
 
     // ===== TABS =====
@@ -765,7 +867,7 @@
 
             document.getElementById('courseStatsGrid').innerHTML = courseStatsData.map(s => {
                 const pct = s.expectedRevenue > 0 ? Math.round((s.totalPaid / s.expectedRevenue) * 100) : 0;
-                return `<div class="course-stat-card">
+                return `<div class="course-stat-card" style="cursor:pointer;" onclick="openCourseDetail('${s.courseId}')">
                     <h3>${s.name}</h3>
                     <div class="course-subtitle">EGP ${fmt(s.price)} per student · ${s.duration || '-'}</div>
                     <div class="course-info">
@@ -900,6 +1002,177 @@
                 <td>${s.total > 0 ? Math.round((p.count / s.total) * 100) : 0}%</td>
             </tr>`).join('') || '<tr><td colspan="3" style="text-align:center;color:#94a3b8;">No data yet</td></tr>';
         } catch(e) { console.error(e); }
+    }
+
+    // ===== COURSE DETAIL DRILL-DOWN =====
+    async function openCourseDetail(courseId) {
+        try {
+            const r = await fetch(`${API}/admin/course-detail/${courseId}`, { headers: authHeaders() });
+            if (!r.ok) return;
+            const data = await r.json();
+
+            // Hide grid, show detail
+            document.getElementById('courseStatsGrid').style.display = 'none';
+            document.getElementById('courseDetailView').style.display = 'block';
+            document.getElementById('backToRevenue').style.display = 'inline-block';
+
+            // Summary cards
+            document.getElementById('courseDetailSummary').innerHTML = `
+                <div class="summary-card">
+                    <div class="number">${data.course.name}</div>
+                    <div class="label">${data.course.duration || '-'} · EGP ${fmt(data.course.price)} / student</div>
+                </div>
+                <div class="summary-card purple">
+                    <div class="number">EGP ${fmt(data.summary.totalPaid)}</div>
+                    <div class="label">Total Collected</div>
+                </div>
+                <div class="summary-card amber">
+                    <div class="number">EGP ${fmt(data.summary.totalRemaining)}</div>
+                    <div class="label">Total Remaining</div>
+                </div>
+                <div class="summary-card green">
+                    <div class="number">${data.summary.paidStudents} / ${data.summary.approved}</div>
+                    <div class="label">Paid / Approved</div>
+                </div>
+            `;
+
+            // Students table
+            document.getElementById('courseDetailTable').innerHTML = data.students.map(s => `<tr>
+                <td><strong>${escapeHtml(s.name)}</strong></td>
+                <td>${escapeHtml(s.email)}</td>
+                <td>${escapeHtml(s.phone)}</td>
+                <td><span class="badge badge-${s.status}">${s.status}</span></td>
+                <td>${s.paid ? '<span class="badge badge-paid">Paid</span>' : '<span class="badge badge-unpaid">Unpaid</span>'}</td>
+                <td>EGP ${fmt(s.amountPaid)}</td>
+                <td>${s.remaining > 0 ? `<strong style="color:#f59e0b;">EGP ${fmt(s.remaining)}</strong>` : '<span style="color:#10b981;">—</span>'}</td>
+                <td>${new Date(s.date).toLocaleDateString()}</td>
+            </tr>`).join('') || '<tr><td colspan="8" class="empty-state">No students enrolled</td></tr>';
+        } catch(e) { console.error(e); }
+    }
+
+    function closeCourseDetail() {
+        document.getElementById('courseStatsGrid').style.display = '';
+        document.getElementById('courseDetailView').style.display = 'none';
+        document.getElementById('backToRevenue').style.display = 'none';
+    }
+
+    // ===== USER MANAGEMENT =====
+    let allStudents = [];
+    let changePasswordType = ''; // 'student' or 'admin'
+    let changePasswordId = '';
+
+    async function loadUsers() {
+        await loadAdminUsers();
+        await loadStudents();
+    }
+
+    async function loadAdminUsers() {
+        try {
+            const r = await fetch(`${API}/admin/users`, { headers: authHeaders() });
+            if (!r.ok) return;
+            const admins = await r.json();
+            document.getElementById('adminUsersTable').innerHTML = admins.map(a => `<tr>
+                <td><strong>${escapeHtml(a.username)}</strong></td>
+                <td>
+                    <div class="action-btns">
+                        <button class="btn-edit" onclick="openChangePassword('admin','${a._id}','${escapeHtml(a.username)}')">Change Password</button>
+                        <button class="btn-delete" onclick="deleteAdmin('${a._id}','${escapeHtml(a.username)}')">Delete</button>
+                    </div>
+                </td>
+            </tr>`).join('');
+        } catch(e) { console.error(e); }
+    }
+
+    async function loadStudents() {
+        try {
+            const r = await fetch(`${API}/admin/students`, { headers: authHeaders() });
+            if (!r.ok) return;
+            allStudents = await r.json();
+            renderStudentsTable(allStudents);
+        } catch(e) { console.error(e); }
+    }
+
+    function renderStudentsTable(students) {
+        document.getElementById('studentsTable').innerHTML = students.map(s => `<tr>
+            <td><strong>${escapeHtml(s.fullName)}</strong></td>
+            <td>${escapeHtml(s.email)}</td>
+            <td>${new Date(s.createdAt).toLocaleDateString()}</td>
+            <td>
+                <div class="action-btns">
+                    <button class="btn-edit" onclick="openChangePassword('student','${s._id}','${escapeHtml(s.fullName)}')">Reset Password</button>
+                    <button class="btn-delete" onclick="deleteStudent('${s._id}','${escapeHtml(s.fullName)}')">Delete</button>
+                </div>
+            </td>
+        </tr>`).join('') || '<tr><td colspan="4" class="empty-state">No registered students</td></tr>';
+    }
+
+    function filterStudents() {
+        const q = document.getElementById('studentSearch').value.toLowerCase();
+        const filtered = allStudents.filter(s =>
+            s.fullName.toLowerCase().includes(q) || s.email.toLowerCase().includes(q)
+        );
+        renderStudentsTable(filtered);
+    }
+
+    // Add Admin
+    function openAddAdminModal() { document.getElementById('addAdminModal').classList.add('active'); }
+    function closeAddAdminModal() { document.getElementById('addAdminModal').classList.remove('active'); }
+
+    async function submitNewAdmin() {
+        const username = document.getElementById('newAdminUsername').value.trim();
+        const password = document.getElementById('newAdminPassword').value;
+        if (!username || !password || password.length < 6) { alert('Username and password (min 6 chars) required'); return; }
+        const r = await fetch(`${API}/admin/users`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ username, password })
+        });
+        if (r.status === 409) { alert('Username already exists'); return; }
+        if (!r.ok) { alert('Failed to create admin'); return; }
+        closeAddAdminModal();
+        document.getElementById('newAdminUsername').value = '';
+        document.getElementById('newAdminPassword').value = '';
+        loadUsers();
+    }
+
+    // Change Password
+    function openChangePassword(type, id, name) {
+        changePasswordType = type;
+        changePasswordId = id;
+        document.getElementById('changePasswordTarget').textContent = `${type === 'admin' ? 'Admin' : 'Student'}: ${name}`;
+        document.getElementById('newPasswordInput').value = '';
+        document.getElementById('changePasswordModal').classList.add('active');
+    }
+    function closeChangePasswordModal() { document.getElementById('changePasswordModal').classList.remove('active'); }
+
+    async function submitChangePassword() {
+        const newPassword = document.getElementById('newPasswordInput').value;
+        if (!newPassword || newPassword.length < 6) { alert('Password must be at least 6 characters'); return; }
+        const endpoint = changePasswordType === 'admin'
+            ? `${API}/admin/users/${changePasswordId}/password`
+            : `${API}/admin/students/${changePasswordId}/password`;
+        const r = await fetch(endpoint, {
+            method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ newPassword })
+        });
+        if (!r.ok) { alert('Failed to update password'); return; }
+        alert('Password updated successfully');
+        closeChangePasswordModal();
+    }
+
+    // Delete Admin
+    async function deleteAdmin(id, name) {
+        if (!confirm(`Delete admin "${name}"? This cannot be undone.`)) return;
+        const r = await fetch(`${API}/admin/users/${id}`, { method: 'DELETE', headers: authHeaders() });
+        if (!r.ok) { const d = await r.json(); alert(d.error || 'Failed to delete'); return; }
+        loadUsers();
+    }
+
+    // Delete Student
+    async function deleteStudent(id, name) {
+        if (!confirm(`Delete student "${name}"? This will remove their account but not their enrollments.`)) return;
+        const r = await fetch(`${API}/admin/students/${id}`, { method: 'DELETE', headers: authHeaders() });
+        if (!r.ok) { alert('Failed to delete student'); return; }
+        loadUsers();
     }
 
     // ===== EVENTS =====
