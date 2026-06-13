@@ -6,6 +6,9 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 
+// Disable ETag to prevent 304 responses
+app.set('etag', false);
+
 // Parse JSON with error handling
 app.use((req, res, next) => {
   express.json()(req, res, (err) => {
@@ -16,6 +19,12 @@ app.use((req, res, next) => {
   });
 });
 app.use(cors());
+
+// Request logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+  next();
+});
 
 const JWT_SECRET = process.env.JWT_SECRET || 'devopsacademy-secret-key-change-in-production';
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://mongo:27017/devopsacademy';
