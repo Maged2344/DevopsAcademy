@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  web:
+    image: magedmohamed/devopsacademy:latest
+    container_name: devopsacademy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./ssl:/etc/nginx/ssl:ro
+    restart: unless-stopped

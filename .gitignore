@@ -1,1 +1,13 @@
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Keys (never commit)
 *.pem
+*.key
+
+# SSL certs (generated on server)
+ssl/
