@@ -30,7 +30,7 @@ pipeline {
 
                     # Clean old files (keep ssl/ and docker volumes)
                     rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx
-                    docker run --rm -v $DEPLOY_DIR/monitoring:/mnt alpine rm -rf /mnt/* 2>/dev/null || true
+                    docker run --rm -v $DEPLOY_DIR/monitoring:/mnt alpine sh -c "rm -rf /mnt/*" 2>/dev/null || true
                     rm -rf $DEPLOY_DIR/monitoring
                     rm -f $DEPLOY_DIR/index.html $DEPLOY_DIR/admin.html $DEPLOY_DIR/course.html
                     rm -f $DEPLOY_DIR/script.js $DEPLOY_DIR/styles.css $DEPLOY_DIR/logo.png
