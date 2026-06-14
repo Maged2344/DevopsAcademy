@@ -23,11 +23,19 @@ pipeline {
                 sh '''
                     DEPLOY_DIR=/home/maged/devopsacademy
 
+                    cd $DEPLOY_DIR
+
+                    # Stop running containers first (releases bind mounts)
+                    docker compose down || true
+
                     # Clean old files (keep ssl/ and docker volumes)
-                    rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx $DEPLOY_DIR/monitoring
+                    rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx
+                    sudo rm -rf $DEPLOY_DIR/monitoring
                     rm -f $DEPLOY_DIR/index.html $DEPLOY_DIR/admin.html $DEPLOY_DIR/course.html
                     rm -f $DEPLOY_DIR/script.js $DEPLOY_DIR/styles.css $DEPLOY_DIR/logo.png
                     rm -f $DEPLOY_DIR/nginx.conf $DEPLOY_DIR/Dockerfile
+
+                    cd $OLDPWD
 
                     # Copy fresh project structure
                     cp docker-compose.yml $DEPLOY_DIR/docker-compose.yml
@@ -37,11 +45,6 @@ pipeline {
                     cp -r monitoring $DEPLOY_DIR/monitoring
 
                     cd $DEPLOY_DIR
-
-                    # Remove any directories Docker may have auto-created for missing bind-mount files
-                    [ -d "$DEPLOY_DIR/monitoring/alertmanager/alertmanager.yml" ] && rm -rf "$DEPLOY_DIR/monitoring/alertmanager/alertmanager.yml"
-
-                    docker compose down || true
                     docker compose build --no-cache
                     docker compose up -d
                     docker image prune -f
