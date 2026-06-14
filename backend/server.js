@@ -949,10 +949,8 @@ async function start() {
       console.log('Default admin created: admin / admin123');
     }
 
-    // Seed default courses if none exist
-    const courseCount = await Course.countDocuments();
-    if (courseCount === 0) {
-      const defaultCourses = [
+    // Seed default courses — upsert missing ones
+    const defaultCourses = [
         { courseId: 'devops', name: 'DevOps Engineering Program', price: 15000, duration: '12 Weeks', level: 'all' },
         { courseId: 'linux', name: 'Linux Administration I — Fundamentals', price: 3500, duration: '6 Weeks', level: 'beginner' },
         { courseId: 'linux2', name: 'Linux Administration II — Advanced', price: 2500, duration: '3 Weeks', level: 'intermediate' },
@@ -977,10 +975,15 @@ async function start() {
         { courseId: 'grafana', name: 'Grafana Dashboards & Alerting', price: 2500, duration: '2 Weeks', level: 'advanced' },
         { courseId: 'elk', name: 'ELK Stack (Elasticsearch, Logstash, Kibana)', price: 3500, duration: '3 Weeks', level: 'advanced' },
         { courseId: 'zabbix', name: 'Zabbix — Enterprise Monitoring', price: 4000, duration: '4 Weeks', level: 'intermediate' }
-      ];
-      await Course.insertMany(defaultCourses);
-      console.log('Default courses seeded');
+    ];
+    for (const course of defaultCourses) {
+      await Course.updateOne(
+        { courseId: course.courseId },
+        { $setOnInsert: course },
+        { upsert: true }
+      );
     }
+    console.log('Default courses synced');
 
     app.listen(3000, '0.0.0.0', () => {
       console.log('Backend API running on port 3000');
