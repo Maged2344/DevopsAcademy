@@ -44,7 +44,7 @@ pipeline {
                     docker compose down || true
 
                     # Clean old files (keep ssl/ and docker volumes)
-                    rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx
+                    rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx $DEPLOY_DIR/scripts
                     docker run --rm -v $DEPLOY_DIR/monitoring:/mnt alpine sh -c "rm -rf /mnt/*" 2>/dev/null || true
                     rm -rf $DEPLOY_DIR/monitoring
                     rm -f $DEPLOY_DIR/index.html $DEPLOY_DIR/admin.html $DEPLOY_DIR/course.html
