@@ -37,6 +37,84 @@ html.dark-mode body {
 
 body.dark-mode .navbar {
     background: rgba(15, 23, 42, 0.97);
+    border-bottom: 1px solid #1e293b;
+}
+
+body.dark-mode .logo {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .nav-links a {
+    color: rgba(226, 232, 240, 0.9);
+}
+
+body.dark-mode .nav-links a:hover {
+    color: #f59e0b;
+}
+
+body.dark-mode .hero-content h1,
+body.dark-mode .hero-content p,
+body.dark-mode .hero-content .hero-subtitle {
+    color: #f1f5f9;
+}
+
+body.dark-mode .hero-stats span,
+body.dark-mode .hero-stats .stat-number {
+    color: #e2e8f0;
+}
+
+body.dark-mode .btn-outline {
+    color: #e2e8f0;
+    border-color: #e2e8f0;
+}
+
+body.dark-mode .btn-outline:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode li {
+    color: #cbd5e1;
+}
+
+body.dark-mode .footer-links a,
+body.dark-mode .footer p,
+body.dark-mode .footer span {
+    color: #94a3b8;
+}
+
+body.dark-mode .footer-links a:hover {
+    color: #f59e0b;
+}
+
+body.dark-mode .btn-primary {
+    color: #ffffff;
+}
+
+body.dark-mode .btn-secondary {
+    color: #e2e8f0;
+    border-color: #e2e8f0;
+}
+
+body.dark-mode .btn-secondary:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+body.dark-mode .btn-small {
+    color: #ffffff;
+}
+
+body.dark-mode .course-card p,
+body.dark-mode .course-card .course-description {
+    color: #94a3b8;
+}
+
+body.dark-mode .theme-toggle {
+    border-color: rgba(226, 232, 240, 0.3);
+    color: #e2e8f0;
 }
 
 body.dark-mode .courses,
