@@ -30,7 +30,7 @@ from pathlib import Path
 FB_PAGE_ID = os.environ.get("FB_PAGE_ID", "")
 FB_ACCESS_TOKEN = os.environ.get("FB_ACCESS_TOKEN", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
-GRAPH_API_URL = "https://graph.facebook.com/v19.0"
+GRAPH_API_URL = "https://graph.facebook.com/v21.0"
 OPENAI_API_URL = "https://api.openai.com/v1/images/generations"
 SCRIPT_DIR = Path(__file__).parent
 POSTS_FILE = SCRIPT_DIR / "posts.json"
@@ -70,9 +70,9 @@ def select_todays_post(posts):
     return posts[0] if posts else None
 
 
-# ===== AI Image Generation (DALL-E 3) =====
+# ===== AI Image Generation (GPT-Image) =====
 def generate_image(prompt, post_id):
-    """Generate an image using OpenAI DALL-E 3 API."""
+    """Generate an image using OpenAI GPT-Image API."""
     if not OPENAI_API_KEY:
         print("WARNING: OPENAI_API_KEY not set — skipping image generation.")
         return None
@@ -85,15 +85,14 @@ def generate_image(prompt, post_id):
         print(f"📷 Using cached image: {cached}")
         return str(cached)
 
-    print("🎨 Generating image with DALL-E 3...")
+    print("🎨 Generating image with GPT-Image...")
     print(f"   Prompt: {prompt[:120]}...")
 
     data = json.dumps({
-        "model": "dall-e-3",
+        "model": "gpt-image-1",
         "prompt": prompt,
         "n": 1,
-        "size": "1024x1024",
-        "quality": "standard"
+        "size": "1024x1024"
     }).encode("utf-8")
 
     req = urllib.request.Request(
@@ -109,10 +108,17 @@ def generate_image(prompt, post_id):
     try:
         with urllib.request.urlopen(req, timeout=120) as response:
             result = json.loads(response.read().decode("utf-8"))
-            image_url = result["data"][0]["url"]
 
-            # Download and cache
-            urllib.request.urlretrieve(image_url, str(cached))
+            # GPT-Image returns base64 data
+            if "b64_json" in result["data"][0]:
+                import base64
+                img_data = base64.b64decode(result["data"][0]["b64_json"])
+                with open(str(cached), "wb") as f:
+                    f.write(img_data)
+            else:
+                # Fallback: URL-based response
+                image_url = result["data"][0]["url"]
+                urllib.request.urlretrieve(image_url, str(cached))
             print(f"✅ Image saved: {cached}")
             return str(cached)
 
