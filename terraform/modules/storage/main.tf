@@ -1,3 +1,28 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+    alicloud = {
+      source  = "aliyun/alicloud"
+      version = "~> 1.0"
+    }
+    oci = {
+      source  = "oracle/oci"
+      version = "~> 5.0"
+    }
+  }
+}
+
 ################################################################################
 # Storage Module - AWS EBS
 ################################################################################
@@ -17,17 +42,17 @@ resource "aws_ebs_volume" "main" {
 }
 
 resource "aws_volume_attachment" "main" {
-  count           = var.cloud_provider == "aws" ? 1 : 0
-  device_name     = "/dev/sdf"
-  volume_id       = aws_ebs_volume.main[0].id
-  instance_id     = var.instance_id
+  count       = var.cloud_provider == "aws" ? 1 : 0
+  device_name = "/dev/sdf"
+  volume_id   = aws_ebs_volume.main[0].id
+  instance_id = var.instance_id
 }
 
 resource "aws_dlm_lifecycle_policy" "main" {
-  count         = var.cloud_provider == "aws" && var.enable_backup ? 1 : 0
-  description   = "Backup policy for ${var.project_name}"
+  count              = var.cloud_provider == "aws" && var.enable_backup ? 1 : 0
+  description        = "Backup policy for ${var.project_name}"
   execution_role_arn = data.aws_iam_role.dlm[0].arn
-  state         = "ENABLED"
+  state              = "ENABLED"
 
   policy_details {
     resource_types = ["VOLUME"]
@@ -55,7 +80,7 @@ resource "aws_dlm_lifecycle_policy" "main" {
 }
 
 data "aws_instance" "main" {
-  count      = var.cloud_provider == "aws" ? 1 : 0
+  count       = var.cloud_provider == "aws" ? 1 : 0
   instance_id = var.instance_id
 }
 
@@ -81,15 +106,15 @@ resource "google_compute_disk" "main" {
 }
 
 resource "google_compute_attached_disk" "main" {
-  count       = var.cloud_provider == "gcp" ? 1 : 0
-  disk        = google_compute_disk.main[0].id
-  instance    = var.instance_id
+  count    = var.cloud_provider == "gcp" ? 1 : 0
+  disk     = google_compute_disk.main[0].id
+  instance = var.instance_id
 }
 
 resource "google_compute_snapshot" "main" {
-  count           = var.cloud_provider == "gcp" && var.enable_backup ? 1 : 0
-  name            = "${var.project_name}-snapshot"
-  source_disk     = google_compute_disk.main[0].id
+  count             = var.cloud_provider == "gcp" && var.enable_backup ? 1 : 0
+  name              = "${var.project_name}-snapshot"
+  source_disk       = google_compute_disk.main[0].id
   storage_locations = [var.region]
 
   labels = merge(var.labels, {
@@ -102,19 +127,15 @@ resource "google_compute_snapshot" "main" {
 ################################################################################
 
 resource "azurerm_managed_disk" "main" {
-  count               = var.cloud_provider == "azure" ? 1 : 0
-  name                = "${var.project_name}-datadisk"
-  location            = data.azurerm_client_config.current[0].client_config.location
-  resource_group_name = data.azurerm_client_config.current[0].client_config.resource_group_name
+  count                = var.cloud_provider == "azure" ? 1 : 0
+  name                 = "${var.project_name}-datadisk"
+  location             = var.region
+  resource_group_name  = var.resource_group_name
   storage_account_type = "Standard_LRS"
-  create_option       = "Empty"
-  disk_size_gb        = var.storage_size_gb
+  create_option        = "Empty"
+  disk_size_gb         = var.storage_size_gb
 
   tags = var.tags
-}
-
-data "azurerm_client_config" "current" {
-  count = var.cloud_provider == "azure" ? 1 : 0
 }
 
 ################################################################################
@@ -166,10 +187,10 @@ resource "oci_core_volume_attachment" "main" {
 }
 
 resource "oci_core_volume_backup" "main" {
-  count       = var.cloud_provider == "oracle" && var.enable_backup ? 1 : 0
+  count        = var.cloud_provider == "oracle" && var.enable_backup ? 1 : 0
   display_name = "${var.project_name}-backup"
-  volume_id   = oci_core_volume.main[0].id
-  type        = "INCREMENTAL"
+  volume_id    = oci_core_volume.main[0].id
+  type         = "INCREMENTAL"
 }
 
 data "oci_identity_availability_domains" "ads" {

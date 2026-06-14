@@ -30,6 +30,12 @@ variable "cloudflare_zone_id" {
   sensitive   = true
 }
 
+variable "tenancy_ocid" {
+  description = "Oracle Cloud Tenancy OCID"
+  type        = string
+  default     = ""
+}
+
 variable "labels" {
   description = "Labels"
   type        = map(string)

@@ -63,6 +63,12 @@ variable "enable_public_ip" {
   default     = true
 }
 
+variable "ssh_public_key" {
+  description = "SSH public key for instance access"
+  type        = string
+  default     = ""
+}
+
 ################################################################################
 # Networking Variables
 ################################################################################
@@ -95,6 +101,16 @@ variable "allowed_https_cidr" {
   description = "CIDR blocks allowed for HTTPS access"
   type        = list(string)
   default     = ["0.0.0.0/0"]
+}
+
+################################################################################
+# Oracle Cloud Variables
+################################################################################
+
+variable "tenancy_ocid" {
+  description = "Oracle Cloud Tenancy OCID"
+  type        = string
+  default     = ""
 }
 
 ################################################################################
@@ -223,7 +239,7 @@ variable "labels" {
   description = "Common labels for all resources"
   type        = map(string)
   default = {
-    project   = "devops-academy"
+    project    = "devops-academy"
     managed_by = "terraform"
   }
 }

@@ -1,3 +1,28 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+    alicloud = {
+      source  = "aliyun/alicloud"
+      version = "~> 1.0"
+    }
+    oci = {
+      source  = "oracle/oci"
+      version = "~> 5.0"
+    }
+  }
+}
+
 ################################################################################
 # Compute Module - AWS Implementation
 ################################################################################
@@ -19,13 +44,13 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "main" {
-  count                = var.cloud_provider == "aws" ? 1 : 0
-  ami                  = data.aws_ami.ubuntu[0].id
-  instance_type        = local.resolved_instance_type
-  subnet_id            = var.subnet_id
-  security_groups      = [var.security_group_id]
+  count                       = var.cloud_provider == "aws" ? 1 : 0
+  ami                         = data.aws_ami.ubuntu[0].id
+  instance_type               = local.resolved_instance_type
+  subnet_id                   = var.subnet_id
+  security_groups             = [var.security_group_id]
   associate_public_ip_address = var.enable_public_ip
-  
+
   root_block_device {
     volume_type = "gp3"
     volume_size = var.disk_size_gb
@@ -81,8 +106,6 @@ resource "google_compute_instance" "main" {
     startup-script = base64decode(var.user_data)
   }
 
-  metadata_fingerprint = ""
-
   labels = merge(var.labels, {
     environment = var.environment
   })
@@ -97,8 +120,8 @@ resource "google_compute_instance" "main" {
 resource "azurerm_network_interface" "main" {
   count               = var.cloud_provider == "azure" ? 1 : 0
   name                = "${var.instance_name}-nic"
-  location            = data.azurerm_client_config.current.client_config.location
-  resource_group_name = data.azurerm_client_config.current.client_config.resource_group_name
+  location            = var.region
+  resource_group_name = var.resource_group_name
 
   ip_configuration {
     name                          = "testconfiguration1"
@@ -111,8 +134,8 @@ resource "azurerm_network_interface" "main" {
 resource "azurerm_public_ip" "main" {
   count               = var.cloud_provider == "azure" && var.enable_public_ip ? 1 : 0
   name                = "${var.instance_name}-pip"
-  location            = data.azurerm_client_config.current.client_config.location
-  resource_group_name = data.azurerm_client_config.current.client_config.resource_group_name
+  location            = var.region
+  resource_group_name = var.resource_group_name
   allocation_method   = "Static"
   sku                 = "Standard"
 
@@ -122,8 +145,8 @@ resource "azurerm_public_ip" "main" {
 resource "azurerm_virtual_machine" "main" {
   count               = var.cloud_provider == "azure" ? 1 : 0
   name                = var.instance_name
-  location            = data.azurerm_client_config.current.client_config.location
-  resource_group_name = data.azurerm_client_config.current.client_config.resource_group_name
+  location            = var.region
+  resource_group_name = var.resource_group_name
   vm_size             = local.resolved_instance_type
 
   network_interface_ids = [
@@ -139,7 +162,7 @@ resource "azurerm_virtual_machine" "main" {
     disable_password_authentication = true
     ssh_keys {
       path     = "/home/azureuser/.ssh/authorized_keys"
-      key_data = file("~/.ssh/id_rsa.pub") # Update this path as needed
+      key_data = var.ssh_public_key
     }
   }
 
@@ -161,22 +184,20 @@ resource "azurerm_virtual_machine" "main" {
   tags = var.tags
 }
 
-data "azurerm_client_config" "current" {}
-
 ################################################################################
 # Compute Module - Alibaba Cloud Implementation
 ################################################################################
 
 resource "alicloud_instance" "main" {
-  count             = var.cloud_provider == "alibaba" ? 1 : 0
-  instance_name     = var.instance_name
-  instance_type     = local.resolved_instance_type
-  image_id          = data.alicloud_images.ubuntu[0].images[0].id
-  security_groups   = [var.security_group_id]
-  vswitch_id        = var.subnet_id
-  system_disk_size  = var.disk_size_gb
-  system_disk_type  = "cloud_efficiency"
-  
+  count                = var.cloud_provider == "alibaba" ? 1 : 0
+  instance_name        = var.instance_name
+  instance_type        = local.resolved_instance_type
+  image_id             = data.alicloud_images.ubuntu[0].images[0].id
+  security_groups      = [var.security_group_id]
+  vswitch_id           = var.subnet_id
+  system_disk_size     = var.disk_size_gb
+  system_disk_category = "cloud_efficiency"
+
   internet_max_bandwidth_out = var.enable_public_ip ? 100 : 0
 
   user_data = base64decode(var.user_data)
@@ -187,9 +208,9 @@ resource "alicloud_instance" "main" {
 }
 
 data "alicloud_images" "ubuntu" {
-  count       = var.cloud_provider == "alibaba" ? 1 : 0
-  owners      = "system"
-  name_regex  = "^ubuntu_24"
+  count      = var.cloud_provider == "alibaba" ? 1 : 0
+  owners     = "system"
+  name_regex = "^ubuntu_24"
 }
 
 ################################################################################
@@ -216,7 +237,7 @@ resource "oci_core_instance" "main" {
   }
 
   metadata = {
-    ssh_authorized_keys = file("~/.ssh/id_rsa.pub")
+    ssh_authorized_keys = var.ssh_public_key
     user_data           = var.user_data
   }
 
@@ -229,9 +250,9 @@ data "oci_identity_availability_domains" "ads" {
 }
 
 data "oci_core_images" "ubuntu" {
-  count          = var.cloud_provider == "oracle" ? 1 : 0
-  compartment_id = var.tenancy_ocid
-  operating_system = "Canonical Ubuntu"
+  count                    = var.cloud_provider == "oracle" ? 1 : 0
+  compartment_id           = var.tenancy_ocid
+  operating_system         = "Canonical Ubuntu"
   operating_system_version = "24.04"
-  shape = local.resolved_instance_type
+  shape                    = local.resolved_instance_type
 }

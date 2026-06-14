@@ -1,10 +1,35 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+    alicloud = {
+      source  = "aliyun/alicloud"
+      version = "~> 1.0"
+    }
+    oci = {
+      source  = "oracle/oci"
+      version = "~> 5.0"
+    }
+  }
+}
+
 ################################################################################
 # Networking Module - AWS Implementation
 ################################################################################
 
 resource "aws_vpc" "main" {
-  count             = var.cloud_provider == "aws" ? 1 : 0
-  cidr_block        = var.vpc_cidr
+  count                = var.cloud_provider == "aws" ? 1 : 0
+  cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
   enable_dns_support   = true
 
@@ -39,8 +64,8 @@ resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main[0].id
 
   route {
-    cidr_block      = "0.0.0.0/0"
-    gateway_id      = aws_internet_gateway.main[0].id
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main[0].id
   }
 
   tags = merge(var.tags, {
@@ -259,23 +284,23 @@ resource "azurerm_network_security_group" "main" {
 ################################################################################
 
 resource "alicloud_vpc" "main" {
-  count       = var.cloud_provider == "alibaba" ? 1 : 0
-  vpc_name    = "${var.project_name}-vpc"
-  cidr_block  = var.vpc_cidr
+  count      = var.cloud_provider == "alibaba" ? 1 : 0
+  vpc_name   = "${var.project_name}-vpc"
+  cidr_block = var.vpc_cidr
 }
 
 resource "alicloud_vswitch" "main" {
-  count             = var.cloud_provider == "alibaba" ? 1 : 0
-  vpc_id            = alicloud_vpc.main[0].id
-  cidr_block        = var.subnet_cidr
-  zone_id           = data.alicloud_zones.available[0].zones[0].id
-  vswitch_name      = "${var.project_name}-vswitch"
+  count        = var.cloud_provider == "alibaba" ? 1 : 0
+  vpc_id       = alicloud_vpc.main[0].id
+  cidr_block   = var.subnet_cidr
+  zone_id      = data.alicloud_zones.available[0].zones[0].id
+  vswitch_name = "${var.project_name}-vswitch"
 }
 
 resource "alicloud_security_group" "main" {
-  count       = var.cloud_provider == "alibaba" ? 1 : 0
-  vpc_id      = alicloud_vpc.main[0].id
-  name        = "${var.project_name}-sg"
+  count  = var.cloud_provider == "alibaba" ? 1 : 0
+  vpc_id = alicloud_vpc.main[0].id
+  name   = "${var.project_name}-sg"
 }
 
 resource "alicloud_security_group_rule" "ssh" {
@@ -314,19 +339,19 @@ data "alicloud_zones" "available" {
 ################################################################################
 
 resource "oci_core_vcn" "main" {
-  count           = var.cloud_provider == "oracle" ? 1 : 0
-  compartment_id  = var.tenancy_ocid # This should be passed as variable
-  cidr_block      = var.vpc_cidr
-  display_name    = "${var.project_name}-vcn"
+  count          = var.cloud_provider == "oracle" ? 1 : 0
+  compartment_id = var.tenancy_ocid # This should be passed as variable
+  cidr_block     = var.vpc_cidr
+  display_name   = "${var.project_name}-vcn"
 }
 
 resource "oci_core_subnet" "main" {
-  count               = var.cloud_provider == "oracle" ? 1 : 0
-  compartment_id      = var.tenancy_ocid
-  vcn_id              = oci_core_vcn.main[0].id
-  cidr_block          = var.subnet_cidr
-  display_name        = "${var.project_name}-subnet"
-  route_table_id      = oci_core_route_table.main[0].id
+  count          = var.cloud_provider == "oracle" ? 1 : 0
+  compartment_id = var.tenancy_ocid
+  vcn_id         = oci_core_vcn.main[0].id
+  cidr_block     = var.subnet_cidr
+  display_name   = "${var.project_name}-subnet"
+  route_table_id = oci_core_route_table.main[0].id
 }
 
 resource "oci_core_internet_gateway" "main" {
@@ -355,8 +380,8 @@ resource "oci_core_security_list" "main" {
   display_name   = "${var.project_name}-sl"
 
   ingress_security_rules {
-    protocol    = 6 # TCP
-    source      = "0.0.0.0/0"
+    protocol = 6 # TCP
+    source   = "0.0.0.0/0"
     tcp_options {
       min = 22
       max = 22
@@ -364,8 +389,8 @@ resource "oci_core_security_list" "main" {
   }
 
   ingress_security_rules {
-    protocol    = 6
-    source      = "0.0.0.0/0"
+    protocol = 6
+    source   = "0.0.0.0/0"
     tcp_options {
       min = 80
       max = 80
@@ -373,8 +398,8 @@ resource "oci_core_security_list" "main" {
   }
 
   ingress_security_rules {
-    protocol    = 6
-    source      = "0.0.0.0/0"
+    protocol = 6
+    source   = "0.0.0.0/0"
     tcp_options {
       min = 443
       max = 443
@@ -382,7 +407,7 @@ resource "oci_core_security_list" "main" {
   }
 
   egress_security_rules {
-    protocol      = "all"
-    destination   = "0.0.0.0/0"
+    protocol    = "all"
+    destination = "0.0.0.0/0"
   }
 }

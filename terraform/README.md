@@ -2,58 +2,70 @@
 
 Multi-cloud infrastructure provisioning for DevOps Academy using HashiCorp Terraform. Deploy the complete stack across **AWS**, **GCP**, **Azure**, **Alibaba Cloud**, or **Oracle Cloud** with a single variable change.
 
-## 🎯 Features
+## Features
 
 - **Multi-Cloud Support**: AWS, GCP, Azure, Alibaba Cloud, Oracle Cloud
 - **Infrastructure Components**:
-  - Virtual Machines (EC2, Compute Engine, VMs, ECS, OCI Compute)
+  - Virtual Machines (EC2, Compute Engine, Azure VMs, ECS, OCI Compute)
   - Virtual Networks (VPC/VNet with subnets and security groups)
-  - Persistent Storage (EBS, Persistent Disks, Managed Disks, Disks, Block Storage)
-  - DNS Management (Route53, Cloud DNS, Azure DNS, Alibaba DNS, Oracle DNS)
-  - Automated Backups (DLM, Snapshots, etc.)
-- **Docker-Ready**: Automatic installation of Docker and Docker Compose
+  - Persistent Storage (EBS, Persistent Disks, Managed Disks, Cloud Disks, Block Storage)
+  - DNS Management (Route53, Cloud DNS, Azure DNS, Alibaba DNS, Oracle DNS, Cloudflare)
+  - Automated Backups (DLM, Snapshots, Volume Backups)
+- **Docker-Ready**: Automatic installation of Docker and Docker Compose via user_data script
 - **Modular Design**: Reusable modules for compute, networking, storage, and DNS
-- **Environment Management**: Pre-configured environments for each cloud provider
+- **Environment Management**: Pre-configured `.tfvars` files for each cloud provider
+- **Provider Validated**: All providers correctly sourced (`aliyun/alicloud`, `oracle/oci`, `cloudflare/cloudflare`)
 
-## 📋 Prerequisites
+## Prerequisites
 
 ### Required Tools
 
-1. **Terraform** (v1.0+)
-   ```bash
-   # macOS (Homebrew)
-   brew install terraform
-   
-   # Windows (Chocolatey)
-   choco install terraform
-   
-   # Linux
-   wget https://releases.hashicorp.com/terraform/1.x.x/terraform_1.x.x_linux_amd64.zip
-   unzip terraform_*_linux_amd64.zip
-   sudo mv terraform /usr/local/bin/
-   ```
+| Tool | Version | Installation |
+|------|---------|-------------|
+| Terraform | >= 1.0 | [terraform.io/downloads](https://developer.hashicorp.com/terraform/downloads) |
+| Cloud CLI | Latest | See provider-specific instructions below |
+| SSH Key | - | `ssh-keygen -t rsa -b 4096` |
 
-2. **Cloud Provider CLI** (one or more):
-   - AWS CLI v2
-   - Google Cloud SDK (gcloud)
-   - Azure CLI (az)
-   - Alibaba Cloud CLI (aliyun)
-   - Oracle Cloud CLI (oci)
+```bash
+# Verify Terraform installation
+terraform version
+# Expected: Terraform v1.x.x
+```
 
-### Required Credentials
+### Cloud Provider CLIs
 
-Set up credentials for your target cloud provider:
+Install the CLI for your target cloud:
+
+```bash
+# AWS CLI v2
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip && sudo ./aws/install
+
+# Google Cloud SDK
+curl https://sdk.cloud.google.com | bash
+
+# Azure CLI
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+# Alibaba Cloud CLI
+pip install aliyuncli
+
+# Oracle Cloud CLI
+pip install oci-cli
+```
+
+### Authentication Setup
 
 #### AWS
 ```bash
 aws configure
-# Enter: Access Key ID, Secret Access Key, Default region, Output format
+# Enter: Access Key ID, Secret Access Key, Region, Output format
 ```
 
 #### Google Cloud
 ```bash
 gcloud auth application-default login
-export GOOGLE_PROJECT_ID="your-project-id"
+export TF_VAR_project_name="your-gcp-project-id"
 ```
 
 #### Azure
@@ -64,453 +76,517 @@ az account set --subscription "your-subscription-id"
 
 #### Alibaba Cloud
 ```bash
-aliyun configure set
-# Enter: Access Key ID, Secret Access Key, Region
+export ALICLOUD_ACCESS_KEY="your-access-key"
+export ALICLOUD_SECRET_KEY="your-secret-key"
+export ALICLOUD_REGION="cn-beijing"
 ```
 
 #### Oracle Cloud
 ```bash
-# Set environment variables
 export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..."
 export TF_VAR_user_ocid="ocid1.user.oc1..."
 export TF_VAR_private_key_path="$HOME/.oci/oci_api_key.pem"
 export TF_VAR_fingerprint="00:11:22:33:44:55:66:77..."
 ```
 
-#### Cloudflare (for DNS)
+#### Cloudflare (DNS)
 ```bash
-# Get your API token from https://dash.cloudflare.com/profile/api-tokens
 export TF_VAR_cloudflare_zone_id="your-zone-id"
 export TF_VAR_cloudflare_api_token="your-api-token"
 ```
 
-## 🚀 Quick Start
+---
 
-### 1. Clone the Repository
+## Quick Start
+
+### Option 1: Using the Deploy Script
+
 ```bash
-git clone https://github.com/Maged2344/DevopsAcademy.git
-cd DevopsAcademy/terraform
+cd terraform
+chmod +x deploy.sh
+./deploy.sh aws    # or: gcp, azure, alibaba, oracle
 ```
 
-### 2. Initialize Terraform
+### Option 2: Manual Steps
+
 ```bash
+# 1. Navigate to terraform directory
+cd terraform
+
+# 2. Initialize Terraform (downloads providers)
 terraform init
-```
 
-### 3. Select Your Cloud Provider
-
-Copy the appropriate environment file and customize it:
-
-```bash
-# For AWS
+# 3. Select your cloud provider
 cp environments/aws.tfvars terraform.tfvars
-# Edit terraform.tfvars and set your values
+# Edit terraform.tfvars with your values
 
-# For GCP
-cp environments/gcp.tfvars terraform.tfvars
+# 4. Set your SSH public key
+export TF_VAR_ssh_public_key="$(cat ~/.ssh/id_rsa.pub)"
 
-# For Azure
-cp environments/azure.tfvars terraform.tfvars
+# 5. Validate configuration
+terraform validate
 
-# For Alibaba Cloud
-cp environments/alibaba.tfvars terraform.tfvars
-
-# For Oracle Cloud
-cp environments/oracle.tfvars terraform.tfvars
-```
-
-### 4. Review the Plan
-```bash
+# 6. Preview changes
 terraform plan
-```
 
-### 5. Apply the Configuration
-```bash
+# 7. Deploy infrastructure
 terraform apply
+
+# 8. Get connection info
+terraform output
 ```
 
-### 6. Get Output Values
-```bash
-terraform output -json
-```
+---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 terraform/
-├── main.tf                 # Main configuration (providers, modules)
-├── variables.tf            # Global variable definitions
-├── outputs.tf              # Output definitions
-├── terraform.tfvars        # Terraform values (create from environments/)
-├── .gitignore              # Git ignore rules
+├── main.tf                     # Providers + module orchestration
+├── variables.tf                # Root variable definitions
+├── outputs.tf                  # Output values (IP, instance ID, etc.)
+├── backend.tf.example          # Remote state backend template
+├── terraform.tfvars.example    # Example variable values
+├── deploy.sh                   # Automated deployment script
+├── .gitignore                  # Excludes .terraform/, *.tfstate, etc.
 │
-├── modules/                # Reusable modules
-│   ├── compute/            # VM/Instance configuration
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   ├── networking/         # VPC, Subnets, Security Groups
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   ├── storage/            # Persistent volumes & backups
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   └── dns/                # DNS record management
-│       ├── main.tf
-│       ├── variables.tf
-│       └── outputs.tf
+├── modules/
+│   ├── compute/                # VM provisioning (all clouds)
+│   │   ├── main.tf            # EC2, Compute Engine, Azure VM, ECS, OCI
+│   │   ├── variables.tf       # Instance config inputs
+│   │   └── outputs.tf         # instance_id, public_ip, etc.
+│   ├── networking/             # VPC/VNet + security groups
+│   │   ├── main.tf            # VPC, subnets, firewall rules
+│   │   ├── variables.tf       # CIDR, SSH allow lists
+│   │   └── outputs.tf         # vpc_id, subnet_id, sg_id
+│   ├── storage/                # Persistent volumes + backups
+│   │   ├── main.tf            # EBS, PD, Managed Disk, etc.
+│   │   ├── variables.tf       # Size, backup config
+│   │   └── outputs.tf         # volume_id, mount_point
+│   └── dns/                    # DNS record management
+│       ├── main.tf            # Cloudflare, Route53, Cloud DNS, etc.
+│       ├── variables.tf       # Domain, provider config
+│       └── outputs.tf         # DNS record IDs
 │
-├── scripts/                # Deployment scripts
-│   └── user_data.sh        # Docker & Docker Compose installation
+├── environments/               # Cloud-specific variable files
+│   ├── aws.tfvars
+│   ├── gcp.tfvars
+│   ├── azure.tfvars
+│   ├── alibaba.tfvars
+│   └── oracle.tfvars
 │
-├── environments/           # Cloud provider configurations
-│   ├── aws.tfvars          # AWS settings
-│   ├── gcp.tfvars          # GCP settings
-│   ├── azure.tfvars        # Azure settings
-│   ├── alibaba.tfvars      # Alibaba Cloud settings
-│   └── oracle.tfvars       # Oracle Cloud settings
+├── scripts/
+│   └── user_data.sh           # VM bootstrap (Docker + Compose install)
 │
-└── README.md               # This file
+└── README.md                   # This file
 ```
 
-## 🔧 Configuration Variables
+---
 
-### Global Variables (variables.tf)
+## Configuration
 
-| Variable | Description | Default | Type |
-|----------|-------------|---------|------|
-| `cloud_provider` | Target cloud (aws, gcp, azure, alibaba, oracle) | - | string |
-| `project_name` | Project name | devops-academy | string |
-| `environment` | Environment name | prod | string |
-| `region` | Cloud region | us-central1 | string |
-| `instance_type` | VM size (small, medium, large) | medium | string |
-| `vpc_cidr` | VPC CIDR block | 10.0.0.0/16 | string |
-| `subnet_cidr` | Subnet CIDR block | 10.0.1.0/24 | string |
-| `storage_size_gb` | Storage volume size | 100 | number |
-| `enable_backup` | Enable automated backups | true | bool |
-| `backup_retention_days` | Backup retention period | 30 | number |
-| `domain_name` | Domain for the app | devopsacademy.cloud-stacks.com | string |
+### Core Variables
 
-### Environment-Specific Variables
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `cloud_provider` | Target cloud: `aws`, `gcp`, `azure`, `alibaba`, `oracle` | — | Yes |
+| `project_name` | Project identifier | `devops-academy` | No |
+| `environment` | Environment name | `prod` | No |
+| `region` | Cloud region | `us-central1` | Yes |
+| `instance_type` | VM size: `small`, `medium`, `large` | `medium` | No |
+| `ssh_public_key` | SSH public key for VM access | — | Yes |
 
-Each `environments/*.tfvars` file contains pre-configured values for its cloud provider. Edit these files to customize:
+### Networking Variables
 
-```hcl
-cloud_provider = "aws"              # Change to your cloud
-region = "us-east-1"               # Change to your region
-allowed_ssh_cidr = ["YOUR_IP/32"]   # Restrict SSH access
-```
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `vpc_cidr` | VPC CIDR block | `10.0.0.0/16` |
+| `subnet_cidr` | Subnet CIDR | `10.0.1.0/24` |
+| `allowed_ssh_cidr` | IPs allowed SSH | `["0.0.0.0/0"]` |
+| `allowed_http_cidr` | IPs allowed HTTP | `["0.0.0.0/0"]` |
+| `allowed_https_cidr` | IPs allowed HTTPS | `["0.0.0.0/0"]` |
 
-## 📊 Supported Cloud Providers
+### Storage & Backup Variables
 
-### AWS (aws)
-- Compute: EC2 t3 instances
-- Network: VPC, Subnets, Security Groups, Internet Gateway
-- Storage: EBS volumes with gp3 optimization
-- Backups: AWS DLM snapshots
-- DNS: Route53
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `storage_size_gb` | Data volume size | `100` |
+| `enable_backup` | Enable automated backups | `true` |
+| `backup_retention_days` | Backup retention | `30` |
 
-### Google Cloud (gcp)
-- Compute: Compute Engine e2 instances
-- Network: VPC, Subnets, Firewall rules
-- Storage: Persistent Disks
-- Backups: GCP Snapshots
-- DNS: Google Cloud DNS
+### DNS Variables
 
-### Azure (azure)
-- Compute: Virtual Machines
-- Network: Virtual Networks, Subnets, NSGs
-- Storage: Managed Disks
-- Backups: Azure Backup (manual)
-- DNS: Azure DNS
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `domain_name` | Application domain | `devopsacademy.cloud-stacks.com` |
+| `dns_provider` | DNS provider | `cloudflare` |
+| `cloudflare_zone_id` | Cloudflare zone ID | — |
+| `cloudflare_api_token` | Cloudflare API token | — |
 
-### Alibaba Cloud (alibaba)
-- Compute: ECS instances
-- Network: VPC, VSwitches, Security Groups
-- Storage: Cloud Disks
-- Backups: Snapshots
-- DNS: Alibaba DNS
+### Oracle Cloud Variables
 
-### Oracle Cloud (oracle)
-- Compute: OCI Compute instances
-- Network: VCN, Subnets, Security Lists
-- Storage: Block Storage
-- Backups: Volume Backups
-- DNS: Oracle DNS
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `tenancy_ocid` | OCI Tenancy OCID | — |
 
-## 🔐 Security Best Practices
+---
 
-1. **Restrict SSH Access**
-   ```hcl
-   allowed_ssh_cidr = ["YOUR_IP/32"]  # Use your IP, not 0.0.0.0/0
-   ```
+## Instance Type Mapping
 
-2. **Use Sensitive Variables**
-   ```bash
-   export TF_VAR_cloudflare_api_token="your-token"
-   ```
+The `instance_type` variable maps to cloud-specific sizes:
 
-3. **Store State Remotely** (for production)
-   ```hcl
-   terraform {
-     backend "s3" {
-       bucket = "your-terraform-state"
-       key    = "devops-academy/prod/terraform.tfstate"
-       region = "us-east-1"
-     }
-   }
-   ```
+| Size | AWS | GCP | Azure | Alibaba | Oracle |
+|------|-----|-----|-------|---------|--------|
+| `small` | t3.small | e2-small | Standard_B1s | ecs.t5-lc1m2.small | VM.Standard.E2.1 |
+| `medium` | t3.medium | e2-medium | Standard_B2s | ecs.t5-lc1m2.large | VM.Standard.E2.2 |
+| `large` | t3.large | e2-standard-2 | Standard_B4ms | ecs.g6.large | VM.Standard.E2.4 |
 
-4. **Enable Encryption**
-   - AWS: EBS encryption enabled by default
-   - GCP: Persistent disks use Google-managed keys
-   - Azure: Managed disks use platform-managed keys
+---
 
-## 📝 Common Operations
+## Cloud Provider Details
 
-### Deploy to AWS
+### AWS
+| Component | Resource | Notes |
+|-----------|----------|-------|
+| Compute | `aws_instance` (EC2) | Ubuntu 24.04 AMI, gp3 root disk |
+| Network | `aws_vpc` + `aws_subnet` | Public subnet with Internet Gateway |
+| Security | `aws_security_group` | Ports 22, 80, 443 |
+| Storage | `aws_ebs_volume` (gp3) | Attached via `aws_volume_attachment` |
+| Backup | `aws_dlm_lifecycle_policy` | Daily snapshots, configurable retention |
+| DNS | `aws_route53_record` | A + CNAME records |
+| IP | `aws_eip` | Static Elastic IP |
+
+### Google Cloud (GCP)
+| Component | Resource | Notes |
+|-----------|----------|-------|
+| Compute | `google_compute_instance` | Ubuntu 24.04, startup-script |
+| Network | `google_compute_network` + `subnetwork` | Auto-mode disabled |
+| Security | `google_compute_firewall` | SSH, HTTP, HTTPS, internal rules |
+| Storage | `google_compute_disk` | Attached via `google_compute_attached_disk` |
+| Backup | `google_compute_snapshot` | Snapshot-based backups |
+| DNS | `google_dns_record_set` | A + CNAME in managed zone |
+
+### Azure
+| Component | Resource | Notes |
+|-----------|----------|-------|
+| Compute | `azurerm_virtual_machine` | Ubuntu 22.04 LTS Gen2 |
+| Network | `azurerm_virtual_network` + `subnet` | With NSG rules |
+| Security | `azurerm_network_security_group` | Priority-based rules |
+| Storage | `azurerm_managed_disk` | Standard_LRS |
+| IP | `azurerm_public_ip` | Static Standard SKU |
+| DNS | `azurerm_dns_a_record` | A + CNAME records |
+| Group | `azurerm_resource_group` | All resources grouped |
+
+### Alibaba Cloud
+| Component | Resource | Notes |
+|-----------|----------|-------|
+| Compute | `alicloud_instance` (ECS) | Ubuntu 24.x, cloud_efficiency disk |
+| Network | `alicloud_vpc` + `alicloud_vswitch` | Single availability zone |
+| Security | `alicloud_security_group` | Ingress/egress rules |
+| Storage | `alicloud_disk` | Attached via `alicloud_disk_attachment` |
+| DNS | `alicloud_dns_record` | A + CNAME records |
+
+### Oracle Cloud (OCI)
+| Component | Resource | Notes |
+|-----------|----------|-------|
+| Compute | `oci_core_instance` | Ubuntu 24.04, flexible shapes |
+| Network | `oci_core_vcn` + `oci_core_subnet` | With Internet Gateway |
+| Security | `oci_core_security_list` | Ingress/egress rules |
+| Storage | `oci_core_volume` | iSCSI attachment |
+| Backup | `oci_core_volume_backup` | Native volume backups |
+| DNS | `oci_dns_rrset` | A + CNAME record sets |
+
+---
+
+## Deployment Examples
+
+### Deploy on AWS
+
 ```bash
-cp environments/aws.tfvars terraform.tfvars
-# Edit terraform.tfvars
+cd terraform
 terraform init
+
+# Configure
+cat > terraform.tfvars << 'EOF'
+cloud_provider   = "aws"
+region           = "us-east-1"
+environment      = "prod"
+instance_type    = "medium"
+allowed_ssh_cidr = ["YOUR_IP/32"]
+domain_name      = "devopsacademy.cloud-stacks.com"
+dns_provider     = "cloudflare"
+ssh_public_key   = "ssh-rsa AAAA... your-key"
+EOF
+
+# Deploy
 terraform plan
+terraform apply
+
+# Connect
+ssh ubuntu@$(terraform output -raw public_ip)
+```
+
+### Deploy on GCP
+
+```bash
+cd terraform
+export TF_VAR_project_name="my-gcp-project"
+terraform init
+
+cat > terraform.tfvars << 'EOF'
+cloud_provider   = "gcp"
+region           = "us-central1"
+instance_type    = "medium"
+dns_provider     = "cloudflare"
+ssh_public_key   = "ssh-rsa AAAA... your-key"
+EOF
+
 terraform apply
 ```
 
-### Switch Clouds (e.g., AWS to GCP)
+### Deploy on Azure
+
 ```bash
-# Backup current state (optional)
-cp terraform.tfstate terraform.tfstate.aws.backup
-
-# Switch configuration
-cp environments/gcp.tfvars terraform.tfvars
-
-# Re-initialize
-rm -rf .terraform
+cd terraform
+az login
 terraform init
 
-# Plan and apply
+cat > terraform.tfvars << 'EOF'
+cloud_provider   = "azure"
+region           = "East US"
+instance_type    = "medium"
+dns_provider     = "cloudflare"
+ssh_public_key   = "ssh-rsa AAAA... your-key"
+EOF
+
+terraform apply
+
+# Connect
+ssh azureuser@$(terraform output -raw public_ip)
+```
+
+### Switch Between Clouds
+
+```bash
+# Destroy current infrastructure
+terraform destroy
+
+# Switch to new cloud
+cp environments/gcp.tfvars terraform.tfvars
+terraform init -upgrade
+terraform apply
+```
+
+---
+
+## Common Operations
+
+### Scale Instance
+
+```bash
+# Edit terraform.tfvars: change instance_type from "medium" to "large"
+terraform plan   # Review changes
+terraform apply  # Apply (may restart VM)
+```
+
+### Add Storage
+
+```bash
+# Edit terraform.tfvars: change storage_size_gb from 100 to 200
 terraform plan
 terraform apply
 ```
 
 ### Destroy Infrastructure
+
 ```bash
-# Review what will be destroyed
+# Preview what will be destroyed
 terraform plan -destroy
 
-# Destroy all resources
+# Destroy everything
 terraform destroy
 
-# Destroy specific resource
-terraform destroy -target=module.compute.aws_instance.main
+# Destroy specific module
+terraform destroy -target=module.compute
 ```
 
-### Update Infrastructure
+### View Current State
+
 ```bash
-# Edit terraform.tfvars
-vim terraform.tfvars
+# List all resources
+terraform state list
 
-# Plan changes
-terraform plan
+# Show specific resource details
+terraform state show module.compute.aws_instance.main
 
-# Apply changes
-terraform apply
+# Full state output
+terraform show
 ```
 
-### Scale Up/Down
-```bash
-# Edit instance_type in terraform.tfvars
-# Change from "medium" to "large" or "small"
-terraform plan
-terraform apply
+---
+
+## Security Best Practices
+
+1. **Restrict SSH access** — Never use `0.0.0.0/0` in production:
+   ```hcl
+   allowed_ssh_cidr = ["203.0.113.10/32"]  # Your IP only
+   ```
+
+2. **Use environment variables for secrets**:
+   ```bash
+   export TF_VAR_cloudflare_api_token="your-token"
+   export TF_VAR_ssh_public_key="$(cat ~/.ssh/id_rsa.pub)"
+   ```
+
+3. **Enable remote state** for team environments:
+   ```bash
+   cp backend.tf.example backend.tf
+   # Edit with your S3/GCS/Azure Blob details
+   terraform init -migrate-state
+   ```
+
+4. **Review plans before apply**:
+   ```bash
+   terraform plan -out=tfplan
+   terraform apply tfplan
+   ```
+
+---
+
+## Remote State Configuration
+
+For production use, store Terraform state remotely. Copy `backend.tf.example`:
+
+```hcl
+# AWS S3 Backend
+terraform {
+  backend "s3" {
+    bucket         = "devops-academy-terraform-state"
+    key            = "prod/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-locks"
+  }
+}
 ```
 
-## 🎯 Example: Deploy on AWS
+---
 
+## Troubleshooting
+
+### "Provider not found" or "Missing required provider"
 ```bash
-# 1. Initialize
-cd DevopsAcademy/terraform
-terraform init
-
-# 2. Configure for AWS
-cp environments/aws.tfvars terraform.tfvars
-cat > terraform.tfvars << EOF
-cloud_provider = "aws"
-environment = "prod"
-region = "us-east-1"
-instance_type = "medium"
-allowed_ssh_cidr = ["203.0.113.45/32"]  # Your IP
-domain_name = "devopsacademy.cloud-stacks.com"
-dns_provider = "route53"
-EOF
-
-# 3. Verify configuration
-terraform validate
-terraform plan
-
-# 4. Deploy
-terraform apply -auto-approve
-
-# 5. Get outputs
-terraform output -json | jq '.'
-
-# 6. SSH into instance
-ssh -i ~/.ssh/your-key.pem ubuntu@$(terraform output -raw public_ip)
-```
-
-## 🎯 Example: Deploy on GCP
-
-```bash
-# 1. Authenticate with GCP
-gcloud auth login
-export GOOGLE_PROJECT_ID="my-project-id"
-
-# 2. Configure for GCP
-terraform init
-cp environments/gcp.tfvars terraform.tfvars
-
-# 3. Edit terraform.tfvars
-cat > terraform.tfvars << EOF
-cloud_provider = "gcp"
-region = "us-central1"
-instance_type = "medium"
-EOF
-
-# 4. Deploy
-terraform apply
-
-# 5. SSH into instance
-gcloud compute ssh $(terraform output -raw instance_name) --zone=us-central1-a
-```
-
-## 🐛 Troubleshooting
-
-### "Provider not found" Error
-```bash
-# Reinitialize Terraform
-rm -rf .terraform terraform.lock.hcl
+rm -rf .terraform .terraform.lock.hcl
 terraform init
 ```
 
-### "Invalid credentials" Error
-- Verify your cloud provider credentials are set correctly
-- For AWS: Check `~/.aws/credentials`
-- For GCP: Run `gcloud auth application-default login`
-- For Azure: Run `az login`
+### "Invalid credentials"
+- AWS: Verify `~/.aws/credentials` or `AWS_ACCESS_KEY_ID` env var
+- GCP: Run `gcloud auth application-default login`
+- Azure: Run `az login`
+- Alibaba: Check `ALICLOUD_ACCESS_KEY` and `ALICLOUD_SECRET_KEY`
+- Oracle: Verify `TF_VAR_tenancy_ocid` and API key configuration
 
-### "Resource already exists" Error
+### "Resource already exists"
 ```bash
-# Import existing resource into state
+# Import the existing resource into state
 terraform import module.compute.aws_instance.main i-1234567890abcdef0
-
-# Or destroy and recreate
-terraform destroy -target=module.compute.aws_instance.main
-terraform apply
 ```
 
 ### "Timeout waiting for SSH"
-- Verify security group/firewall allows inbound SSH (port 22)
-- Check that public IP was assigned
-- Verify your IP is in `allowed_ssh_cidr`
+- Check security group allows port 22 from your IP
+- Verify `enable_public_ip = true`
+- Confirm your IP is in `allowed_ssh_cidr`
 
-## 📚 Additional Resources
-
-- [Terraform AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest)
-- [Terraform Google Provider Documentation](https://registry.terraform.io/providers/hashicorp/google/latest)
-- [Terraform Azure Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
-- [Terraform Alibaba Provider Documentation](https://registry.terraform.io/providers/aliyun/alicloud/latest)
-- [Terraform Oracle Provider Documentation](https://registry.terraform.io/providers/oracle/oci/latest)
-
-## 📋 Terraform Commands Reference
-
+### State Lock Issues
 ```bash
-# Initialize working directory
-terraform init
-
-# Validate configuration files
-terraform validate
-
-# Format code
-terraform fmt -recursive
-
-# Show planned changes
-terraform plan
-
-# Apply changes
-terraform apply
-
-# Destroy infrastructure
-terraform destroy
-
-# Show current state
-terraform show
-
-# List resources
-terraform state list
-
-# Inspect resource
-terraform state show module.compute.aws_instance.main
-
-# Output variables
-terraform output
-terraform output public_ip
-terraform output -json
-
-# Refresh state
-terraform refresh
-
-# Taint resource (force recreation)
-terraform taint module.compute.aws_instance.main
-
-# Import existing resource
-terraform import module.compute.aws_instance.main i-1234567890abcdef0
+terraform force-unlock <LOCK_ID>
 ```
 
-## 🔄 CI/CD Integration
+---
 
-### GitHub Actions Example
+## Commands Reference
+
+```bash
+terraform init              # Download providers and modules
+terraform validate          # Check configuration syntax
+terraform fmt -recursive    # Format all .tf files
+terraform plan              # Preview changes
+terraform apply             # Apply changes
+terraform destroy           # Remove all resources
+terraform output            # Show output values
+terraform state list        # List managed resources
+terraform state show <res>  # Inspect a resource
+terraform import <res> <id> # Import existing resource
+terraform refresh           # Sync state with cloud
+```
+
+---
+
+## CI/CD Integration
+
+### GitHub Actions
+
 ```yaml
 name: Terraform Deploy
 on:
   push:
     branches: [main]
-    paths: [terraform/**]
+    paths: ['terraform/**']
 
 jobs:
-  terraform:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: hashicorp/setup-terraform@v2
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      
       - name: Terraform Init
         run: terraform init
         working-directory: terraform
+        
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: terraform
+        
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: terraform
+        env:
+          TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          TF_VAR_cloudflare_api_token: ${{ secrets.CF_API_TOKEN }}
+          
       - name: Terraform Apply
-        run: terraform apply tfplan
+        run: terraform apply -auto-approve tfplan
         working-directory: terraform
 ```
 
-## 📄 License
+---
 
-Private — DevOps Academy Egypt © 2024-2026
+## Provider Versions
 
-## 🤝 Contributing
-
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on contributing to this project.
-
-## ❓ Support
-
-- 📖 [DEPLOYMENT.md](../DEPLOYMENT.md) - Full deployment guide
-- 🏗️ [ARCHITECTURE.md](../ARCHITECTURE.md) - Architecture documentation
-- 💬 [GitHub Issues](https://github.com/Maged2344/DevopsAcademy/issues)
+| Provider | Source | Version |
+|----------|--------|---------|
+| AWS | `hashicorp/aws` | ~> 5.0 |
+| Google Cloud | `hashicorp/google` | ~> 5.0 |
+| Azure | `hashicorp/azurerm` | ~> 3.0 |
+| Alibaba Cloud | `aliyun/alicloud` | ~> 1.0 |
+| Oracle Cloud | `oracle/oci` | ~> 5.0 |
+| Cloudflare | `cloudflare/cloudflare` | ~> 4.0 |
 
 ---
 
-**Last Updated**: June 2026
+## Additional Resources
+
+- [Terraform Documentation](https://developer.hashicorp.com/terraform/docs)
+- [AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest)
+- [Google Provider](https://registry.terraform.io/providers/hashicorp/google/latest)
+- [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
+- [Alibaba Provider](https://registry.terraform.io/providers/aliyun/alicloud/latest)
+- [Oracle Provider](https://registry.terraform.io/providers/oracle/oci/latest)
+- [Cloudflare Provider](https://registry.terraform.io/providers/cloudflare/cloudflare/latest)
+
+---
+
+**Last Updated**: June 2026  
 **Maintained by**: DevOps Academy Team

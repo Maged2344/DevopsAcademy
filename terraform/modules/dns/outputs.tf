@@ -5,8 +5,8 @@
 output "dns_records" {
   description = "DNS records created"
   value = {
-    domain_name = var.domain_name
-    public_ip   = var.public_ip
+    domain_name  = var.domain_name
+    public_ip    = var.public_ip
     dns_provider = var.dns_provider
     a_record = (
       var.dns_provider == "cloudflare" && length(cloudflare_record.main) > 0 ? cloudflare_record.main[0].name :

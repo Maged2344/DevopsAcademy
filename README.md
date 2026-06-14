@@ -33,7 +33,7 @@ Complete documentation for all aspects of the DevOps Academy platform:
 
 | Document | Purpose | For |
 |----------|---------|-----|
-| **[TERRAFORM.md](./TERRAFORM.md)** | Multi-cloud Terraform IaC for AWS, GCP, Azure, Alibaba, Oracle. Deploy infrastructure with one variable change | DevOps Engineers, Cloud Architects |
+| **[terraform/README.md](./terraform/README.md)** | Multi-cloud Terraform IaC for AWS, GCP, Azure, Alibaba, Oracle. Deploy infrastructure with one variable change | DevOps Engineers, Cloud Architects |
 | **[DEPLOYMENT.md](./DEPLOYMENT.md)** | Step-by-step deployment guide, Azure VM setup, Docker configuration, SSL/TLS, monitoring, CI/CD, troubleshooting | DevOps Engineers, System Administrators |
 | **[API.md](./API.md)** | Complete REST API reference with authentication, all endpoints, request/response examples, error handling, rate limiting | Backend Developers, Integrators |
 | **[CONTRIBUTING.md](./CONTRIBUTING.md)** | Development guidelines, git workflow, code standards, testing requirements, commit conventions, security practices | Contributors, Frontend/Backend Developers |
@@ -41,7 +41,7 @@ Complete documentation for all aspects of the DevOps Academy platform:
 
 ### Quick Documentation Links
 
-- 🌍 **Multi-Cloud Infrastructure?** → Read [TERRAFORM.md](./TERRAFORM.md) (AWS, GCP, Azure, Alibaba, Oracle)
+- 🌍 **Multi-Cloud Infrastructure?** → Read [terraform/README.md](./terraform/README.md) (AWS, GCP, Azure, Alibaba, Oracle)
 - 🚀 **Getting Started?** → Read [DEPLOYMENT.md](./DEPLOYMENT.md)
 - 🔌 **Building Integrations?** → Check [API.md](./API.md)
 - 👨‍💻 **Contributing Code?** → Review [CONTRIBUTING.md](./CONTRIBUTING.md)
@@ -132,12 +132,28 @@ DevopsAcademy/
 ├── nginx/                      # Web server configuration
 │   └── nginx.conf              # SSL, reverse proxy, caching rules
 │
-├── docker-compose.yml          # Multi-service orchestration (web + backend + mongo)
+├── terraform/                  # Infrastructure as Code (multi-cloud)
+│   ├── main.tf                 # Providers + module orchestration
+│   ├── variables.tf            # Global variable definitions
+│   ├── outputs.tf              # Output values
+│   ├── modules/                # compute, networking, storage, dns
+│   ├── environments/           # Cloud-specific .tfvars files
+│   ├── scripts/user_data.sh    # VM bootstrap script
+│   └── README.md               # Terraform documentation
+│
+├── tests/                      # E2E test suite (Playwright)
+│   └── e2e/                    # 86 tests across 6 spec files
+│
+├── docker-compose.yml          # Multi-service orchestration (8 services)
 ├── Jenkinsfile                 # CI/CD pipeline definition
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml          # GitHub Actions (alternative deploy via Docker Hub)
 │
+├── DEPLOYMENT.md               # Step-by-step deployment guide
+├── API.md                      # REST API reference
+├── CONTRIBUTING.md             # Contribution guidelines
+├── ARCHITECTURE.md             # System architecture docs
 ├── .gitignore                  # Ignored files (keys, PDFs, node_modules, ssl)
 └── README.md                   # This file
 ```
@@ -154,9 +170,12 @@ DevopsAcademy/
 | Web Server    | Nginx (Alpine)                                 |
 | Containers    | Docker, Docker Compose                         |
 | CI/CD         | Jenkins (primary), GitHub Actions (secondary)  |
+| IaC           | Terraform (AWS, GCP, Azure, Alibaba, Oracle)   |
+| Monitoring    | Prometheus, Grafana, Node Exporter             |
+| Testing       | Playwright (86 E2E tests)                      |
 | SSL           | Let's Encrypt (auto-renewed)                   |
 | DNS/CDN       | Cloudflare                                     |
-| Cloud         | Azure Virtual Machine (Ubuntu)                 |
+| Cloud         | Azure VM (prod), Multi-cloud (Terraform)       |
 | Auth          | JWT (jsonwebtoken) + bcryptjs                  |
 
 ---
@@ -411,35 +430,62 @@ See **[DEPLOYMENT.md#testing-with-playwright](./DEPLOYMENT.md#testing-with-playw
 
 ### Terraform Infrastructure as Code (IaC)
 
-Deploy the entire infrastructure across **5 cloud providers** with a single command!
+Deploy the entire infrastructure across **5 cloud providers** with a single variable change:
 
 ```bash
 cd terraform
 terraform init
-cp environments/{aws,gcp,azure,alibaba,oracle}.tfvars terraform.tfvars
+cp environments/aws.tfvars terraform.tfvars   # or: gcp, azure, alibaba, oracle
+export TF_VAR_ssh_public_key="$(cat ~/.ssh/id_rsa.pub)"
 terraform apply
 ```
 
-**Supported Clouds:**
-- ✅ **AWS** - EC2, VPC, EBS, Route53
-- ✅ **GCP** - Compute Engine, VPC, Persistent Disks, Cloud DNS
-- ✅ **Azure** - Virtual Machines, VNets, Managed Disks, Azure DNS
-- ✅ **Alibaba Cloud** - ECS, VPC, Cloud Disks, DNS
-- ✅ **Oracle Cloud** - Compute, VCN, Block Storage, DNS
+Or use the automated deploy script:
+```bash
+cd terraform
+./deploy.sh aws   # or: gcp, azure, alibaba, oracle
+```
 
-**What Gets Created:**
-- Virtual Machine with Docker & Docker Compose pre-installed
-- Virtual Private Cloud (VPC) with subnets and security groups
-- Persistent storage volumes (50-100 GB)
+**Supported Cloud Providers:**
+
+| Cloud | Compute | Network | Storage | DNS |
+|-------|---------|---------|---------|-----|
+| **AWS** | EC2 (t3) | VPC + Security Groups | EBS gp3 + DLM Snapshots | Route53 |
+| **GCP** | Compute Engine (e2) | VPC + Firewall Rules | Persistent Disks + Snapshots | Cloud DNS |
+| **Azure** | Virtual Machines | VNet + NSG | Managed Disks | Azure DNS |
+| **Alibaba** | ECS | VPC + VSwitches | Cloud Disks | Alibaba DNS |
+| **Oracle** | OCI Compute | VCN + Security Lists | Block Storage + Backups | Oracle DNS |
+
+**What Gets Provisioned:**
+- Virtual Machine with Docker & Docker Compose pre-installed (via user_data script)
+- Virtual Private Cloud with subnets, internet gateway, and security rules (ports 22, 80, 443)
+- Persistent storage volume (configurable size, default 100 GB)
 - Automated daily backups with 30-day retention
-- DNS records pointing to your instance
-- SSL/TLS support (Let's Encrypt ready)
+- DNS records (A + CNAME) via Cloudflare or native provider
+- Static public IP address
 
-📖 **Complete Guide:** See **[TERRAFORM.md](./TERRAFORM.md)** for:
+**Module Structure:**
+```
+terraform/
+├── main.tf              # Providers + module orchestration
+├── variables.tf         # All configurable variables
+├── outputs.tf           # Connection info outputs
+├── modules/
+│   ├── compute/         # VM provisioning (all 5 clouds)
+│   ├── networking/      # VPC/VNet + security groups
+│   ├── storage/         # Volumes + automated backups
+│   └── dns/             # DNS records (Cloudflare + native)
+├── environments/        # Pre-configured .tfvars per cloud
+└── scripts/user_data.sh # Docker bootstrap script
+```
+
+**Full Guide:** See **[terraform/README.md](./terraform/README.md)** for complete documentation including:
 - Cloud-specific deployment examples
-- Configuration options
+- Configuration variables reference
+- Instance type mapping across providers
 - Security best practices
-- Advanced features (remote state, workspaces, etc.)
+- Remote state configuration
+- CI/CD integration with GitHub Actions
 
 ### Azure VM (Legacy)
 

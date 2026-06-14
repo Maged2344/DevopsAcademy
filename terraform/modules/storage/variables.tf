@@ -45,6 +45,18 @@ variable "backup_retention" {
   default     = 30
 }
 
+variable "resource_group_name" {
+  description = "Azure Resource Group Name"
+  type        = string
+  default     = ""
+}
+
+variable "tenancy_ocid" {
+  description = "Oracle Cloud Tenancy OCID"
+  type        = string
+  default     = ""
+}
+
 variable "labels" {
   description = "Labels"
   type        = map(string)
