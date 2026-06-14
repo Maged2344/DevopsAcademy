@@ -1,0 +1,437 @@
+[
+  {
+    "id": "devops-program",
+    "emoji": "🚀",
+    "title": "DevOps Engineering Program — Your Complete Career Path",
+    "body": "Start your DevOps journey with our comprehensive 12-week program covering everything from Linux to Kubernetes, CI/CD, cloud platforms, and monitoring.",
+    "highlights": [
+      "12 Weeks of intensive hands-on training",
+      "Linux, Docker, Kubernetes, Jenkins, Terraform & more",
+      "Real-world projects with production environments",
+      "Career guidance and interview preparation"
+    ],
+    "cta": "🎯 Limited seats available — don't miss out!",
+    "course_id": "devops",
+    "hashtags": ["#DevOps", "#DevOpsEngineering", "#DevOpsCareer", "#DevOpsEgypt", "#DevOpsAcademy"]
+  },
+  {
+    "id": "linux-fundamentals",
+    "emoji": "🐧",
+    "title": "Linux Administration I — Master the Foundation",
+    "body": "Every DevOps engineer starts with Linux. Learn system administration, shell scripting, networking, package management, and server hardening in 6 hands-on weeks.",
+    "highlights": [
+      "Command line mastery & shell scripting",
+      "User management, permissions & security",
+      "Networking, services & troubleshooting",
+      "Perfect for beginners — no prior experience needed"
+    ],
+    "cta": "🐧 Start your Linux journey today!",
+    "course_id": "linux",
+    "hashtags": ["#Linux", "#LinuxAdmin", "#SysAdmin", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "linux-advanced",
+    "emoji": "🔧",
+    "title": "Linux Administration II — Go Beyond the Basics",
+    "body": "Take your Linux skills to the next level. Advanced storage, performance tuning, security hardening, automation, and enterprise Linux management.",
+    "highlights": [
+      "LVM, RAID & advanced storage management",
+      "SELinux, firewalld & security hardening",
+      "Performance monitoring & optimization",
+      "Automation with systemd & scripting"
+    ],
+    "cta": "⚡ Level up your Linux skills!",
+    "course_id": "linux2",
+    "hashtags": ["#Linux", "#RedHat", "#RHEL", "#SysAdmin", "#DevOps", "#DevOpsAcademy"]
+  },
+  {
+    "id": "docker-course",
+    "emoji": "🐳",
+    "title": "Docker & Containers — Build, Ship, Run Anywhere",
+    "body": "Master containerization with Docker. Learn to build images, manage containers, create multi-service applications with Docker Compose, and prepare for production deployments.",
+    "highlights": [
+      "5 weeks of hands-on container training",
+      "Dockerfile best practices & multi-stage builds",
+      "Docker Compose for multi-service applications",
+      "Container networking, volumes & security"
+    ],
+    "cta": "🐳 Containerize your career!",
+    "course_id": "docker",
+    "hashtags": ["#Docker", "#Containers", "#DevOps", "#Containerization", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "kubernetes-course",
+    "emoji": "☸️",
+    "title": "Kubernetes (K8s) — Orchestrate at Scale",
+    "body": "Learn Kubernetes from pods to production. Deploy, scale, and manage containerized applications across clusters with the industry's #1 orchestration platform.",
+    "highlights": [
+      "6 weeks covering core K8s concepts",
+      "Pods, Deployments, Services & Ingress",
+      "ConfigMaps, Secrets & persistent storage",
+      "Helm charts & production best practices"
+    ],
+    "cta": "☸️ Master container orchestration!",
+    "course_id": "kubernetes",
+    "hashtags": ["#Kubernetes", "#K8s", "#CloudNative", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "jenkins-course",
+    "emoji": "🔄",
+    "title": "Jenkins — Automate Your CI/CD Pipeline",
+    "body": "Build powerful CI/CD pipelines with Jenkins. Automate builds, tests, and deployments with the most popular automation server in DevOps.",
+    "highlights": [
+      "Pipeline as Code with Jenkinsfile",
+      "Freestyle & declarative pipeline jobs",
+      "Integration with Docker, Git & cloud platforms",
+      "Shared libraries & advanced pipeline patterns"
+    ],
+    "cta": "⚙️ Automate everything with Jenkins!",
+    "course_id": "jenkins",
+    "hashtags": ["#Jenkins", "#CICD", "#Automation", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "github-actions",
+    "emoji": "⚡",
+    "title": "GitHub Actions — CI/CD Built Into GitHub",
+    "body": "Build, test, and deploy directly from GitHub. Learn workflows, custom actions, matrix builds, and cloud deployments with the fastest-growing CI/CD platform.",
+    "highlights": [
+      "YAML workflow syntax & triggers",
+      "Custom actions & reusable workflows",
+      "Docker container actions & matrix strategies",
+      "Deploy to AWS, Azure & GCP from GitHub"
+    ],
+    "cta": "⚡ Ship faster with GitHub Actions!",
+    "course_id": "githubactions",
+    "hashtags": ["#GitHubActions", "#CICD", "#GitHub", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "gitlabci-course",
+    "emoji": "🦊",
+    "title": "GitLab CI/CD — Complete DevOps in One Platform",
+    "body": "Master GitLab's built-in CI/CD. From .gitlab-ci.yml to production — pipelines, runners, environments, and auto-deployment all in one platform.",
+    "highlights": [
+      "Pipeline configuration & stages",
+      "GitLab Runner setup & management",
+      "Environment management & auto-deploy",
+      "Container Registry & security scanning"
+    ],
+    "cta": "🦊 One platform, complete DevOps!",
+    "course_id": "gitlabci",
+    "hashtags": ["#GitLab", "#GitLabCI", "#CICD", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "argocd-course",
+    "emoji": "🔶",
+    "title": "ArgoCD & GitOps — Declarative Continuous Delivery",
+    "body": "Implement GitOps with ArgoCD. Manage Kubernetes deployments declaratively using Git as the single source of truth for your infrastructure.",
+    "highlights": [
+      "GitOps principles & workflow",
+      "ArgoCD installation & app management",
+      "Sync strategies & automated rollbacks",
+      "Multi-cluster & multi-tenant setups"
+    ],
+    "cta": "🔶 GitOps is the future — start now!",
+    "course_id": "argocd",
+    "hashtags": ["#ArgoCD", "#GitOps", "#Kubernetes", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "aws-course",
+    "emoji": "☁️",
+    "title": "AWS Cloud — The World's Leading Cloud Platform",
+    "body": "Master Amazon Web Services. Learn EC2, S3, VPC, IAM, RDS, Lambda, EKS, and more. Prepare for AWS Solutions Architect certification.",
+    "highlights": [
+      "6 weeks of comprehensive AWS training",
+      "Core services: EC2, S3, VPC, IAM, RDS",
+      "Serverless, containers & managed Kubernetes",
+      "AWS certification exam preparation"
+    ],
+    "cta": "☁️ Start your cloud career with AWS!",
+    "course_id": "aws",
+    "hashtags": ["#AWS", "#AmazonWebServices", "#CloudComputing", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "azure-course",
+    "emoji": "🔵",
+    "title": "Microsoft Azure — Enterprise Cloud Platform",
+    "body": "Master Azure cloud services. Learn compute, networking, AKS, Azure DevOps, and identity management. Prepare for AZ-900 certification.",
+    "highlights": [
+      "Azure VMs, App Service & AKS",
+      "Networking, storage & databases",
+      "Azure DevOps pipelines & repos",
+      "AZ-900 exam preparation included"
+    ],
+    "cta": "🔵 Enterprise cloud skills start here!",
+    "course_id": "azure",
+    "hashtags": ["#Azure", "#MicrosoftAzure", "#CloudComputing", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "gcp-course",
+    "emoji": "🌐",
+    "title": "Google Cloud Platform — Cloud Built for Innovation",
+    "body": "Learn GCP from infrastructure to data. GCE, GKE, Cloud Functions, networking, IAM, and BigQuery — powered by Google's global infrastructure.",
+    "highlights": [
+      "GCE, GKE & Cloud Run for containers",
+      "Cloud networking & load balancing",
+      "IAM, security & compliance",
+      "BigQuery & data analytics basics"
+    ],
+    "cta": "🌐 Build on Google's infrastructure!",
+    "course_id": "gcp",
+    "hashtags": ["#GCP", "#GoogleCloud", "#CloudComputing", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "terraform-course",
+    "emoji": "🏗️",
+    "title": "Terraform — Infrastructure as Code for Any Cloud",
+    "body": "Write, plan, and provision infrastructure across AWS, Azure, GCP, and more with Terraform. Learn HCL, modules, state management, and multi-cloud deployments.",
+    "highlights": [
+      "HCL syntax, providers & resources",
+      "Modules for reusable infrastructure",
+      "State management & remote backends",
+      "Multi-cloud deployment patterns"
+    ],
+    "cta": "🏗️ Code your infrastructure!",
+    "course_id": "terraform",
+    "hashtags": ["#Terraform", "#IaC", "#InfrastructureAsCode", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "ansible-course",
+    "emoji": "⚙️",
+    "title": "Ansible — Automate Server Configuration at Scale",
+    "body": "Master configuration management with Ansible. Automate server setup, application deployment, and infrastructure management with simple YAML playbooks.",
+    "highlights": [
+      "Playbooks, roles & Ansible Galaxy",
+      "Inventory management & dynamic inventories",
+      "Jinja2 templates & variable management",
+      "AWX/Tower for enterprise automation"
+    ],
+    "cta": "⚙️ Automate everything with Ansible!",
+    "course_id": "ansible",
+    "hashtags": ["#Ansible", "#ConfigManagement", "#Automation", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "git-course",
+    "emoji": "📝",
+    "title": "Git — Version Control Fundamentals & Workflows",
+    "body": "Master Git from scratch. Branching strategies, merge workflows, rebasing, cherry-picking, and team collaboration — the foundation of every DevOps workflow.",
+    "highlights": [
+      "Branching, merging & rebasing",
+      "Git Flow & trunk-based development",
+      "Conflict resolution & code review",
+      "Hooks, bisect & advanced techniques"
+    ],
+    "cta": "📝 Every engineer needs Git — start now!",
+    "course_id": "git",
+    "hashtags": ["#Git", "#VersionControl", "#GitHub", "#GitLab", "#DevOps", "#DevOpsAcademy"]
+  },
+  {
+    "id": "devsecops-course",
+    "emoji": "🔐",
+    "title": "DevSecOps — Shift Left and Secure Your Pipeline",
+    "body": "Integrate security into every stage of your DevOps pipeline. SAST, DAST, container scanning, secrets management, and compliance automation.",
+    "highlights": [
+      "6 weeks of security-focused DevOps",
+      "SAST, DAST & dependency scanning",
+      "Container image scanning & signing",
+      "Secrets management & compliance as code"
+    ],
+    "cta": "🔐 Secure your pipeline — security is everyone's job!",
+    "course_id": "devsecops",
+    "hashtags": ["#DevSecOps", "#AppSec", "#Security", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "prometheus-course",
+    "emoji": "🔥",
+    "title": "Prometheus — Cloud-Native Monitoring",
+    "body": "Master Prometheus monitoring. PromQL queries, alerting rules, service discovery, exporters, and integration with Grafana for production-grade observability.",
+    "highlights": [
+      "PromQL mastery for powerful queries",
+      "Alertmanager rules & notification channels",
+      "Service discovery & custom exporters",
+      "High availability & federation"
+    ],
+    "cta": "🔥 Monitor like a pro!",
+    "course_id": "prometheus",
+    "hashtags": ["#Prometheus", "#Monitoring", "#Observability", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "grafana-course",
+    "emoji": "📊",
+    "title": "Grafana — Dashboards & Alerting That Actually Work",
+    "body": "Build beautiful, actionable dashboards with Grafana. Connect to Prometheus, Elasticsearch, CloudWatch, and more. Create alerts that wake you up only when it matters.",
+    "highlights": [
+      "Dashboard design & visualization best practices",
+      "Multi-datasource dashboards",
+      "Alert rules, contact points & silences",
+      "Provisioning dashboards as code"
+    ],
+    "cta": "📊 Visualize your infrastructure!",
+    "course_id": "grafana",
+    "hashtags": ["#Grafana", "#Dashboards", "#Monitoring", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "elk-course",
+    "emoji": "🔍",
+    "title": "ELK Stack — Centralized Logging at Scale",
+    "body": "Master the ELK Stack. Collect, parse, search, and visualize logs from all your applications and infrastructure with Elasticsearch, Logstash, and Kibana.",
+    "highlights": [
+      "Elasticsearch indexing & query patterns",
+      "Logstash pipelines & Filebeat shipping",
+      "Kibana dashboards & alerting",
+      "Production log retention & security"
+    ],
+    "cta": "🔍 When metrics aren't enough, logs tell the full story!",
+    "course_id": "elk",
+    "hashtags": ["#ELKStack", "#Elasticsearch", "#Logging", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "zabbix-course",
+    "emoji": "🖥️",
+    "title": "Zabbix — Enterprise Monitoring That Scales",
+    "body": "Master Zabbix, the enterprise-grade monitoring platform. Monitor servers, network devices, applications, and cloud infrastructure with automated discovery and intelligent alerting.",
+    "highlights": [
+      "Monitor 10 to 100,000+ devices",
+      "Auto-discovery & SNMP monitoring",
+      "Custom templates, triggers & escalations",
+      "Zabbix API automation & proxy architecture"
+    ],
+    "cta": "🖥️ Enterprise monitoring starts here!",
+    "course_id": "zabbix",
+    "hashtags": ["#Zabbix", "#Monitoring", "#NetworkMonitoring", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "promo-general-1",
+    "emoji": "🎓",
+    "title": "DevOps Academy Egypt — Learn From Industry Experts",
+    "body": "24+ hands-on courses covering the complete DevOps ecosystem. From Linux fundamentals to Kubernetes, multi-cloud, CI/CD, monitoring, and security — everything you need to launch your DevOps career.",
+    "highlights": [
+      "24+ specialized DevOps courses",
+      "Hands-on labs with real infrastructure",
+      "Expert instructors with production experience",
+      "Flexible schedule — learn at your pace"
+    ],
+    "cta": "🎯 Start your DevOps journey today!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#DevOpsAcademy", "#DevOpsEgypt", "#LearnDevOps", "#CareerGrowth", "#TechEgypt"]
+  },
+  {
+    "id": "promo-general-2",
+    "emoji": "💼",
+    "title": "DevOps Engineers Are in High Demand — Are You Ready?",
+    "body": "The average DevOps engineer salary keeps rising. Companies are hiring faster than engineers are graduating. Don't wait — build the skills that employers are looking for right now.",
+    "highlights": [
+      "DevOps is the #1 in-demand tech skill",
+      "Hands-on training with production tools",
+      "Build a portfolio of real projects",
+      "Join a community of DevOps professionals"
+    ],
+    "cta": "💼 Invest in your future — enroll today!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#DevOpsJobs", "#TechCareers", "#DevOpsAcademy", "#DevOpsEgypt", "#Hiring"]
+  },
+  {
+    "id": "promo-general-3",
+    "emoji": "🏆",
+    "title": "Why DevOps Academy Egypt?",
+    "body": "We don't just teach theory — every course is built around real-world projects. You'll deploy actual applications, build CI/CD pipelines, configure monitoring stacks, and manage cloud infrastructure. When you finish, you have a portfolio, not just a certificate.",
+    "highlights": [
+      "Project-based learning from day 1",
+      "Real cloud environments (AWS, Azure, GCP)",
+      "Small class sizes for personalized attention",
+      "Community support & career guidance"
+    ],
+    "cta": "🏆 Learn by doing — enroll now!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#DevOpsAcademy", "#DevOpsTraining", "#HandsOnLearning", "#DevOpsEgypt"]
+  },
+  {
+    "id": "promo-monitoring-stack",
+    "emoji": "📈",
+    "title": "Master the Complete Monitoring Stack",
+    "body": "Prometheus + Grafana + ELK + Zabbix — our monitoring track covers every tool you need to build enterprise-grade observability. Know what's happening in your infrastructure before your users do.",
+    "highlights": [
+      "Prometheus for metrics collection",
+      "Grafana for visualization & alerting",
+      "ELK Stack for centralized logging",
+      "Zabbix for network & infrastructure monitoring"
+    ],
+    "cta": "📈 See everything. Miss nothing.",
+    "course_id": "",
+    "hashtags": ["#Monitoring", "#Observability", "#Prometheus", "#Grafana", "#ELK", "#Zabbix", "#DevOpsAcademy"]
+  },
+  {
+    "id": "promo-cicd-track",
+    "emoji": "🔄",
+    "title": "CI/CD Track — Jenkins, GitHub Actions, GitLab CI & ArgoCD",
+    "body": "Build automated pipelines with the industry's top CI/CD tools. From traditional Jenkins to modern GitOps with ArgoCD — master them all and automate your entire delivery process.",
+    "highlights": [
+      "Jenkins pipelines & shared libraries",
+      "GitHub Actions workflows & custom actions",
+      "GitLab CI/CD & auto-deploy",
+      "ArgoCD GitOps for Kubernetes"
+    ],
+    "cta": "🔄 Automate your delivery pipeline!",
+    "course_id": "",
+    "hashtags": ["#CICD", "#Jenkins", "#GitHubActions", "#GitLabCI", "#ArgoCD", "#DevOpsAcademy"]
+  },
+  {
+    "id": "promo-cloud-track",
+    "emoji": "☁️",
+    "title": "Multi-Cloud Track — AWS, Azure, GCP & More",
+    "body": "Don't lock yourself into one cloud. Learn AWS, Azure, GCP, Oracle Cloud, and Alibaba Cloud. Understand the differences, pick the right tools, and become a multi-cloud architect.",
+    "highlights": [
+      "AWS — market leader with 200+ services",
+      "Azure — enterprise integration & hybrid cloud",
+      "GCP — data, AI & Kubernetes leadership",
+      "Multi-cloud strategy & cost optimization"
+    ],
+    "cta": "☁️ Be cloud-agnostic — learn them all!",
+    "course_id": "",
+    "hashtags": ["#Cloud", "#AWS", "#Azure", "#GCP", "#MultiCloud", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "promo-containers-track",
+    "emoji": "📦",
+    "title": "Containers Track — Docker + Kubernetes",
+    "body": "Docker for building and shipping. Kubernetes for running at scale. Together they're the foundation of modern infrastructure. Master both in our containers track.",
+    "highlights": [
+      "Docker images, containers & Compose",
+      "Kubernetes pods, deployments & services",
+      "Helm charts & package management",
+      "Production patterns & security"
+    ],
+    "cta": "📦 Containers are the future — be ready!",
+    "course_id": "",
+    "hashtags": ["#Docker", "#Kubernetes", "#Containers", "#CloudNative", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "github-course",
+    "emoji": "🐙",
+    "title": "GitHub — Platform & Collaboration",
+    "body": "More than just repositories. Learn GitHub's full platform — Projects, Actions, Packages, Pages, security features, and team collaboration workflows used by millions of developers worldwide.",
+    "highlights": [
+      "GitHub Projects & issue tracking",
+      "Pull requests & code review workflows",
+      "GitHub Packages & container registry",
+      "Security advisories & Dependabot"
+    ],
+    "cta": "🐙 Master the world's #1 dev platform!",
+    "course_id": "github",
+    "hashtags": ["#GitHub", "#OpenSource", "#Collaboration", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+  },
+  {
+    "id": "gitlab-course",
+    "emoji": "🦊",
+    "title": "GitLab — The Complete DevOps Platform",
+    "body": "One platform from code to production. Learn GitLab's repositories, merge requests, CI/CD, container registry, package registry, Pages, and enterprise administration.",
+    "highlights": [
+      "Repository management & merge requests",
+      "Built-in container & package registry",
+      "GitLab Pages & wiki documentation",
+      "User management, LDAP & compliance"
+    ],
+    "cta": "🦊 All of DevOps in one platform!",
+    "course_id": "gitlab",
+    "hashtags": ["#GitLab", "#DevOps", "#CICD", "#DevOpsAcademy", "#DevOpsEgypt"]
+  }
+]
