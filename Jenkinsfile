@@ -59,6 +59,7 @@ pipeline {
                     cp -r frontend $DEPLOY_DIR/frontend
                     cp -r nginx $DEPLOY_DIR/nginx
                     cp -r monitoring $DEPLOY_DIR/monitoring
+                    cp -r scripts $DEPLOY_DIR/scripts
 
                     cd $DEPLOY_DIR
                     docker compose build --no-cache
