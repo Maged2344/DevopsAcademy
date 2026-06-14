@@ -34,6 +34,7 @@ Complete documentation for all aspects of the DevOps Academy platform:
 | Document | Purpose | For |
 |----------|---------|-----|
 | **[terraform/README.md](./terraform/README.md)** | Multi-cloud Terraform IaC for AWS, GCP, Azure, Alibaba, Oracle. Deploy infrastructure with one variable change | DevOps Engineers, Cloud Architects |
+| **[ansible/README.md](./ansible/README.md)** | Ansible configuration management — server setup, Docker, app deployment, SSL, monitoring, backups | DevOps Engineers, System Administrators |
 | **[DEPLOYMENT.md](./DEPLOYMENT.md)** | Step-by-step deployment guide, Azure VM setup, Docker configuration, SSL/TLS, monitoring, CI/CD, troubleshooting | DevOps Engineers, System Administrators |
 | **[API.md](./API.md)** | Complete REST API reference with authentication, all endpoints, request/response examples, error handling, rate limiting | Backend Developers, Integrators |
 | **[CONTRIBUTING.md](./CONTRIBUTING.md)** | Development guidelines, git workflow, code standards, testing requirements, commit conventions, security practices | Contributors, Frontend/Backend Developers |
@@ -42,6 +43,7 @@ Complete documentation for all aspects of the DevOps Academy platform:
 ### Quick Documentation Links
 
 - 🌍 **Multi-Cloud Infrastructure?** → Read [terraform/README.md](./terraform/README.md) (AWS, GCP, Azure, Alibaba, Oracle)
+- ⚙️ **Server Configuration?** → Read [ansible/README.md](./ansible/README.md) (Ansible automation)
 - 🚀 **Getting Started?** → Read [DEPLOYMENT.md](./DEPLOYMENT.md)
 - 🔌 **Building Integrations?** → Check [API.md](./API.md)
 - 👨‍💻 **Contributing Code?** → Review [CONTRIBUTING.md](./CONTRIBUTING.md)
@@ -141,6 +143,13 @@ DevopsAcademy/
 │   ├── scripts/user_data.sh    # VM bootstrap script
 │   └── README.md               # Terraform documentation
 │
+├── ansible/                    # Configuration Management
+│   ├── ansible.cfg             # Ansible settings
+│   ├── inventory/              # Server inventory + variables
+│   ├── playbooks/              # site.yml, deploy.yml, rollback.yml
+│   ├── roles/                  # common, docker, app, ssl, monitoring
+│   └── README.md               # Ansible documentation
+│
 ├── tests/                      # E2E test suite (Playwright)
 │   └── e2e/                    # 86 tests across 6 spec files
 │
@@ -171,6 +180,7 @@ DevopsAcademy/
 | Containers    | Docker, Docker Compose                         |
 | CI/CD         | Jenkins (primary), GitHub Actions (secondary)  |
 | IaC           | Terraform (AWS, GCP, Azure, Alibaba, Oracle)   |
+| Config Mgmt   | Ansible (roles: common, docker, app, ssl, monitoring) |
 | Monitoring    | Prometheus, Grafana, Node Exporter             |
 | Testing       | Playwright (86 E2E tests)                      |
 | SSL           | Let's Encrypt (auto-renewed)                   |
@@ -486,6 +496,35 @@ terraform/
 - Security best practices
 - Remote state configuration
 - CI/CD integration with GitHub Actions
+
+### Ansible Configuration Management
+
+After Terraform provisions the VM, Ansible configures everything on it:
+
+```bash
+cd ansible
+
+# Full setup (first time)
+ansible-playbook playbooks/site.yml
+
+# Quick deployment (code changes)
+ansible-playbook playbooks/deploy.yml
+
+# Rollback to a commit
+ansible-playbook playbooks/rollback.yml -e "commit=a889c1c"
+```
+
+**Roles:**
+
+| Role | Purpose |
+|------|---------|
+| `common` | System packages, firewall (UFW), fail2ban, swap, sysctl tuning |
+| `docker` | Docker Engine + Compose, daemon config, cleanup cron |
+| `app` | Clone repo, .env generation, docker compose up, health check, backup cron |
+| `ssl` | Let's Encrypt certificates, auto-renewal hooks |
+| `monitoring` | Prometheus config, alert rules, Grafana datasource provisioning |
+
+**Full Guide:** See **[ansible/README.md](./ansible/README.md)** for tags, variables, vault secrets, and CI/CD integration.
 
 ### Azure VM (Legacy)
 

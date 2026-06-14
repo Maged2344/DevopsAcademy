@@ -1,0 +1,40 @@
+---
+# Setup Playbook - Initial server setup only (no app deployment)
+# Usage: ansible-playbook playbooks/setup.yml
+
+- name: Initial Server Setup
+  hosts: webservers
+  become: yes
+
+  roles:
+    - role: common
+      tags: [common]
+
+    - role: docker
+      tags: [docker]
+
+  post_tasks:
+    - name: Verify setup
+      block:
+        - name: Check Docker
+          command: docker --version
+          register: docker_ver
+          changed_when: false
+
+        - name: Check Docker Compose
+          command: docker compose version
+          register: compose_ver
+          changed_when: false
+
+        - name: Check UFW status
+          command: ufw status
+          register: ufw_status
+          changed_when: false
+
+        - name: Setup summary
+          debug:
+            msg: |
+              Server Setup Complete!
+              {{ docker_ver.stdout }}
+              {{ compose_ver.stdout }}
+              Firewall: {{ ufw_status.stdout_lines[0] }}

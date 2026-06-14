@@ -1,0 +1,46 @@
+---
+# Rollback Playbook - Revert to previous version
+# Usage: ansible-playbook playbooks/rollback.yml -e "commit=abc1234"
+
+- name: Rollback DevOps Academy Application
+  hosts: webservers
+  become: yes
+
+  vars_prompt:
+    - name: commit
+      prompt: "Enter the git commit hash to rollback to"
+      private: no
+
+  tasks:
+    - name: Stop current containers
+      command: docker compose down
+      args:
+        chdir: "{{ app_dir }}"
+      become_user: "{{ app_user }}"
+
+    - name: Checkout specific commit
+      git:
+        repo: "{{ git_repo }}"
+        dest: "{{ app_dir }}"
+        version: "{{ commit }}"
+        force: yes
+      become_user: "{{ app_user }}"
+
+    - name: Rebuild and start containers
+      command: docker compose up --build -d
+      args:
+        chdir: "{{ app_dir }}"
+      become_user: "{{ app_user }}"
+
+    - name: Wait for application health
+      uri:
+        url: "http://localhost:80"
+        status_code: [200, 301, 302]
+      register: health_check
+      retries: 10
+      delay: 5
+      until: health_check.status in [200, 301, 302]
+
+    - name: Rollback complete
+      debug:
+        msg: "Successfully rolled back to commit: {{ commit }}"

@@ -1,0 +1,87 @@
+---
+# Monitoring role - Configure Prometheus, Grafana, and alerting
+
+- name: Create monitoring directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'
+  loop:
+    - "{{ app_dir }}/monitoring"
+    - "{{ app_dir }}/monitoring/prometheus"
+    - "{{ app_dir }}/monitoring/grafana"
+    - "{{ app_dir }}/monitoring/grafana/provisioning"
+    - "{{ app_dir }}/monitoring/grafana/provisioning/datasources"
+    - "{{ app_dir }}/monitoring/grafana/provisioning/dashboards"
+    - "{{ app_dir }}/monitoring/grafana/dashboards"
+
+- name: Deploy Prometheus configuration
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ app_dir }}/monitoring/prometheus/prometheus.yml"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0644'
+  notify: Restart Prometheus
+
+- name: Deploy Prometheus alert rules
+  template:
+    src: alerts.yml.j2
+    dest: "{{ app_dir }}/monitoring/prometheus/alerts.yml"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0644'
+  notify: Restart Prometheus
+
+- name: Deploy Grafana datasource config
+  copy:
+    dest: "{{ app_dir }}/monitoring/grafana/provisioning/datasources/prometheus.yml"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0644'
+    content: |
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus:9090
+          isDefault: true
+          editable: true
+
+- name: Deploy Grafana dashboard provisioning
+  copy:
+    dest: "{{ app_dir }}/monitoring/grafana/provisioning/dashboards/default.yml"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0644'
+    content: |
+      apiVersion: 1
+      providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards
+            foldersFromFilesStructure: false
+
+- name: Verify monitoring stack is running
+  command: "docker ps --filter name={{ item }} --format '{{'{{'}}.Status{{'}}'}}'"
+  register: monitor_status
+  changed_when: false
+  loop:
+    - devopsacademy-prometheus
+    - devopsacademy-grafana
+    - devopsacademy-node-exporter
+
+- name: Display monitoring status
+  debug:
+    msg: "{{ item.item }}: {{ item.stdout | default('Not running') }}"
+  loop: "{{ monitor_status.results }}"
+  loop_control:
+    label: "{{ item.item }}"

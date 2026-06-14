@@ -1,0 +1,51 @@
+---
+# Site Playbook - Full infrastructure configuration
+# Usage: ansible-playbook playbooks/site.yml
+
+- name: Configure DevOps Academy Infrastructure
+  hosts: webservers
+  become: yes
+
+  pre_tasks:
+    - name: Gather facts
+      setup:
+        gather_subset:
+          - min
+          - network
+
+    - name: Display target information
+      debug:
+        msg: |
+          Target: {{ inventory_hostname }}
+          IP: {{ ansible_host }}
+          OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
+
+  roles:
+    - role: common
+      tags: [common, base]
+
+    - role: docker
+      tags: [docker]
+
+    - role: app
+      tags: [app, deploy]
+
+    - role: ssl
+      tags: [ssl, certificates]
+      when: ssl_enabled | bool
+
+    - role: monitoring
+      tags: [monitoring]
+      when: monitoring_enabled | bool
+
+  post_tasks:
+    - name: Display deployment summary
+      debug:
+        msg: |
+          ============================================
+          Deployment Complete!
+          ============================================
+          Application: https://{{ domain_name }}
+          Grafana:     https://{{ domain_name }}/grafana/
+          Prometheus:  http://{{ ansible_host }}:9090
+          ============================================

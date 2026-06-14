@@ -1,0 +1,44 @@
+---
+# Deploy Playbook - Quick application deployment (skip system setup)
+# Usage: ansible-playbook playbooks/deploy.yml
+
+- name: Deploy DevOps Academy Application
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Pull latest code
+      git:
+        repo: "{{ git_repo }}"
+        dest: "{{ app_dir }}"
+        version: "{{ git_branch }}"
+        force: yes
+      become_user: "{{ app_user }}"
+
+    - name: Build and restart containers
+      community.docker.docker_compose_v2:
+        project_src: "{{ app_dir }}"
+        build: always
+        state: present
+        recreate: always
+      become_user: "{{ app_user }}"
+
+    - name: Wait for application health
+      uri:
+        url: "http://localhost:80"
+        status_code: [200, 301, 302]
+      register: health_check
+      retries: 10
+      delay: 5
+      until: health_check.status in [200, 301, 302]
+
+    - name: Show running containers
+      command: docker ps --format "table {{'{{'}}.Names{{'}}'}}\t{{'{{'}}.Status{{'}}'}}"
+      register: containers
+      changed_when: false
+
+    - name: Deployment status
+      debug:
+        msg: |
+          Deployment successful!
+          {{ containers.stdout }}
