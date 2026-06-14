@@ -1040,8 +1040,7 @@ async function start() {
         { courseId: 'devsecops', name: 'DevSecOps', price: 7000, duration: '6 Weeks', level: 'advanced' },
         { courseId: 'prometheus', name: 'Prometheus Monitoring', price: 3500, duration: '3 Weeks', level: 'advanced' },
         { courseId: 'grafana', name: 'Grafana Dashboards & Alerting', price: 2500, duration: '2 Weeks', level: 'advanced' },
-        { courseId: 'elk', name: 'ELK Stack (Elasticsearch, Logstash, Kibana)', price: 3500, duration: '3 Weeks', level: 'advanced' },
-        { courseId: 'zabbix', name: 'Zabbix — Enterprise Monitoring', price: 4000, duration: '4 Weeks', level: 'intermediate' }
+        { courseId: 'elk', name: 'ELK Stack (Elasticsearch, Logstash, Kibana)', price: 3500, duration: '3 Weeks', level: 'advanced' }
     ];
     for (const course of defaultCourses) {
       await Course.updateOne(
@@ -1050,6 +1049,8 @@ async function start() {
         { upsert: true }
       );
     }
+    // Remove deprecated courses
+    await Course.deleteOne({ courseId: 'zabbix' });
     console.log('Default courses synced');
 
     // Periodic business metrics collection (every 30s)
