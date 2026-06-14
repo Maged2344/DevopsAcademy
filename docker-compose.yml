@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: frontend/Dockerfile
+    image: magedmohamed/devopsacademy-web:latest
     container_name: devopsacademy-web
     ports:
       - "80:80"
@@ -15,6 +16,7 @@ services:
 
   backend:
     build: ./backend
+    image: magedmohamed/devopsacademy-backend:latest
     container_name: devopsacademy-backend
     environment:
       - MONGO_URI=mongodb://mongo:27017/devopsacademy

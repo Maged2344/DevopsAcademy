@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+    }
+
     triggers {
         pollSCM('* * * * *')  // Poll GitHub every minute for changes
     }
@@ -15,6 +19,17 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh 'docker compose build'
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                sh '''
+                    echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin
+                    docker push magedmohamed/devopsacademy-web:latest
+                    docker push magedmohamed/devopsacademy-backend:latest
+                    docker logout
+                '''
             }
         }
 
