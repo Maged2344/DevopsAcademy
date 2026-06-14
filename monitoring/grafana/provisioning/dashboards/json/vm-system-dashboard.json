@@ -1,0 +1,241 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "System Overview",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "collapsed": false
+    },
+    {
+      "title": "CPU Usage",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 4, "x": 0, "y": 1 },
+      "targets": [{ "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)", "legendFormat": "CPU" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 60}, {"color": "red", "value": 80}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Memory Usage",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 4, "x": 4, "y": 1 },
+      "targets": [{ "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100", "legendFormat": "Memory" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 70}, {"color": "red", "value": 85}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Disk Usage /",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 4, "x": 8, "y": 1 },
+      "targets": [{ "expr": "(1 - (node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"tmpfs\"} / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"tmpfs\"})) * 100", "legendFormat": "Disk" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 70}, {"color": "red", "value": 85}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Swap Usage",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 4, "x": 12, "y": 1 },
+      "targets": [{ "expr": "(node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes) / node_memory_SwapTotal_bytes * 100", "legendFormat": "Swap" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 50}, {"color": "red", "value": 80}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Uptime",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 4, "x": 16, "y": 1 },
+      "targets": [{ "expr": "time() - node_boot_time_seconds", "legendFormat": "Uptime" }],
+      "fieldConfig": { "defaults": { "unit": "s" } }
+    },
+    {
+      "title": "Load Average",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 4, "x": 20, "y": 1 },
+      "targets": [
+        { "expr": "node_load1", "legendFormat": "1m" },
+        { "expr": "node_load5", "legendFormat": "5m" },
+        { "expr": "node_load15", "legendFormat": "15m" }
+      ],
+      "fieldConfig": { "defaults": { "decimals": 2 } }
+    },
+    {
+      "title": "CPU Details",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 7 },
+      "collapsed": false
+    },
+    {
+      "title": "CPU Usage Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        { "expr": "avg(rate(node_cpu_seconds_total{mode=\"user\"}[5m])) * 100", "legendFormat": "User" },
+        { "expr": "avg(rate(node_cpu_seconds_total{mode=\"system\"}[5m])) * 100", "legendFormat": "System" },
+        { "expr": "avg(rate(node_cpu_seconds_total{mode=\"iowait\"}[5m])) * 100", "legendFormat": "IOWait" },
+        { "expr": "avg(rate(node_cpu_seconds_total{mode=\"steal\"}[5m])) * 100", "legendFormat": "Steal" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent", "custom": { "fillOpacity": 20, "stacking": { "mode": "normal" } } } }
+    },
+    {
+      "title": "Load Average Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        { "expr": "node_load1", "legendFormat": "1m avg" },
+        { "expr": "node_load5", "legendFormat": "5m avg" },
+        { "expr": "node_load15", "legendFormat": "15m avg" },
+        { "expr": "count without(cpu, mode) (node_cpu_seconds_total{mode=\"idle\"})", "legendFormat": "CPU cores" }
+      ],
+      "fieldConfig": { "defaults": { "decimals": 2 } }
+    },
+    {
+      "title": "Memory Details",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 16 },
+      "collapsed": false
+    },
+    {
+      "title": "Memory Usage Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 17 },
+      "targets": [
+        { "expr": "node_memory_MemTotal_bytes", "legendFormat": "Total" },
+        { "expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes", "legendFormat": "Used" },
+        { "expr": "node_memory_Cached_bytes", "legendFormat": "Cached" },
+        { "expr": "node_memory_Buffers_bytes", "legendFormat": "Buffers" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } }
+    },
+    {
+      "title": "Swap Usage Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 17 },
+      "targets": [
+        { "expr": "node_memory_SwapTotal_bytes", "legendFormat": "Swap Total" },
+        { "expr": "node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes", "legendFormat": "Swap Used" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } }
+    },
+    {
+      "title": "Disk & Storage",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 25 },
+      "collapsed": false
+    },
+    {
+      "title": "Disk Space Usage",
+      "type": "bargauge",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 26 },
+      "targets": [{ "expr": "(1 - (node_filesystem_avail_bytes{fstype!=\"tmpfs\",mountpoint!~\"/boot.*\"} / node_filesystem_size_bytes{fstype!=\"tmpfs\",mountpoint!~\"/boot.*\"})) * 100", "legendFormat": "{{ mountpoint }}" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 70}, {"color": "red", "value": 85}] }, "max": 100, "unit": "percent" } }
+    },
+    {
+      "title": "Disk I/O",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 26 },
+      "targets": [
+        { "expr": "rate(node_disk_read_bytes_total{device!~\"loop.*\"}[5m])", "legendFormat": "Read {{ device }}" },
+        { "expr": "rate(node_disk_written_bytes_total{device!~\"loop.*\"}[5m])", "legendFormat": "Write {{ device }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Disk IOPS",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 34 },
+      "targets": [
+        { "expr": "rate(node_disk_reads_completed_total{device!~\"loop.*\"}[5m])", "legendFormat": "Reads {{ device }}" },
+        { "expr": "rate(node_disk_writes_completed_total{device!~\"loop.*\"}[5m])", "legendFormat": "Writes {{ device }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "iops" } }
+    },
+    {
+      "title": "Disk Latency",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 34 },
+      "targets": [
+        { "expr": "rate(node_disk_read_time_seconds_total{device!~\"loop.*\"}[5m]) / rate(node_disk_reads_completed_total{device!~\"loop.*\"}[5m])", "legendFormat": "Read {{ device }}" },
+        { "expr": "rate(node_disk_write_time_seconds_total{device!~\"loop.*\"}[5m]) / rate(node_disk_writes_completed_total{device!~\"loop.*\"}[5m])", "legendFormat": "Write {{ device }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" } }
+    },
+    {
+      "title": "Network",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 42 },
+      "collapsed": false
+    },
+    {
+      "title": "Network Traffic",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 43 },
+      "targets": [
+        { "expr": "rate(node_network_receive_bytes_total{device!=\"lo\"}[5m])", "legendFormat": "Receive {{ device }}" },
+        { "expr": "-rate(node_network_transmit_bytes_total{device!=\"lo\"}[5m])", "legendFormat": "Transmit {{ device }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Network Packets",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 43 },
+      "targets": [
+        { "expr": "rate(node_network_receive_packets_total{device!=\"lo\"}[5m])", "legendFormat": "Receive {{ device }}" },
+        { "expr": "-rate(node_network_transmit_packets_total{device!=\"lo\"}[5m])", "legendFormat": "Transmit {{ device }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "pps" } }
+    },
+    {
+      "title": "Network Errors & Drops",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 51 },
+      "targets": [
+        { "expr": "rate(node_network_receive_errs_total{device!=\"lo\"}[5m])", "legendFormat": "RX Errors {{ device }}" },
+        { "expr": "rate(node_network_transmit_errs_total{device!=\"lo\"}[5m])", "legendFormat": "TX Errors {{ device }}" },
+        { "expr": "rate(node_network_receive_drop_total{device!=\"lo\"}[5m])", "legendFormat": "RX Drops {{ device }}" },
+        { "expr": "rate(node_network_transmit_drop_total{device!=\"lo\"}[5m])", "legendFormat": "TX Drops {{ device }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "pps" } }
+    },
+    {
+      "title": "TCP Connections",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 51 },
+      "targets": [
+        { "expr": "node_netstat_Tcp_CurrEstab", "legendFormat": "Established" },
+        { "expr": "node_sockstat_TCP_tw", "legendFormat": "TIME_WAIT" },
+        { "expr": "node_sockstat_TCP_alloc", "legendFormat": "Allocated" }
+      ]
+    },
+    {
+      "title": "File Descriptors & Processes",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 59 },
+      "collapsed": false
+    },
+    {
+      "title": "Open File Descriptors",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 60 },
+      "targets": [
+        { "expr": "node_filefd_allocated", "legendFormat": "Allocated FDs" },
+        { "expr": "node_filefd_maximum", "legendFormat": "Max FDs" }
+      ]
+    },
+    {
+      "title": "Running Processes",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 60 },
+      "targets": [
+        { "expr": "node_procs_running", "legendFormat": "Running" },
+        { "expr": "node_procs_blocked", "legendFormat": "Blocked" }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "tags": ["devopsacademy", "vm", "system"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "DevOps Academy - VM System Metrics",
+  "uid": "devopsacademy-vm-system"
+}

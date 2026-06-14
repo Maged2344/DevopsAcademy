@@ -2,6 +2,14 @@ global:
   scrape_interval: 15s
   evaluation_interval: 15s
 
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+
+rule_files:
+  - 'alerts.yml'
+
 scrape_configs:
   # Prometheus self-monitoring
   - job_name: 'prometheus'
@@ -28,3 +36,8 @@ scrape_configs:
   - job_name: 'mongodb'
     static_configs:
       - targets: ['mongodb-exporter:9216']
+
+  # Container metrics (cAdvisor)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']

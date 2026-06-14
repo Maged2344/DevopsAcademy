@@ -30,17 +30,84 @@ const activeConnections = new promClient.Gauge({
   help: 'Number of active HTTP connections'
 });
 
+// Application business metrics
+const enrollmentsTotal = new promClient.Gauge({
+  name: 'devopsacademy_enrollments_total',
+  help: 'Total number of enrollments',
+  labelNames: ['status']
+});
+
+const enrollmentsByCourse = new promClient.Gauge({
+  name: 'devopsacademy_enrollments_by_course',
+  help: 'Enrollments per course',
+  labelNames: ['course', 'status']
+});
+
+const coursesActive = new promClient.Gauge({
+  name: 'devopsacademy_courses_active',
+  help: 'Number of active courses'
+});
+
+const visitsTotal = new promClient.Gauge({
+  name: 'devopsacademy_visits_total',
+  help: 'Total site visits'
+});
+
+const visitsToday = new promClient.Gauge({
+  name: 'devopsacademy_visits_today',
+  help: 'Site visits today'
+});
+
+const serviceRequestsTotal = new promClient.Gauge({
+  name: 'devopsacademy_service_requests_total',
+  help: 'Total service requests',
+  labelNames: ['status']
+});
+
+const dbOperationDuration = new promClient.Histogram({
+  name: 'devopsacademy_db_operation_duration_seconds',
+  help: 'Database operation duration',
+  labelNames: ['operation', 'collection'],
+  buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1]
+});
+
+const httpRequestSize = new promClient.Histogram({
+  name: 'http_request_size_bytes',
+  help: 'HTTP request body size in bytes',
+  labelNames: ['method', 'route'],
+  buckets: [100, 500, 1000, 5000, 10000, 50000]
+});
+
+const httpResponseSize = new promClient.Histogram({
+  name: 'http_response_size_bytes',
+  help: 'HTTP response size in bytes',
+  labelNames: ['method', 'route'],
+  buckets: [100, 500, 1000, 5000, 10000, 50000, 100000]
+});
+
+const errorRate = new promClient.Counter({
+  name: 'devopsacademy_errors_total',
+  help: 'Total application errors',
+  labelNames: ['type', 'route']
+});
+
 // Metrics middleware
 app.use((req, res, next) => {
   if (req.path === '/metrics') return next();
   activeConnections.inc();
   const start = Date.now();
+  const reqSize = parseInt(req.headers['content-length'] || '0', 10);
   res.on('finish', () => {
     activeConnections.dec();
     const duration = (Date.now() - start) / 1000;
     const route = req.route ? req.route.path : req.path;
     httpRequestsTotal.inc({ method: req.method, route, status: res.statusCode });
     httpRequestDuration.observe({ method: req.method, route, status: res.statusCode }, duration);
+    if (reqSize > 0) httpRequestSize.observe({ method: req.method, route }, reqSize);
+    const resSize = parseInt(res.getHeader('content-length') || '0', 10);
+    if (resSize > 0) httpResponseSize.observe({ method: req.method, route }, resSize);
+    if (res.statusCode >= 500) errorRate.inc({ type: 'server_error', route });
+    else if (res.statusCode >= 400) errorRate.inc({ type: 'client_error', route });
   });
   next();
 });
@@ -984,6 +1051,29 @@ async function start() {
       );
     }
     console.log('Default courses synced');
+
+    // Periodic business metrics collection (every 30s)
+    async function collectBusinessMetrics() {
+      try {
+        const todayStart = new Date(); todayStart.setHours(0, 0, 0, 0);
+        const [pending, approved, rejected, totalVisits, todayVisits, activeCourses] = await Promise.all([
+          Enrollment.countDocuments({ status: 'pending' }),
+          Enrollment.countDocuments({ status: 'approved' }),
+          Enrollment.countDocuments({ status: 'rejected' }),
+          Visit.countDocuments(),
+          Visit.countDocuments({ createdAt: { $gte: todayStart } }),
+          Course.countDocuments({ active: true })
+        ]);
+        enrollmentsTotal.set({ status: 'pending' }, pending);
+        enrollmentsTotal.set({ status: 'approved' }, approved);
+        enrollmentsTotal.set({ status: 'rejected' }, rejected);
+        visitsTotal.set(totalVisits);
+        visitsToday.set(todayVisits);
+        coursesActive.set(activeCourses);
+      } catch (e) { /* silent */ }
+    }
+    collectBusinessMetrics();
+    setInterval(collectBusinessMetrics, 30000);
 
     app.listen(3000, '0.0.0.0', () => {
       console.log('Backend API running on port 3000');

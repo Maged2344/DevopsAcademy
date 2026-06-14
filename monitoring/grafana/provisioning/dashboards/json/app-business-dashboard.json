@@ -1,0 +1,293 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "Application Health",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "collapsed": false
+    },
+    {
+      "title": "Backend Status",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 1 },
+      "targets": [{ "expr": "up{job=\"backend\"}", "legendFormat": "Backend" }],
+      "fieldConfig": { "defaults": { "mappings": [{"type": "value", "options": {"0": {"text": "DOWN", "color": "red"}, "1": {"text": "UP", "color": "green"}}}] } }
+    },
+    {
+      "title": "Nginx Status",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 1 },
+      "targets": [{ "expr": "up{job=\"nginx\"}", "legendFormat": "Nginx" }],
+      "fieldConfig": { "defaults": { "mappings": [{"type": "value", "options": {"0": {"text": "DOWN", "color": "red"}, "1": {"text": "UP", "color": "green"}}}] } }
+    },
+    {
+      "title": "MongoDB Status",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 1 },
+      "targets": [{ "expr": "up{job=\"mongodb\"}", "legendFormat": "MongoDB" }],
+      "fieldConfig": { "defaults": { "mappings": [{"type": "value", "options": {"0": {"text": "DOWN", "color": "red"}, "1": {"text": "UP", "color": "green"}}}] } }
+    },
+    {
+      "title": "Active Connections",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 1 },
+      "targets": [{ "expr": "http_active_connections", "legendFormat": "Active" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 100}, {"color": "red", "value": 500}] } } }
+    },
+    {
+      "title": "Requests/sec",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 1 },
+      "targets": [{ "expr": "sum(rate(http_requests_total[5m]))", "legendFormat": "req/s" }],
+      "fieldConfig": { "defaults": { "unit": "reqps", "decimals": 1 } }
+    },
+    {
+      "title": "Error Rate",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 1 },
+      "targets": [{ "expr": "sum(rate(devopsacademy_errors_total{type=\"server_error\"}[5m])) / sum(rate(http_requests_total[5m])) * 100", "legendFormat": "Error %" }],
+      "fieldConfig": { "defaults": { "unit": "percent", "thresholds": { "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 1}, {"color": "red", "value": 5}] }, "decimals": 2 } }
+    },
+    {
+      "title": "HTTP Traffic",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 },
+      "collapsed": false
+    },
+    {
+      "title": "Requests per Second by Status",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 7 },
+      "targets": [
+        { "expr": "sum by(status) (rate(http_requests_total[5m]))", "legendFormat": "{{ status }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps", "custom": { "fillOpacity": 20 } } }
+    },
+    {
+      "title": "Requests per Second by Route",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 7 },
+      "targets": [
+        { "expr": "topk(10, sum by(route) (rate(http_requests_total[5m])))", "legendFormat": "{{ route }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps" } }
+    },
+    {
+      "title": "Response Time (p50 / p95 / p99)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 15 },
+      "targets": [
+        { "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p50" },
+        { "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p95" },
+        { "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p99" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" } }
+    },
+    {
+      "title": "Response Time by Route (p95)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 15 },
+      "targets": [
+        { "expr": "topk(8, histogram_quantile(0.95, sum by(route, le) (rate(http_request_duration_seconds_bucket[5m]))))", "legendFormat": "{{ route }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" } }
+    },
+    {
+      "title": "Request & Response Size",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 23 },
+      "targets": [
+        { "expr": "histogram_quantile(0.95, sum(rate(http_request_size_bytes_bucket[5m])) by (le))", "legendFormat": "Request p95" },
+        { "expr": "histogram_quantile(0.95, sum(rate(http_response_size_bytes_bucket[5m])) by (le))", "legendFormat": "Response p95" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } }
+    },
+    {
+      "title": "Errors by Type",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 23 },
+      "targets": [
+        { "expr": "sum by(type) (rate(devopsacademy_errors_total[5m]))", "legendFormat": "{{ type }}" },
+        { "expr": "sum by(route) (rate(devopsacademy_errors_total{type=\"server_error\"}[5m]))", "legendFormat": "5xx: {{ route }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps" } }
+    },
+    {
+      "title": "Business Metrics",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 31 },
+      "collapsed": false
+    },
+    {
+      "title": "Total Enrollments",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 32 },
+      "targets": [{ "expr": "sum(devopsacademy_enrollments_total)", "legendFormat": "Total" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "blue", "value": null}] } } }
+    },
+    {
+      "title": "Approved Enrollments",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 32 },
+      "targets": [{ "expr": "devopsacademy_enrollments_total{status=\"approved\"}", "legendFormat": "Approved" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}] } } }
+    },
+    {
+      "title": "Pending Enrollments",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 32 },
+      "targets": [{ "expr": "devopsacademy_enrollments_total{status=\"pending\"}", "legendFormat": "Pending" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "orange", "value": null}] } } }
+    },
+    {
+      "title": "Active Courses",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 32 },
+      "targets": [{ "expr": "devopsacademy_courses_active", "legendFormat": "Courses" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "purple", "value": null}] } } }
+    },
+    {
+      "title": "Total Site Visits",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 32 },
+      "targets": [{ "expr": "devopsacademy_visits_total", "legendFormat": "Visits" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "blue", "value": null}] } } }
+    },
+    {
+      "title": "Visits Today",
+      "type": "stat",
+      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 32 },
+      "targets": [{ "expr": "devopsacademy_visits_today", "legendFormat": "Today" }],
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [{"color": "green", "value": null}] } } }
+    },
+    {
+      "title": "MongoDB",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 37 },
+      "collapsed": false
+    },
+    {
+      "title": "MongoDB Connections",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 38 },
+      "targets": [
+        { "expr": "mongodb_ss_connections{conn_type=\"current\"}", "legendFormat": "Current" },
+        { "expr": "mongodb_ss_connections{conn_type=\"available\"}", "legendFormat": "Available" }
+      ]
+    },
+    {
+      "title": "MongoDB Operations/sec",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 38 },
+      "targets": [
+        { "expr": "rate(mongodb_ss_opcounters_total{type=\"insert\"}[5m])", "legendFormat": "Insert" },
+        { "expr": "rate(mongodb_ss_opcounters_total{type=\"query\"}[5m])", "legendFormat": "Query" },
+        { "expr": "rate(mongodb_ss_opcounters_total{type=\"update\"}[5m])", "legendFormat": "Update" },
+        { "expr": "rate(mongodb_ss_opcounters_total{type=\"delete\"}[5m])", "legendFormat": "Delete" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "ops" } }
+    },
+    {
+      "title": "MongoDB Network I/O",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 38 },
+      "targets": [
+        { "expr": "rate(mongodb_ss_network_bytesIn[5m])", "legendFormat": "Bytes In" },
+        { "expr": "rate(mongodb_ss_network_bytesOut[5m])", "legendFormat": "Bytes Out" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Container Metrics",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 46 },
+      "collapsed": false
+    },
+    {
+      "title": "Container CPU Usage",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 47 },
+      "targets": [
+        { "expr": "rate(container_cpu_usage_seconds_total{name=~\"devopsacademy.*\"}[5m]) * 100", "legendFormat": "{{ name }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent" } }
+    },
+    {
+      "title": "Container Memory Usage",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 47 },
+      "targets": [
+        { "expr": "container_memory_usage_bytes{name=~\"devopsacademy.*\"}", "legendFormat": "{{ name }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } }
+    },
+    {
+      "title": "Container Network Receive",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 55 },
+      "targets": [
+        { "expr": "rate(container_network_receive_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "{{ name }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Container Network Transmit",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 55 },
+      "targets": [
+        { "expr": "rate(container_network_transmit_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "{{ name }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Container Disk I/O",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 63 },
+      "targets": [
+        { "expr": "rate(container_fs_reads_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "Read {{ name }}" },
+        { "expr": "rate(container_fs_writes_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "Write {{ name }}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Node.js Process Metrics",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 63 },
+      "targets": [
+        { "expr": "devopsacademy_process_resident_memory_bytes", "legendFormat": "RSS Memory" },
+        { "expr": "devopsacademy_process_heap_bytes", "legendFormat": "Heap" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } }
+    },
+    {
+      "title": "Node.js Event Loop Lag",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 71 },
+      "targets": [
+        { "expr": "devopsacademy_nodejs_eventloop_lag_seconds", "legendFormat": "Event Loop Lag" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" } }
+    },
+    {
+      "title": "Node.js Active Handles/Requests",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 71 },
+      "targets": [
+        { "expr": "devopsacademy_nodejs_active_handles_total", "legendFormat": "Active Handles" },
+        { "expr": "devopsacademy_nodejs_active_requests_total", "legendFormat": "Active Requests" }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "tags": ["devopsacademy", "application", "business"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "DevOps Academy - Application & Business",
+  "uid": "devopsacademy-app-business"
+}
