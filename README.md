@@ -33,6 +33,7 @@ Complete documentation for all aspects of the DevOps Academy platform:
 
 | Document | Purpose | For |
 |----------|---------|-----|
+| **[TERRAFORM.md](./TERRAFORM.md)** | Multi-cloud Terraform IaC for AWS, GCP, Azure, Alibaba, Oracle. Deploy infrastructure with one variable change | DevOps Engineers, Cloud Architects |
 | **[DEPLOYMENT.md](./DEPLOYMENT.md)** | Step-by-step deployment guide, Azure VM setup, Docker configuration, SSL/TLS, monitoring, CI/CD, troubleshooting | DevOps Engineers, System Administrators |
 | **[API.md](./API.md)** | Complete REST API reference with authentication, all endpoints, request/response examples, error handling, rate limiting | Backend Developers, Integrators |
 | **[CONTRIBUTING.md](./CONTRIBUTING.md)** | Development guidelines, git workflow, code standards, testing requirements, commit conventions, security practices | Contributors, Frontend/Backend Developers |
@@ -40,6 +41,7 @@ Complete documentation for all aspects of the DevOps Academy platform:
 
 ### Quick Documentation Links
 
+- 🌍 **Multi-Cloud Infrastructure?** → Read [TERRAFORM.md](./TERRAFORM.md) (AWS, GCP, Azure, Alibaba, Oracle)
 - 🚀 **Getting Started?** → Read [DEPLOYMENT.md](./DEPLOYMENT.md)
 - 🔌 **Building Integrations?** → Check [API.md](./API.md)
 - 👨‍💻 **Contributing Code?** → Review [CONTRIBUTING.md](./CONTRIBUTING.md)
@@ -407,7 +409,41 @@ See **[DEPLOYMENT.md#testing-with-playwright](./DEPLOYMENT.md#testing-with-playw
 
 ## Infrastructure
 
-### Azure VM
+### Terraform Infrastructure as Code (IaC)
+
+Deploy the entire infrastructure across **5 cloud providers** with a single command!
+
+```bash
+cd terraform
+terraform init
+cp environments/{aws,gcp,azure,alibaba,oracle}.tfvars terraform.tfvars
+terraform apply
+```
+
+**Supported Clouds:**
+- ✅ **AWS** - EC2, VPC, EBS, Route53
+- ✅ **GCP** - Compute Engine, VPC, Persistent Disks, Cloud DNS
+- ✅ **Azure** - Virtual Machines, VNets, Managed Disks, Azure DNS
+- ✅ **Alibaba Cloud** - ECS, VPC, Cloud Disks, DNS
+- ✅ **Oracle Cloud** - Compute, VCN, Block Storage, DNS
+
+**What Gets Created:**
+- Virtual Machine with Docker & Docker Compose pre-installed
+- Virtual Private Cloud (VPC) with subnets and security groups
+- Persistent storage volumes (50-100 GB)
+- Automated daily backups with 30-day retention
+- DNS records pointing to your instance
+- SSL/TLS support (Let's Encrypt ready)
+
+📖 **Complete Guide:** See **[TERRAFORM.md](./TERRAFORM.md)** for:
+- Cloud-specific deployment examples
+- Configuration options
+- Security best practices
+- Advanced features (remote state, workspaces, etc.)
+
+### Azure VM (Legacy)
+
+For existing deployments on Azure:
 
 | Property | Value |
 |----------|-------|
