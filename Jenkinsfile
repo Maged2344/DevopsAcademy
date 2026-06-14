@@ -24,7 +24,7 @@ pipeline {
                     DEPLOY_DIR=/home/maged/devopsacademy
 
                     # Clean old files (keep ssl/ and docker volumes)
-                    rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx
+                    rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx $DEPLOY_DIR/monitoring
                     rm -f $DEPLOY_DIR/index.html $DEPLOY_DIR/admin.html $DEPLOY_DIR/course.html
                     rm -f $DEPLOY_DIR/script.js $DEPLOY_DIR/styles.css $DEPLOY_DIR/logo.png
                     rm -f $DEPLOY_DIR/nginx.conf $DEPLOY_DIR/Dockerfile
@@ -34,8 +34,13 @@ pipeline {
                     cp -r backend $DEPLOY_DIR/backend
                     cp -r frontend $DEPLOY_DIR/frontend
                     cp -r nginx $DEPLOY_DIR/nginx
+                    cp -r monitoring $DEPLOY_DIR/monitoring
 
                     cd $DEPLOY_DIR
+
+                    # Remove any directories Docker may have auto-created for missing bind-mount files
+                    [ -d "$DEPLOY_DIR/monitoring/alertmanager/alertmanager.yml" ] && rm -rf "$DEPLOY_DIR/monitoring/alertmanager/alertmanager.yml"
+
                     docker compose down || true
                     docker compose build --no-cache
                     docker compose up -d
