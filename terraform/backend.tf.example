@@ -1,0 +1,129 @@
+################################################################################
+# Terraform Backend Configuration (Optional)
+#
+# Uncomment and configure one of the backends below for remote state storage.
+# This is recommended for production deployments and team collaboration.
+#
+# To use a backend:
+# 1. Uncomment the desired backend block
+# 2. Configure the backend parameters
+# 3. Run: terraform init (Terraform will ask to migrate state)
+# 4. Commit this file to version control
+################################################################################
+
+################################################################################
+# AWS S3 Backend (Recommended for AWS deployments)
+################################################################################
+# terraform {
+#   backend "s3" {
+#     bucket         = "devops-academy-terraform-state"  # Change to your bucket
+#     key            = "prod/terraform.tfstate"
+#     region         = "us-east-1"
+#     encrypt        = true
+#     dynamodb_table = "terraform-locks"
+#   }
+# }
+
+################################################################################
+# Google Cloud Storage Backend (Recommended for GCP deployments)
+################################################################################
+# terraform {
+#   backend "gcs" {
+#     bucket = "devops-academy-terraform-state"  # Change to your bucket
+#     prefix = "prod"
+#   }
+# }
+
+################################################################################
+# Azure Storage Backend (Recommended for Azure deployments)
+################################################################################
+# terraform {
+#   backend "azurerm" {
+#     resource_group_name  = "devops-academy-rg"        # Change to your RG
+#     storage_account_name = "devopsacademytfstate"    # Change to your SA
+#     container_name       = "terraform-state"
+#     key                  = "prod/terraform.tfstate"
+#   }
+# }
+
+################################################################################
+# Alibaba Cloud OSS Backend (Recommended for Alibaba deployments)
+################################################################################
+# terraform {
+#   backend "oss" {
+#     bucket = "devops-academy-terraform-state"  # Change to your bucket
+#     key    = "prod/terraform.tfstate"
+#     region = "oss-cn-beijing"
+#   }
+# }
+
+################################################################################
+# Oracle Cloud Object Storage Backend (Recommended for Oracle deployments)
+################################################################################
+# terraform {
+#   backend "http" {
+#     address        = "https://your-bucket.compat.objectstorage.your-region.oraclecloud.com/devops-academy-terraform-state"
+#     update_method  = "PUT"
+#     delete_method  = "DELETE"
+#   }
+# }
+
+################################################################################
+# Terraform Cloud/Enterprise Backend (Team Collaboration)
+################################################################################
+# terraform {
+#   cloud {
+#     organization = "your-organization"  # Change to your TF Cloud org
+#     
+#     workspaces {
+#       name = "devops-academy"
+#     }
+#   }
+# }
+
+################################################################################
+# Notes:
+#
+# 1. Local State (Default):
+#    - State stored in terraform.tfstate (local machine)
+#    - Suitable for development only
+#    - NOT suitable for production or team collaboration
+#
+# 2. Remote State Benefits:
+#    - Centralized state management
+#    - Team collaboration
+#    - Backup and recovery
+#    - State locking (prevents concurrent modifications)
+#    - Audit trail
+#
+# 3. Setting Up S3 Backend (AWS):
+#    ```bash
+#    # Create S3 bucket
+#    aws s3api create-bucket --bucket devops-academy-terraform-state --region us-east-1
+#    
+#    # Enable versioning
+#    aws s3api put-bucket-versioning --bucket devops-academy-terraform-state \
+#      --versioning-configuration Status=Enabled
+#    
+#    # Create DynamoDB table for state locking
+#    aws dynamodb create-table --table-name terraform-locks \
+#      --attribute-definitions AttributeName=LockID,AttributeType=S \
+#      --key-schema AttributeName=LockID,KeyType=HASH \
+#      --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+#    ```
+#
+# 4. Migrating to Remote State:
+#    ```bash
+#    # Uncomment backend block in backend.tf
+#    terraform init
+#    # Terraform will ask: "Do you want to copy existing state to the new backend?"
+#    # Type: yes
+#    ```
+#
+# 5. Viewing Remote State:
+#    ```bash
+#    terraform state list          # List all resources
+#    terraform state show resource # Show specific resource
+#    terraform state pull         # Download state locally
+#    ```
+################################################################################

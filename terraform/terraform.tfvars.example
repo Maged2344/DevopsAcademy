@@ -1,0 +1,80 @@
+# Terraform Variables Example
+# Copy this file to terraform.tfvars and modify with your values
+
+################################################################################
+# Cloud Provider Selection
+################################################################################
+# Options: aws, gcp, azure, alibaba, oracle
+cloud_provider = "aws"
+
+################################################################################
+# General Configuration
+################################################################################
+project_name = "devops-academy"
+environment  = "prod"
+region       = "us-east-1"
+
+################################################################################
+# Instance Configuration
+################################################################################
+instance_name    = "devops-academy-server"
+instance_type    = "medium"              # Options: small, medium, large
+os_image         = "ubuntu-2404-lts"
+disk_size_gb     = 50
+enable_public_ip = true
+
+################################################################################
+# Networking
+################################################################################
+vpc_cidr          = "10.0.0.0/16"
+subnet_cidr       = "10.0.1.0/24"
+
+# IMPORTANT: Restrict SSH to your IP address in production
+allowed_ssh_cidr   = ["0.0.0.0/0"]       # Change to ["YOUR_IP/32"]
+allowed_http_cidr  = ["0.0.0.0/0"]
+allowed_https_cidr = ["0.0.0.0/0"]
+
+################################################################################
+# DNS and Domain
+################################################################################
+domain_name      = "devopsacademy.cloud-stacks.com"
+dns_provider     = "cloudflare"          # Options: cloudflare, route53, gcloud, azure-dns, alibaba-dns, oracle-dns
+cloudflare_zone_id  = ""                 # Set if using Cloudflare
+cloudflare_api_token = ""                # Set if using Cloudflare (or export TF_VAR_cloudflare_api_token)
+
+################################################################################
+# SSL/TLS
+################################################################################
+enable_ssl         = true
+letsencrypt_email  = "admin@devopsacademy.cloud-stacks.com"
+
+################################################################################
+# Storage
+################################################################################
+storage_size_gb     = 100
+enable_backup       = true
+backup_retention_days = 30
+
+################################################################################
+# Docker Images
+################################################################################
+docker_registry = "docker.io"
+backend_image   = "node:20-alpine"
+mongo_image     = "mongo:7"
+nginx_image     = "nginx:alpine"
+prometheus_image = "prom/prometheus:latest"
+grafana_image   = "grafana/grafana:latest"
+
+################################################################################
+# Tags and Labels
+################################################################################
+tags = {
+  Environment = "production"
+  Project     = "devops-academy"
+  ManagedBy   = "terraform"
+}
+
+labels = {
+  project    = "devops-academy"
+  managed_by = "terraform"
+}
