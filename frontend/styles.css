@@ -210,6 +210,152 @@ body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
     color: #f1f5f9;
 }
 
+/* ===== Dark Mode: Course Detail Page ===== */
+body.dark-mode .program-highlights {
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+body.dark-mode .highlight-card {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .highlight-card h4 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .highlight-card p {
+    color: #94a3b8;
+}
+
+body.dark-mode .course-content {
+    background: #0f172a;
+}
+
+body.dark-mode .course-modules h2 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .course-modules .modules-subtitle {
+    color: #94a3b8;
+}
+
+body.dark-mode .module-card {
+    background: #1e293b;
+    border-color: #334155;
+    border-left-color: #3b82f6;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .module-card h3 {
+    color: #60a5fa;
+}
+
+body.dark-mode .module-card .module-hours span {
+    background: #334155;
+    color: #94a3b8;
+}
+
+body.dark-mode .module-card .module-desc {
+    color: #94a3b8;
+}
+
+body.dark-mode .module-card ul li {
+    color: #cbd5e1;
+}
+
+body.dark-mode .module-card .session-item {
+    background: #0f172a;
+    border-left-color: #334155;
+}
+
+body.dark-mode .module-card .session-item strong {
+    color: #e2e8f0;
+}
+
+body.dark-mode .module-card .session-item p {
+    color: #94a3b8;
+}
+
+body.dark-mode .sidebar-card {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .sidebar-info li {
+    border-bottom-color: #334155;
+}
+
+body.dark-mode .sidebar-info li span:first-child {
+    color: #94a3b8;
+}
+
+body.dark-mode .sidebar-info li span:last-child {
+    color: #f1f5f9;
+}
+
+body.dark-mode .roadmap {
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+body.dark-mode .roadmap h2 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .roadmap .roadmap-subtitle {
+    color: #94a3b8;
+}
+
+body.dark-mode .roadmap-item .roadmap-content {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .roadmap-content .phase-badge {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+body.dark-mode .roadmap-content h4 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .roadmap-content .roadmap-hours {
+    color: #94a3b8;
+}
+
+body.dark-mode .roadmap-content p {
+    color: #cbd5e1;
+}
+
+body.dark-mode .roadmap-item .roadmap-dot {
+    border-color: #1e293b;
+}
+
+body.dark-mode .who-section {
+    background: #0f172a;
+}
+
+body.dark-mode .who-card {
+    border-color: #334155;
+    background: #1e293b;
+}
+
+body.dark-mode .who-card:hover {
+    border-color: #3b82f6;
+}
+
+body.dark-mode .who-card h4 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .who-card p {
+    color: #94a3b8;
+}
+
 /* ===== Theme Toggle Button ===== */
 .theme-toggle {
     background: none;
