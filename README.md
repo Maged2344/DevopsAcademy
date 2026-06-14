@@ -6,6 +6,39 @@
 
 ---
 
+## Project Summary
+
+Designed, built, and deployed a production-grade e-learning platform for DevOps courses, showcasing end-to-end DevOps engineering skills across infrastructure, automation, monitoring, and CI/CD.
+
+### Application Stack
+- Full-stack web application with **Node.js/Express** REST API, **MongoDB** database, and **Nginx** reverse proxy with SSL/TLS termination
+- Admin panel with JWT-authenticated CRUD for course, enrollment, and service request management
+- Containerized with **Docker Compose** (10+ services) and deployed on **Azure VM**
+
+### Infrastructure as Code (Terraform)
+- Multi-cloud IaC modules for **AWS, Azure, GCP, Oracle Cloud, and Alibaba Cloud**
+- Modular architecture with reusable compute, networking, DNS, and security modules per provider
+- Validated and production-ready configurations
+
+### Configuration Management (Ansible)
+- Automated server provisioning with roles for Docker setup, application deployment, Nginx configuration, SSL certificates, and monitoring stack deployment
+- Idempotent playbooks with Jinja2 templates and handler-based service management
+
+### Monitoring & Observability
+- **Prometheus** metrics collection with **25+ custom alert rules** (VM, application, container, and MongoDB)
+- **3 Grafana dashboards:** VM System Metrics, Application & Business KPIs, and Infrastructure Overview
+- **cAdvisor** for container-level resource monitoring, **Node Exporter** for host metrics, and **MongoDB Exporter** for database observability
+- **Alertmanager** with severity-based routing and escalation policies
+- Custom application metrics: HTTP latency percentiles, error rates, request/response sizes, enrollment and visit counters
+
+### CI/CD Pipeline
+- **Jenkins** pipeline with GitHub polling, automated Docker image builds, zero-downtime deployment, and image cleanup
+
+### Technologies
+`Node.js` · `Express` · `MongoDB` · `Docker` · `Nginx` · `Terraform` · `Ansible` · `Prometheus` · `Grafana` · `Alertmanager` · `cAdvisor` · `Jenkins` · `Azure` · `Git/GitHub`
+
+---
+
 ## Table of Contents
 
 - [Documentation](#documentation)
