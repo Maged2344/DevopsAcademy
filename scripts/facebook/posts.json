@@ -1,437 +1,273 @@
 [
   {
-    "id": "devops-program",
+    "id": "roadmap-devops",
     "emoji": "🚀",
-    "title": "DevOps Engineering Program — Your Complete Career Path",
-    "body": "Start your DevOps journey with our comprehensive 12-week program covering everything from Linux to Kubernetes, CI/CD, cloud platforms, and monitoring.",
-    "highlights": [
-      "12 Weeks of intensive hands-on training",
-      "Linux, Docker, Kubernetes, Jenkins, Terraform & more",
-      "Real-world projects with production environments",
-      "Career guidance and interview preparation"
-    ],
-    "cta": "🎯 Limited seats available — don't miss out!",
-    "course_id": "devops",
-    "hashtags": ["#DevOps", "#DevOpsEngineering", "#DevOpsCareer", "#DevOpsEgypt", "#DevOpsAcademy"]
+    "title": "عايز تبدأ في DevOps ومش عارف تبدأ منين؟",
+    "body": "واحدة من أكبر الأخطاء اللي بيقع فيها المبتدئين إنهم يبدأوا بـ Kubernetes أو Terraform مباشرة، وبعد فترة يحسوا إن المجال صعب جدًا.\n\n✅ الـ Roadmap الصحيحة لتعلم DevOps:\n\n1️⃣ Linux Fundamentals\n2️⃣ Networking Basics (TCP/IP, DNS, HTTP/HTTPS)\n3️⃣ Git & GitHub\n4️⃣ Bash Scripting & Python Basics\n5️⃣ Docker\n6️⃣ CI/CD (Jenkins, GitHub Actions)\n7️⃣ Kubernetes\n8️⃣ Cloud Platforms (AWS, Azure)\n9️⃣ Infrastructure as Code (Terraform, Ansible)\n🔟 Monitoring & Logging (Prometheus, Grafana, ELK)\n\n💡 أهم نصيحة:\nمتحاولش تتعلم كل حاجة مرة واحدة.\n\nاتعلم خطوة ➜ طبق عملي ➜ اعمل مشروع ➜ ثم انتقل للخطوة التالية.\n\nفي DevOps Academy Egypt هنشارك معاكم محتوى، مشاريع عملية، Roadmaps، ونصائح تساعدكم تدخلوا مجال الـ DevOps بشكل احترافي.\n\n💬 أنت حاليًا واقف عند أي مرحلة في الـ Roadmap؟",
+    "highlights": [],
+    "cta": "",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#Linux", "#Docker", "#Kubernetes", "#AWS", "#Azure", "#Terraform", "#Ansible", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A professional dark-themed infographic poster showing a DevOps learning roadmap as a vertical path with 10 glowing steps. Each step has a tech icon: Linux penguin, network nodes, Git branch, terminal, Docker whale, CI/CD pipeline arrows, Kubernetes wheel, cloud icons, Terraform/Ansible, monitoring dashboard. Modern tech style with neon blue and purple accents on dark background. No text on the image."
   },
   {
-    "id": "linux-fundamentals",
+    "id": "linux-ar",
     "emoji": "🐧",
-    "title": "Linux Administration I — Master the Foundation",
-    "body": "Every DevOps engineer starts with Linux. Learn system administration, shell scripting, networking, package management, and server hardening in 6 hands-on weeks.",
-    "highlights": [
-      "Command line mastery & shell scripting",
-      "User management, permissions & security",
-      "Networking, services & troubleshooting",
-      "Perfect for beginners — no prior experience needed"
-    ],
-    "cta": "🐧 Start your Linux journey today!",
+    "title": "كل حاجة في DevOps بتبدأ من Linux",
+    "body": "مفيش DevOps Engineer ممكن يشتغل من غير Linux.\n\nسواء هتعمل Deploy على Server، هتشغل Docker Containers، أو هتدير Kubernetes Cluster — كل حاجة شغالة على Linux.\n\n📚 في كورس Linux Administration هتتعلم:\n\n🔹 التعامل مع Command Line باحترافية\n🔹 إدارة المستخدمين والصلاحيات\n🔹 Shell Scripting و Automation\n🔹 إدارة Services و Networking\n🔹 Troubleshooting و Performance Monitoring\n\n⏱️ المدة: 6 أسابيع — مناسب للمبتدئين تمامًا",
+    "cta": "🐧 ابدأ رحلتك مع Linux النهاردة!",
     "course_id": "linux",
-    "hashtags": ["#Linux", "#LinuxAdmin", "#SysAdmin", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Linux", "#LinuxAdmin", "#SysAdmin", "#DevOps", "#DevOpsAcademyEgypt", "#تعلم_البرمجة"],
+    "image_prompt": "A sleek modern poster featuring the Linux penguin (Tux) mascot standing confidently on a dark server room background. Terminal windows with green text floating around. Code snippets visible. Dark theme with cyan and green accent lighting. Professional tech academy style. No text."
   },
   {
-    "id": "linux-advanced",
-    "emoji": "🔧",
-    "title": "Linux Administration II — Go Beyond the Basics",
-    "body": "Take your Linux skills to the next level. Advanced storage, performance tuning, security hardening, automation, and enterprise Linux management.",
-    "highlights": [
-      "LVM, RAID & advanced storage management",
-      "SELinux, firewalld & security hardening",
-      "Performance monitoring & optimization",
-      "Automation with systemd & scripting"
-    ],
-    "cta": "⚡ Level up your Linux skills!",
-    "course_id": "linux2",
-    "hashtags": ["#Linux", "#RedHat", "#RHEL", "#SysAdmin", "#DevOps", "#DevOpsAcademy"]
-  },
-  {
-    "id": "docker-course",
+    "id": "docker-ar",
     "emoji": "🐳",
-    "title": "Docker & Containers — Build, Ship, Run Anywhere",
-    "body": "Master containerization with Docker. Learn to build images, manage containers, create multi-service applications with Docker Compose, and prepare for production deployments.",
-    "highlights": [
-      "5 weeks of hands-on container training",
-      "Dockerfile best practices & multi-stage builds",
-      "Docker Compose for multi-service applications",
-      "Container networking, volumes & security"
-    ],
-    "cta": "🐳 Containerize your career!",
+    "title": "Docker — ليه كل الشركات بتستخدمه؟",
+    "body": "تخيل إنك تقدر تشغل أي Application على أي Server بنفس الطريقة بدون مشاكل Compatibility.\n\nده بالظبط اللي Docker بيعمله.\n\n📦 في كورس Docker هتتعلم:\n\n🔹 إيه هي Containers وإزاي بتختلف عن VMs\n🔹 بناء Docker Images باحترافية\n🔹 Docker Compose لتشغيل تطبيقات متعددة\n🔹 Networking و Volumes\n🔹 Best Practices للـ Production\n\n⏱️ المدة: 5 أسابيع\n\n💡 Docker هو أول خطوة في عالم الـ Containers — ومنه هتقدر تفهم Kubernetes بسهولة.",
+    "cta": "🐳 سجل دلوقتي وابدأ رحلة الـ Containers!",
     "course_id": "docker",
-    "hashtags": ["#Docker", "#Containers", "#DevOps", "#Containerization", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Docker", "#Containers", "#DevOps", "#Containerization", "#DevOpsAcademyEgypt", "#تعلم_البرمجة"],
+    "image_prompt": "A modern tech poster showing the Docker whale logo surrounded by floating colorful containers (shipping container boxes) in a futuristic port-like environment. Dark background with blue and cyan neon lighting. Cloud infrastructure in the background. Clean professional design. No text."
   },
   {
-    "id": "kubernetes-course",
+    "id": "kubernetes-ar",
     "emoji": "☸️",
-    "title": "Kubernetes (K8s) — Orchestrate at Scale",
-    "body": "Learn Kubernetes from pods to production. Deploy, scale, and manage containerized applications across clusters with the industry's #1 orchestration platform.",
-    "highlights": [
-      "6 weeks covering core K8s concepts",
-      "Pods, Deployments, Services & Ingress",
-      "ConfigMaps, Secrets & persistent storage",
-      "Helm charts & production best practices"
-    ],
-    "cta": "☸️ Master container orchestration!",
+    "title": "Kubernetes — إدارة Containers على نطاق واسع",
+    "body": "بعد ما اتعلمت Docker، الخطوة اللي بعدها هي Kubernetes.\n\nلما يكون عندك 100+ Container شغالين، محتاج نظام يدير:\n✅ التوزيع على السيرفرات\n✅ Auto-scaling\n✅ Self-healing لما Container يقع\n✅ Load Balancing\n✅ Rolling Updates من غير Downtime\n\n📚 في الكورس هتتعلم:\n\n🔹 Pods, Deployments, Services\n🔹 ConfigMaps و Secrets\n🔹 Ingress و Networking\n🔹 Helm Charts\n🔹 Production Best Practices\n\n⏱️ المدة: 6 أسابيع",
+    "cta": "☸️ أتقن Kubernetes وأصبح Cloud Native Engineer!",
     "course_id": "kubernetes",
-    "hashtags": ["#Kubernetes", "#K8s", "#CloudNative", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Kubernetes", "#K8s", "#CloudNative", "#DevOps", "#Containers", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A futuristic command center showing the Kubernetes wheel logo as a holographic 3D symbol in the center. Multiple container pods floating around it in an organized cluster. Dark space-themed background with blue and purple gradients. High-tech orchestration visualization. No text."
   },
   {
-    "id": "jenkins-course",
+    "id": "jenkins-ar",
     "emoji": "🔄",
-    "title": "Jenkins — Automate Your CI/CD Pipeline",
-    "body": "Build powerful CI/CD pipelines with Jenkins. Automate builds, tests, and deployments with the most popular automation server in DevOps.",
-    "highlights": [
-      "Pipeline as Code with Jenkinsfile",
-      "Freestyle & declarative pipeline jobs",
-      "Integration with Docker, Git & cloud platforms",
-      "Shared libraries & advanced pipeline patterns"
-    ],
-    "cta": "⚙️ Automate everything with Jenkins!",
+    "title": "Jenkins — أتمت كل حاجة في الـ Pipeline بتاعك",
+    "body": "لسه بتعمل Build و Deploy يدوي؟ 😅\n\nJenkins هو أشهر CI/CD Server في العالم، وبيستخدمه آلاف الشركات لأتمتة:\n\n✅ Build الكود أوتوماتيك بعد كل Push\n✅ تشغيل Tests قبل الـ Deploy\n✅ Deploy على Production بضغطة زر\n✅ Notifications لما حاجة تفشل\n\n📚 في الكورس هتتعلم:\n\n🔹 Pipeline as Code (Jenkinsfile)\n🔹 Freestyle و Declarative Pipelines\n🔹 Integration مع Docker و Git\n🔹 Shared Libraries\n🔹 Blue Ocean UI\n\n⏱️ المدة: 4 أسابيع",
+    "cta": "⚙️ أتمت شغلك مع Jenkins!",
     "course_id": "jenkins",
-    "hashtags": ["#Jenkins", "#CICD", "#Automation", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Jenkins", "#CICD", "#Automation", "#Pipeline", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A modern automation pipeline visualization showing Jenkins butler mascot logo at the center of a flowing CI/CD pipeline. Stages shown as connected glowing nodes: Code → Build → Test → Deploy. Dark tech background with orange and blue accent colors. Gears and automation symbols. No text."
   },
   {
-    "id": "github-actions",
-    "emoji": "⚡",
-    "title": "GitHub Actions — CI/CD Built Into GitHub",
-    "body": "Build, test, and deploy directly from GitHub. Learn workflows, custom actions, matrix builds, and cloud deployments with the fastest-growing CI/CD platform.",
-    "highlights": [
-      "YAML workflow syntax & triggers",
-      "Custom actions & reusable workflows",
-      "Docker container actions & matrix strategies",
-      "Deploy to AWS, Azure & GCP from GitHub"
-    ],
-    "cta": "⚡ Ship faster with GitHub Actions!",
-    "course_id": "githubactions",
-    "hashtags": ["#GitHubActions", "#CICD", "#GitHub", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "gitlabci-course",
-    "emoji": "🦊",
-    "title": "GitLab CI/CD — Complete DevOps in One Platform",
-    "body": "Master GitLab's built-in CI/CD. From .gitlab-ci.yml to production — pipelines, runners, environments, and auto-deployment all in one platform.",
-    "highlights": [
-      "Pipeline configuration & stages",
-      "GitLab Runner setup & management",
-      "Environment management & auto-deploy",
-      "Container Registry & security scanning"
-    ],
-    "cta": "🦊 One platform, complete DevOps!",
-    "course_id": "gitlabci",
-    "hashtags": ["#GitLab", "#GitLabCI", "#CICD", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "argocd-course",
-    "emoji": "🔶",
-    "title": "ArgoCD & GitOps — Declarative Continuous Delivery",
-    "body": "Implement GitOps with ArgoCD. Manage Kubernetes deployments declaratively using Git as the single source of truth for your infrastructure.",
-    "highlights": [
-      "GitOps principles & workflow",
-      "ArgoCD installation & app management",
-      "Sync strategies & automated rollbacks",
-      "Multi-cluster & multi-tenant setups"
-    ],
-    "cta": "🔶 GitOps is the future — start now!",
-    "course_id": "argocd",
-    "hashtags": ["#ArgoCD", "#GitOps", "#Kubernetes", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "aws-course",
+    "id": "aws-ar",
     "emoji": "☁️",
-    "title": "AWS Cloud — The World's Leading Cloud Platform",
-    "body": "Master Amazon Web Services. Learn EC2, S3, VPC, IAM, RDS, Lambda, EKS, and more. Prepare for AWS Solutions Architect certification.",
-    "highlights": [
-      "6 weeks of comprehensive AWS training",
-      "Core services: EC2, S3, VPC, IAM, RDS",
-      "Serverless, containers & managed Kubernetes",
-      "AWS certification exam preparation"
-    ],
-    "cta": "☁️ Start your cloud career with AWS!",
+    "title": "AWS — أكبر منصة Cloud في العالم",
+    "body": "AWS بتسيطر على أكتر من 30% من سوق الـ Cloud عالميًا.\n\nسواء كنت DevOps Engineer أو Backend Developer أو System Admin — لازم تعرف AWS.\n\n📚 في الكورس هتتعلم:\n\n🔹 EC2, S3, VPC — الأساسيات\n🔹 IAM — إدارة الصلاحيات\n🔹 RDS و DynamoDB — قواعد البيانات\n🔹 Lambda — Serverless Computing\n🔹 EKS — Kubernetes على AWS\n🔹 تحضير لشهادة AWS Solutions Architect\n\n⏱️ المدة: 6 أسابيع",
+    "cta": "☁️ ابدأ رحلتك مع AWS — الأكثر طلبًا في سوق العمل!",
     "course_id": "aws",
-    "hashtags": ["#AWS", "#AmazonWebServices", "#CloudComputing", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#AWS", "#AmazonWebServices", "#Cloud", "#CloudComputing", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A stunning cloud computing poster showing the AWS orange smile logo floating above a modern city skyline made of server racks and data centers. Cloud infrastructure with connected services represented as glowing nodes. Dark gradient background with orange and white accents. No text."
   },
   {
-    "id": "azure-course",
-    "emoji": "🔵",
-    "title": "Microsoft Azure — Enterprise Cloud Platform",
-    "body": "Master Azure cloud services. Learn compute, networking, AKS, Azure DevOps, and identity management. Prepare for AZ-900 certification.",
-    "highlights": [
-      "Azure VMs, App Service & AKS",
-      "Networking, storage & databases",
-      "Azure DevOps pipelines & repos",
-      "AZ-900 exam preparation included"
-    ],
-    "cta": "🔵 Enterprise cloud skills start here!",
-    "course_id": "azure",
-    "hashtags": ["#Azure", "#MicrosoftAzure", "#CloudComputing", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "gcp-course",
-    "emoji": "🌐",
-    "title": "Google Cloud Platform — Cloud Built for Innovation",
-    "body": "Learn GCP from infrastructure to data. GCE, GKE, Cloud Functions, networking, IAM, and BigQuery — powered by Google's global infrastructure.",
-    "highlights": [
-      "GCE, GKE & Cloud Run for containers",
-      "Cloud networking & load balancing",
-      "IAM, security & compliance",
-      "BigQuery & data analytics basics"
-    ],
-    "cta": "🌐 Build on Google's infrastructure!",
-    "course_id": "gcp",
-    "hashtags": ["#GCP", "#GoogleCloud", "#CloudComputing", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "terraform-course",
+    "id": "terraform-ar",
     "emoji": "🏗️",
-    "title": "Terraform — Infrastructure as Code for Any Cloud",
-    "body": "Write, plan, and provision infrastructure across AWS, Azure, GCP, and more with Terraform. Learn HCL, modules, state management, and multi-cloud deployments.",
-    "highlights": [
-      "HCL syntax, providers & resources",
-      "Modules for reusable infrastructure",
-      "State management & remote backends",
-      "Multi-cloud deployment patterns"
-    ],
-    "cta": "🏗️ Code your infrastructure!",
+    "title": "Terraform — اكتب Infrastructure زي ما بتكتب Code",
+    "body": "بدل ما تعمل كل حاجة يدوي من الـ Console — اكتب Infrastructure بالكود!\n\nTerraform بيخليك تعمل:\n✅ Deploy سيرفرات على أي Cloud\n✅ إدارة Networks و DNS و Security\n✅ Version Control للـ Infrastructure\n✅ إعادة بناء البيئة بالكامل بأمر واحد\n\n📚 في الكورس هتتعلم:\n\n🔹 HCL Syntax و Providers\n🔹 Modules لإعادة الاستخدام\n🔹 State Management و Remote Backend\n🔹 Multi-Cloud Deployment\n🔹 Terraform مع AWS, Azure, GCP\n\n⏱️ المدة: 4 أسابيع",
+    "cta": "🏗️ البنية التحتية ككود — سجل دلوقتي!",
     "course_id": "terraform",
-    "hashtags": ["#Terraform", "#IaC", "#InfrastructureAsCode", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Terraform", "#IaC", "#InfrastructureAsCode", "#DevOps", "#MultiCloud", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A modern infrastructure-as-code visualization showing Terraform purple logo floating above a blueprint-style grid. Cloud resources (VMs, databases, networks) being constructed from code blocks like building blocks. Dark background with purple and blue holographic style. No text."
   },
   {
-    "id": "ansible-course",
+    "id": "ansible-ar",
     "emoji": "⚙️",
-    "title": "Ansible — Automate Server Configuration at Scale",
-    "body": "Master configuration management with Ansible. Automate server setup, application deployment, and infrastructure management with simple YAML playbooks.",
-    "highlights": [
-      "Playbooks, roles & Ansible Galaxy",
-      "Inventory management & dynamic inventories",
-      "Jinja2 templates & variable management",
-      "AWX/Tower for enterprise automation"
-    ],
-    "cta": "⚙️ Automate everything with Ansible!",
+    "title": "Ansible — أتمت تجهيز السيرفرات في دقايق",
+    "body": "عندك 50 سيرفر ومحتاج تعمل نفس الـ Configuration على كلهم؟\n\nAnsible بيخليك تكتب Playbook واحد وتشغله على كل السيرفرات مرة واحدة.\n\n📚 في الكورس هتتعلم:\n\n🔹 Playbooks و Roles\n🔹 Inventory Management\n🔹 Jinja2 Templates\n🔹 Ansible Galaxy\n🔹 AWX / Tower للإدارة المركزية\n\n💡 Ansible مش محتاج Agent — بيشتغل عن طريق SSH وبس!\n\n⏱️ المدة: 4 أسابيع",
+    "cta": "⚙️ أتمت كل حاجة مع Ansible!",
     "course_id": "ansible",
-    "hashtags": ["#Ansible", "#ConfigManagement", "#Automation", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Ansible", "#ConfigManagement", "#Automation", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A futuristic automation poster showing multiple server racks being configured simultaneously by robotic arms controlled from a central Ansible-style playbook interface. Connected nodes representing managed hosts. Dark background with red and silver metallic accents. No text."
   },
   {
-    "id": "git-course",
-    "emoji": "📝",
-    "title": "Git — Version Control Fundamentals & Workflows",
-    "body": "Master Git from scratch. Branching strategies, merge workflows, rebasing, cherry-picking, and team collaboration — the foundation of every DevOps workflow.",
-    "highlights": [
-      "Branching, merging & rebasing",
-      "Git Flow & trunk-based development",
-      "Conflict resolution & code review",
-      "Hooks, bisect & advanced techniques"
-    ],
-    "cta": "📝 Every engineer needs Git — start now!",
-    "course_id": "git",
-    "hashtags": ["#Git", "#VersionControl", "#GitHub", "#GitLab", "#DevOps", "#DevOpsAcademy"]
-  },
-  {
-    "id": "devsecops-course",
-    "emoji": "🔐",
-    "title": "DevSecOps — Shift Left and Secure Your Pipeline",
-    "body": "Integrate security into every stage of your DevOps pipeline. SAST, DAST, container scanning, secrets management, and compliance automation.",
-    "highlights": [
-      "6 weeks of security-focused DevOps",
-      "SAST, DAST & dependency scanning",
-      "Container image scanning & signing",
-      "Secrets management & compliance as code"
-    ],
-    "cta": "🔐 Secure your pipeline — security is everyone's job!",
-    "course_id": "devsecops",
-    "hashtags": ["#DevSecOps", "#AppSec", "#Security", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "prometheus-course",
-    "emoji": "🔥",
-    "title": "Prometheus — Cloud-Native Monitoring",
-    "body": "Master Prometheus monitoring. PromQL queries, alerting rules, service discovery, exporters, and integration with Grafana for production-grade observability.",
-    "highlights": [
-      "PromQL mastery for powerful queries",
-      "Alertmanager rules & notification channels",
-      "Service discovery & custom exporters",
-      "High availability & federation"
-    ],
-    "cta": "🔥 Monitor like a pro!",
-    "course_id": "prometheus",
-    "hashtags": ["#Prometheus", "#Monitoring", "#Observability", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "grafana-course",
-    "emoji": "📊",
-    "title": "Grafana — Dashboards & Alerting That Actually Work",
-    "body": "Build beautiful, actionable dashboards with Grafana. Connect to Prometheus, Elasticsearch, CloudWatch, and more. Create alerts that wake you up only when it matters.",
-    "highlights": [
-      "Dashboard design & visualization best practices",
-      "Multi-datasource dashboards",
-      "Alert rules, contact points & silences",
-      "Provisioning dashboards as code"
-    ],
-    "cta": "📊 Visualize your infrastructure!",
-    "course_id": "grafana",
-    "hashtags": ["#Grafana", "#Dashboards", "#Monitoring", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "elk-course",
-    "emoji": "🔍",
-    "title": "ELK Stack — Centralized Logging at Scale",
-    "body": "Master the ELK Stack. Collect, parse, search, and visualize logs from all your applications and infrastructure with Elasticsearch, Logstash, and Kibana.",
-    "highlights": [
-      "Elasticsearch indexing & query patterns",
-      "Logstash pipelines & Filebeat shipping",
-      "Kibana dashboards & alerting",
-      "Production log retention & security"
-    ],
-    "cta": "🔍 When metrics aren't enough, logs tell the full story!",
-    "course_id": "elk",
-    "hashtags": ["#ELKStack", "#Elasticsearch", "#Logging", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "zabbix-course",
-    "emoji": "🖥️",
-    "title": "Zabbix — Enterprise Monitoring That Scales",
-    "body": "Master Zabbix, the enterprise-grade monitoring platform. Monitor servers, network devices, applications, and cloud infrastructure with automated discovery and intelligent alerting.",
-    "highlights": [
-      "Monitor 10 to 100,000+ devices",
-      "Auto-discovery & SNMP monitoring",
-      "Custom templates, triggers & escalations",
-      "Zabbix API automation & proxy architecture"
-    ],
-    "cta": "🖥️ Enterprise monitoring starts here!",
-    "course_id": "zabbix",
-    "hashtags": ["#Zabbix", "#Monitoring", "#NetworkMonitoring", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "promo-general-1",
-    "emoji": "🎓",
-    "title": "DevOps Academy Egypt — Learn From Industry Experts",
-    "body": "24+ hands-on courses covering the complete DevOps ecosystem. From Linux fundamentals to Kubernetes, multi-cloud, CI/CD, monitoring, and security — everything you need to launch your DevOps career.",
-    "highlights": [
-      "24+ specialized DevOps courses",
-      "Hands-on labs with real infrastructure",
-      "Expert instructors with production experience",
-      "Flexible schedule — learn at your pace"
-    ],
-    "cta": "🎯 Start your DevOps journey today!",
-    "course_id": "",
-    "hashtags": ["#DevOps", "#DevOpsAcademy", "#DevOpsEgypt", "#LearnDevOps", "#CareerGrowth", "#TechEgypt"]
-  },
-  {
-    "id": "promo-general-2",
-    "emoji": "💼",
-    "title": "DevOps Engineers Are in High Demand — Are You Ready?",
-    "body": "The average DevOps engineer salary keeps rising. Companies are hiring faster than engineers are graduating. Don't wait — build the skills that employers are looking for right now.",
-    "highlights": [
-      "DevOps is the #1 in-demand tech skill",
-      "Hands-on training with production tools",
-      "Build a portfolio of real projects",
-      "Join a community of DevOps professionals"
-    ],
-    "cta": "💼 Invest in your future — enroll today!",
-    "course_id": "",
-    "hashtags": ["#DevOps", "#DevOpsJobs", "#TechCareers", "#DevOpsAcademy", "#DevOpsEgypt", "#Hiring"]
-  },
-  {
-    "id": "promo-general-3",
-    "emoji": "🏆",
-    "title": "Why DevOps Academy Egypt?",
-    "body": "We don't just teach theory — every course is built around real-world projects. You'll deploy actual applications, build CI/CD pipelines, configure monitoring stacks, and manage cloud infrastructure. When you finish, you have a portfolio, not just a certificate.",
-    "highlights": [
-      "Project-based learning from day 1",
-      "Real cloud environments (AWS, Azure, GCP)",
-      "Small class sizes for personalized attention",
-      "Community support & career guidance"
-    ],
-    "cta": "🏆 Learn by doing — enroll now!",
-    "course_id": "",
-    "hashtags": ["#DevOps", "#DevOpsAcademy", "#DevOpsTraining", "#HandsOnLearning", "#DevOpsEgypt"]
-  },
-  {
-    "id": "promo-monitoring-stack",
+    "id": "monitoring-ar",
     "emoji": "📈",
-    "title": "Master the Complete Monitoring Stack",
-    "body": "Prometheus + Grafana + ELK + Zabbix — our monitoring track covers every tool you need to build enterprise-grade observability. Know what's happening in your infrastructure before your users do.",
-    "highlights": [
-      "Prometheus for metrics collection",
-      "Grafana for visualization & alerting",
-      "ELK Stack for centralized logging",
-      "Zabbix for network & infrastructure monitoring"
-    ],
-    "cta": "📈 See everything. Miss nothing.",
+    "title": "الـ Monitoring — عنيك على كل حاجة في الـ Infrastructure",
+    "body": "لو مش بتراقب الـ Infrastructure بتاعك، يبقى أنت بتشتغل وأنت أعمى! 🙈\n\nالـ Monitoring Stack الاحترافي بيتكون من:\n\n📊 Prometheus — لجمع الـ Metrics\n📈 Grafana — لعمل Dashboards احترافية\n🔍 ELK Stack — لتحليل الـ Logs\n🖥️ Zabbix — لمراقبة الشبكات\n\n✅ لما يكون عندك Monitoring صح:\n🔹 بتعرف المشكلة قبل ما الـ User يشتكي\n🔹 بتقدر تعمل Capacity Planning\n🔹 بتقلل الـ Downtime بشكل كبير\n\nعندنا 4 كورسات في الـ Monitoring Track!",
+    "cta": "📈 اعرف كل حاجة عن الـ Infrastructure بتاعتك!",
     "course_id": "",
-    "hashtags": ["#Monitoring", "#Observability", "#Prometheus", "#Grafana", "#ELK", "#Zabbix", "#DevOpsAcademy"]
+    "hashtags": ["#Monitoring", "#Prometheus", "#Grafana", "#ELK", "#Zabbix", "#Observability", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A high-tech monitoring command center with multiple large screens showing real-time dashboards, graphs, and metrics. Grafana-style colorful dashboards with green/yellow/red status indicators. Dark room with blue ambient lighting. Professional NOC (Network Operations Center) feel. No text."
   },
   {
-    "id": "promo-cicd-track",
+    "id": "cicd-track-ar",
     "emoji": "🔄",
-    "title": "CI/CD Track — Jenkins, GitHub Actions, GitLab CI & ArgoCD",
-    "body": "Build automated pipelines with the industry's top CI/CD tools. From traditional Jenkins to modern GitOps with ArgoCD — master them all and automate your entire delivery process.",
-    "highlights": [
-      "Jenkins pipelines & shared libraries",
-      "GitHub Actions workflows & custom actions",
-      "GitLab CI/CD & auto-deploy",
-      "ArgoCD GitOps for Kubernetes"
-    ],
-    "cta": "🔄 Automate your delivery pipeline!",
+    "title": "CI/CD — من الكود للـ Production في دقايق",
+    "body": "الشركات الكبيرة بتعمل Deploy 100+ مرة في اليوم!\n\nإزاي؟ عن طريق CI/CD Pipelines.\n\n🛠️ الأدوات اللي هتتعلمها:\n\n🔹 Jenkins — أشهر Automation Server\n🔹 GitHub Actions — CI/CD داخل GitHub\n🔹 GitLab CI/CD — Pipeline في منصة واحدة\n🔹 ArgoCD — GitOps لـ Kubernetes\n\n📦 كل أداة ليها كورس مخصص مع مشاريع عملية.\n\n💡 بعد الـ Track ده هتقدر تأتمت أي Application من الكود لغاية الـ Production.",
+    "cta": "🔄 أتمت الـ Deployment بتاعك من النهاردة!",
     "course_id": "",
-    "hashtags": ["#CICD", "#Jenkins", "#GitHubActions", "#GitLabCI", "#ArgoCD", "#DevOpsAcademy"]
+    "hashtags": ["#CICD", "#Jenkins", "#GitHubActions", "#GitLabCI", "#ArgoCD", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A dynamic CI/CD pipeline visualization showing code flowing through stages: Commit → Build → Test → Deploy → Monitor. Each stage represented as a glowing station connected by flowing light streams. Dark background with green and blue neon colors. Futuristic conveyor belt style. No text."
   },
   {
-    "id": "promo-cloud-track",
+    "id": "cloud-track-ar",
     "emoji": "☁️",
-    "title": "Multi-Cloud Track — AWS, Azure, GCP & More",
-    "body": "Don't lock yourself into one cloud. Learn AWS, Azure, GCP, Oracle Cloud, and Alibaba Cloud. Understand the differences, pick the right tools, and become a multi-cloud architect.",
-    "highlights": [
-      "AWS — market leader with 200+ services",
-      "Azure — enterprise integration & hybrid cloud",
-      "GCP — data, AI & Kubernetes leadership",
-      "Multi-cloud strategy & cost optimization"
-    ],
-    "cta": "☁️ Be cloud-agnostic — learn them all!",
+    "title": "الـ Cloud مش رفاهية — ده الواقع!",
+    "body": "90% من الشركات في العالم بتستخدم Cloud.\n\nالسؤال مش \"هل هتعلم Cloud\" — السؤال \"أي Cloud هتبدأ بيه؟\"\n\n🌍 في DevOps Academy عندنا:\n\n☁️ AWS — الأكبر عالميًا (30%+ market share)\n🔵 Azure — الأول في Enterprise\n🌐 GCP — الأقوى في Data و AI\n🟠 Alibaba Cloud — الأكبر في آسيا\n🔴 Oracle Cloud — للـ Enterprise Databases\n\n💡 مش لازم تتعلم كلهم — ابدأ بـ AWS أو Azure، وبعدين وسع.\n\nكل كورس مستقل ومعاه Hands-on Labs على بيئة حقيقية.",
+    "cta": "☁️ ابدأ رحلتك في الـ Cloud دلوقتي!",
     "course_id": "",
-    "hashtags": ["#Cloud", "#AWS", "#Azure", "#GCP", "#MultiCloud", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Cloud", "#AWS", "#Azure", "#GCP", "#CloudComputing", "#MultiCloud", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A breathtaking multi-cloud visualization showing three major cloud logos (represented as abstract cloud shapes in orange, blue, and multi-color) connected by glowing data streams above a world map. Dark space background with colorful nebula-like cloud formations. Futuristic and inspiring. No text."
   },
   {
-    "id": "promo-containers-track",
+    "id": "devsecops-ar",
+    "emoji": "🔐",
+    "title": "DevSecOps — الأمان مسؤولية الكل مش فريق الـ Security بس",
+    "body": "هل عارف إن 60% من الاختراقات بتحصل بسبب ثغرات معروفة وممكن كانت تتكتشف في الـ Pipeline؟\n\nDevSecOps بيدمج الأمان في كل خطوة:\n\n🔹 SAST — فحص الكود قبل الـ Build\n🔹 DAST — اختبار التطبيق وهو شغال\n🔹 Container Scanning — فحص الـ Docker Images\n🔹 Secrets Management — حماية الـ API Keys و Passwords\n🔹 Compliance as Code — السياسات ككود\n\n⏱️ المدة: 6 أسابيع\n\n💡 الشركات بتدفع أكتر للـ DevSecOps Engineers — ده المستقبل!",
+    "cta": "🔐 أمّن الـ Pipeline بتاعك — سجل دلوقتي!",
+    "course_id": "devsecops",
+    "hashtags": ["#DevSecOps", "#Security", "#AppSec", "#SAST", "#DAST", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A cybersecurity-themed poster showing a shield with a lock symbol in the center of a CI/CD pipeline. Security scanning beams checking code and containers. Dark matrix-style background with green and red alert colors. Digital fortress protecting applications. No text."
+  },
+  {
+    "id": "devops-program-ar",
+    "emoji": "🎓",
+    "title": "البرنامج الشامل — DevOps Engineering Program",
+    "body": "مش عارف تختار كورس؟ ابدأ بالبرنامج الشامل!\n\n12 أسبوع من التدريب المكثف بيغطي كل حاجة:\n\n📦 Linux → Docker → Kubernetes\n🔄 Jenkins → GitHub Actions → ArgoCD\n☁️ AWS → Azure → Terraform\n📈 Prometheus → Grafana → ELK\n\n✅ ليه البرنامج الشامل؟\n🔹 بتتعلم كل الأدوات بترتيب منطقي\n🔹 مشاريع عملية حقيقية في كل أسبوع\n🔹 دعم مستمر من المدربين\n🔹 شهادة إتمام معتمدة\n🔹 مساعدة في إعداد الـ CV و المقابلات\n\n⏱️ المدة: 12 أسبوع\n💰 السعر: 15,000 جنيه",
+    "cta": "🎓 استثمر في مستقبلك — سجل في البرنامج الشامل!",
+    "course_id": "devops",
+    "hashtags": ["#DevOps", "#DevOpsProgram", "#DevOpsCareer", "#TechCareer", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A premium course graduation poster showing a DevOps engineer standing on top of a mountain of technology icons (Docker, Kubernetes, AWS, Jenkins). Sunrise behind them symbolizing career growth. Certificate floating in the air. Inspirational dark-to-light gradient background. Professional academy style. No text."
+  },
+  {
+    "id": "git-ar",
+    "emoji": "📝",
+    "title": "Git — أساس كل DevOps Workflow",
+    "body": "لو مش بتستخدم Git صح، أنت بتضيع وقتك!\n\nGit مش بس Version Control — ده أساس كل CI/CD Pipeline وكل DevOps Workflow.\n\n📚 في الكورس هتتعلم:\n\n🔹 Branching Strategies (Git Flow, Trunk-Based)\n🔹 Merge vs Rebase — إمتى تستخدم كل واحد\n🔹 Conflict Resolution باحترافية\n🔹 Cherry-pick, Bisect, Hooks\n🔹 Code Review Best Practices\n\n⏱️ المدة: 3 أسابيع — مناسب لكل المستويات",
+    "cta": "📝 كل Engineer محتاج Git — ابدأ النهاردة!",
+    "course_id": "git",
+    "hashtags": ["#Git", "#VersionControl", "#GitHub", "#GitLab", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A visual representation of Git branching as a beautiful tree with glowing branches splitting and merging. Each branch has small commit nodes. Dark background with green and white accents. Tech-organic fusion style showing version control as a living tree. No text."
+  },
+  {
+    "id": "github-actions-ar",
+    "emoji": "⚡",
+    "title": "GitHub Actions — CI/CD من جوه GitHub",
+    "body": "لو بتستخدم GitHub — يبقى عندك CI/CD مجاني ومدمج!\n\nGitHub Actions أسرع طريقة تأتمت الـ Build و Test و Deploy.\n\n📚 في الكورس هتتعلم:\n\n🔹 YAML Workflow Syntax\n🔹 Custom Actions و Reusable Workflows\n🔹 Matrix Builds لأكتر من بيئة\n🔹 Docker Container Actions\n🔹 Deploy على AWS, Azure, GCP\n\n⏱️ المدة: 3 أسابيع\n\n💡 GitHub Actions بقى من أكتر أدوات الـ CI/CD استخدامًا في العالم!",
+    "cta": "⚡ سرّع شغلك مع GitHub Actions!",
+    "course_id": "githubactions",
+    "hashtags": ["#GitHubActions", "#CICD", "#GitHub", "#Automation", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A dynamic workflow visualization showing GitHub's Octocat mascot surrounded by flowing automation pipelines. Actions workflow stages connected by lightning bolts. Dark purple background with GitHub blue and white accents. Energy and speed theme. No text."
+  },
+  {
+    "id": "prometheus-ar",
+    "emoji": "🔥",
+    "title": "Prometheus — المراقبة الذكية لأي Infrastructure",
+    "body": "Prometheus هو المعيار العالمي لجمع الـ Metrics في بيئات Cloud Native.\n\n📚 في الكورس هتتعلم:\n\n🔹 PromQL — لغة الاستعلام القوية\n🔹 Alerting Rules و Alertmanager\n🔹 Service Discovery — اكتشاف الخدمات أوتوماتيك\n🔹 Custom Exporters\n🔹 High Availability و Federation\n\n💡 Prometheus + Grafana = الكومبو الأقوى في الـ Monitoring!\n\n⏱️ المدة: 3 أسابيع",
+    "cta": "🔥 راقب البنية التحتية باحترافية!",
+    "course_id": "prometheus",
+    "hashtags": ["#Prometheus", "#Monitoring", "#Observability", "#PromQL", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A monitoring dashboard poster showing the Prometheus fire logo as a central burning flame surrounded by floating metric charts, alert notifications, and time-series graphs. Dark background with warm orange and red fire colors contrasted with cool blue data visualizations. No text."
+  },
+  {
+    "id": "grafana-ar",
+    "emoji": "📊",
+    "title": "Grafana — اعمل Dashboards تحكي القصة الكاملة",
+    "body": "الـ Data من غير Visualization مش بتفيد حد.\n\nGrafana بيحول الـ Metrics بتاعتك لـ Dashboards واضحة وجميلة تقدر تاخد منها قرارات.\n\n📚 في الكورس هتتعلم:\n\n🔹 تصميم Dashboards احترافية\n🔹 ربط بـ Prometheus, Elasticsearch, CloudWatch\n🔹 Alerting — تنبيهات ذكية\n🔹 Dashboard as Code — Provisioning\n🔹 Variables و Annotations\n\n⏱️ المدة: 2 أسابيع",
+    "cta": "📊 حوّل البيانات لقرارات — سجل دلوقتي!",
+    "course_id": "grafana",
+    "hashtags": ["#Grafana", "#Dashboards", "#DataVisualization", "#Monitoring", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A stunning data visualization poster showing multiple Grafana-style dashboards with colorful charts, graphs, gauges, and heatmaps floating in a 3D space. Dark background with orange Grafana brand colors mixed with green, blue, and yellow chart colors. Beautiful data art. No text."
+  },
+  {
+    "id": "elk-ar",
+    "emoji": "🔍",
+    "title": "ELK Stack — لما الـ Metrics مش كفاية، الـ Logs بتحكي كل حاجة",
+    "body": "Elasticsearch + Logstash + Kibana = أقوى Logging Stack في العالم.\n\n📚 في الكورس هتتعلم:\n\n🔹 Elasticsearch — البحث في ملايين الـ Logs في ثواني\n🔹 Logstash — جمع وتحويل الـ Logs\n🔹 Filebeat — شحن الـ Logs من السيرفرات\n🔹 Kibana — عمل Dashboards للـ Logs\n🔹 Index Lifecycle Management\n\n💡 الشركات الكبيرة بتعتمد على ELK في:\n✅ Troubleshooting\n✅ Security Analysis\n✅ Compliance Auditing\n\n⏱️ المدة: 3 أسابيع",
+    "cta": "🔍 اكتشف المشاكل قبل ما تحصل — سجل دلوقتي!",
+    "course_id": "elk",
+    "hashtags": ["#ELKStack", "#Elasticsearch", "#Logging", "#Kibana", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A log analysis visualization showing streams of colorful log data flowing into a magnifying glass (search) that reveals patterns and insights. Kibana-style visualizations emerging from the analyzed data. Dark background with teal Elastic brand colors. Data detective theme. No text."
+  },
+  {
+    "id": "zabbix-ar",
+    "emoji": "🖥️",
+    "title": "Zabbix — مراقبة Enterprise لآلاف الأجهزة",
+    "body": "عندك شبكة كبيرة ومحتاج تراقب كل جهاز فيها؟\n\nZabbix بيقدر يراقب من 10 لـ 100,000+ جهاز!\n\n📚 في الكورس هتتعلم:\n\n🔹 تركيب Zabbix Server و Agent\n🔹 SNMP Monitoring للشبكات\n🔹 Auto-Discovery — اكتشاف الأجهزة الجديدة أوتوماتيك\n🔹 Templates و Triggers\n🔹 Dashboards و Alerting\n🔹 Zabbix API و Automation\n\n⏱️ المدة: 4 أسابيع",
+    "cta": "🖥️ راقب كل حاجة في الشبكة — سجل دلوقتي!",
+    "course_id": "zabbix",
+    "hashtags": ["#Zabbix", "#NetworkMonitoring", "#SNMP", "#Monitoring", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "An enterprise network operations center showing Zabbix-style monitoring with a large map displaying hundreds of connected devices (servers, switches, routers) with green/yellow/red status indicators. Dark background with green matrix-style data flows. Enterprise scale monitoring. No text."
+  },
+  {
+    "id": "azure-ar",
+    "emoji": "🔵",
+    "title": "Azure — Cloud الشركات الكبيرة",
+    "body": "Microsoft Azure هو ثاني أكبر Cloud Provider في العالم وبيكبر بسرعة.\n\nمعظم الشركات الكبيرة اللي بتستخدم Microsoft Stack بتعتمد على Azure.\n\n📚 في الكورس هتتعلم:\n\n🔹 Azure VMs, App Service, AKS\n🔹 Networking و Storage\n🔹 Azure DevOps — Pipelines و Repos\n🔹 Identity Management (Azure AD)\n🔹 تحضير لشهادة AZ-900\n\n⏱️ المدة: 4 أسابيع",
+    "cta": "🔵 ادخل عالم الـ Enterprise Cloud مع Azure!",
+    "course_id": "azure",
+    "hashtags": ["#Azure", "#MicrosoftAzure", "#Cloud", "#AZ900", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A professional Azure cloud poster showing the Azure logo floating above an enterprise building complex connected to cloud services. Data flowing between on-premises and cloud. Blue gradient theme with white cloud formations. Corporate and professional style. No text."
+  },
+  {
+    "id": "tip-resume",
+    "emoji": "💼",
+    "title": "نصيحة — إزاي تكتب CV كـ DevOps Engineer؟",
+    "body": "الـ CV بتاعك هو أول انطباع عنك — خليه يتكلم!\n\n✅ حاجات لازم تكون في الـ CV:\n\n🔹 Skills Section واضح: Docker, K8s, Terraform, Jenkins, AWS\n🔹 Projects — مشاريع عملية بتوصف إيه عملت فيها\n🔹 Certifications — أي شهادة Cloud أو DevOps\n🔹 GitHub Profile — Link للـ Repos بتاعتك\n🔹 الأرقام — \"Reduced deployment time by 60%\"\n\n❌ حاجات تتجنبها:\n🔹 كلام عام زي \"team player\" من غير أمثلة\n🔹 List طويلة من الأدوات من غير مشاريع\n🔹 Design معقد — خلي الـ CV بسيط وواضح\n\n💡 في DevOps Academy بنساعدك تبني Portfolio حقيقي من المشاريع.",
+    "cta": "💼 ابني مستقبلك المهني معانا!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#CV", "#Resume", "#TechJobs", "#Career", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A professional career growth poster showing a resume/CV document transforming into a rocket launching upward. DevOps tool icons (Docker, Kubernetes, AWS) floating around as skills badges. Dark background with gold and blue professional colors. Career advancement theme. No text."
+  },
+  {
+    "id": "tip-interview",
+    "emoji": "🎯",
+    "title": "أشهر أسئلة Interview لـ DevOps Engineer",
+    "body": "عندك Interview؟ جهز نفسك للأسئلة دي:\n\n1️⃣ إيه الفرق بين Docker و VM؟\n2️⃣ إزاي بتعمل Rollback لـ Deployment فشل؟\n3️⃣ إشرح CI/CD Pipeline بتاعك\n4️⃣ إيه هو Infrastructure as Code ولي مهم؟\n5️⃣ إزاي بتراقب الـ Infrastructure؟\n6️⃣ إيه الفرق بين Terraform و Ansible؟\n7️⃣ إشرح Kubernetes Self-Healing\n8️⃣ إزاي بتأمن الـ Secrets؟\n\n💡 كل سؤال محتاج إجابة عملية مع أمثلة من شغلك أو مشاريعك.\n\n🎓 في DevOps Academy بنحضرك للـ Interviews بشكل عملي.",
+    "cta": "🎯 حضّر نفسك — سجل النهاردة!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#Interview", "#TechInterview", "#DevOpsJobs", "#Career", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A job interview scene showing a confident person sitting across from interviewers with DevOps diagrams floating between them as holographic projections. Questions and answers flowing as data streams. Professional office setting with tech elements. Dark modern style. No text."
+  },
+  {
+    "id": "tip-salary",
+    "emoji": "💰",
+    "title": "مرتبات DevOps Engineers في مصر والعالم",
+    "body": "DevOps واحد من أعلى المجالات في المرتبات!\n\n🇪🇬 مصر:\n🔹 Junior: 8,000 - 15,000 جنيه\n🔹 Mid-Level: 15,000 - 35,000 جنيه\n🔹 Senior: 35,000 - 70,000+ جنيه\n🔹 Remote (بالدولار): $1,500 - $5,000+\n\n🌍 عالميًا:\n🔹 Junior: $60,000 - $80,000\n🔹 Mid: $80,000 - $120,000\n🔹 Senior: $120,000 - $180,000+\n\n💡 المرتب بيعتمد على:\n✅ الأدوات اللي بتعرفها\n✅ الشهادات (AWS, CKA, Terraform)\n✅ الخبرة العملية والمشاريع\n\nابدأ النهاردة واستثمر في مستقبلك!",
+    "cta": "💰 المجال يستاهل — سجل دلوقتي!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#Salary", "#TechSalary", "#DevOpsJobs", "#RemoteWork", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A career growth chart showing salary progression from junior to senior DevOps engineer as a rising staircase of golden coins and dollar signs. Tech certification badges floating alongside. Dark professional background with gold and green prosperity colors. Motivational and aspirational style. No text."
+  },
+  {
+    "id": "promo-weekend",
+    "emoji": "🔥",
+    "title": "الويكند ده — ابدأ حاجة جديدة!",
+    "body": "بدل ما تضيع الويكند، استثمره في تعلم مهارة جديدة.\n\n📚 كورسات ممكن تبدأها النهاردة:\n\n🐧 Linux — لو لسه مبتدئ\n🐳 Docker — لو عارف Linux\n☸️ Kubernetes — لو عارف Docker\n🏗️ Terraform — لو عايز IaC\n📈 Prometheus + Grafana — لو عايز Monitoring\n\n💡 كل كورس ممكن تبدأه في أي وقت — الدراسة بتكون Hands-on ومعاك Support.\n\nمتستناش لبكرة — ابدأ النهاردة!",
+    "cta": "🔥 سجل دلوقتي واستغل وقتك!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#Weekend", "#Learning", "#SelfDevelopment", "#DevOpsAcademyEgypt", "#تطوير_الذات"],
+    "image_prompt": "A motivational poster showing a person studying at a glowing laptop on a weekend morning with coffee. Tech learning environment with DevOps books and screens showing Docker, Kubernetes, and cloud dashboards. Warm sunrise light coming through a window. Cozy but productive atmosphere. No text."
+  },
+  {
+    "id": "argocd-ar",
+    "emoji": "🔶",
+    "title": "ArgoCD — مستقبل الـ Deployment هو GitOps",
+    "body": "نسيت تعمل Deploy؟ مع ArgoCD مفيش حاجة اسمها \"نسيت\"!\n\nArgoCD بيراقب الـ Git Repo بتاعك، ولما تعمل Commit — بيعمل Deploy أوتوماتيك!\n\n📚 في الكورس هتتعلم:\n\n🔹 مبادئ GitOps\n🔹 تركيب ArgoCD على Kubernetes\n🔹 Sync Strategies (Auto vs Manual)\n🔹 Rollback أوتوماتيك لما حاجة تفشل\n🔹 Multi-Cluster Management\n\n⏱️ المدة: 2 أسابيع",
+    "cta": "🔶 GitOps هو المستقبل — ابدأ النهاردة!",
+    "course_id": "argocd",
+    "hashtags": ["#ArgoCD", "#GitOps", "#Kubernetes", "#CICD", "#DevOps", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A GitOps workflow visualization showing a Git repository at the top connected by continuous sync arrows to a Kubernetes cluster at the bottom. ArgoCD orange logo in the middle orchestrating the sync. Auto-deploy and rollback arrows. Dark background with orange and blue colors. No text."
+  },
+  {
+    "id": "containers-track-ar",
     "emoji": "📦",
-    "title": "Containers Track — Docker + Kubernetes",
-    "body": "Docker for building and shipping. Kubernetes for running at scale. Together they're the foundation of modern infrastructure. Master both in our containers track.",
-    "highlights": [
-      "Docker images, containers & Compose",
-      "Kubernetes pods, deployments & services",
-      "Helm charts & package management",
-      "Production patterns & security"
-    ],
-    "cta": "📦 Containers are the future — be ready!",
+    "title": "Docker + Kubernetes = سلاحك السري",
+    "body": "الشركات اللي بتدور على DevOps Engineers دايمًا بيسألوا:\n\"بتعرف Docker و Kubernetes؟\"\n\n📦 Docker + Kubernetes هم أساس أي:\n✅ Microservices Architecture\n✅ Cloud Native Application\n✅ Modern Deployment Pipeline\n\n💡 في DevOps Academy عندنا:\n🐳 كورس Docker — 5 أسابيع\n☸️ كورس Kubernetes — 6 أسابيع\n\n11 أسبوع وهتكون Container Expert!\n\nابدأ بـ Docker وبعدين كمل Kubernetes — ده أفضل ترتيب.",
+    "cta": "📦 Containers هي المستقبل — ابدأ النهاردة!",
     "course_id": "",
-    "hashtags": ["#Docker", "#Kubernetes", "#Containers", "#CloudNative", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "hashtags": ["#Docker", "#Kubernetes", "#Containers", "#CloudNative", "#Microservices", "#DevOpsAcademyEgypt"],
+    "image_prompt": "A dramatic container orchestration scene showing Docker whale carrying containers being deployed into a Kubernetes cluster represented as a constellation of connected pods in space. Dark cosmic background with blue container boxes and the Kubernetes wheel glowing. No text."
   },
   {
-    "id": "github-course",
-    "emoji": "🐙",
-    "title": "GitHub — Platform & Collaboration",
-    "body": "More than just repositories. Learn GitHub's full platform — Projects, Actions, Packages, Pages, security features, and team collaboration workflows used by millions of developers worldwide.",
-    "highlights": [
-      "GitHub Projects & issue tracking",
-      "Pull requests & code review workflows",
-      "GitHub Packages & container registry",
-      "Security advisories & Dependabot"
-    ],
-    "cta": "🐙 Master the world's #1 dev platform!",
-    "course_id": "github",
-    "hashtags": ["#GitHub", "#OpenSource", "#Collaboration", "#DevOps", "#DevOpsAcademy", "#DevOpsEgypt"]
-  },
-  {
-    "id": "gitlab-course",
-    "emoji": "🦊",
-    "title": "GitLab — The Complete DevOps Platform",
-    "body": "One platform from code to production. Learn GitLab's repositories, merge requests, CI/CD, container registry, package registry, Pages, and enterprise administration.",
-    "highlights": [
-      "Repository management & merge requests",
-      "Built-in container & package registry",
-      "GitLab Pages & wiki documentation",
-      "User management, LDAP & compliance"
-    ],
-    "cta": "🦊 All of DevOps in one platform!",
-    "course_id": "gitlab",
-    "hashtags": ["#GitLab", "#DevOps", "#CICD", "#DevOpsAcademy", "#DevOpsEgypt"]
+    "id": "why-devops-ar",
+    "emoji": "🤔",
+    "title": "ليه DevOps ومش مجال تاني؟",
+    "body": "5 أسباب تخليك تتعلم DevOps:\n\n1️⃣ الطلب العالي — كل شركة Tech محتاجة DevOps Engineers\n2️⃣ المرتبات — من أعلى المرتبات في الـ IT\n3️⃣ Remote Work — كتير من الشركات بتقبل Remote\n4️⃣ مجال متنوع — بتتعلم Cloud, Linux, Containers, CI/CD\n5️⃣ مستقبل مضمون — الـ Automation هيزيد مش هيقل\n\n💡 المجال مناسب لـ:\n✅ مبرمجين عايزين يتعلموا Operations\n✅ System Admins عايزين يتطوروا\n✅ خريجين جداد بيدوروا على Career Path واضح\n✅ أي حد في IT عايز يزود دخله\n\nمع DevOps Academy Egypt — هنساعدك توصل!",
+    "cta": "🤔 خد أول خطوة — سجل دلوقتي!",
+    "course_id": "",
+    "hashtags": ["#DevOps", "#WhyDevOps", "#TechCareers", "#ITJobs", "#DevOpsAcademyEgypt", "#تطوير_الذات"],
+    "image_prompt": "A thought-provoking career crossroads poster showing a person standing at a junction with multiple paths. The DevOps path is brightly lit leading to a futuristic tech city. Other paths are dimmer. DevOps tool icons lining the bright path like streetlights. Inspirational golden hour lighting. No text."
   }
 ]
