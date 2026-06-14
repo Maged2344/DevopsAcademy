@@ -47,8 +47,6 @@ pipeline {
                     rm -rf $DEPLOY_DIR/frontend $DEPLOY_DIR/backend $DEPLOY_DIR/nginx
                     docker run --rm -v $DEPLOY_DIR/monitoring:/mnt alpine sh -c "rm -rf /mnt/*" 2>/dev/null || true
                     rm -rf $DEPLOY_DIR/monitoring
-                    docker run --rm -v $DEPLOY_DIR/scripts:/mnt alpine sh -c "rm -rf /mnt/*" 2>/dev/null || true
-                    rm -rf $DEPLOY_DIR/scripts
                     rm -f $DEPLOY_DIR/index.html $DEPLOY_DIR/admin.html $DEPLOY_DIR/course.html
                     rm -f $DEPLOY_DIR/script.js $DEPLOY_DIR/styles.css $DEPLOY_DIR/logo.png
                     rm -f $DEPLOY_DIR/nginx.conf $DEPLOY_DIR/Dockerfile
@@ -61,7 +59,6 @@ pipeline {
                     cp -r frontend $DEPLOY_DIR/frontend
                     cp -r nginx $DEPLOY_DIR/nginx
                     cp -r monitoring $DEPLOY_DIR/monitoring
-                    cp -r scripts $DEPLOY_DIR/scripts
 
                     cd $DEPLOY_DIR
                     docker compose build --no-cache
