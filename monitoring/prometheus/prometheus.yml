@@ -41,3 +41,9 @@ scrape_configs:
   - job_name: 'cadvisor'
     static_configs:
       - targets: ['cadvisor:8080']
+
+  # Manar App Backend metrics
+  - job_name: 'manar-app-backend'
+    static_configs:
+      - targets: ['manar-app-backend:3000']
+    metrics_path: '/metrics'

@@ -6,8 +6,7 @@ services:
     image: magedmohamed/devopsacademy-web:latest
     container_name: devopsacademy-web
     ports:
-      - "80:80"
-      - "443:443"
+      - "127.0.0.1:8085:80"
     volumes:
       - /home/maged/devopsacademy/ssl:/etc/nginx/ssl:ro
     depends_on:
