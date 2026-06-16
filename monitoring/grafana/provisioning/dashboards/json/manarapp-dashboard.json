@@ -1,0 +1,122 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "Manar App Overview",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "collapsed": false
+    },
+    {
+      "title": "Container CPU Usage (%)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 1 },
+      "targets": [
+        {
+          "expr": "rate(container_cpu_usage_seconds_total{image!=\"\",name=~\"/?manar-app.*\"}[5m]) * 100",
+          "legendFormat": "{{ name }}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent" } }
+    },
+    {
+      "title": "Container Memory Usage",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 1 },
+      "targets": [
+        {
+          "expr": "container_memory_usage_bytes{image!=\"\",name=~\"/?manar-app.*\"}",
+          "legendFormat": "{{ name }}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } }
+    },
+    {
+      "title": "Container Network Receive",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 9 },
+      "targets": [
+        {
+          "expr": "rate(container_network_receive_bytes_total{image!=\"\",name=~\"/?manar-app.*\"}[5m])",
+          "legendFormat": "{{ name }}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Container Network Transmit",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 9 },
+      "targets": [
+        {
+          "expr": "rate(container_network_transmit_bytes_total{image!=\"\",name=~\"/?manar-app.*\"}[5m])",
+          "legendFormat": "{{ name }}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Container Disk I/O",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 17 },
+      "targets": [
+        {
+          "expr": "rate(container_fs_reads_bytes_total{image!=\"\",name=~\"/?manar-app.*\"}[5m])",
+          "legendFormat": "Read {{ name }}"
+        },
+        {
+          "expr": "rate(container_fs_writes_bytes_total{image!=\"\",name=~\"/?manar-app.*\"}[5m])",
+          "legendFormat": "Write {{ name }}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps" } }
+    },
+    {
+      "title": "Backend Request Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 17 },
+      "targets": [
+        {
+          "expr": "sum(rate(manarapp_http_requests_total[5m])) by (route)",
+          "legendFormat": "{{ route }}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps" } }
+    },
+    {
+      "title": "Backend p95 Latency",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 25 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(manarapp_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" } }
+    },
+    {
+      "title": "Visits Today",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 25 },
+      "targets": [
+        {
+          "expr": "sum(increase(manarapp_http_requests_total{route=\"/api/track\",method=\"POST\",status=\"200\"}[1d]))",
+          "legendFormat": "Track Calls"
+        }
+      ],
+      "fieldConfig": { "defaults": { "decimals": 0 } }
+    }
+  ],
+  "schemaVersion": 38,
+  "tags": ["manar", "app", "containers", "business"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "Manar App Dashboard",
+  "uid": "manarapp-dashboard"
+}
