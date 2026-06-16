@@ -214,7 +214,7 @@
       "type": "timeseries",
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 47 },
       "targets": [
-        { "expr": "rate(container_cpu_usage_seconds_total{name=~\"devopsacademy.*\"}[5m]) * 100", "legendFormat": "{{ name }}" }
+        { "expr": "rate(container_cpu_usage_seconds_total{name=~\"(devopsacademy.*|manar-app.*)\"}[5m]) * 100", "legendFormat": "{{ name }}" }
       ],
       "fieldConfig": { "defaults": { "unit": "percent" } }
     },
@@ -223,7 +223,7 @@
       "type": "timeseries",
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 47 },
       "targets": [
-        { "expr": "container_memory_usage_bytes{name=~\"devopsacademy.*\"}", "legendFormat": "{{ name }}" }
+        { "expr": "container_memory_usage_bytes{name=~\"(devopsacademy.*|manar-app.*)\"}", "legendFormat": "{{ name }}" }
       ],
       "fieldConfig": { "defaults": { "unit": "bytes" } }
     },
@@ -232,7 +232,7 @@
       "type": "timeseries",
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 55 },
       "targets": [
-        { "expr": "rate(container_network_receive_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "{{ name }}" }
+        { "expr": "rate(container_network_receive_bytes_total{name=~\"(devopsacademy.*|manar-app.*)\"}[5m])", "legendFormat": "{{ name }}" }
       ],
       "fieldConfig": { "defaults": { "unit": "Bps" } }
     },
@@ -241,7 +241,7 @@
       "type": "timeseries",
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 55 },
       "targets": [
-        { "expr": "rate(container_network_transmit_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "{{ name }}" }
+        { "expr": "rate(container_network_transmit_bytes_total{name=~\"(devopsacademy.*|manar-app.*)\"}[5m])", "legendFormat": "{{ name }}" }
       ],
       "fieldConfig": { "defaults": { "unit": "Bps" } }
     },
@@ -250,8 +250,8 @@
       "type": "timeseries",
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 63 },
       "targets": [
-        { "expr": "rate(container_fs_reads_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "Read {{ name }}" },
-        { "expr": "rate(container_fs_writes_bytes_total{name=~\"devopsacademy.*\"}[5m])", "legendFormat": "Write {{ name }}" }
+        { "expr": "rate(container_fs_reads_bytes_total{name=~\"(devopsacademy.*|manar-app.*)\"}[5m])", "legendFormat": "Read {{ name }}" },
+        { "expr": "rate(container_fs_writes_bytes_total{name=~\"(devopsacademy.*|manar-app.*)\"}[5m])", "legendFormat": "Write {{ name }}" }
       ],
       "fieldConfig": { "defaults": { "unit": "Bps" } }
     },
