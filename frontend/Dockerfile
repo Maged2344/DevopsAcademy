@@ -14,6 +14,7 @@ COPY frontend/faq.html /usr/share/nginx/html/
 COPY frontend/privacy.html /usr/share/nginx/html/
 COPY frontend/styles.css /usr/share/nginx/html/
 COPY frontend/script.js /usr/share/nginx/html/
+COPY frontend/chatbot.js /usr/share/nginx/html/
 COPY frontend/auth-nav.js /usr/share/nginx/html/
 COPY frontend/theme.js /usr/share/nginx/html/
 COPY frontend/assets/logo.png /usr/share/nginx/html/
