@@ -26,6 +26,9 @@ services:
       - SMTP_USER=${SMTP_USER:-}
       - SMTP_PASS=${SMTP_PASS:-}
       - NOTIFY_EMAIL=${NOTIFY_EMAIL:-}
+      - AZURE_AI_ENDPOINT=https://maged-4724-resource.services.ai.azure.com/openai/v1
+      - AZURE_AI_KEY=${AZURE_AI_KEY:-}
+      - AZURE_AI_MODEL=gpt-4.1
     depends_on:
       - mongo
     restart: unless-stopped

@@ -1002,6 +1002,58 @@ app.get('/api/admin/visitor-stats', authMiddleware, async (req, res) => {
   }
 });
 
+// ===== AI Chatbot Route =====
+const OpenAI = require('openai');
+
+const aiClient = new OpenAI({
+  baseURL: process.env.AZURE_AI_ENDPOINT || 'https://maged-4724-resource.services.ai.azure.com/openai/v1',
+  apiKey: process.env.AZURE_AI_KEY || ''
+});
+
+const CHATBOT_SYSTEM_PROMPT = `You are a helpful assistant for DevOps Academy Egypt — a professional DevOps training academy. You help prospective and current students with questions about:
+- Available courses (Docker, Kubernetes, AWS, CI/CD, Linux, Terraform, Ansible, Jenkins, Prometheus, Grafana, ELK Stack, DevSecOps)
+- Enrollment process and pricing
+- Course schedules and duration
+- Career guidance in DevOps
+- Technical DevOps questions
+Keep answers concise, friendly, and professional. If you don't know something specific about the academy, suggest contacting support.`;
+
+app.post('/api/chatbot', async (req, res) => {
+  try {
+    const { message, history } = req.body;
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+    if (message.length > 1000) {
+      return res.status(400).json({ error: 'Message too long (max 1000 characters)' });
+    }
+
+    const messages = [{ role: 'system', content: CHATBOT_SYSTEM_PROMPT }];
+    if (Array.isArray(history)) {
+      const recentHistory = history.slice(-10);
+      for (const msg of recentHistory) {
+        if (msg.role === 'user' || msg.role === 'assistant') {
+          messages.push({ role: msg.role, content: String(msg.content).slice(0, 1000) });
+        }
+      }
+    }
+    messages.push({ role: 'user', content: message.trim() });
+
+    const response = await aiClient.chat.completions.create({
+      model: process.env.AZURE_AI_MODEL || 'gpt-4.1',
+      messages,
+      max_tokens: 500,
+      temperature: 0.7
+    });
+
+    const reply = response.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
+    res.json({ reply });
+  } catch (err) {
+    console.error('Chatbot error:', err.message);
+    res.status(500).json({ error: 'AI service unavailable. Please try again later.' });
+  }
+});
+
 // ===== Connect to MongoDB and Start Server =====
 async function start() {
   try {
