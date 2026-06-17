@@ -24,12 +24,14 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                sh '''
-                    echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin
-                    docker push magedmohamed/devopsacademy-web:latest
-                    docker push magedmohamed/devopsacademy-backend:latest
-                    docker logout
-                '''
+                retry(3) {
+                    sh '''
+                        echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin
+                        docker push magedmohamed/devopsacademy-web:latest
+                        docker push magedmohamed/devopsacademy-backend:latest
+                        docker logout
+                    '''
+                }
             }
         }
 
